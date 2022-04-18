@@ -1,4 +1,4 @@
 # Fallen-Bounty
 Unity Team Project
 
-hi
+팀원: 이경준, 최유섭
