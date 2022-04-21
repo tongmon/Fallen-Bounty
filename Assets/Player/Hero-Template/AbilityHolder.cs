@@ -2,41 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityHolder : MonoBehaviour
+public class AbilityHolder
 {
     public Ability m_ability;
-    float m_cooldowntime;
-    float m_activetime;
 
-    enum AbilityState
+    public enum AbilityState
     {
         ready,
         active,
         cooldown
     }
 
-    AbilityState m_state = AbilityState.ready;
+    public AbilityState m_state;
 
-    // Start is called before the first frame update
-    void Start()
+    // 현재 상태
+    public float m_cooltime;
+    public float m_activetime;
+
+    public AbilityHolder()
     {
-        m_ability = new DashAbility();
+        m_state = AbilityState.ready;
     }
 
-    // Update is called once per frame
-    void Update()
+    public AbilityHolder(Ability ability, float cooltime, float activetime)
+    {
+        m_ability = ability;
+        m_state = AbilityState.ready;
+        m_cooltime = cooltime;
+        m_activetime = activetime;
+    }
+
+    public void Update(GameObject hero)
     {
         switch (m_state)
         {
             case AbilityState.ready:
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    m_ability.Activate(gameObject);
-                    m_state = AbilityState.active;
-                }
+                m_ability.Activate(hero);
+                m_state = AbilityState.active;
                 break;
             case AbilityState.active:
-                if(m_activetime > 0)
+                if (m_activetime > 0)
                 {
                     m_activetime -= Time.deltaTime;
                 }
@@ -47,7 +52,6 @@ public class AbilityHolder : MonoBehaviour
                 break;
             case AbilityState.cooldown:
                 break;
-
         }
     }
 }
