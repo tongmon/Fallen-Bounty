@@ -28,6 +28,7 @@ public class AbilityData
     }
 }
 
+// 필요한 스킬들을 모두 읽어 m_abilities 여기에 저장하고 시작
 public class AbilityHolder
 {
     public List<AbilityData> m_abilities;
@@ -52,14 +53,15 @@ public class AbilityHolder
         m_abilities.Add(ability_data);
     }
 
-    public void TriggerAbility(string ability_name)
+    public void TriggerAbility(string ability_script_name)
     {
-        if (m_abilities[m_abilities_dict[ability_name]].m_state != eAbilityState.disabled)
-            m_abilities[m_abilities_dict[ability_name]].m_is_triggered = true;
+        if (m_abilities[m_abilities_dict[ability_script_name]].m_state != eAbilityState.disabled)
+            m_abilities[m_abilities_dict[ability_script_name]].m_is_triggered = true;
     }
 
     public void Update()
     {
+        // 따로 사용할 스킬들의 인덱스를 어디다 뺀 다음에 for문 검사하면 더 최적화 가능
         for (int i = 0; i < m_abilities.Count; i++)
             Update(i);
     }
@@ -68,6 +70,8 @@ public class AbilityHolder
     {
         switch (m_abilities[index].m_state)
         {
+            case eAbilityState.disabled:
+                break;
             case eAbilityState.ready:
                 if (m_abilities[index].m_is_triggered)
                 {
@@ -97,8 +101,6 @@ public class AbilityHolder
                     m_abilities[index].m_state = eAbilityState.ready;
                     m_abilities[index].m_cur_cooldown_time = m_abilities[index].m_ability.m_base_cooldown_time;
                 }
-                break;
-            case eAbilityState.disabled:
                 break;
         }
     }

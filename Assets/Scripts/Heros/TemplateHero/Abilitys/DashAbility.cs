@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,19 +11,17 @@ public class DashAbility : Ability
         m_base_active_time = base_active_time;
         m_base_cooldown_time = base_cool_time;
     }
-    public DashAbility(string name)
-    {
-        m_name = name;
-    }
+
     public override void Activate(GameObject obj)
     {
         // 대쉬 스킬 로직
-        TemplateHero hero = obj.GetComponent<TemplateHero>();
+        Hero hero = obj.GetComponent<Hero>();
         
     }
-    public override void Activate<T>(ref T obj)
+
+    // 이름으로 접근
+    public override void Activate(string object_name)
     {
-        
-        return;
+        Type type = Type.GetType(object_name);
     }
 }

@@ -11,5 +11,6 @@ public class Ability : ScriptableObject
     public float m_base_active_time;
 
     public virtual void Activate(GameObject obj) { }
-    public virtual void Activate<T>(ref T obj) { }
+
+    public virtual void Activate(string object_name) { }
 }
