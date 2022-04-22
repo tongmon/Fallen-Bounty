@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroTemplate : MonoBehaviour // 추후에 이 녀석 MonoBehaviour -> Hero로 변경
+public class TemplateHero : MonoBehaviour // 추후에 이 녀석 MonoBehaviour -> Hero로 변경
 {
     #region 스킬 로직
     public Dictionary<string, AbilityHolder> m_abilities;
@@ -10,16 +10,16 @@ public class HeroTemplate : MonoBehaviour // 추후에 이 녀석 MonoBehaviour -> Her
 
     void AddAbility(Ability ability, float cooltime, float activetime)
     {
-        m_ability_order.Add(ability.GetType().Name);
-        m_abilities[ability.GetType().Name] = new AbilityHolder(ability, cooltime, activetime);
+        m_ability_order.Add(ability.m_name);
+        m_abilities[ability.m_name] = new AbilityHolder(ability, cooltime, activetime);
     }
 
-    void SkillUpdate(string name)
+    void AbilityUpdate(string name)
     {
         m_abilities[name].Update(gameObject);
     }
 
-    void SkillUpdate(int skill_slot_index)
+    void AbilityUpdate(int skill_slot_index)
     {
         m_abilities[m_ability_order[skill_slot_index]].Update(gameObject);
     }
@@ -28,7 +28,7 @@ public class HeroTemplate : MonoBehaviour // 추후에 이 녀석 MonoBehaviour -> Her
     // Start is called before the first frame update
     void Start()
     {
-        
+        AddAbility(new DashAbility(), 3.0f, 1.0f);
     }
 
     // Update is called once per frame
@@ -36,12 +36,12 @@ public class HeroTemplate : MonoBehaviour // 추후에 이 녀석 MonoBehaviour -> Her
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            SkillUpdate(0);
+            AbilityUpdate(0);
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            SkillUpdate(1);
+            AbilityUpdate(1);
         }
     }
 }

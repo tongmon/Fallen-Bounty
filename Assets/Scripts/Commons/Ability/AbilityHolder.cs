@@ -6,14 +6,14 @@ public class AbilityHolder
 {
     public Ability m_ability;
 
-    public enum AbilityState
+    public enum eAbilityState
     {
         ready,
         active,
         cooldown
     }
 
-    public AbilityState m_state;
+    public eAbilityState m_state;
 
     // 현재 상태
     public float m_cooltime;
@@ -21,13 +21,13 @@ public class AbilityHolder
 
     public AbilityHolder()
     {
-        m_state = AbilityState.ready;
+        m_state = eAbilityState.ready;
     }
 
     public AbilityHolder(Ability ability, float cooltime, float activetime)
     {
         m_ability = ability;
-        m_state = AbilityState.ready;
+        m_state = eAbilityState.ready;
         m_cooltime = cooltime;
         m_activetime = activetime;
     }
@@ -36,21 +36,21 @@ public class AbilityHolder
     {
         switch (m_state)
         {
-            case AbilityState.ready:
+            case eAbilityState.ready:
                 m_ability.Activate(hero);
-                m_state = AbilityState.active;
+                m_state = eAbilityState.active;
                 break;
-            case AbilityState.active:
+            case eAbilityState.active:
                 if (m_activetime > 0)
                 {
                     m_activetime -= Time.deltaTime;
                 }
                 else
                 {
-                    m_state = AbilityState.ready;
+                    m_state = eAbilityState.ready;
                 }
                 break;
-            case AbilityState.cooldown:
+            case eAbilityState.cooldown:
                 break;
         }
     }
