@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 스킬 상태
 public enum eAbilityState
 {
     ready,
@@ -11,6 +12,7 @@ public enum eAbilityState
     disabled
 }
 
+// 추가 스킬 데이터
 public class AbilityData
 {
     public eAbilityState m_state;
@@ -42,6 +44,7 @@ public class AbilityHolder
         m_game_object = obj;
     }
 
+    // 스크립트 이름 ability_script_name에 대응하는 스킬 추가
     public void AddAbility(string ability_script_name, float base_cool_time, float base_active_time)
     {
         Type type = Type.GetType(ability_script_name);
@@ -53,12 +56,14 @@ public class AbilityHolder
         m_abilities.Add(ability_data);
     }
 
+    // 스크립트 이름 ability_script_name에 대응하는 스킬 시전
     public void TriggerAbility(string ability_script_name)
     {
-        if (m_abilities[m_abilities_dict[ability_script_name]].m_state != eAbilityState.disabled)
+        if (m_abilities[m_abilities_dict[ability_script_name]].m_state == eAbilityState.ready)
             m_abilities[m_abilities_dict[ability_script_name]].m_is_triggered = true;
     }
 
+    // 매 프레임당 스킬 상태 갱신
     public void Update()
     {
         // 따로 사용할 스킬들의 인덱스를 어디다 뺀 다음에 for문 검사하면 더 최적화 가능
@@ -66,7 +71,8 @@ public class AbilityHolder
             Update(i);
     }
 
-    void Update(int index)
+    // 특정 스킬 갱신
+    public void Update(int index)
     {
         switch (m_abilities[index].m_state)
         {
@@ -105,59 +111,3 @@ public class AbilityHolder
         }
     }
 }
-
-/*
-public class AbilityHolder
-{
-    public Ability m_ability;
-
-    public enum eAbilityState
-    {
-        ready,
-        active,
-        cooldown
-    }
-
-    public eAbilityState m_state;
-
-    // 현재 상태
-    public float m_cooldown_time;
-    public float m_active_time;
-
-    public AbilityHolder()
-    {
-        m_state = eAbilityState.ready;
-    }
-
-    public AbilityHolder(Ability ability, float cooldown_time, float active_time)
-    {
-        m_ability = ability;
-        m_state = eAbilityState.ready;
-        m_cooldown_time = cooldown_time;
-        m_active_time = active_time;
-    }
-
-    public void Update(GameObject hero)
-    {
-        switch (m_state)
-        {
-            case eAbilityState.ready:
-                m_ability.Activate(hero);
-                m_state = eAbilityState.active;
-                break;
-            case eAbilityState.active:
-                if (m_active_time > 0)
-                {
-                    m_active_time -= Time.deltaTime;
-                }
-                else
-                {
-                    m_state = eAbilityState.ready;
-                }
-                break;
-            case eAbilityState.cooldown:
-                break;
-        }
-    }
-}
-*/
