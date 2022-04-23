@@ -12,6 +12,18 @@ public class DashAbility : Ability
         m_base_cooldown_time = base_cool_time;
     }
 
+    // DashAbility는 TemplateHero만 사용가능한 스킬이기에 밑과 같이 구현
+    public override void Activate(GameObject obj)
+    {
+        // 대쉬 스킬 로직
+        TemplateHero hero = obj.GetComponent<TemplateHero>();
+
+    }
+
+    /*
+    // 공용 스킬이면 밑과 같이 Hero, 아니면 Enemy로 받아야댐
+
+    // 영웅 공통 스킬
     public override void Activate(GameObject obj)
     {
         // 대쉬 스킬 로직
@@ -19,9 +31,12 @@ public class DashAbility : Ability
         
     }
 
-    // 이름으로 접근
-    public override void Activate(string object_name)
+    // 적 공통 스킬
+    public override void Activate(GameObject obj)
     {
-        Type type = Type.GetType(object_name);
+        // 대쉬 스킬 로직
+        Enemy hero = obj.GetComponent<Enemy>();
+        
     }
+    */
 }
