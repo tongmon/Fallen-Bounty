@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AllStatUpCard : MonoBehaviour
+public class AllStatUpCard : Card
 {
-    // Start is called before the first frame update
-    void Start()
+    public AllStatUpCard(string description, int quality)
     {
-        
+        m_name = GetType().Name;
+        m_description = description;
+        m_quality = quality;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Acquisit(GameObject obj) 
     {
+        Player player = obj.GetComponent<Player>();
+
         
     }
 }
