@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TemplateHero : Hero
 {
-    AbilityHolder m_ability_holder;
+    public AbilityHolder m_ability_holder;
 
     void Start()
     {

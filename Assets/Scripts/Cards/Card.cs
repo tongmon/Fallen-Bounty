@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public class Cards : ScriptableObject
+public class Card : ScriptableObject
 {
     //구조 - 맵 클리어시 현재 가진 스킬중 카드슬롯만큼 가져와서 랜덤으로 증가이벤트 만들기.
     //퀄1 - 100퍼 퀄2 - 50퍼 퀄3- 25퍼로 가정.
@@ -19,4 +19,7 @@ public class Cards : ScriptableObject
             else ; //m_abilities[Random.Range(1,m_card_slots)].데미지계수 +=0.5f; -퀄1
         }
     }
+
+    // 카드 획득
+    public void Acquisit(GameObject obj) { }
 }

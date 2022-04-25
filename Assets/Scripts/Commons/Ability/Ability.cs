@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// ½ºÅ³
 public class Ability : ScriptableObject
 {
     public string m_name;
@@ -11,6 +12,4 @@ public class Ability : ScriptableObject
     public float m_base_active_time;
 
     public virtual void Activate(GameObject obj) { }
-
-    public virtual void Activate(string object_name) { }
 }
