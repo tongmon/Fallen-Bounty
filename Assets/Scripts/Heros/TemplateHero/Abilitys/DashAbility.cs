@@ -7,6 +7,7 @@ public class DashAbility : Ability
 {
     public DashAbility(float base_cool_time, float base_active_time)
     {
+        m_category = "TemplateHero";
         m_name = GetType().Name;
         m_base_active_time = base_active_time;
         m_base_cooldown_time = base_cool_time;

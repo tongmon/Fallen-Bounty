@@ -5,6 +5,10 @@ using UnityEngine;
 // 스킬
 public class Ability : ScriptableObject
 {
+    // 스킬 카테고리, 공용 스킬인지, 어떤 직업의 스킬인지...
+    public string m_category;
+
+    // 스킬 이름
     public string m_name;
 
     // 저장된 상태, 고정값

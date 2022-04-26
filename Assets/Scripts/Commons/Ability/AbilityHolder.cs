@@ -30,11 +30,21 @@ public class AbilityData
     }
 }
 
-// 필요한 스킬들을 모두 읽어 m_abilities 여기에 저장하고 시작
 public class AbilityHolder
 {
+    // AbilityHolder를 들고있는 영웅이 현재 사용하는 스킬
     public List<AbilityData> m_abilities;
+
+    // AbilityHolder를 들고있는 영웅이 현재 사용하지는 않지만 보관하고 있는 스킬
+    public List<AbilityData> m_sub_abilities;
+
     public Dictionary<string, int> m_abilities_dict;
+
+    public Dictionary<string, int> m_sub_abilities_dict;
+
+    public int m_abilities_limit;
+
+    // 사실상, 히어로나 적
     public GameObject m_game_object;
 
     public AbilityHolder(GameObject obj)
@@ -42,18 +52,31 @@ public class AbilityHolder
         // 객체이름(m_game_object.name)에 따라 대응되는 스킬 변수들을 json에서 읽어 가져옴
         // ex) pirate은 해적 스킬셋을 읽어 알맞은 AbilityData에 넣어줌
         m_game_object = obj;
+
+        Creature creature = obj.GetComponent<Creature>();       
+        m_abilities_limit = creature.m_abilities_limit;
+        
+        m_abilities_dict = new Dictionary<string, int>();
+        m_sub_abilities_dict = new Dictionary<string, int>();
+        
+        m_abilities = new List<AbilityData>();
+        m_sub_abilities = new List<AbilityData>();
     }
 
-    // 스크립트 이름 ability_script_name에 대응하는 스킬 추가
-    public void AddAbility(string ability_script_name, float base_cool_time, float base_active_time)
+    public void AddAbility(Ability ability)
     {
-        Type type = Type.GetType(ability_script_name);
-        object ability_instance = Activator.CreateInstance(type, base_cool_time, base_active_time);
-        m_abilities_dict[ability_script_name] = m_abilities.Count;
+        AbilityData ability_data = new AbilityData(ability, ability.m_base_cooldown_time, ability.m_base_active_time);
 
-        AbilityData ability_data = new AbilityData((Ability)ability_instance, base_cool_time, base_active_time);
-
-        m_abilities.Add(ability_data);
+        if(m_abilities.Count < m_abilities_limit)
+        {
+            m_abilities_dict[ability.m_name] = m_abilities.Count;
+            m_abilities.Add(ability_data);
+        }
+        else
+        {
+            m_sub_abilities_dict[ability.m_name] = m_sub_abilities.Count;
+            m_sub_abilities.Add(ability_data);
+        }
     }
 
     // 스크립트 이름 ability_script_name에 대응하는 스킬 시전
@@ -66,7 +89,6 @@ public class AbilityHolder
     // 매 프레임당 스킬 상태 갱신
     public void Update()
     {
-        // 따로 사용할 스킬들의 인덱스를 어디다 뺀 다음에 for문 검사하면 더 최적화 가능
         for (int i = 0; i < m_abilities.Count; i++)
             Update(i);
     }
@@ -109,5 +131,11 @@ public class AbilityHolder
                 }
                 break;
         }
+    }
+
+    // 활성화 스킬 교체
+    public void SwitchAbility(string ability_script_name_one, string ability_script_name_two)
+    {
+        
     }
 }
