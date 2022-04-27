@@ -8,4 +8,6 @@ public class CardHolder
 {
     // 플레이어가 들고 있는 카드
     public List<Card> m_cards;
+
+    public Dictionary<string, int> m_cards_dict;
 }

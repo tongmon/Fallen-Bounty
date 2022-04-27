@@ -7,7 +7,7 @@ using UnityEngine;
 // 카드를 주는 로직 담당
 public class CardManager
 {
-    // 모든 종류의 카드가 게임 시작 전에 담김
+    // 모든 종류의 카드가 게임 시작 전에 담김(몬스터만 사용하는 스킬은 따로 담을지 추후에 고려...)
     public List<Card> m_cards;
 
     // 카드 퀼리티가 나뉘는 범위
@@ -16,7 +16,7 @@ public class CardManager
     // 이름으로 카드를 찾기위한 해쉬맵
     public Dictionary<string, int> m_cards_dict;
 
-    // 사실상 플레이어
+    // 사실상 Player
     public GameObject m_game_object;
 
     public CardManager(GameObject obj)
@@ -52,13 +52,36 @@ public class CardManager
     // 카드 랜덤 생성
     public List<Card> MakeRandomCards()
     {
+        HeroHolder hero_holder = m_game_object.GetComponent<Player>().m_hero_holder;
+
         List<Card> ret_cards = new List<Card>();
         int cards_num = 0; // 플레이어에 카드 고를 수 있는 수가 정의되어 이를 cards_num에 넣어줘야 할 것이다.
 
+        int quality = 0;
         // 특정 확률로 ret_cards에 알맞게 카드를 넣어줌
         for (int i = 0; i < cards_num; i++)
         {
+            if (true/* 특정확률 */)
+                quality = 2;
+            else if (true/* 특정확률 */)
+                quality = 1;
+            else
+                quality = 0;
 
+            while (true)
+            {
+                Card card = m_cards[UnityEngine.Random.Range(m_quality_range[quality].Item1, m_quality_range[quality].Item2)];
+
+                if(card.m_apply_target == "everything")
+                {
+                    /* 어떤 영웅을 가지고 있느냐와 상관이 없는 카드이기에 그냥 리스트에 추가시켜도 되는 카드 */
+                }
+                else if (card.m_apply_target == "commonskill") 
+                {
+                    /* hero_holder에서 특정 직업이 */
+                }
+
+            }
         }
 
         return ret_cards;

@@ -22,6 +22,7 @@ public class Card : ScriptableObject
     }
     */
 
+    public string m_apply_target; // 카드 적용 목표
     public string m_name; // 카드 클래스 이름
     public string m_description; // 카드 설명, 구성: 카드 이름 + '/' + 카드 설명
     public int m_quality; // 카드 등급

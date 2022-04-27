@@ -16,8 +16,8 @@ public class AbilityManager
         m_abilities = new List<Ability>();
         m_abilities_dict = new Dictionary<string, int>();
 
-        // json 읽어와서 AddAbility() 함수를 사용해 모든 종류의 스킬(직업 상관없이, 적 상관없이) 초기화 해줘야함
-
+        // xml 읽어와서 AddAbility() 함수를 사용해 모든 종류의 스킬(직업 상관없이, 적 상관없이) 초기화 해줘야함
+        
     }
 
     public void AddAbility(string ability_script_name, float base_cool_time, float base_active_time)
