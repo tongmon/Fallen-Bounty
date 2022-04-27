@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Creature : MonoBehaviour
 {
+    public AbilityHolder m_ability_holder;
+
+    public string m_name;
+
     public float m_health;
     public float m_x_velocity;
     public float m_y_velocity;

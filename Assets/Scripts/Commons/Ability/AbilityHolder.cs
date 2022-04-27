@@ -44,7 +44,7 @@ public class AbilityHolder
 
     public int m_abilities_limit;
 
-    // 사실상, 히어로나 적
+    // 사실상 Creature
     public GameObject m_game_object;
 
     public AbilityHolder(GameObject obj)
@@ -63,6 +63,7 @@ public class AbilityHolder
         m_sub_abilities = new List<AbilityData>();
     }
 
+    // 능력 추가
     public void AddAbility(Ability ability)
     {
         AbilityData ability_data = new AbilityData(ability, ability.m_base_cooldown_time, ability.m_base_active_time);
@@ -136,6 +137,29 @@ public class AbilityHolder
     // 활성화 스킬 교체
     public void SwitchAbility(string ability_script_name_one, string ability_script_name_two)
     {
-        
+        int one_abillity_index, two_abillity_index;
+        AbilityData abilitydata_temp;
+        if (m_abilities_dict.TryGetValue(ability_script_name_one, out one_abillity_index))
+        {
+            two_abillity_index = m_sub_abilities_dict[ability_script_name_two];
+
+            m_abilities_dict[ability_script_name_one] = two_abillity_index;
+            m_sub_abilities_dict[ability_script_name_two] = one_abillity_index;
+
+            abilitydata_temp = m_abilities[one_abillity_index];
+            m_abilities[one_abillity_index] = m_sub_abilities[two_abillity_index];
+            m_sub_abilities[two_abillity_index] = abilitydata_temp;
+            
+            return;
+        }
+        one_abillity_index = m_sub_abilities_dict[ability_script_name_one];
+        two_abillity_index = m_abilities_dict[ability_script_name_two];
+
+        m_abilities_dict[ability_script_name_two] = one_abillity_index;
+        m_sub_abilities_dict[ability_script_name_one] = two_abillity_index;
+
+        abilitydata_temp = m_sub_abilities[one_abillity_index];
+        m_sub_abilities[one_abillity_index] = m_abilities[two_abillity_index];
+        m_abilities[two_abillity_index] = abilitydata_temp;
     }
 }

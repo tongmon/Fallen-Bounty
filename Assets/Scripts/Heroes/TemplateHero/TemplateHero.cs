@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class TemplateHero : Hero
 {
-    public AbilityHolder m_ability_holder;
+    public TemplateHero()
+    {
+        m_name = GetType().Name;
+        m_ability_holder = new AbilityHolder(gameObject);
+    }
 
     void Start()
     {
-        m_ability_holder = new AbilityHolder(gameObject);
+
     }
 
     void Update()
