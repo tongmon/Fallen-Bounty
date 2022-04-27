@@ -18,6 +18,8 @@ public class HeroManager
 
         m_heroes = new List<Hero>();
         m_heroes_dict = new Dictionary<string, int>();
+
+        // json 읽어와서 영웅 초기화
     }
 
     // 영웅 추가
@@ -27,5 +29,11 @@ public class HeroManager
         object ability_instance = Activator.CreateInstance(type /* 각 영웅 생성자에 맞는 추가 인자 필요 */);
         m_heroes_dict[hero_script_name] = m_heroes.Count;
         m_heroes.Add((Hero)ability_instance);
+    }
+
+    // 영웅 획득
+    public Hero GetHero(string hero_script_name)
+    {
+        return m_heroes[m_heroes_dict[hero_script_name]];
     }
 }
