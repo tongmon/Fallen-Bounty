@@ -1,23 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class MouseFollow : MonoBehaviour
 {   //캐릭티 겹칠시 선택오류 해결 필요 -- 아이디어 마우스오버시 둘의 초상화로 선택가능
+    [SerializeField] Image m_line;
     public bool m_path_select;
     public Vector2 m_vec;
     public GameObject m_focus_object;
     public GameObject m_focus_enemy;
     public RaycastHit m_hit;
-
+    //선긋기 , 색 필요
+    LineRenderer m_lr;
     private void Start()
     {
         m_focus_object = null;
         m_focus_enemy = null;
+        m_lr = GetComponent<LineRenderer>();
+        m_lr.startWidth = 0.05f;
+        m_lr.endWidth = 0.05f;
     }
     void Update()
     {
+        if (m_path_select) //선 긋기 
+        {
+            m_lr.SetPosition(0, m_focus_object.transform.position);
+            if (m_hit.collider != null)
+            {
+                m_lr.SetPosition(1, m_focus_enemy.transform.position);
+            }
+            else
+            {
+                ; m_lr.SetPosition(1, m_vec);
+            }
+        }
+
         if (Input.GetMouseButtonDown(0)) //마우스 왼쪽 버튼
         {
             if(m_focus_object != null) m_focus_object.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
