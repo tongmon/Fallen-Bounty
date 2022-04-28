@@ -162,4 +162,10 @@ public class AbilityHolder
         m_sub_abilities[one_abillity_index] = m_abilities[two_abillity_index];
         m_abilities[two_abillity_index] = abilitydata_temp;
     }
+
+    // 특정 스킬이 존재하는지 검사
+    public bool GetAbilityExistence(string ability_script_name_one)
+    {
+        return m_abilities_dict.TryGetValue(ability_script_name_one, out var abilitydata_temp);
+    }
 }

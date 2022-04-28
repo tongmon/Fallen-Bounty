@@ -86,4 +86,16 @@ public class HeroHolder
         m_sub_heroes[one_hero_index] = m_heroes[two_hero_index];
         m_heroes[two_hero_index] = hero_temp;
     }
+
+    // 특정 스킬을 가지고 있는 영웅들을 담아서 준다.
+    public List<Hero> GetHeroThatHaveTargetAbility(string ability_script_name)
+    {
+        List<Hero> ret_list = new List<Hero>();
+        for (int i = 0; i < m_heroes.Count; i++)
+        {
+            if(m_heroes[i].m_ability_holder.GetAbilityExistence(ability_script_name))
+                ret_list.Add(m_heroes[i]);
+        }
+        return ret_list;
+    }
 }

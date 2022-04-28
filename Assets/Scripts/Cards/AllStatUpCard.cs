@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class AllStatUpCard : Card
 {
-    public AllStatUpCard(string description, int quality)
+    public AllStatUpCard(string description, string target, int quality)
     {
         m_name = GetType().Name;
         m_description = description;
         m_quality = quality;
+        m_apply_target = target;
     }
 
     public override void Acquisit(GameObject obj) 

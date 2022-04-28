@@ -41,10 +41,10 @@ public class CardManager
     }
 
     // json에서 값을 읽어와 카드 초기화
-    public void AddCard(string card_script_name, string description, int quality)
+    public void AddCard(string card_script_name, string description, string target, int quality)
     {
         Type type = Type.GetType(card_script_name);
-        object card_instance = Activator.CreateInstance(type, description, quality);
+        object card_instance = Activator.CreateInstance(type, description, target, quality);
         m_cards_dict[card_script_name] = m_cards.Count;
         m_cards.Add((Card)card_instance);
     }
@@ -73,15 +73,21 @@ public class CardManager
                 // 정해진 퀄리티에 따라 해당 퀄리티에 맞는 카드 풀에서 카드 한장을 찾음
                 Card card = m_cards[UnityEngine.Random.Range(m_quality_range[quality].Item1, m_quality_range[quality].Item2)];
 
-                if(card.m_apply_target == "everything")
+                // 모든 영웅에 적용될 수 있는 카드
+                if (card.m_apply_target == "EveryOne")
                 {
                     /* 어떤 영웅을 가지고 있느냐와 상관이 없는 카드이기에 그냥 리스트에 추가시켜도 되는 카드 */
                 }
-                else if (card.m_apply_target == "commonskill") 
+                // 공용 스킬에 대한 카드
+                else if (card.m_apply_target == "CommonSkill") 
                 {
-                    /* hero_holder에서 특정 직업이 */
+                    List<Hero> heroes = hero_holder.GetHeroThatHaveTargetAbility(card.m_name);
+                    
                 }
+                else
+                {
 
+                }
             }
         }
 
@@ -92,5 +98,10 @@ public class CardManager
     public void Acquisit(string card_script_name) 
     {
         m_cards[m_cards_dict[card_script_name]].Acquisit(m_game_object);
+    }
+
+    public void OrderByCardQuality(ref List<Card> cards, ref List<(int,int)> quality_range)
+    {
+
     }
 }
