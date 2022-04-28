@@ -70,6 +70,7 @@ public class CardManager
 
             while (true)
             {
+                // 정해진 퀄리티에 따라 해당 퀄리티에 맞는 카드 풀에서 카드 한장을 찾음
                 Card card = m_cards[UnityEngine.Random.Range(m_quality_range[quality].Item1, m_quality_range[quality].Item2)];
 
                 if(card.m_apply_target == "everything")
