@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MouseFollow : MonoBehaviour
 {
     private bool m_path_select;
@@ -9,9 +10,9 @@ public class MouseFollow : MonoBehaviour
     private GameObject m_focus_object;
     private GameObject m_focus_enemy;
     private RaycastHit2D m_hit1, m_hit2;
-    private float m_horizontal_speed = 0.5f;
-    private float m_vertical_speed = 0.003f;
-    private float m_attack_range = 1f;
+    private float m_horizontal_speed = 3f;
+    private float m_vertical_speed = 1.5f;
+    private float m_attack_range = 2f;
 
     LineRenderer m_lr;
     private void Start()
@@ -36,7 +37,7 @@ public class MouseFollow : MonoBehaviour
                 gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
             }
         }
-        else if (Input.GetMouseButtonDown(1) && m_hit1.collider.gameObject == gameObject) //마우스 우 클릭
+        else if (Input.GetMouseButtonDown(1) && m_focus_object != null && m_hit1.collider.gameObject == gameObject) //마우스 우 클릭
         {
             if (m_focus_enemy != null) m_focus_enemy.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
             Vector2 m_pos2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -58,7 +59,13 @@ public class MouseFollow : MonoBehaviour
             if (m_hit2.collider != null) m_vec = m_hit2.transform.position;
             if (m_vec.x < 0) m_focus_object.transform.rotation = Quaternion.Euler(0, 180, 0); //추후 다시 수정
             else m_focus_object.transform.rotation = Quaternion.Euler(0, 0, 0);
-            m_focus_object.transform.position -= m_focus_enemy.transform.position;
+            Vector2 dir = new Vector2(m_vec.x - m_focus_object.transform.position.x, m_vec.y - m_focus_object.transform.position.y);
+            dir.Normalize();
+            if((m_hit2.collider != null))
+            {
+                if (Vector2.Distance(m_focus_object.transform.position, m_vec) > m_attack_range) m_focus_object.transform.position = new Vector2(m_focus_object.transform.position.x + dir.x * m_horizontal_speed * Time.deltaTime, m_focus_object.transform.position.y + dir.y * m_vertical_speed * Time.deltaTime);
+            }
+            else m_focus_object.transform.position = new Vector2(m_focus_object.transform.position.x + dir.x * m_horizontal_speed * Time.deltaTime, m_focus_object.transform.position.y + dir.y * m_vertical_speed * Time.deltaTime);
             m_lr.SetPosition(0, m_focus_object.transform.GetChild(0).transform.position);
             if (m_hit2.collider != null && m_focus_enemy != null)
             {
