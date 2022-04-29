@@ -20,6 +20,8 @@ public class HeroManager
         m_heroes_dict = new Dictionary<string, int>();
 
         // json 읽어와서 영웅 초기화
+        string filepath = Application.dataPath + "datafiles/Hero.xml";
+        //XmlParser.LoadXml(filepath, "Hero", ref this);
     }
 
     // 영웅 추가

@@ -100,7 +100,7 @@ public class CardManager
         m_cards[m_cards_dict[card_script_name]].Acquisit(m_game_object);
     }
 
-    public void OrderByCardQuality(ref List<Card> cards, ref List<(int,int)> quality_range)
+    public void OrderByQuality(ref List<Card> cards, ref List<(int,int)> quality_range)
     {
 
     }

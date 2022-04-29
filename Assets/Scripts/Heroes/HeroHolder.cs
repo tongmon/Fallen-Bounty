@@ -67,8 +67,11 @@ public class HeroHolder
         {
             two_hero_index = m_sub_heroes_dict[hero_name_two];
 
-            m_heroes_dict[hero_name_one] = two_hero_index;
-            m_sub_heroes_dict[hero_name_two] = one_hero_index;
+            m_heroes_dict[hero_name_two] = one_hero_index;
+            m_sub_heroes_dict[hero_name_one] = two_hero_index;
+
+            m_heroes_dict.Remove(hero_name_one);
+            m_sub_heroes_dict.Remove(hero_name_two);
 
             hero_temp = m_heroes[one_hero_index];
             m_heroes[one_hero_index] = m_sub_heroes[two_hero_index];
@@ -79,8 +82,11 @@ public class HeroHolder
         one_hero_index = m_sub_heroes_dict[hero_name_one];
         two_hero_index = m_heroes_dict[hero_name_two];
 
-        m_heroes_dict[hero_name_two] = one_hero_index;
-        m_sub_heroes_dict[hero_name_one] = two_hero_index;
+        m_heroes_dict[hero_name_one] = two_hero_index;
+        m_sub_heroes_dict[hero_name_two] = one_hero_index;
+
+        m_heroes_dict.Remove(hero_name_two);
+        m_sub_heroes_dict.Remove(hero_name_one);
 
         hero_temp = m_sub_heroes[one_hero_index];
         m_sub_heroes[one_hero_index] = m_heroes[two_hero_index];

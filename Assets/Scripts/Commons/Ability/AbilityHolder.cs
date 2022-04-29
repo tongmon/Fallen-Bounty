@@ -143,8 +143,11 @@ public class AbilityHolder
         {
             two_abillity_index = m_sub_abilities_dict[ability_script_name_two];
 
-            m_abilities_dict[ability_script_name_one] = two_abillity_index;
-            m_sub_abilities_dict[ability_script_name_two] = one_abillity_index;
+            m_abilities_dict[ability_script_name_two] = one_abillity_index;
+            m_sub_abilities_dict[ability_script_name_one] = two_abillity_index;
+
+            m_abilities_dict.Remove(ability_script_name_one);
+            m_sub_abilities_dict.Remove(ability_script_name_two);
 
             abilitydata_temp = m_abilities[one_abillity_index];
             m_abilities[one_abillity_index] = m_sub_abilities[two_abillity_index];
@@ -155,8 +158,11 @@ public class AbilityHolder
         one_abillity_index = m_sub_abilities_dict[ability_script_name_one];
         two_abillity_index = m_abilities_dict[ability_script_name_two];
 
-        m_abilities_dict[ability_script_name_two] = one_abillity_index;
-        m_sub_abilities_dict[ability_script_name_one] = two_abillity_index;
+        m_abilities_dict[ability_script_name_one] = two_abillity_index;
+        m_sub_abilities_dict[ability_script_name_two] = one_abillity_index;
+
+        m_abilities_dict.Remove(ability_script_name_two);
+        m_sub_abilities_dict.Remove(ability_script_name_one);
 
         abilitydata_temp = m_sub_abilities[one_abillity_index];
         m_sub_abilities[one_abillity_index] = m_abilities[two_abillity_index];

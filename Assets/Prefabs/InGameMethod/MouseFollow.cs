@@ -9,7 +9,7 @@ public class MouseFollow : MonoBehaviour
     private GameObject m_focus_object;
     private GameObject m_focus_enemy;
     private RaycastHit2D m_hit1, m_hit2;
-    private float m_horizontal_speed = 0.5f;
+    private float m_horizontal_speed = 0.005f;
     private float m_vertical_speed = 0.003f;
     private float m_attack_range = 1f;
 
@@ -58,7 +58,7 @@ public class MouseFollow : MonoBehaviour
             if (m_hit2.collider != null) m_vec = m_hit2.transform.position;
             if (m_vec.x < 0) m_focus_object.transform.rotation = Quaternion.Euler(0, 180, 0); //추후 다시 수정
             else m_focus_object.transform.rotation = Quaternion.Euler(0, 0, 0);
-            m_focus_object.transform.position -= m_focus_enemy.transform.position;
+
             m_lr.SetPosition(0, m_focus_object.transform.GetChild(0).transform.position);
             if (m_hit2.collider != null && m_focus_enemy != null)
             {
