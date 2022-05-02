@@ -13,7 +13,7 @@ public class XmlParser
     }
 
     // XmlParser.LoadXml()·Î »ç¿ë
-    static public void LoadXml(string filepath, ref HeroManager hero_manager)
+    static public void LoadXml(string filepath, HeroManager hero_manager)
     {
         m_doc.Load(filepath);
 
@@ -29,7 +29,7 @@ public class XmlParser
         }
     }
 
-    static public void LoadXml(string filepath, ref AbilityManager abillity_manager)
+    static public void LoadXml(string filepath, AbilityManager abillity_manager)
     {
         m_doc.Load(filepath);
 

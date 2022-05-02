@@ -22,9 +22,7 @@ public class HeroManager
         // json 읽어와서 영웅 초기화
         string filepath = Application.dataPath + "datafiles/Hero.xml";
 
-        HeroManager dummy_hero_manager = this;
-        XmlParser.LoadXml(filepath, ref dummy_hero_manager);
-        System.Object.ReferenceEquals(dummy_hero_manager, this);
+        XmlParser.LoadXml(filepath, this);
     }
 
     // 영웅 추가
