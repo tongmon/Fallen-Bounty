@@ -39,12 +39,12 @@ public class MouseFollow : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1) && m_focus_object != null && m_hit1.collider.gameObject == gameObject) //마우스 우 클릭
         {
+            m_path_arrived = false;
             if (m_focus_enemy != null) m_focus_enemy.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
             Vector2 m_pos2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             m_hit2 = Physics2D.Raycast(m_pos2, Vector2.zero, 0f);
-            m_path_arrived = false;
             if (m_focus_object == gameObject) m_path_select = true;  //포커스된 애가 내가 맞으면
-            if (m_hit2.collider != null)
+            if (m_hit2.collider != null && m_hit2.transform.tag != "Character")
             {
                 m_focus_enemy = m_hit2.collider.gameObject;
                 m_hit2.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
@@ -59,20 +59,35 @@ public class MouseFollow : MonoBehaviour
         {
             if (m_hit2.collider != null) m_vec = m_hit2.transform.position;
             if (m_vec.x < 0) m_focus_object.transform.rotation = Quaternion.Euler(0, 180, 0); //추후 다시 수정
-            else m_focus_object.transform.rotation = Quaternion.Euler(0, 0, 0); //각도 계산시 y값 차이가 너무 크면안됨.
+            else m_focus_object.transform.rotation = Quaternion.Euler(0, 0, 0);
             Vector2 dir = new Vector2(m_vec.x - m_focus_object.transform.position.x, m_vec.y - m_focus_object.transform.position.y);
             dir.Normalize();
-            if ((m_hit2.collider != null))
+            if (m_hit2.collider != null && m_hit2.collider.gameObject.transform.tag != "Character")
             {
                 if (Vector2.Distance(m_focus_object.transform.position, m_vec) > m_attack_range)
                 {
                     m_focus_object.transform.Translate(new Vector2(dir.x * m_horizontal_speed * Time.deltaTime, dir.y * m_vertical_speed * Time.deltaTime), Space.World);
+                    m_path_arrived = false;
                 }
                 else m_path_arrived = true; //도착함
             }
-            //if (m_path_arrived && m_focus_object.transform.position.y - m_vec.y > 0.5f) m_focus_object.transform.Translate(new Vector2(0, dir.y * m_vertical_speed * Time.deltaTime));
-            //else if (m_path_arrived && m_vec.y - m_focus_object.transform.position.y > 0.5f) m_focus_object.transform.Translate(new Vector2(0, -dir.y * m_vertical_speed * Time.deltaTime));
             else m_focus_object.transform.Translate(new Vector2(dir.x * m_horizontal_speed * Time.deltaTime, dir.y * m_vertical_speed * Time.deltaTime), Space.World);
+            if(m_path_arrived && m_focus_enemy != null) //도착 했음
+            {
+                Vector2 temp_vec = new Vector2(0,0);
+                if (m_focus_object.transform.position.y - m_focus_enemy.transform.position.y > 0.8f) //너무 높이 있음
+                {
+                    if(m_focus_object.transform.position.x > m_focus_enemy.transform.position.x) temp_vec = new Vector2(-m_focus_enemy.transform.position.x, 0.8f);
+                    else temp_vec = new Vector2(m_focus_enemy.transform.position.x, 0.8f);
+                }
+                else if (m_focus_enemy.transform.position.y - m_focus_object.transform.position.y > 0.8f)
+                {
+                    if (m_focus_object.transform.position.x > m_focus_enemy.transform.position.x) temp_vec = new Vector2(-m_focus_enemy.transform.position.x, -0.8f);
+                    else temp_vec = new Vector2(m_focus_enemy.transform.position.x, -0.8f);
+                }
+                temp_vec.Normalize();
+                m_focus_object.transform.Translate(new Vector2(temp_vec.x * m_horizontal_speed * Time.deltaTime * 1.5f, temp_vec.y * m_vertical_speed * Time.deltaTime), Space.World);
+            }
             m_lr.SetPosition(0, m_focus_object.transform.GetChild(0).transform.position);
             if (m_hit2.collider != null && m_focus_enemy != null)
             {
@@ -94,11 +109,11 @@ public class MouseFollow : MonoBehaviour
     }
     void PathMoveUp()
     {
-        m_focus_object.transform.Translate(new Vector2(0, m_vertical_speed * Time.deltaTime * 4f), Space.World);
+        m_focus_object.transform.Translate(new Vector2(0, m_vertical_speed * Time.deltaTime), Space.World);
     }
     void PathMoveDown()
     {
-        m_focus_object.transform.Translate(new Vector2(0, -m_vertical_speed) * Time.deltaTime * 4f, Space.World);
+        m_focus_object.transform.Translate(new Vector2(0, -m_vertical_speed * Time.deltaTime), Space.World);
     }
 }
 //바라보는 방향 각도계산
