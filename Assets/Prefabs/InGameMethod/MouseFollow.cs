@@ -42,6 +42,8 @@ public class MouseFollow : MonoBehaviour
     // 공격 사거리
     private float m_attack_range = 2f;
 
+    private float m_restrict_angle = 30.0f;
+
     // 줄 긋는 객체
     LineRenderer m_lr;
 
@@ -147,16 +149,32 @@ public class MouseFollow : MonoBehaviour
                     if (!m_vec_move_done)
                     {
                         Vector2 temp_vec = m_focus_object.transform.position - m_focus_enemy.transform.position;
-                        if (Mathf.Atan2(temp_vec.y, temp_vec.x) * Mathf.Rad2Deg <= 30) m_vec_move_done = true;
-                        float angle = 0;
-                        angle = Mathf.Atan2(temp_vec.y, temp_vec.x) * Mathf.Rad2Deg;
+
+                        float angle = Mathf.Atan2(temp_vec.y, temp_vec.x) * Mathf.Rad2Deg;
+
+                        if (m_focus_enemy.transform.position.y < m_focus_object.transform.position.y)
+                            angle = 90 - angle;
+                        else
+                            angle = angle - 270;
+
+                        if (angle <= m_restrict_angle) 
+                            m_vec_move_done = true;
+                    
                         Debug.Log(angle);
+
                         if (!m_vec_select) //이동벡터는 한번만 설정
                         {
-                            if (angle >= 60 && angle < 90) angle = -(angle - 30); //각도 계산을 잘되나 앵글조정 오류가남
-                            else if (angle >= 90 && angle < 120) angle += 30;
-                            else if (angle >= -90 && angle <= -60) angle += 30;
-                            else if (angle >= -120 && angle <= -90) angle = -(angle - 30);
+                            /*
+                            if (90 - m_restrict_angle <= angle && angle < 90) 
+                                angle = -m_restrict_angle; //각도 계산을 잘되나 앵글조정 오류가남
+                            else if (90 <= angle && angle < 90 + m_restrict_angle) 
+                                angle = m_restrict_angle;
+                            else if (270 - m_restrict_angle <= angle && angle < 270) 
+                                angle = -m_restrict_angle;
+                            else if (270 <= angle && angle < 270 + m_restrict_angle) 
+                                angle = m_restrict_angle;
+                            */
+
                             m_target_vec = Quaternion.Euler(0, 0, angle) * temp_vec;
                             m_target_vec -= temp_vec;
                             m_vec_select = true;
