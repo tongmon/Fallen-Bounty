@@ -42,7 +42,7 @@ public class MouseFollow : MonoBehaviour
     // 공격 사거리
     private float m_attack_range = 2f;
 
-    private float m_restrict_angle = 30.0f;
+    private float m_restrict_angle = 45.0f;
 
     // 줄 긋는 객체
     LineRenderer m_lr;
@@ -127,7 +127,7 @@ public class MouseFollow : MonoBehaviour
             dir.Normalize();
 
             // 길이 정해졌는데 적이 선택된 경우
-            if (m_hit_right_mouse.collider != null 
+            if (m_hit_right_mouse.collider != null
                 && m_hit_right_mouse.collider.gameObject.transform.tag != "Character"
                 )
             {
@@ -148,35 +148,23 @@ public class MouseFollow : MonoBehaviour
                     m_path_arrived = true;
                     if (!m_vec_move_done)
                     {
-                        Vector2 temp_vec = m_focus_object.transform.position - m_focus_enemy.transform.position;
+                        Vector2 enemy_to_obj_vec = m_focus_object.transform.position - m_focus_enemy.transform.position;
 
-                        float angle = Mathf.Atan2(temp_vec.y, temp_vec.x) * Mathf.Rad2Deg;
+                        float angle = Mathf.Atan2(enemy_to_obj_vec.y, enemy_to_obj_vec.x) * Mathf.Rad2Deg;
 
                         if (m_focus_enemy.transform.position.y < m_focus_object.transform.position.y)
-                            angle = 90 - angle;
+                            angle = angle - 90;
                         else
-                            angle = angle - 270;
+                            angle = angle + 90;
 
-                        if (angle <= m_restrict_angle) 
+                        if (m_restrict_angle <= Mathf.Abs(angle))
                             m_vec_move_done = true;
-                    
-                        Debug.Log(angle);
 
                         if (!m_vec_select) //이동벡터는 한번만 설정
                         {
-                            /*
-                            if (90 - m_restrict_angle <= angle && angle < 90) 
-                                angle = -m_restrict_angle; //각도 계산을 잘되나 앵글조정 오류가남
-                            else if (90 <= angle && angle < 90 + m_restrict_angle) 
-                                angle = m_restrict_angle;
-                            else if (270 - m_restrict_angle <= angle && angle < 270) 
-                                angle = -m_restrict_angle;
-                            else if (270 <= angle && angle < 270 + m_restrict_angle) 
-                                angle = m_restrict_angle;
-                            */
-
-                            m_target_vec = Quaternion.Euler(0, 0, angle) * temp_vec;
-                            m_target_vec -= temp_vec;
+                            m_target_vec = Quaternion.Euler(0, 0, angle) * enemy_to_obj_vec;
+                            m_target_vec -= enemy_to_obj_vec;
+                            m_target_vec.Normalize();
                             m_vec_select = true;
                         }
                         m_focus_object.transform.Translate(new Vector2(m_target_vec.x * m_horizontal_speed * Time.deltaTime, m_target_vec.y * m_vertical_speed * Time.deltaTime), Space.World);
@@ -184,7 +172,7 @@ public class MouseFollow : MonoBehaviour
                 }
             }
             // 길이 정해졌는데 땅이 선택된 경우
-            else 
+            else
                 m_focus_object.transform.Translate(new Vector2(dir.x * m_horizontal_speed * Time.deltaTime, dir.y * m_vertical_speed * Time.deltaTime), Space.World);
 
             // 라인 삽입
