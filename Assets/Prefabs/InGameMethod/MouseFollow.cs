@@ -10,8 +10,16 @@ public class MouseFollow : MonoBehaviour
     // 도착함
     private bool m_path_arrived;
 
+    //각도가 클시 이동할 벡터 한번만 설정
+    private bool m_vec_select = false;
+
+    //벡터 이동 종료 확인
+    private bool m_vec_move_done = false;
+
     // 방향 벡터
     private Vector2 m_vec;
+
+    private Vector2 m_target_vec = new Vector2(0,0);
 
     // 자기 자신을 선택했는지 검사하기 위한 자신의 객체
     private GameObject m_focus_object;
@@ -75,11 +83,8 @@ public class MouseFollow : MonoBehaviour
             && m_hit_left_mouse.collider.gameObject == gameObject) //마우스 우 클릭
         {
             m_path_arrived = false;
-
-            /*
-            if (m_focus_enemy != null) 
-                m_focus_enemy.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
-            */
+            m_vec_select = false;
+            m_vec_move_done = false;
 
             // 우측 클릭 좌표 획득
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -94,7 +99,6 @@ public class MouseFollow : MonoBehaviour
                 && m_hit_right_mouse.transform.tag != "Character")
             {
                 m_focus_enemy = m_hit_right_mouse.collider.gameObject;
-                // m_hit_right_mouse.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
             }
             // 땅 선택시
             else 
@@ -122,11 +126,11 @@ public class MouseFollow : MonoBehaviour
 
             // 길이 정해졌는데 적이 선택된 경우
             if (m_hit_right_mouse.collider != null 
-                && m_hit_right_mouse.collider.gameObject.transform.tag != "Character")
+                && m_hit_right_mouse.collider.gameObject.transform.tag != "Character"
+                )
             {
-                m_path_arrived = false;
                 // 적이 사거리 안에 없는 경우
-                if (Vector2.Distance(m_focus_object.transform.position, m_vec) > m_attack_range)
+                if (Vector2.Distance(m_focus_object.transform.position, m_vec) >= m_attack_range)
                 {
                     m_focus_object.transform.Translate(new Vector2(dir.x * m_horizontal_speed * Time.deltaTime, dir.y * m_vertical_speed * Time.deltaTime), Space.World);
                 }
@@ -137,37 +141,33 @@ public class MouseFollow : MonoBehaviour
 
                 }
                 */
-                else 
-                    m_path_arrived = true; //도착함
+                else
+                {
+                    m_path_arrived = true;
+                    if (!m_vec_move_done)
+                    {
+                        Vector2 temp_vec = m_focus_object.transform.position - m_focus_enemy.transform.position;
+                        if (Mathf.Atan2(temp_vec.y, temp_vec.x) * Mathf.Rad2Deg <= 30) m_vec_move_done = true;
+                        float angle = 0;
+                        angle = Mathf.Atan2(temp_vec.y, temp_vec.x) * Mathf.Rad2Deg;
+                        Debug.Log(angle);
+                        if (!m_vec_select) //이동벡터는 한번만 설정
+                        {
+                            if (angle >= 60 && angle < 90) angle = -(angle - 30); //각도 계산을 잘되나 앵글조정 오류가남
+                            else if (angle >= 90 && angle < 120) angle += 30;
+                            else if (angle >= -90 && angle <= -60) angle += 30;
+                            else if (angle >= -120 && angle <= -90) angle = -(angle - 30);
+                            m_target_vec = Quaternion.Euler(0, 0, angle) * temp_vec;
+                            m_target_vec -= temp_vec;
+                            m_vec_select = true;
+                        }
+                        m_focus_object.transform.Translate(new Vector2(m_target_vec.x * m_horizontal_speed * Time.deltaTime, m_target_vec.y * m_vertical_speed * Time.deltaTime), Space.World);
+                    }
+                }
             }
             // 길이 정해졌는데 땅이 선택된 경우
             else 
                 m_focus_object.transform.Translate(new Vector2(dir.x * m_horizontal_speed * Time.deltaTime, dir.y * m_vertical_speed * Time.deltaTime), Space.World);
-
-            // 도착 했음
-            if (m_path_arrived && m_focus_enemy != null)
-            {
-                // 각도 중심으로 진행되는 로직 검토
-                #region 각도 로직 시작
-                Vector2 temp_vec = new Vector2(0,0);
-                if (m_focus_object.transform.position.y - m_focus_enemy.transform.position.y > 0.8f) //너무 높이 있음
-                {
-                    if(m_focus_object.transform.position.x > m_focus_enemy.transform.position.x) 
-                        temp_vec = new Vector2(-m_focus_enemy.transform.position.x, 0.8f);
-                    else 
-                        temp_vec = new Vector2(m_focus_enemy.transform.position.x, 0.8f);
-                }
-                else if (m_focus_enemy.transform.position.y - m_focus_object.transform.position.y > 0.8f)
-                {
-                    if (m_focus_object.transform.position.x > m_focus_enemy.transform.position.x) 
-                        temp_vec = new Vector2(-m_focus_enemy.transform.position.x, -0.8f);
-                    else 
-                        temp_vec = new Vector2(m_focus_enemy.transform.position.x, -0.8f);
-                }
-                temp_vec.Normalize();
-                m_focus_object.transform.Translate(new Vector2(temp_vec.x * m_horizontal_speed * Time.deltaTime * 1.5f, temp_vec.y * m_vertical_speed * Time.deltaTime), Space.World);
-                #endregion
-            }
 
             // 라인 삽입
             m_lr.SetPosition(0, m_focus_object.transform.GetChild(0).transform.position);
