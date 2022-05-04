@@ -8,27 +8,31 @@ using DG.Tweening;
 
 
 public class Saveslot : MonoBehaviour
-{   //양피지 형식으로 만들어서 클릭시 펴지면서 들어가게끔 만들기
-    [SerializeField] GameObject title_name;
-    GameObject click_object;
+{
+    [SerializeField] GameObject m_title_name;
+    GameObject m_click_object;
     private void Start()
     {
-        title_name.transform.DOMoveY(4, 1.5f);
+        m_title_name.transform.DOMoveY(3, 1.5f);
         GetComponent<RectTransform>();
     }
-
-    public void OnButtonClicked()
+    public void ButtonClicked()
     {
-        click_object = EventSystem.current.currentSelectedGameObject;
+        m_click_object = EventSystem.current.currentSelectedGameObject;
         StartCoroutine("ButtonDoTween");
+    }
+    public void ExitButtonClicked()
+    {
+        Application.Quit();
     }
     IEnumerator ButtonDoTween()
     {
-        click_object.GetComponent<SpriteRenderer>().sortingOrder = 1;//재적용필요
-        click_object.transform.position = Vector2.Lerp(click_object.transform.position, new Vector2(0, 0), 1);
-        yield return new WaitForSecondsRealtime(1.0f);
-        click_object.transform.DOScaleX(0.018f, 1.0f);
-        yield return new WaitForSecondsRealtime(1.0f);
+        m_click_object.GetComponentInParent<Canvas>().sortingOrder = 1;
+        m_click_object.transform.DOMoveX(0, 1.5f);
+        yield return new WaitForSecondsRealtime(1.5f);
+        m_click_object.transform.DOScaleX(0.03f, 1.5f);
+        m_click_object.transform.DOScaleY(0.03f, 1.5f);
+        yield return new WaitForSecondsRealtime(1.5f);
         SceneManager.LoadScene("Title_Scene");
     }
 }
