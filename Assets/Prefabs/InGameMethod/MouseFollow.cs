@@ -192,16 +192,16 @@ public class MouseFollow : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.transform.tag == "Character" && m_path_arrived)
+        if (collision.transform.tag == "Character" && !m_path_arrived && m_focus_enemy != null)//뒤에 오는애가 알아서 피하기.
         {
             Vector2 between_move_vec = m_focus_object.transform.position - m_focus_enemy.transform.position;
             if (m_focus_object.transform.position.y > collision.gameObject.transform.position.y)
             {
-                m_between_vec = Quaternion.Euler(0, 0, m_object_between_angle) * between_move_vec;
+                m_between_vec = Quaternion.Euler(0, 0, m_object_between_angle *0.5f) * between_move_vec;
             }
             else 
             {
-                m_between_vec = Quaternion.Euler(0, 0, -m_object_between_angle) * between_move_vec;
+                m_between_vec = Quaternion.Euler(0, 0, -m_object_between_angle * 0.5f) * between_move_vec;
             }
             m_between_vec -= between_move_vec;
             m_between_vec.Normalize();
