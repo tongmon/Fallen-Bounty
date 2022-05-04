@@ -42,7 +42,7 @@ public class MouseFollow : MonoBehaviour
     // 캐릭터가 적보다 너무 위에 있는 경우 캐릭터를 내리기 위한 각도
     private float m_restrict_angle = 40.0f;
 
-    private float m_object_between_angle = 20.0f;
+    private float m_restrict_obj_interval_angle = 20.0f;
 
     // 줄 긋는 객체
     LineRenderer m_lr;
@@ -189,9 +189,61 @@ public class MouseFollow : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.transform.tag != "Character" || m_focus_enemy == null || m_path_arrived)
+        if (collision.transform.tag != "Character" || m_focus_enemy == null || !m_path_arrived)
             return;
 
+        // 도착을 했는데 충돌하면 부딫힌 히어로와 자기 자신 사이의 각도를 잰다.
+        Vector2 enemy_to_other_hero_vec = collision.transform.position - m_focus_enemy.transform.position;
+
+        float interval_angle = Quaternion.FromToRotation(enemy_to_other_hero_vec, -m_obj_to_target_vec).eulerAngles.z;
+
+        interval_angle = Mathf.Min(interval_angle, 360 - interval_angle);
+
+        // 두 영웅의 사잇각이 크면 조절할 필요가 없기에 return
+        if (m_restrict_obj_interval_angle < interval_angle)
+            return;
+
+        float angle_from_datum = Mathf.Atan2(enemy_to_other_hero_vec.y, enemy_to_other_hero_vec.x) * Mathf.Rad2Deg;
+
+        if (m_focus_enemy.transform.position.y < collision.transform.position.y)
+            angle_from_datum -= 90;
+        else
+            angle_from_datum += 90;
+
+        if (m_restrict_angle <= Mathf.Abs(angle_from_datum))
+        {
+            // 각도가 맞음
+        }
+        else
+        {
+            // 각도가 작음
+        }
+
+
+        // 1사분면
+        if (collision.transform.position.y > m_focus_enemy.transform.position.y && collision.transform.position.x > m_focus_enemy.transform.position.x)
+        {
+
+        }
+        // 2사분면
+        else if (collision.transform.position.y > m_focus_enemy.transform.position.y && collision.transform.position.x < m_focus_enemy.transform.position.x)
+        {
+
+        }
+        // 3사분면
+        else if (collision.transform.position.y < m_focus_enemy.transform.position.y && collision.transform.position.x < m_focus_enemy.transform.position.x)
+        {
+
+        }
+        // 4사분면
+        else
+        {
+
+        }
+
+        //Quaternion.Euler(0, 0, m_restrict_obj_interval_angle) * enemy_to_hero_vec;
+        
+        /*
         Vector2 between_move_vec = m_focus_object.transform.position - m_focus_enemy.transform.position;
         if (m_focus_object.transform.position.y > collision.gameObject.transform.position.y)
         {
@@ -204,7 +256,7 @@ public class MouseFollow : MonoBehaviour
         m_between_vec -= between_move_vec;
         m_between_vec.Normalize();
         m_focus_object.transform.Translate(new Vector2(m_between_vec.x * m_horizontal_speed * Time.deltaTime, m_between_vec.y * m_vertical_speed * Time.deltaTime), Space.World);
-
+        */
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -212,6 +264,7 @@ public class MouseFollow : MonoBehaviour
         if (collision.transform.tag != "Character" || m_focus_enemy == null || m_path_arrived)
             return;
 
+        
         // 뒤에 오는애가 알아서 피하기.
     }
 }
