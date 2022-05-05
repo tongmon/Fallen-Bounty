@@ -70,13 +70,13 @@ public class MouseFollow : MonoBehaviour
             // 선택한 영웅을 바꾸는 경우 기존에 선택된 영웅의 밑 원을 제거함
             if (m_focus_object != null)
                 m_focus_object.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0); //색 없애기
-            
+
             // 클릭한 곳 월드 좌표로 따옴
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             m_hit_left_mouse = Physics2D.Raycast(pos, Vector2.zero, 0f);
 
             // 자기자신 선택하면
-            if (m_hit_left_mouse.collider != null 
+            if (m_hit_left_mouse.collider != null
                 && m_hit_left_mouse.collider.gameObject == gameObject)
             {
                 m_path_select = false;
@@ -85,8 +85,8 @@ public class MouseFollow : MonoBehaviour
             }
         }
         // 마우스 우 클릭
-        else if (Input.GetMouseButtonDown(1) 
-            && m_focus_object != null 
+        else if (Input.GetMouseButtonDown(1)
+            && m_focus_object != null
             && m_hit_left_mouse.collider.gameObject == gameObject) //마우스 우 클릭
         {
             m_path_arrived = false;
@@ -96,25 +96,25 @@ public class MouseFollow : MonoBehaviour
             m_hit_right_mouse = Physics2D.Raycast(pos, Vector2.zero, 0f);
 
             // 포커스된 애가 내가 맞으면
-            if (m_focus_object == gameObject) 
+            if (m_focus_object == gameObject)
                 m_path_select = true;
 
             // 적 선택시
-            if (m_hit_right_mouse.collider != null 
+            if (m_hit_right_mouse.collider != null
                 && m_hit_right_mouse.transform.tag != "Character")
             {
                 m_focus_enemy = m_hit_right_mouse.collider.gameObject;
             }
             // 땅 선택시
-            else 
+            else
             {
                 m_target_point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 m_focus_enemy = null;
             }
         }
 
-        // 길이 선택된 경우
-        if (m_path_select)
+        // 길이 선택되었는데 도착을 안한 경우
+        if (m_path_select && !m_path_arrived)
         {
             if (m_hit_right_mouse.collider != null)
                 m_target_point = m_hit_right_mouse.transform.position;
@@ -122,11 +122,8 @@ public class MouseFollow : MonoBehaviour
             // 각도에 따른 좌우 구분을 하기 위해 각도 검사 재검토 필요
             if (m_target_point.x < 0)
                 m_focus_object.transform.rotation = Quaternion.Euler(0, 180, 0);
-            else 
+            else
                 m_focus_object.transform.rotation = Quaternion.Euler(0, 0, 0);
-
-            // 가는 방향 설정
-            m_obj_to_target_vec = new Vector2(0, 0);
 
             float distance_to_target = Vector2.Distance(m_focus_object.transform.position, m_target_point);
 
@@ -145,7 +142,7 @@ public class MouseFollow : MonoBehaviour
                         m_obj_to_target_vec = (Vector2)(m_focus_object.transform.position - m_hit_right_mouse.transform.position);
                 }
                 // 적의 위치가 사거리와 맞지만 각도 조정이 필요
-                else if (!m_path_arrived)
+                else
                 {
                     Vector2 enemy_to_obj_vec = m_focus_object.transform.position - m_focus_enemy.transform.position;
 
@@ -156,21 +153,23 @@ public class MouseFollow : MonoBehaviour
                     else
                         angle += 90;
 
+                    Vector2 move_vec = Quaternion.Euler(0, 0, angle) * enemy_to_obj_vec;
+                    move_vec -= enemy_to_obj_vec;
+                    m_obj_to_target_vec = move_vec.normalized;
+
+                    // 각도가 맞으면 도착으로 간주
                     if (m_restrict_angle <= Mathf.Abs(angle))
                         m_path_arrived = true;
-
-                    if (m_obj_to_target_vec == new Vector2(0, 0))
-                    {
-                        Vector2 move_vec = Quaternion.Euler(0, 0, angle) * enemy_to_obj_vec;
-                        move_vec -= enemy_to_obj_vec;
-                        move_vec.Normalize();
-                        m_obj_to_target_vec = move_vec;
-                    }
                 }
             }
             // 길이 정해졌는데 땅이 선택된 경우
-            else if(distance_to_target > 0.05f)
-                m_obj_to_target_vec = m_target_point - (Vector2)m_focus_object.transform.position;
+            else
+            {
+                if (distance_to_target > 0.05f)
+                    m_obj_to_target_vec = m_target_point - (Vector2)m_focus_object.transform.position;
+                else
+                    m_path_arrived = true;
+            }
 
             m_obj_to_target_vec.Normalize();
             m_focus_object.transform.Translate(new Vector2(m_obj_to_target_vec.x * m_horizontal_speed * Time.deltaTime, m_obj_to_target_vec.y * m_vertical_speed * Time.deltaTime), Space.World);
@@ -193,15 +192,32 @@ public class MouseFollow : MonoBehaviour
             return;
 
         // 도착을 했는데 충돌하면 부딫힌 히어로와 자기 자신 사이의 각도를 잰다.
-        Vector2 enemy_to_other_hero_vec = collision.transform.position - m_focus_enemy.transform.position;
+        Vector2 enemy_to_other_hero_vec = collision.transform.position - m_focus_enemy.transform.position, rotated_min_vec, rotated_max_vec;
 
         float interval_angle = Quaternion.FromToRotation(enemy_to_other_hero_vec, -m_obj_to_target_vec).eulerAngles.z;
 
-        interval_angle = Mathf.Min(interval_angle, 360 - interval_angle);
-
         // 두 영웅의 사잇각이 크면 조절할 필요가 없기에 return
-        if (m_restrict_obj_interval_angle < interval_angle)
+        if (m_restrict_obj_interval_angle < Mathf.Min(interval_angle, 360 - interval_angle))
             return;
+
+        // 양각을 회전시키는 것이 현재 조종하는 영웅을 덜 움직이게 함
+        if (interval_angle < 360 - interval_angle)
+        {
+            rotated_min_vec = Quaternion.Euler(0, 0, m_restrict_obj_interval_angle) * enemy_to_other_hero_vec;
+            rotated_max_vec = Quaternion.Euler(0, 0, -m_restrict_obj_interval_angle) * enemy_to_other_hero_vec;
+        }
+        // 음각을 회전시키는 것이 현재 조종하는 영웅을 덜 움직이게 함
+        else
+        {
+            rotated_min_vec = Quaternion.Euler(0, 0, -m_restrict_obj_interval_angle) * enemy_to_other_hero_vec;
+            rotated_max_vec = Quaternion.Euler(0, 0, m_restrict_obj_interval_angle) * enemy_to_other_hero_vec;
+        }
+
+
+
+
+
+
 
         float angle_from_datum = Mathf.Atan2(enemy_to_other_hero_vec.y, enemy_to_other_hero_vec.x) * Mathf.Rad2Deg;
 
