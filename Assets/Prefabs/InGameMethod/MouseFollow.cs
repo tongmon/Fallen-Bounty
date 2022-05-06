@@ -140,6 +140,8 @@ public class MouseFollow : MonoBehaviour
                     else if (distance_to_target < m_attack_range)
                         m_vec_move_dir = (Vector2)(m_focus_object.transform.position - m_hit_right_mouse.transform.position);
                 }
+
+                /*
                 // 적의 위치가 사거리와 맞지만 각도 조정이 필요
                 else
                 {
@@ -163,6 +165,7 @@ public class MouseFollow : MonoBehaviour
                         m_path_arrived = true;
                     }
                 }
+                */
             }
             // 길이 정해졌는데 땅이 선택된 경우
             else
@@ -196,7 +199,7 @@ public class MouseFollow : MonoBehaviour
         }
     }
 
-    private string m_other_hero_name;
+    // private string m_other_hero_name;
 
     /*
     private void OnTriggerStay2D(Collider2D collision)
@@ -258,6 +261,7 @@ public class MouseFollow : MonoBehaviour
     }
     */
 
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag != "Character" || m_focus_enemy == null || m_other_hero_name.Length != 0)
@@ -315,4 +319,5 @@ public class MouseFollow : MonoBehaviour
 
         m_vec_move_dir = -enemy_to_cur_hero_vec + (angle_with_y_axis < m_restrict_angle ? rotated_max_vec : rotated_min_vec);
     }
+    */
 }
