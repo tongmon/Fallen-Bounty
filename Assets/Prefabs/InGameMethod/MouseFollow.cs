@@ -2,50 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MouseFollow : MonoBehaviour
+class MouseFollow : MonoBehaviour
 {
     // 길을 선택
-    private bool m_path_select;
+    public bool m_path_select;
 
     // 도착함
-    private bool m_path_arrived;
+    public bool m_path_arrived;
 
     // 목표 지점 좌표
-    private Vector2 m_target_point;
+    public Vector2 m_target_point;
 
     // 이동 방향
-    private Vector2? m_vec_move_dir;
+    public Vector2? m_vec_move_dir;
 
     // 자기 자신을 선택했는지 검사하기 위한 자신의 객체
-    private GameObject m_focus_object;
+    public GameObject m_focus_object;
 
     // 선택된 적
-    private GameObject m_focus_enemy;
+    public GameObject m_focus_enemy;
 
     // 왼쪽 마우스
-    private RaycastHit2D m_hit_left_mouse;
+    public RaycastHit2D m_hit_left_mouse;
 
     // 오른쪽 마우스
-    private RaycastHit2D m_hit_right_mouse;
+    public RaycastHit2D m_hit_right_mouse;
 
     // 수평 속도 (좌우)
-    private float m_horizontal_speed;
+    public float m_horizontal_speed;
 
     // 수직 속도 (상하)
-    private float m_vertical_speed;
+    public float m_vertical_speed;
 
     // 공격 사거리
-    private float m_attack_range;
+    public float m_attack_range;
 
     // 캐릭터가 적보다 너무 위에 있는 경우 캐릭터를 내리기 위한 각도
-    private float m_restrict_angle = 40.0f;
+    public float m_restrict_angle = 40.0f;
 
-    private float m_restrict_obj_interval_angle = 20.0f;
+    public float m_restrict_obj_interval_angle = 20.0f;
 
     // 줄 긋는 객체
     LineRenderer m_lr;
 
-    private void Start()
+    void Start()
     {
         m_focus_object = null;
         m_focus_enemy = null;
@@ -79,6 +79,7 @@ public class MouseFollow : MonoBehaviour
                 && m_hit_left_mouse.collider.gameObject == gameObject)
             {
                 m_path_select = false;
+                m_vec_move_dir = null;
                 m_focus_object = gameObject;
                 gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
             }
@@ -88,13 +89,13 @@ public class MouseFollow : MonoBehaviour
             && m_focus_object != null
             && m_hit_left_mouse.collider.gameObject == gameObject) //마우스 우 클릭
         {
-            m_path_arrived = false;
+            m_vec_move_dir = null;
 
             // 우측 클릭 좌표 획득
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             m_hit_right_mouse = Physics2D.Raycast(pos, Vector2.zero, 0f);
 
-            // 포커스된 애가 내가 맞으면
+            // 포커스된 애가 내가 맞으면 m_path_select 여부를 반전
             if (m_focus_object == gameObject)
                 m_path_select = true;
 
@@ -118,28 +119,29 @@ public class MouseFollow : MonoBehaviour
             if (m_hit_right_mouse.collider != null)
                 m_target_point = m_hit_right_mouse.transform.position;
 
+            float distance_to_target = Vector2.Distance(m_focus_object.transform.position, m_target_point);
+
             // 각도에 따른 좌우 구분을 하기 위해 각도 검사 재검토 필요
             if (m_target_point.x < 0)
                 m_focus_object.transform.rotation = Quaternion.Euler(0, 180, 0);
             else
                 m_focus_object.transform.rotation = Quaternion.Euler(0, 0, 0);
 
-            float distance_to_target = Vector2.Distance(m_focus_object.transform.position, m_target_point);
-
             // 길이 정해졌는데 적이 선택된 경우
-            if (m_hit_right_mouse.collider != null
-                && m_hit_right_mouse.collider.gameObject.transform.tag != "Character")
+            if (m_hit_right_mouse.collider != null && m_hit_right_mouse.collider.gameObject.transform.tag == "Enemy")
             {
                 // 적의 위치가 사거리와 맞지 않음
                 if (Mathf.Abs(distance_to_target - m_attack_range) > 0.05f)
                 {
                     // 적이 사거리 안에 없는 경우
                     if (distance_to_target >= m_attack_range)
-                        m_vec_move_dir = (Vector2)(m_hit_right_mouse.transform.position - m_focus_object.transform.position);
+                        m_vec_move_dir = m_target_point - (Vector2)m_focus_object.transform.position;
                     // 적이 사거리보다 가까운 경우
                     else if (distance_to_target < m_attack_range)
-                        m_vec_move_dir = (Vector2)(m_focus_object.transform.position - m_hit_right_mouse.transform.position);
+                        m_vec_move_dir = (Vector2)m_focus_object.transform.position - m_target_point;
                 }
+                else
+                    m_vec_move_dir = null;
 
                 /*
                 // 적의 위치가 사거리와 맞지만 각도 조정이 필요
@@ -173,22 +175,15 @@ public class MouseFollow : MonoBehaviour
                 if (distance_to_target > 0.05f)
                     m_vec_move_dir = m_target_point - (Vector2)m_focus_object.transform.position;
                 else
-                {
                     m_vec_move_dir = null;
-                    m_path_arrived = true;
-                }
             }
 
             // 라인 삽입
             m_lr.SetPosition(0, m_focus_object.transform.GetChild(0).transform.position);
             if (m_hit_right_mouse.collider != null && m_focus_enemy != null)
-            {
                 m_lr.SetPosition(1, m_focus_enemy.transform.GetChild(0).transform.position);
-            }
             else
-            {
                 m_lr.SetPosition(1, m_target_point);
-            }
         }
 
         // 정한 방향에 따라 이동
@@ -197,11 +192,6 @@ public class MouseFollow : MonoBehaviour
             m_vec_move_dir = m_vec_move_dir.Value.normalized;
             m_focus_object.transform.Translate(new Vector2(m_vec_move_dir.Value.x * m_horizontal_speed * Time.deltaTime, m_vec_move_dir.Value.y * m_vertical_speed * Time.deltaTime), Space.World);
         }
-    }
-
-    public string GetFocusEnemyName()
-    {
-        return m_focus_enemy.name;
     }
 
     // private string m_other_hero_name;
