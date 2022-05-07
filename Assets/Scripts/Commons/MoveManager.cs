@@ -8,9 +8,12 @@ public class MoveManager : MonoBehaviour
 
     Dictionary<string, Vector2> m_enemy_pos;
 
+    IDictionary<string, List<MouseFollow>> m_group_by_target;
+
     // Start is called before the first frame update
     void Start()
     {
+        m_group_by_target = new Dictionary<string, List<MouseFollow>>();
         m_enemy_pos = new Dictionary<string, Vector2>();
 
         GameObject[] hero_objs = GameObject.FindGameObjectsWithTag("Character");
@@ -27,9 +30,17 @@ public class MoveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 적 타겟팅이 같은 영웅들 끼리 묶음
         for (int i = 0; i < m_heros.Count; i++)
-        {
+            m_group_by_target[m_heros[i].GetFocusEnemyName()].Add(m_heros[i]);
 
+        // 타겟팅이 같은 영웅들의 현재 위치 상태를 조사함
+        foreach(var heros in m_group_by_target.Values)
+        {
+            for (int i = 0; i < heros.Count; i++)
+            {
+                // 위치 상태 조사
+            }
         }
     }
 }

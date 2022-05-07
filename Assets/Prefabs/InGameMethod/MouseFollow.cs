@@ -199,6 +199,11 @@ public class MouseFollow : MonoBehaviour
         }
     }
 
+    public string GetFocusEnemyName()
+    {
+        return m_focus_enemy.name;
+    }
+
     // private string m_other_hero_name;
 
     /*
