@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 
-public class Saveslot : MonoBehaviour
+public class SaveslotScene : MonoBehaviour
 {
     [SerializeField] GameObject m_title_name;
     GameObject m_click_object;
