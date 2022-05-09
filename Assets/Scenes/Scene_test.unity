@@ -459,6 +459,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &230794715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 230794716}
+  - component: {fileID: 230794717}
+  m_Layer: 0
+  m_Name: MoveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &230794716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230794715}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.3976336, y: -0.19537109, z: 0.26976883}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &230794717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230794715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 906a4ce0b7b95f04594b478d8a4c7363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &356042511
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,6 +766,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282cf0cc970b29245843dbca6fecbbff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_path_select: 0
+  m_path_arrived: 0
+  m_target_point: {x: 0, y: 0}
+  m_focus_object: {fileID: 0}
+  m_focus_enemy: {fileID: 0}
+  m_horizontal_speed: 0
+  m_vertical_speed: 0
+  m_attack_range: 0
+  m_restrict_angle: 40
+  m_restrict_obj_interval_angle: 20
 --- !u!212 &595972330
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1074,6 +1128,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282cf0cc970b29245843dbca6fecbbff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_path_select: 0
+  m_path_arrived: 0
+  m_target_point: {x: 0, y: 0}
+  m_focus_object: {fileID: 0}
+  m_focus_enemy: {fileID: 0}
+  m_horizontal_speed: 0
+  m_vertical_speed: 0
+  m_attack_range: 0
+  m_restrict_angle: 40
+  m_restrict_obj_interval_angle: 20
 --- !u!61 &1187805276
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1133,8 +1197,8 @@ GameObject:
   - component: {fileID: 1339716475}
   - component: {fileID: 1339716477}
   m_Layer: 0
-  m_Name: Enemy (2)
-  m_TagString: Untagged
+  m_Name: Enemy3
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1319,8 +1383,8 @@ GameObject:
   - component: {fileID: 1402553022}
   - component: {fileID: 1402553024}
   m_Layer: 0
-  m_Name: Enemy (1)
-  m_TagString: Untagged
+  m_Name: Enemy2
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1421,8 +1485,8 @@ GameObject:
   - component: {fileID: 1629625948}
   - component: {fileID: 1629625950}
   m_Layer: 0
-  m_Name: Enemy
-  m_TagString: Untagged
+  m_Name: Enemy1
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1778,6 +1842,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282cf0cc970b29245843dbca6fecbbff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_path_select: 0
+  m_path_arrived: 0
+  m_target_point: {x: 0, y: 0}
+  m_focus_object: {fileID: 0}
+  m_focus_enemy: {fileID: 0}
+  m_horizontal_speed: 0
+  m_vertical_speed: 0
+  m_attack_range: 0
+  m_restrict_angle: 40
+  m_restrict_obj_interval_angle: 20
 --- !u!61 &1736995189
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2025,6 +2099,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282cf0cc970b29245843dbca6fecbbff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_path_select: 0
+  m_path_arrived: 0
+  m_target_point: {x: 0, y: 0}
+  m_focus_object: {fileID: 0}
+  m_focus_enemy: {fileID: 0}
+  m_horizontal_speed: 0
+  m_vertical_speed: 0
+  m_attack_range: 0
+  m_restrict_angle: 40
+  m_restrict_obj_interval_angle: 20
 --- !u!61 &2096265989
 BoxCollider2D:
   m_ObjectHideFlags: 0
