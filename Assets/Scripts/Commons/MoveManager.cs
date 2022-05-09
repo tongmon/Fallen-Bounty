@@ -58,7 +58,7 @@ public class MoveManager : MonoBehaviour
             for (int i = 0; i < heros.Count; i++)
             {              
                 // 영웅의 속도가 없는 상태에서만 위치를 재조정한다.
-                if (heros[i].m_vec_move_dir == null)
+                if (heros[i].m_vec_move_dir == null) // heros[i].m_vec_move_dir == null
                 {
                     if (heros[i].transform.position.x < m_enemy_pos[enemy_name].x)
                         left_pos_heros.Add(heros[i]);
@@ -75,9 +75,15 @@ public class MoveManager : MonoBehaviour
                 case 1:
                     {
                         float angle = Quaternion.FromToRotation(Vector2.right, (Vector2)right_pos_heros[0].transform.position - m_enemy_pos[enemy_name]).eulerAngles.z;
-                        if (Mathf.Abs(angle) >= 0.05f)
+                        if (Mathf.Abs(angle) >= 1.0f)
                         {
+                            right_pos_heros[0].m_move_state = MouseFollow.eMoveState.STATE_MOVE_ROTATION;
                             right_pos_heros[0].m_vec_move_dir = m_enemy_pos[enemy_name] - (Vector2)right_pos_heros[0].transform.position + new Vector2(right_pos_heros[0].m_attack_range, 0);
+                        }
+                        else
+                        {
+                            right_pos_heros[0].m_move_state = MouseFollow.eMoveState.STATE_MOVE_NONE;
+                            right_pos_heros[0].m_vec_move_dir = null;
                         }
                     }
                     break;
@@ -96,8 +102,11 @@ public class MoveManager : MonoBehaviour
                         float angle = Mathf.Atan2(right_pos_heros[0].transform.position.y, right_pos_heros[0].transform.position.x) * Mathf.Rad2Deg;
                         if (Mathf.Abs(180 - angle) >= 0.05f)
                         {
+                            right_pos_heros[0].m_move_state = MouseFollow.eMoveState.STATE_MOVE_ROTATION;
                             right_pos_heros[0].m_vec_move_dir = m_enemy_pos[enemy_name] - (Vector2)right_pos_heros[0].transform.position + new Vector2(-right_pos_heros[0].m_attack_range, 0);
                         }
+                        else
+                            right_pos_heros[0].m_move_state = MouseFollow.eMoveState.STATE_MOVE_NONE;
                     }
                     break;
                 case 2:

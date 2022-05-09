@@ -4,11 +4,18 @@ using UnityEngine;
 
 class MouseFollow : MonoBehaviour
 {
-    // 길을 선택
-    public bool m_path_select;
+    public enum eMoveState 
+    {
+        STATE_MOVE_STRAIGHT,
+        STATE_MOVE_ROTATION,
+        STATE_MOVE_NONE,
+    }
+
+    // 이동 상태
+    public eMoveState m_move_state;
 
     // 도착함
-    public bool m_path_arrived;
+    // public bool m_path_arrived;
 
     // 목표 지점 좌표
     public Vector2 m_target_point;
@@ -47,6 +54,8 @@ class MouseFollow : MonoBehaviour
 
     void Start()
     {
+        m_move_state = eMoveState.STATE_MOVE_NONE;
+
         m_focus_object = null;
         m_focus_enemy = null;
         m_vec_move_dir = null;
@@ -78,7 +87,7 @@ class MouseFollow : MonoBehaviour
             if (m_hit_left_mouse.collider != null
                 && m_hit_left_mouse.collider.gameObject == gameObject)
             {
-                m_path_select = false;
+                m_move_state = eMoveState.STATE_MOVE_NONE;
                 m_vec_move_dir = null;
                 m_focus_object = gameObject;
                 gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
@@ -97,7 +106,9 @@ class MouseFollow : MonoBehaviour
 
             // 포커스된 애가 내가 맞으면 m_path_select 여부를 반전
             if (m_focus_object == gameObject)
-                m_path_select = true;
+                m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
+            else
+                m_move_state = eMoveState.STATE_MOVE_NONE;
 
             // 적 선택시
             if (m_hit_right_mouse.collider != null
@@ -114,7 +125,7 @@ class MouseFollow : MonoBehaviour
         }
 
         // 길이 선택되었는데 도착을 안한 경우
-        if (m_path_select)
+        if (m_move_state != eMoveState.STATE_MOVE_NONE)
         {
             if (m_hit_right_mouse.collider != null)
                 m_target_point = m_hit_right_mouse.transform.position;
@@ -137,11 +148,14 @@ class MouseFollow : MonoBehaviour
                     if (distance_to_target >= m_attack_range)
                         m_vec_move_dir = m_target_point - (Vector2)m_focus_object.transform.position;
                     // 적이 사거리보다 가까운 경우
-                    else if (distance_to_target < m_attack_range)
+                    else
                         m_vec_move_dir = (Vector2)m_focus_object.transform.position - m_target_point;
                 }
-                else
+                else if (m_move_state == eMoveState.STATE_MOVE_STRAIGHT)
+                {
                     m_vec_move_dir = null;
+                    m_move_state = eMoveState.STATE_MOVE_NONE;
+                }
 
                 /*
                 // 적의 위치가 사거리와 맞지만 각도 조정이 필요
@@ -175,10 +189,13 @@ class MouseFollow : MonoBehaviour
                 if (distance_to_target > 0.05f)
                     m_vec_move_dir = m_target_point - (Vector2)m_focus_object.transform.position;
                 else
+                {
+                    m_move_state = eMoveState.STATE_MOVE_NONE;
                     m_vec_move_dir = null;
+                }
             }
 
-            // 라인 삽입
+            // 선택 선 그리기
             m_lr.SetPosition(0, m_focus_object.transform.GetChild(0).transform.position);
             if (m_hit_right_mouse.collider != null && m_focus_enemy != null)
                 m_lr.SetPosition(1, m_focus_enemy.transform.GetChild(0).transform.position);
