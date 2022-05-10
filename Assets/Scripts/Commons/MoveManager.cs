@@ -13,9 +13,19 @@ public class MoveManager : MonoBehaviour
 
     Dictionary<string, List<MouseFollow>> m_group_by_target;
 
+    float[] m_angles;
+    float[,] m_angle_def;
+
     // Start is called before the first frame update
     void Start()
     {
+        m_angles = new float[4];
+        m_angle_def = new float[4, 4];
+        m_angle_def[0, 0] = 0;
+        m_angle_def[1, 0] = -20; m_angle_def[1, 1] = 20;
+        m_angle_def[2, 0] = -25; m_angle_def[2, 1] = 0; m_angle_def[2, 2] = 25;
+        m_angle_def[3, 0] = -30; m_angle_def[3, 1] = -15; m_angle_def[3, 2] = 15; m_angle_def[3, 3] = 30;
+
         m_group_by_target = new Dictionary<string, List<MouseFollow>>();
         m_enemy_pos = new Dictionary<string, Vector2>();
 
@@ -57,8 +67,8 @@ public class MoveManager : MonoBehaviour
             List<MouseFollow> heros = m_group_by_target[enemy_name];
             for (int i = 0; i < heros.Count; i++)
             {              
-                // 영웅의 속도가 없는 상태에서만 위치를 재조정한다.
-                if (heros[i].m_vec_move_dir == null) // heros[i].m_vec_move_dir == null
+                // 영웅이동 방법이 회전이나 정지 상태인 경우 영웅의 각도를 조절한다.
+                if (heros[i].m_move_state == MouseFollow.eMoveState.STATE_MOVE_ROTATION || heros[i].m_move_state == MouseFollow.eMoveState.STATE_MOVE_NONE)
                 {
                     if (heros[i].transform.position.x < m_enemy_pos[enemy_name].x)
                         left_pos_heros.Add(heros[i]);
@@ -69,52 +79,41 @@ public class MoveManager : MonoBehaviour
 
             right_pos_heros = right_pos_heros.OrderBy(y => y.transform.position.y).ToList();
             left_pos_heros = left_pos_heros.OrderBy(y => y.transform.position.y).ToList();
+            
+            Vector2 dest_vec;
 
-            switch (right_pos_heros.Count)
+            for (int i = 0; i < right_pos_heros.Count; i++)
             {
-                case 1:
+                for (int j = 0; j <= i; j++)
+                {
+                    m_angles[j] = Quaternion.FromToRotation(Vector2.right, (Vector2)right_pos_heros[j].transform.position - m_enemy_pos[enemy_name]).eulerAngles.z;
+
+                    if (Mathf.Abs(Mathf.Abs(m_angles[j]) - m_angle_def[i, j]) >= 2.0f)
                     {
-                        float angle = Quaternion.FromToRotation(Vector2.right, (Vector2)right_pos_heros[0].transform.position - m_enemy_pos[enemy_name]).eulerAngles.z;
-                        if (Mathf.Abs(angle) >= 1.0f)
-                        {
-                            right_pos_heros[0].m_move_state = MouseFollow.eMoveState.STATE_MOVE_ROTATION;
-                            right_pos_heros[0].m_vec_move_dir = m_enemy_pos[enemy_name] - (Vector2)right_pos_heros[0].transform.position + new Vector2(right_pos_heros[0].m_attack_range, 0);
-                        }
-                        else
-                        {
-                            right_pos_heros[0].m_move_state = MouseFollow.eMoveState.STATE_MOVE_NONE;
-                            right_pos_heros[0].m_vec_move_dir = null;
-                        }
+                        dest_vec = Quaternion.Euler(0, 0, m_angle_def[i, j]) * new Vector2(right_pos_heros[j].m_attack_range, 0);
+                        right_pos_heros[j].m_move_state = MouseFollow.eMoveState.STATE_MOVE_ROTATION;
+                        right_pos_heros[j].m_vec_move_dir = m_enemy_pos[enemy_name] - (Vector2)right_pos_heros[j].transform.position + dest_vec;
                     }
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
+                    else
+                        right_pos_heros[j].m_move_state = MouseFollow.eMoveState.STATE_MOVE_STRAIGHT;
+                }
             }
 
-            switch (left_pos_heros.Count)
+            for (int i = 0; i < left_pos_heros.Count; i++)
             {
-                case 1:
+                for (int j = 0; j <= i; j++)
+                {
+                    m_angles[j] = Quaternion.FromToRotation(Vector2.left, (Vector2)left_pos_heros[j].transform.position - m_enemy_pos[enemy_name]).eulerAngles.z;
+
+                    if (Mathf.Abs(Mathf.Abs(m_angles[j]) - m_angle_def[i, j]) >= 2.0f)
                     {
-                        float angle = Mathf.Atan2(right_pos_heros[0].transform.position.y, right_pos_heros[0].transform.position.x) * Mathf.Rad2Deg;
-                        if (Mathf.Abs(180 - angle) >= 0.05f)
-                        {
-                            right_pos_heros[0].m_move_state = MouseFollow.eMoveState.STATE_MOVE_ROTATION;
-                            right_pos_heros[0].m_vec_move_dir = m_enemy_pos[enemy_name] - (Vector2)right_pos_heros[0].transform.position + new Vector2(-right_pos_heros[0].m_attack_range, 0);
-                        }
-                        else
-                            right_pos_heros[0].m_move_state = MouseFollow.eMoveState.STATE_MOVE_NONE;
+                        dest_vec = Quaternion.Euler(0, 0, m_angle_def[i, j]) * new Vector2(left_pos_heros[j].m_attack_range, 0);
+                        left_pos_heros[j].m_move_state = MouseFollow.eMoveState.STATE_MOVE_ROTATION;
+                        left_pos_heros[j].m_vec_move_dir = m_enemy_pos[enemy_name] - (Vector2)left_pos_heros[j].transform.position + dest_vec;
                     }
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
+                    else
+                        left_pos_heros[j].m_move_state = MouseFollow.eMoveState.STATE_MOVE_STRAIGHT;
+                }
             }
         }
     }
