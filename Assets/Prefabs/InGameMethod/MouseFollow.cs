@@ -135,13 +135,15 @@ class MouseFollow : MonoBehaviour
             if (m_hit_right_mouse.collider != null 
                 && m_hit_right_mouse.collider.gameObject.transform.tag == "Enemy")
             {
+                /*
                 // 적의 위치와 근거리 영웅의 공격 각도가 맞지 않음
                 if (m_move_state == eMoveState.STATE_MOVE_ROTATION)
                 {
 
                 }
+                */
                 // 적의 위치가 사거리와 맞지 않음
-                else if (Mathf.Abs(distance_to_target - m_attack_range) > 0.05f)
+                if (Mathf.Abs(distance_to_target - m_attack_range) > 0.05f)
                 {
                     m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
                     // 적이 사거리 안에 없는 경우
