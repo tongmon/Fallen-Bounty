@@ -14,14 +14,11 @@ class MouseFollow : MonoBehaviour
     // 이동 상태
     public eMoveState m_move_state;
 
-    // 도착함
-    // public bool m_path_arrived;
-
     // 목표 지점 좌표
     public Vector2 m_target_point;
 
     // 이동 방향
-    public Vector2? m_vec_move_dir;
+    public Vector2 m_vec_move_dir;
 
     // 자기 자신을 선택했는지 검사하기 위한 자신의 객체
     public GameObject m_focus_object;
@@ -58,7 +55,6 @@ class MouseFollow : MonoBehaviour
 
         m_focus_object = null;
         m_focus_enemy = null;
-        m_vec_move_dir = null;
 
         m_restrict_angle = 45.0f;
         m_attack_range = 2f;
@@ -88,7 +84,6 @@ class MouseFollow : MonoBehaviour
                 && m_hit_left_mouse.collider.gameObject == gameObject)
             {
                 m_move_state = eMoveState.STATE_MOVE_NONE;
-                m_vec_move_dir = null;
                 m_focus_object = gameObject;
                 gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
             }
@@ -98,8 +93,6 @@ class MouseFollow : MonoBehaviour
             && m_focus_object != null
             && m_hit_left_mouse.collider.gameObject == gameObject) //마우스 우 클릭
         {
-            m_vec_move_dir = null;
-
             // 우측 클릭 좌표 획득
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             m_hit_right_mouse = Physics2D.Raycast(pos, Vector2.zero, 0f);
@@ -139,11 +132,18 @@ class MouseFollow : MonoBehaviour
                 m_focus_object.transform.rotation = Quaternion.Euler(0, 0, 0);
 
             // 길이 정해졌는데 적이 선택된 경우
-            if (m_hit_right_mouse.collider != null && m_hit_right_mouse.collider.gameObject.transform.tag == "Enemy")
+            if (m_hit_right_mouse.collider != null 
+                && m_hit_right_mouse.collider.gameObject.transform.tag == "Enemy")
             {
-                // 적의 위치가 사거리와 맞지 않음
-                if (Mathf.Abs(distance_to_target - m_attack_range) > 0.05f)
+                // 적의 위치와 근거리 영웅의 공격 각도가 맞지 않음
+                if (m_move_state == eMoveState.STATE_MOVE_ROTATION)
                 {
+
+                }
+                // 적의 위치가 사거리와 맞지 않음
+                else if (Mathf.Abs(distance_to_target - m_attack_range) > 0.05f)
+                {
+                    m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
                     // 적이 사거리 안에 없는 경우
                     if (distance_to_target >= m_attack_range)
                         m_vec_move_dir = m_target_point - (Vector2)m_focus_object.transform.position;
@@ -151,11 +151,8 @@ class MouseFollow : MonoBehaviour
                     else
                         m_vec_move_dir = (Vector2)m_focus_object.transform.position - m_target_point;
                 }
-                else if (m_move_state == eMoveState.STATE_MOVE_STRAIGHT)
-                {
-                    m_vec_move_dir = null;
+                else
                     m_move_state = eMoveState.STATE_MOVE_NONE;
-                }
 
                 /*
                 // 적의 위치가 사거리와 맞지만 각도 조정이 필요
@@ -187,12 +184,12 @@ class MouseFollow : MonoBehaviour
             else
             {
                 if (distance_to_target > 0.05f)
-                    m_vec_move_dir = m_target_point - (Vector2)m_focus_object.transform.position;
-                else
                 {
-                    m_move_state = eMoveState.STATE_MOVE_NONE;
-                    m_vec_move_dir = null;
+                    m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
+                    m_vec_move_dir = m_target_point - (Vector2)m_focus_object.transform.position;
                 }
+                else
+                    m_move_state = eMoveState.STATE_MOVE_NONE;
             }
 
             // 선택 선 그리기
@@ -204,10 +201,10 @@ class MouseFollow : MonoBehaviour
         }
 
         // 정한 방향에 따라 이동
-        if (m_vec_move_dir != null)
+        if (m_move_state != eMoveState.STATE_MOVE_NONE)
         {
-            m_vec_move_dir = m_vec_move_dir.Value.normalized;
-            m_focus_object.transform.Translate(new Vector2(m_vec_move_dir.Value.x * m_horizontal_speed * Time.deltaTime, m_vec_move_dir.Value.y * m_vertical_speed * Time.deltaTime), Space.World);
+            m_vec_move_dir.Normalize();
+            m_focus_object.transform.Translate(new Vector2(m_vec_move_dir.x * m_horizontal_speed * Time.deltaTime, m_vec_move_dir.y * m_vertical_speed * Time.deltaTime), Space.World);
         }
     }
 

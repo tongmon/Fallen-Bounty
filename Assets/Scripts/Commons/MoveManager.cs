@@ -57,8 +57,8 @@ public class MoveManager : MonoBehaviour
             List<MouseFollow> heros = m_group_by_target[enemy_name];
             for (int i = 0; i < heros.Count; i++)
             {              
-                // 영웅의 속도가 없는 상태에서만 위치를 재조정한다.
-                if (heros[i].m_vec_move_dir == null) // heros[i].m_vec_move_dir == null
+                // 영웅이동 방법이 회전이나 정지 상태인 경우 영웅의 각도를 조절한다.
+                if (heros[i].m_move_state == MouseFollow.eMoveState.STATE_MOVE_ROTATION || heros[i].m_move_state == MouseFollow.eMoveState.STATE_MOVE_NONE)
                 {
                     if (heros[i].transform.position.x < m_enemy_pos[enemy_name].x)
                         left_pos_heros.Add(heros[i]);
@@ -81,13 +81,13 @@ public class MoveManager : MonoBehaviour
                             right_pos_heros[0].m_vec_move_dir = m_enemy_pos[enemy_name] - (Vector2)right_pos_heros[0].transform.position + new Vector2(right_pos_heros[0].m_attack_range, 0);
                         }
                         else
-                        {
-                            right_pos_heros[0].m_move_state = MouseFollow.eMoveState.STATE_MOVE_NONE;
-                            right_pos_heros[0].m_vec_move_dir = null;
-                        }
+                            right_pos_heros[0].m_move_state = MouseFollow.eMoveState.STATE_MOVE_STRAIGHT;
                     }
                     break;
                 case 2:
+                    {
+
+                    }
                     break;
                 case 3:
                     break;
@@ -99,17 +99,20 @@ public class MoveManager : MonoBehaviour
             {
                 case 1:
                     {
-                        float angle = Mathf.Atan2(right_pos_heros[0].transform.position.y, right_pos_heros[0].transform.position.x) * Mathf.Rad2Deg;
+                        float angle = Mathf.Atan2(left_pos_heros[0].transform.position.y, left_pos_heros[0].transform.position.x) * Mathf.Rad2Deg;
                         if (Mathf.Abs(180 - angle) >= 0.05f)
                         {
-                            right_pos_heros[0].m_move_state = MouseFollow.eMoveState.STATE_MOVE_ROTATION;
-                            right_pos_heros[0].m_vec_move_dir = m_enemy_pos[enemy_name] - (Vector2)right_pos_heros[0].transform.position + new Vector2(-right_pos_heros[0].m_attack_range, 0);
+                            left_pos_heros[0].m_move_state = MouseFollow.eMoveState.STATE_MOVE_ROTATION;
+                            left_pos_heros[0].m_vec_move_dir = m_enemy_pos[enemy_name] - (Vector2)left_pos_heros[0].transform.position + new Vector2(-left_pos_heros[0].m_attack_range, 0);
                         }
                         else
-                            right_pos_heros[0].m_move_state = MouseFollow.eMoveState.STATE_MOVE_NONE;
+                            left_pos_heros[0].m_move_state = MouseFollow.eMoveState.STATE_MOVE_NONE;
                     }
                     break;
                 case 2:
+                    {
+
+                    }
                     break;
                 case 3:
                     break;
