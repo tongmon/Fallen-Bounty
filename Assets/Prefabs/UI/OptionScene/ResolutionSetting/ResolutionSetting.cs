@@ -8,15 +8,21 @@ public class ResolutionSetting : MonoBehaviour
     FullScreenMode m_screenMode;
     public Dropdown m_dropdown;
     public Toggle m_fullscreen_button;
+    public Toggle m_v_sync_button;
     List<Resolution> m_resolution = new List<Resolution>();
     public int m_resolution_value;
     private void Start()
     {
         InitializeUI();
+        Debug.Log(QualitySettings.vSyncCount);
     }
     void InitializeUI()
     {
-        m_resolution.AddRange(Screen.resolutions);
+        for(int i=0; i<Screen.resolutions.Length; i++)
+        {
+            if (Screen.resolutions[i].refreshRate == 75)
+                m_resolution.Add(Screen.resolutions[i]);
+        }
         m_dropdown.options.Clear();
 
         int optionNum = 0;
@@ -34,6 +40,7 @@ public class ResolutionSetting : MonoBehaviour
         m_dropdown.RefreshShownValue();
 
         m_fullscreen_button.isOn = Screen.fullScreenMode.Equals(FullScreenMode.FullScreenWindow) ? true : false;
+
     }
     public void DropdownOptionChange(int x)
     {
@@ -46,5 +53,9 @@ public class ResolutionSetting : MonoBehaviour
     public void FullScreenButton(bool isFull)
     {
         m_screenMode = isFull ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
+    }
+    public void VSyncChange(bool isClicked)
+    {
+        QualitySettings.vSyncCount ^= 1;
     }
 }
