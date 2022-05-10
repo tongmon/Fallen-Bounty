@@ -30,8 +30,8 @@ public class SaveslotScene : MonoBehaviour
         m_click_object.GetComponentInParent<Canvas>().sortingOrder = 1;
         m_click_object.transform.DOMoveX(0, 1.5f);
         yield return new WaitForSecondsRealtime(1.5f);
-        m_click_object.transform.DOScaleX(0.03f, 1.5f);
-        m_click_object.transform.DOScaleY(0.03f, 1.5f);
+        m_click_object.transform.DOScaleX(2.5f, 1.5f);
+        m_click_object.transform.DOScaleY(2.5f, 1.5f);
         yield return new WaitForSecondsRealtime(1.5f);
         SceneManager.LoadScene("Title_Scene");
     }

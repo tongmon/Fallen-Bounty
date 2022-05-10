@@ -5,12 +5,24 @@ using UnityEngine.UI;
 
 public class ResolutionSetting : MonoBehaviour
 {
+    public Dropdown m_dropdown;
+    List<Resolution> m_resolution = new List<Resolution>();
 
-    Dropdown m_resolution_dropdown;
-    float m_resolution_x;
-    float m_resolution_y;
-    public void ResolutionChange()
+    private void Start()
     {
-        //m_resolution_x = m_resolution_dropdown.value;
+        InitializeUI();
+    }
+    void InitializeUI()
+    {
+        m_resolution.AddRange(Screen.resolutions);
+        m_dropdown.options.Clear();
+
+        foreach(Resolution item in m_resolution)
+        {
+            Dropdown.OptionData option = new Dropdown.OptionData();
+            option.text = item.width + "x" + item.height + " " + item.refreshRate + "hz";
+            m_dropdown.options.Add(option);
+        }
+        m_dropdown.RefreshShownValue();
     }
 }
