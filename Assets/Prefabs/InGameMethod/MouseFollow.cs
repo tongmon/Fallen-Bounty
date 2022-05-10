@@ -153,32 +153,6 @@ class MouseFollow : MonoBehaviour
                 }
                 else
                     m_move_state = eMoveState.STATE_MOVE_NONE;
-
-                /*
-                // 적의 위치가 사거리와 맞지만 각도 조정이 필요
-                else
-                {
-                    Vector2 enemy_to_obj_vec = m_focus_object.transform.position - m_focus_enemy.transform.position;
-
-                    float angle = Mathf.Atan2(enemy_to_obj_vec.y, enemy_to_obj_vec.x) * Mathf.Rad2Deg;
-
-                    if (m_focus_enemy.transform.position.y < m_focus_object.transform.position.y)
-                        angle -= 90;
-                    else
-                        angle += 90;
-
-                    Vector2 move_vec = Quaternion.Euler(0, 0, angle) * enemy_to_obj_vec;
-                    move_vec -= enemy_to_obj_vec;
-                    m_vec_move_dir = move_vec.normalized;
-
-                    // 각도가 맞으면 도착으로 간주
-                    if (m_restrict_angle <= Mathf.Abs(angle))
-                    {
-                        m_vec_move_dir = null;
-                        m_path_arrived = true;
-                    }
-                }
-                */
             }
             // 길이 정해졌는데 땅이 선택된 경우
             else
