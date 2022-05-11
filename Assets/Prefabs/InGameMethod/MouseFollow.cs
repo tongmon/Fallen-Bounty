@@ -135,15 +135,13 @@ class MouseFollow : MonoBehaviour
             if (m_hit_right_mouse.collider != null 
                 && m_hit_right_mouse.collider.gameObject.transform.tag == "Enemy")
             {
-                /*
                 // 적의 위치와 근거리 영웅의 공격 각도가 맞지 않음
                 if (m_move_state == eMoveState.STATE_MOVE_ROTATION)
                 {
 
                 }
-                */
                 // 적의 위치가 사거리와 맞지 않음
-                if (Mathf.Abs(distance_to_target - m_attack_range) > 0.05f)
+                else if (Mathf.Abs(distance_to_target - m_attack_range) > 0.1f)
                 {
                     m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
                     // 적이 사거리 안에 없는 경우
@@ -154,12 +152,12 @@ class MouseFollow : MonoBehaviour
                         m_vec_move_dir = (Vector2)m_focus_object.transform.position - m_target_point;
                 }
                 else
-                    m_move_state = eMoveState.STATE_MOVE_NONE;
+                    m_move_state = eMoveState.STATE_MOVE_ROTATION;
             }
             // 길이 정해졌는데 땅이 선택된 경우
             else
             {
-                if (distance_to_target > 0.05f)
+                if (distance_to_target > 0.1f)
                 {
                     m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
                     m_vec_move_dir = m_target_point - (Vector2)m_focus_object.transform.position;

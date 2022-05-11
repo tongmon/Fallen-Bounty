@@ -72,8 +72,8 @@ public class MoveManager : MonoBehaviour
                 // 영웅이동 방법이 회전이나 정지 상태인 경우 영웅의 각도를 조절한다.
                 //if (Mathf.Abs(distance_to_target - heros[i].m_attack_range) <= 0.05f)
                 //{
-                    if (heros[i].transform.position.x < m_enemy_pos[enemy_name].x)
-                        left_pos_heros.Add(heros[i]);
+                    if (heros[i].m_move_state == MouseFollow.eMoveState.STATE_MOVE_ROTATION) // heros[i].transform.position.x < m_enemy_pos[enemy_name].x
+                    left_pos_heros.Add(heros[i]);
                     else
                         right_pos_heros.Add(heros[i]);
                 //}
@@ -86,18 +86,25 @@ public class MoveManager : MonoBehaviour
 
             for (int i = 0; i < right_pos_heros.Count; i++)
             {
+                bool is_all_done = true;
                 for (int j = 0; j <= i; j++)
                 {
                     m_angles[j] = Quaternion.FromToRotation(Vector2.right, (Vector2)right_pos_heros[j].transform.position - m_enemy_pos[enemy_name]).eulerAngles.z;
 
                     if (Mathf.Abs(Mathf.Abs(m_angles[j]) - m_angle_def[i, j]) >= 2.0f)
                     {
+                        is_all_done = false;
                         dest_vec = Quaternion.Euler(0, 0, m_angle_def[i, j]) * new Vector2(right_pos_heros[j].m_attack_range, 0);
                         right_pos_heros[j].m_move_state = MouseFollow.eMoveState.STATE_MOVE_ROTATION;
                         right_pos_heros[j].m_vec_move_dir = m_enemy_pos[enemy_name] - (Vector2)right_pos_heros[j].transform.position + dest_vec;
                     }
-                    else
-                        right_pos_heros[j].m_move_state = MouseFollow.eMoveState.STATE_MOVE_NONE;
+                    //else
+                        //right_pos_heros[j].m_move_state = MouseFollow.eMoveState.STATE_MOVE_NONE;
+                }
+
+                for (int j = 0; j <= i && is_all_done; j++)
+                {
+                    right_pos_heros[j].m_move_state = MouseFollow.eMoveState.STATE_MOVE_NONE;
                 }
             }
 
