@@ -8,13 +8,14 @@ public class ResolutionSetting : MonoBehaviour
     FullScreenMode m_screenMode;
     public Dropdown m_dropdown;
     public Toggle m_fullscreen_button;
-    public Toggle m_v_sync_button;
+    public Toggle m_damage_toggle;
+    public GameObject m_DamageText;
+    
     List<Resolution> m_resolution = new List<Resolution>();
     public int m_resolution_value;
     private void Start()
     {
         InitializeUI();
-        Debug.Log(QualitySettings.vSyncCount);
     }
     void InitializeUI()
     {
@@ -54,8 +55,16 @@ public class ResolutionSetting : MonoBehaviour
     {
         m_screenMode = isFull ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
     }
-    public void VSyncChange(bool isClicked)
+    public void VSyncChange()
     {
         QualitySettings.vSyncCount ^= 1;
+    }
+    public void DamageToggle()
+    {
+        m_DamageText.SetActive(m_damage_toggle.isOn);
+    }
+    public void GammaEdit()
+    {
+
     }
 }

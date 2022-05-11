@@ -7,14 +7,12 @@ public class OptionScene : MonoBehaviour
 {
     [SerializeField] GameObject AudioSetting;
     [SerializeField] GameObject ResolutionSetting;
-    [SerializeField] GameObject GraphicSetting;
     [SerializeField] GameObject KeySetting;
     [SerializeField] GameObject GameplaySetting;
     public void AudioButtonClicked()
     {
         AudioSetting.SetActive(true);
         ResolutionSetting.SetActive(false);
-        GraphicSetting.SetActive(false);
         KeySetting.SetActive(false);
         GameplaySetting.SetActive(false);
     }
@@ -22,7 +20,6 @@ public class OptionScene : MonoBehaviour
     {
         AudioSetting.SetActive(false);
         ResolutionSetting.SetActive(true);
-        GraphicSetting.SetActive(false);
         KeySetting.SetActive(false);
         GameplaySetting.SetActive(false);
     }
@@ -30,7 +27,6 @@ public class OptionScene : MonoBehaviour
     {
         AudioSetting.SetActive(false);
         ResolutionSetting.SetActive(false);
-        GraphicSetting.SetActive(true);
         KeySetting.SetActive(false);
         GameplaySetting.SetActive(false);
     }
@@ -38,7 +34,6 @@ public class OptionScene : MonoBehaviour
     {
         AudioSetting.SetActive(false);
         ResolutionSetting.SetActive(false);
-        GraphicSetting.SetActive(false);
         KeySetting.SetActive(true);
         GameplaySetting.SetActive(false);
     }
@@ -46,7 +41,6 @@ public class OptionScene : MonoBehaviour
     {
         AudioSetting.SetActive(false);
         ResolutionSetting.SetActive(false);
-        GraphicSetting.SetActive(false);
         KeySetting.SetActive(false);
         GameplaySetting.SetActive(true);
     }
