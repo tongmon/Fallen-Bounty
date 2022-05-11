@@ -10,12 +10,16 @@ public class ResolutionSetting : MonoBehaviour
     public Toggle m_fullscreen_button;
     public Toggle m_damage_toggle;
     public GameObject m_DamageText;
+    public Slider m_gamma_slider;
+    public Light m_global_light;
     
     List<Resolution> m_resolution = new List<Resolution>();
     public int m_resolution_value;
     private void Start()
     {
         InitializeUI();
+        GameObject.Find("GlobalLight").GetComponent<Light>().intensity = m_global_light.intensity;
+        m_gamma_slider.value = m_global_light.intensity;
     }
     void InitializeUI()
     {
@@ -65,6 +69,7 @@ public class ResolutionSetting : MonoBehaviour
     }
     public void GammaEdit()
     {
-
+        GameObject.Find("GlobalLight").GetComponent<Light>().intensity = m_global_light.intensity;
+        m_global_light.intensity = m_gamma_slider.value; 
     }
 }
