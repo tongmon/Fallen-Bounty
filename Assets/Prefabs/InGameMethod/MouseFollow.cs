@@ -68,6 +68,7 @@ class MouseFollow : MonoBehaviour
     }
     void Update()
     {
+        #region 마우스 이벤트
         // 마우스 좌 클릭
         if (Input.GetMouseButtonDown(0))
         {
@@ -105,8 +106,9 @@ class MouseFollow : MonoBehaviour
 
             // 적 선택시
             if (m_hit_right_mouse.collider != null
-                && m_hit_right_mouse.transform.tag != "Character")
+                && m_hit_right_mouse.transform.tag == "Enemy")
             {
+                m_target_point = m_hit_right_mouse.transform.position;
                 m_focus_enemy = m_hit_right_mouse.collider.gameObject;
             }
             // 땅 선택시
@@ -116,9 +118,10 @@ class MouseFollow : MonoBehaviour
                 m_focus_enemy = null;
             }
         }
+        #endregion
 
-        if (m_hit_right_mouse.collider != null)
-            m_target_point = m_hit_right_mouse.transform.position;
+        if (m_move_state == eMoveState.STATE_MOVE_NONE || m_move_state == eMoveState.STATE_MOVE_ROTATION)
+            return;
 
         float distance_to_target = Vector2.Distance(m_focus_object.transform.position, m_target_point);
 
@@ -132,13 +135,8 @@ class MouseFollow : MonoBehaviour
         if (m_hit_right_mouse.collider != null
             && m_hit_right_mouse.collider.gameObject.transform.tag == "Enemy")
         {
-            // 적의 위치와 근거리 영웅의 공격 각도가 맞지 않음
-            if (m_move_state == eMoveState.STATE_MOVE_ROTATION)
-            {
-
-            }
             // 적의 위치가 사거리와 맞지 않음
-            else if (Mathf.Abs(distance_to_target - m_attack_range) > 0.1f)
+            if (Mathf.Abs(distance_to_target - m_attack_range) > 0.05f)
             {
                 m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
                 // 적이 사거리 안에 없는 경우
@@ -163,12 +161,16 @@ class MouseFollow : MonoBehaviour
                 m_move_state = eMoveState.STATE_MOVE_NONE;
         }
 
-        // 선택 선 그리기
-        m_lr.SetPosition(0, m_focus_object.transform.GetChild(0).transform.position);
-        if (m_hit_right_mouse.collider != null && m_focus_enemy != null)
-            m_lr.SetPosition(1, m_focus_enemy.transform.GetChild(0).transform.position);
-        else
-            m_lr.SetPosition(1, m_target_point);
+        #region 선 그리기
+        if (m_focus_object != null)
+        {
+            m_lr.SetPosition(0, m_focus_object.transform.GetChild(0).transform.position);
+            if (m_hit_right_mouse.collider != null && m_focus_enemy != null)
+                m_lr.SetPosition(1, m_focus_enemy.transform.GetChild(0).transform.position);
+            else
+                m_lr.SetPosition(1, m_target_point);
+        }
+        #endregion
     }
 
     void FixedUpdate()
@@ -178,7 +180,6 @@ class MouseFollow : MonoBehaviour
         {
             m_vec_move_dir.Normalize();
             m_focus_object.transform.Translate(new Vector2(m_vec_move_dir.x * m_horizontal_speed * Time.deltaTime, m_vec_move_dir.y * m_vertical_speed * Time.deltaTime), Space.World);
-            // m_vec_move_dir = new Vector2(0, 0);
         }
     }
 
