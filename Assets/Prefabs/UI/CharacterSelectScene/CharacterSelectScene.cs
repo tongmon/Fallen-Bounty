@@ -22,4 +22,8 @@ public class CharacterSelectScene : MonoBehaviour
     {
         SceneManager.LoadScene("Map_Scene");
     }
+    public void BackButton()
+    {
+        SceneManager.LoadScene("Title_Scene");
+    }
 }
