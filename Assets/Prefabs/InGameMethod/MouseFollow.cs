@@ -117,7 +117,6 @@ class MouseFollow : MonoBehaviour
             }
         }
 
-
         if (m_hit_right_mouse.collider != null)
             m_target_point = m_hit_right_mouse.transform.position;
 
@@ -170,7 +169,10 @@ class MouseFollow : MonoBehaviour
             m_lr.SetPosition(1, m_focus_enemy.transform.GetChild(0).transform.position);
         else
             m_lr.SetPosition(1, m_target_point);
+    }
 
+    void FixedUpdate()
+    {
         // 정한 방향에 따라 이동
         if (m_move_state != eMoveState.STATE_MOVE_NONE)
         {
