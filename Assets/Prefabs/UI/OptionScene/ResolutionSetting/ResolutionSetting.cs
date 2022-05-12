@@ -8,10 +8,15 @@ public class ResolutionSetting : MonoBehaviour
     FullScreenMode m_screenMode;
     public Dropdown m_dropdown;
     public Toggle m_fullscreen_button;
+
     public Toggle m_damage_toggle;
     public GameObject m_DamageText;
+
     public Slider m_gamma_slider;
     public Light m_global_light;
+
+    public Slider m_HUD_slider;
+    public GameObject m_HUD;
     
     List<Resolution> m_resolution = new List<Resolution>();
     public int m_resolution_value;
@@ -19,6 +24,8 @@ public class ResolutionSetting : MonoBehaviour
     {
         InitializeUI();
         GameObject.Find("GlobalLight").GetComponent<Light>().intensity = m_global_light.intensity;
+        GameObject.Find("Skill").transform.localScale = new Vector3(m_HUD_slider.value, m_HUD_slider.value, 0);
+        m_HUD_slider.value = m_HUD.transform.localScale.x;
         m_gamma_slider.value = m_global_light.intensity;
     }
     void InitializeUI()
@@ -71,5 +78,10 @@ public class ResolutionSetting : MonoBehaviour
     {
         GameObject.Find("GlobalLight").GetComponent<Light>().intensity = m_global_light.intensity;
         m_global_light.intensity = m_gamma_slider.value; 
+    }
+    public void HUDSizeEdit()
+    {
+        GameObject.Find("Skill").transform.localScale = new Vector3(m_HUD_slider.value, m_HUD_slider.value, 0);
+        m_HUD.transform.localScale = new Vector3(m_HUD_slider.value, m_HUD_slider.value,0);
     }
 }
