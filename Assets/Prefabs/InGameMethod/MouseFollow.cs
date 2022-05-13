@@ -41,11 +41,6 @@ class MouseFollow : MonoBehaviour
     // 공격 사거리
     public float m_attack_range;
 
-    // 캐릭터가 적보다 너무 위에 있는 경우 캐릭터를 내리기 위한 각도
-    public float m_restrict_angle = 40.0f;
-
-    public float m_restrict_obj_interval_angle = 20.0f;
-
     // 줄 긋는 객체
     LineRenderer m_lr;
 
@@ -56,7 +51,6 @@ class MouseFollow : MonoBehaviour
         m_focus_object = null;
         m_focus_enemy = null;
 
-        m_restrict_angle = 45.0f;
         m_attack_range = 2f;
         m_vertical_speed = 1.5f;
         m_horizontal_speed = 2f;
@@ -68,58 +62,8 @@ class MouseFollow : MonoBehaviour
     }
     void Update()
     {
-        #region 마우스 이벤트
-        // 마우스 좌 클릭
-        if (Input.GetMouseButtonDown(0))
-        {
-            // 선택한 영웅을 바꾸는 경우 기존에 선택된 영웅의 밑 원을 제거함
-            if (m_focus_object != null)
-                m_focus_object.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0); //색 없애기
-
-            // 클릭한 곳 월드 좌표로 따옴
-            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            m_hit_left_mouse = Physics2D.Raycast(pos, Vector2.zero, 0f);
-
-            // 자기자신 선택하면
-            if (m_hit_left_mouse.collider != null
-                && m_hit_left_mouse.collider.gameObject == gameObject)
-            {
-                m_move_state = eMoveState.STATE_MOVE_NONE;
-                m_focus_object = gameObject;
-                gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
-            }
-        }
-        // 마우스 우 클릭
-        else if (Input.GetMouseButtonDown(1)
-            && m_focus_object != null
-            && m_hit_left_mouse.collider != null
-            && m_hit_left_mouse.collider.gameObject == gameObject) //마우스 우 클릭
-        {
-            // 우측 클릭 좌표 획득
-            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            m_hit_right_mouse = Physics2D.Raycast(pos, Vector2.zero, 0f);
-
-            // 포커스된 애가 내가 맞으면 m_path_select 여부를 반전
-            if (m_focus_object == gameObject)
-                m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
-            else
-                m_move_state = eMoveState.STATE_MOVE_NONE;
-
-            // 적 선택시
-            if (m_hit_right_mouse.collider != null
-                && m_hit_right_mouse.transform.tag == "Enemy")
-            {
-                m_target_point = m_hit_right_mouse.transform.position;
-                m_focus_enemy = m_hit_right_mouse.collider.gameObject;
-            }
-            // 땅 선택시
-            else
-            {
-                m_target_point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                m_focus_enemy = null;
-            }
-        }
-        #endregion
+        // 마우스 이벤트 처리
+        OnMouseEvent();
 
         if (m_move_state == eMoveState.STATE_MOVE_NONE || m_move_state == eMoveState.STATE_MOVE_ROTATION)
             return;
@@ -183,6 +127,61 @@ class MouseFollow : MonoBehaviour
         {
             m_vec_move_dir.Normalize();
             m_focus_object.transform.Translate(new Vector2(m_vec_move_dir.x * m_horizontal_speed * Time.deltaTime, m_vec_move_dir.y * m_vertical_speed * Time.deltaTime), Space.World);
+        }
+    }
+
+    // 마우스 이벤트
+    void OnMouseEvent()
+    {
+        // 마우스 좌 클릭
+        if (Input.GetMouseButtonDown(0))
+        {
+            // 선택한 영웅을 바꾸는 경우 기존에 선택된 영웅의 밑 원을 제거함
+            if (m_focus_object != null)
+                m_focus_object.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0); //색 없애기
+
+            // 클릭한 곳 월드 좌표로 따옴
+            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            m_hit_left_mouse = Physics2D.Raycast(pos, Vector2.zero, 0f);
+
+            // 자기자신 선택하면
+            if (m_hit_left_mouse.collider != null
+                && m_hit_left_mouse.collider.gameObject == gameObject)
+            {
+                m_move_state = eMoveState.STATE_MOVE_NONE;
+                m_focus_object = gameObject;
+                gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+            }
+        }
+        // 마우스 우 클릭
+        else if (Input.GetMouseButtonDown(1)
+            && m_focus_object != null
+            && m_hit_left_mouse.collider != null
+            && m_hit_left_mouse.collider.gameObject == gameObject) //마우스 우 클릭
+        {
+            // 우측 클릭 좌표 획득
+            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            m_hit_right_mouse = Physics2D.Raycast(pos, Vector2.zero, 0f);
+
+            // 포커스된 애가 내가 맞으면 m_path_select 여부를 반전
+            if (m_focus_object == gameObject)
+                m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
+            else
+                m_move_state = eMoveState.STATE_MOVE_NONE;
+
+            // 적 선택시
+            if (m_hit_right_mouse.collider != null
+                && m_hit_right_mouse.transform.tag == "Enemy")
+            {
+                m_target_point = m_hit_right_mouse.transform.position;
+                m_focus_enemy = m_hit_right_mouse.collider.gameObject;
+            }
+            // 땅 선택시
+            else
+            {
+                m_target_point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                m_focus_enemy = null;
+            }
         }
     }
 
