@@ -20,7 +20,7 @@ public class ResolutionSetting : MonoBehaviour
     
     List<Resolution> m_resolution = new List<Resolution>();
     public int m_resolution_value;
-    private void Start()
+    private void Awake()
     {
         InitializeUI();
         GameObject.Find("GlobalLight").GetComponent<Light>().intensity = m_global_light.intensity;

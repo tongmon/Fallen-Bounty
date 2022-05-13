@@ -9,6 +9,8 @@ public class OptionScene : MonoBehaviour
     [SerializeField] GameObject ResolutionSetting;
     [SerializeField] GameObject KeySetting;
     [SerializeField] GameObject GameplaySetting;
+    [SerializeField] GameObject Skill;
+    bool m_skillMove = false;
     public void AudioButtonClicked()
     {
         AudioSetting.SetActive(true);
@@ -22,6 +24,7 @@ public class OptionScene : MonoBehaviour
         ResolutionSetting.SetActive(true);
         KeySetting.SetActive(false);
         GameplaySetting.SetActive(false);
+        m_skillMove ^= true;
     }
     public void GraphicButtonClicked()
     {
@@ -47,5 +50,10 @@ public class OptionScene : MonoBehaviour
     public void BackButtonClicked()
     {
         SceneManager.LoadScene("Title_Scene");
+    }
+    private void Update()
+    {
+        if (m_skillMove) Skill.transform.position = new Vector3(-0.8f, -1.5f , 0);
+        else Skill.transform.position = new Vector3(-10, -15 , 0);
     }
 }
