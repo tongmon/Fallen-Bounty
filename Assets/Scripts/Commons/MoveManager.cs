@@ -88,25 +88,19 @@ public class MoveManager : MonoBehaviour
                 for (int j = 0; j <= i; j++)
                 {
                     m_angles[j] = Quaternion.FromToRotation(Vector2.right, (Vector2)right_pos_heros[j].transform.position - m_enemy_pos[enemy_name]).eulerAngles.z;
-                    m_angles[j] = Mathf.Min(Mathf.Abs(m_angles[j] - 360), m_angles[j]);
+                    m_angles[j] = Mathf.Min(360 - m_angles[j], m_angles[j]);
 
                     if (Mathf.Abs(Mathf.Abs(m_angles[j]) - Mathf.Abs(m_angle_def[i, j])) >= 1.0f)
                     {
-                        dest_vec = Quaternion.Euler(0, 0, m_angle_def[i, j]) * new Vector2(right_pos_heros[j].m_attack_range, 0);
                         right_pos_heros[j].m_move_state = MouseFollow.eMoveState.STATE_MOVE_ROTATION;
+                        dest_vec = Quaternion.Euler(0, 0, m_angle_def[i, j]) * new Vector2(right_pos_heros[j].m_attack_range, 0);
                         right_pos_heros[j].m_vec_move_dir = m_enemy_pos[enemy_name] - (Vector2)right_pos_heros[j].transform.position + dest_vec;
                     }
                     else
                     {
-                        Debug.Log(right_pos_heros[j].name + " is done");
                         right_pos_heros[j].m_move_state = MouseFollow.eMoveState.STATE_MOVE_NONE;
                     }
                 }
-
-                //for (int j = 0; j <= i && is_all_set; j++)
-                //{
-                //    right_pos_heros[j].m_move_state = MouseFollow.eMoveState.STATE_MOVE_NONE;
-                //}
             }
 
             for (int i = 0; i < left_pos_heros.Count; i++)
@@ -114,12 +108,12 @@ public class MoveManager : MonoBehaviour
                 for (int j = 0; j <= i; j++)
                 {
                     m_angles[j] = Quaternion.FromToRotation(Vector2.left, (Vector2)left_pos_heros[j].transform.position - m_enemy_pos[enemy_name]).eulerAngles.z;
-                    m_angles[j] = Mathf.Min(Mathf.Abs(m_angles[j] - 360), m_angles[j]);
+                    m_angles[j] = Mathf.Min(360 - m_angles[j], m_angles[j]);
 
                     if (Mathf.Abs(Mathf.Abs(m_angles[j]) - Mathf.Abs(m_angle_def[i, j])) >= 1.0f)
                     {
-                        dest_vec = Quaternion.Euler(0, 0, 180 + m_angle_def[i, j]) * new Vector2(left_pos_heros[j].m_attack_range, 0);
                         left_pos_heros[j].m_move_state = MouseFollow.eMoveState.STATE_MOVE_ROTATION;
+                        dest_vec = Quaternion.Euler(0, 0, 180 - m_angle_def[i, j]) * new Vector2(left_pos_heros[j].m_attack_range, 0);
                         left_pos_heros[j].m_vec_move_dir = m_enemy_pos[enemy_name] - (Vector2)left_pos_heros[j].transform.position + dest_vec;
                     }
                     else

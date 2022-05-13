@@ -92,6 +92,7 @@ class MouseFollow : MonoBehaviour
         // 마우스 우 클릭
         else if (Input.GetMouseButtonDown(1)
             && m_focus_object != null
+            && m_hit_left_mouse.collider != null
             && m_hit_left_mouse.collider.gameObject == gameObject) //마우스 우 클릭
         {
             // 우측 클릭 좌표 획득
@@ -161,6 +162,7 @@ class MouseFollow : MonoBehaviour
                 m_move_state = eMoveState.STATE_MOVE_NONE;
         }
 
+        /*
         #region 선 그리기
         if (m_focus_object != null)
         {
@@ -171,6 +173,7 @@ class MouseFollow : MonoBehaviour
                 m_lr.SetPosition(1, m_target_point);
         }
         #endregion
+        */
     }
 
     void FixedUpdate()
