@@ -4,15 +4,9 @@ using UnityEngine;
 
 class MouseFollow : MonoBehaviour
 {
-    public enum eMoveState 
-    {
-        STATE_MOVE_STRAIGHT,
-        STATE_MOVE_ROTATION,
-        STATE_MOVE_NONE,
-    }
 
     // 이동 상태
-    public eMoveState m_move_state;
+    public MoveManager.eMoveState m_move_state;
 
     // 목표 지점 좌표
     public Vector2 m_target_point;
@@ -46,7 +40,7 @@ class MouseFollow : MonoBehaviour
 
     void Start()
     {
-        m_move_state = eMoveState.STATE_MOVE_NONE;
+        m_move_state = MoveManager.eMoveState.STATE_MOVE_NONE;
 
         m_focus_object = null;
         m_focus_enemy = null;
@@ -65,58 +59,6 @@ class MouseFollow : MonoBehaviour
         // 마우스 이벤트 처리
         OnMouseEvent();
 
-        if (m_move_state == eMoveState.STATE_MOVE_STRAIGHT)
-        {
-            float distance_to_target = Vector2.Distance(m_focus_object.transform.position, m_target_point);
-
-            // 각도에 따른 좌우 구분을 하기 위해 각도 검사 재검토 필요
-            if (m_target_point.x < 0)
-                m_focus_object.transform.rotation = Quaternion.Euler(0, 180, 0);
-            else
-                m_focus_object.transform.rotation = Quaternion.Euler(0, 0, 0);
-
-            // 길이 정해졌는데 적이 선택된 경우
-            if (m_hit_right_mouse.collider != null
-                && m_hit_right_mouse.collider.gameObject.transform.tag == "Enemy")
-            {
-                // 적의 위치가 사거리와 맞지 않음
-                if (Mathf.Abs(distance_to_target - m_attack_range) > 0.05f)
-                {
-                    m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
-                    // 적이 사거리 안에 없는 경우
-                    if (distance_to_target >= m_attack_range)
-                        m_vec_move_dir = m_target_point - (Vector2)m_focus_object.transform.position;
-                    // 적이 사거리보다 가까운 경우
-                    else
-                        m_vec_move_dir = (Vector2)m_focus_object.transform.position - m_target_point;
-                }
-                else
-                    m_move_state = eMoveState.STATE_MOVE_ROTATION;
-            }
-            // 길이 정해졌는데 땅이 선택된 경우
-            else
-            {
-                if (distance_to_target > 0.1f)
-                {
-                    m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
-                    m_vec_move_dir = m_target_point - (Vector2)m_focus_object.transform.position;
-                }
-                else
-                    m_move_state = eMoveState.STATE_MOVE_NONE;
-            }
-
-        }
-
-        if (m_focus_object != null)
-        {
-            m_lr.SetPosition(0, m_focus_object.transform.GetChild(0).transform.position);
-            if (m_hit_right_mouse.collider != null && m_focus_enemy != null)
-                m_lr.SetPosition(1, m_focus_enemy.transform.GetChild(0).transform.position);
-            else
-                m_lr.SetPosition(1, m_target_point);
-        }
-
-        /*
         #region 선 그리기
         if (m_focus_object != null)
         {
@@ -127,13 +69,12 @@ class MouseFollow : MonoBehaviour
                 m_lr.SetPosition(1, m_target_point);
         }
         #endregion
-        */
     }
 
     void FixedUpdate()
     {
         // 정한 방향에 따라 이동
-        if (m_move_state != eMoveState.STATE_MOVE_NONE)
+        if (m_move_state != MoveManager.eMoveState.STATE_MOVE_NONE)
         {
             m_vec_move_dir.Normalize();
             m_focus_object.transform.Translate(new Vector2(m_vec_move_dir.x * m_horizontal_speed * Time.deltaTime, m_vec_move_dir.y * m_vertical_speed * Time.deltaTime), Space.World);
@@ -158,7 +99,7 @@ class MouseFollow : MonoBehaviour
             if (m_hit_left_mouse.collider != null
                 && m_hit_left_mouse.collider.gameObject == gameObject)
             {
-                m_move_state = eMoveState.STATE_MOVE_NONE;
+                m_move_state = MoveManager.eMoveState.STATE_MOVE_NONE;
                 m_focus_object = gameObject;
                 gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
             }
@@ -175,9 +116,9 @@ class MouseFollow : MonoBehaviour
 
             // 포커스된 애가 내가 맞으면 m_path_select 여부를 반전
             if (m_focus_object == gameObject)
-                m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
+                m_move_state = MoveManager.eMoveState.STATE_MOVE_STRAIGHT;
             else
-                m_move_state = eMoveState.STATE_MOVE_NONE;
+                m_move_state = MoveManager.eMoveState.STATE_MOVE_NONE;
 
             // 적 선택시
             if (m_hit_right_mouse.collider != null
