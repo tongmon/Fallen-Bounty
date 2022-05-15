@@ -65,45 +65,55 @@ class MouseFollow : MonoBehaviour
         // 마우스 이벤트 처리
         OnMouseEvent();
 
-        if (m_move_state == eMoveState.STATE_MOVE_NONE || m_move_state == eMoveState.STATE_MOVE_ROTATION)
-            return;
-
-        float distance_to_target = Vector2.Distance(m_focus_object.transform.position, m_target_point);
-
-        // 각도에 따른 좌우 구분을 하기 위해 각도 검사 재검토 필요
-        if (m_target_point.x < 0)
-            m_focus_object.transform.rotation = Quaternion.Euler(0, 180, 0);
-        else
-            m_focus_object.transform.rotation = Quaternion.Euler(0, 0, 0);
-
-        // 길이 정해졌는데 적이 선택된 경우
-        if (m_hit_right_mouse.collider != null
-            && m_hit_right_mouse.collider.gameObject.transform.tag == "Enemy")
+        if (m_move_state == eMoveState.STATE_MOVE_STRAIGHT)
         {
-            // 적의 위치가 사거리와 맞지 않음
-            if (Mathf.Abs(distance_to_target - m_attack_range) > 0.05f)
+            float distance_to_target = Vector2.Distance(m_focus_object.transform.position, m_target_point);
+
+            // 각도에 따른 좌우 구분을 하기 위해 각도 검사 재검토 필요
+            if (m_target_point.x < 0)
+                m_focus_object.transform.rotation = Quaternion.Euler(0, 180, 0);
+            else
+                m_focus_object.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+            // 길이 정해졌는데 적이 선택된 경우
+            if (m_hit_right_mouse.collider != null
+                && m_hit_right_mouse.collider.gameObject.transform.tag == "Enemy")
             {
-                m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
-                // 적이 사거리 안에 없는 경우
-                if (distance_to_target >= m_attack_range)
-                    m_vec_move_dir = m_target_point - (Vector2)m_focus_object.transform.position;
-                // 적이 사거리보다 가까운 경우
+                // 적의 위치가 사거리와 맞지 않음
+                if (Mathf.Abs(distance_to_target - m_attack_range) > 0.05f)
+                {
+                    m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
+                    // 적이 사거리 안에 없는 경우
+                    if (distance_to_target >= m_attack_range)
+                        m_vec_move_dir = m_target_point - (Vector2)m_focus_object.transform.position;
+                    // 적이 사거리보다 가까운 경우
+                    else
+                        m_vec_move_dir = (Vector2)m_focus_object.transform.position - m_target_point;
+                }
                 else
-                    m_vec_move_dir = (Vector2)m_focus_object.transform.position - m_target_point;
+                    m_move_state = eMoveState.STATE_MOVE_ROTATION;
             }
+            // 길이 정해졌는데 땅이 선택된 경우
             else
-                m_move_state = eMoveState.STATE_MOVE_ROTATION;
-        }
-        // 길이 정해졌는데 땅이 선택된 경우
-        else
-        {
-            if (distance_to_target > 0.1f)
             {
-                m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
-                m_vec_move_dir = m_target_point - (Vector2)m_focus_object.transform.position;
+                if (distance_to_target > 0.1f)
+                {
+                    m_move_state = eMoveState.STATE_MOVE_STRAIGHT;
+                    m_vec_move_dir = m_target_point - (Vector2)m_focus_object.transform.position;
+                }
+                else
+                    m_move_state = eMoveState.STATE_MOVE_NONE;
             }
+
+        }
+
+        if (m_focus_object != null)
+        {
+            m_lr.SetPosition(0, m_focus_object.transform.GetChild(0).transform.position);
+            if (m_hit_right_mouse.collider != null && m_focus_enemy != null)
+                m_lr.SetPosition(1, m_focus_enemy.transform.GetChild(0).transform.position);
             else
-                m_move_state = eMoveState.STATE_MOVE_NONE;
+                m_lr.SetPosition(1, m_target_point);
         }
 
         /*
