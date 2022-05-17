@@ -10,19 +10,13 @@ public class TemplateHero : Hero
         m_ability_holder = new AbilityHolder(gameObject);
     }
 
-    void Start()
+    private new void Start()
     {
-
+        base.Start();
     }
 
-    void Update()
+    private new void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            m_ability_holder.TriggerAbility("DashAbility");
-        }
-
-        // 스킬 로직 업데이트
-        m_ability_holder.Update();
+        base.Update();
     }
 }

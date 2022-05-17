@@ -17,4 +17,15 @@ public class Creature : MonoBehaviour
 
     // 스킬 제한 개수
     public int m_abilities_limit;
+
+    public Vector2 m_vec_direction;
+
+    protected virtual void Start()
+    {
+        
+    }
+    protected virtual void Update()
+    {
+        
+    }
 }
