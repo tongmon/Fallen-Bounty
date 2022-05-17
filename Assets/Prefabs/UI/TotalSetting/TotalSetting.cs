@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TotalSetting : MonoBehaviour
 {
@@ -12,14 +13,15 @@ public class TotalSetting : MonoBehaviour
     [SerializeField] Image m_stat_panel;
     [SerializeField] GameObject m_hero_name;
     [SerializeField] GameObject m_hero_status;
+    [SerializeField] Button m_start_button;
     Vector2[] m_target_vec = { new Vector2(2, 0.75f), new Vector2(0, 2), new Vector2(-2, 0.75f), new Vector2(0, 0) };
 
-    public int m_char_number = 0;
     void Start()
     {
         StartCoroutine(Box());
         StartCoroutine(BookShelf());
         StartCoroutine(StatPanel());
+        m_start_button.GetComponent<Image>().DOColor(Color.white, 1.0f);
     }
     IEnumerator Box() { 
         for(int i = 0; i<9; i++)
@@ -48,20 +50,27 @@ public class TotalSetting : MonoBehaviour
     }
     public void CharSwapRight()
     {
-        m_char_number %= 4;
-        for (int i = 0; i < 4; i++)
+        //4-3 3-2 2-1 1-4
+        GameObject temp = m_char[3];
+        for (int i = 3; i >= 0; i--)
         {
-            m_char[i].transform.DOMove(m_target_vec[(i+ m_char_number) % 4], 0.8f);
+            m_char[i].transform.DOMove(m_target_vec[i], 0.8f);
+            if (i == 0) m_char[i] = temp;
+            else m_char[i] = m_char[i - 1];
         }
-        m_char_number++;
     }
-    public void CharSwapLeft() //아직 미완성
+    public void CharSwapLeft() 
     {
+        GameObject temp = m_char[0];
         for (int i = 0; i < 4; i++)
         {
-            m_char[i].transform.DOMove(m_target_vec[(i + m_char_number) % 4], 0.8f);
+            m_char[i].transform.DOMove(m_target_vec[(i+2)%4], 0.8f);
+            if (i == 3) m_char[i] = temp;
+            else m_char[i] = m_char[i + 1];
         }
-        if (m_char_number == 0) m_char_number = 3;
-        else m_char_number--;
+    }
+    public void StartButton()
+    {
+        SceneManager.LoadScene("Map_Scene");
     }
 }
