@@ -245,6 +245,7 @@ public class HeroCommandManager : MonoBehaviour
                             sel_hero.m_state_move = eMoveState.STATE_MOVE_NONE;
                             circle_below_hero.color = new Color(255, 255, 255, 0);
                             */
+                            circle_below_hero.color = new Color(255, 255, 255, 0);
                         }
                         // 선택 영웅이 바뀌는 경우
                         else
