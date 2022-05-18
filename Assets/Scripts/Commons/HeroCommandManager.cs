@@ -210,6 +210,7 @@ public class HeroCommandManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Hero sel_hero = m_selected_hero != null ? m_selected_hero.GetComponent<Hero>() : new Hero();
+            SpriteRenderer circle_below_hero = m_selected_hero != null ? m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>() : null;
 
             // 충돌체를 가지고 있는 녀석을 클릭한 경우...[ex) 적, 영웅]
             if (m_left_mouse.collider != null)
@@ -222,21 +223,42 @@ public class HeroCommandManager : MonoBehaviour
                         sel_hero.m_target_enemy = m_left_mouse.collider.gameObject;
                         sel_hero.m_point_target = m_left_mouse.collider.transform.position;
                         sel_hero.m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
+                        sel_hero.m_target_enemy.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255); // 선택된 적 밑의 원을 그림
+                    }
+                    else
+                    {
+                        m_left_mouse.collider.gameObject.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255); // 선택된 적 밑의 원을 그림
                     }
                 }
                 // 영웅 클릭
                 else if (m_left_mouse.collider.gameObject.tag == "Hero")
                 {
-                    // 선택했던 영웅 한번 더 클릭
                     if (m_selected_hero != null)
                     {
-                        sel_hero.m_target_enemy = null;
-                        sel_hero.m_point_target = sel_hero.transform.position;
-                        sel_hero.m_state_move = eMoveState.STATE_MOVE_NONE;
+                        // 선택했던 영웅 한번 더 클릭
+                        if (m_left_mouse.collider.gameObject == m_selected_hero)
+                        {
+                            /*
+                            // 밑 소스 적용하면 영웅 한번 더 클릭한 경우 모든 행동을 멈춤
+                            sel_hero.m_target_enemy = null;
+                            sel_hero.m_point_target = sel_hero.transform.position;
+                            sel_hero.m_state_move = eMoveState.STATE_MOVE_NONE;
+                            circle_below_hero.color = new Color(255, 255, 255, 0);
+                            */
+                        }
+                        // 선택 영웅이 바뀌는 경우
+                        else
+                        {
+                            circle_below_hero.color = new Color(255, 255, 255, 255);
+                            m_selected_hero = m_left_mouse.collider.gameObject;
+                            m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+                        }
                     }
+                    // 예전에 선택했던 영웅이 없었으면 선택 영웅을 지정함
                     else
                     {
                         m_selected_hero = m_left_mouse.collider.gameObject;
+                        m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
                     }
                 }
             }

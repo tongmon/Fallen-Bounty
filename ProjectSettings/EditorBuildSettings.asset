@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Log_Scene.unity
     guid: 2662ad63797d46540aee73a25f0775fb
+  - enabled: 1
+    path: Assets/Scenes/HeroMovementTest_Scene.unity
+    guid: 235d1c97100ce05489dd4bd17b1896d9
   m_configObjects: {}
