@@ -211,9 +211,10 @@ public class HeroCommandManager : MonoBehaviour
     void OnMouseEvent()
     {
         #region 좌측 클릭
-        m_left_mouse = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f);
         if (Input.GetMouseButtonDown(0))
         {
+            m_left_mouse = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f);
+
             Hero sel_hero = m_selected_hero != null ? m_selected_hero.GetComponent<Hero>() : null;
             SpriteRenderer circle_below_hero = m_selected_hero != null ? m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>() : null;
 
@@ -285,7 +286,7 @@ public class HeroCommandManager : MonoBehaviour
         #region 우측 클릭
         if (Input.GetMouseButtonDown(1))
         {
-
+            m_right_mouse = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f);
         }
         #endregion
     }

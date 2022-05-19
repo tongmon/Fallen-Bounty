@@ -25,9 +25,9 @@ public class Hero : Creature
 
         m_state_move = HeroCommandManager.eMoveState.STATE_MOVE_NONE;
         m_target_enemy = null;
-        m_x_velocity = 1.5f;
-        m_y_velocity = 2f;
-        m_attack_range = 2f;
+        m_x_velocity = 1f;
+        m_y_velocity = 1.5f;
+        m_attack_range = 3f;
     }
 
     protected new void Start()
