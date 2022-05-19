@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 // 영웅들의 모든 상호작용 처리
-public class HeroCommandManager : MonoBehaviour
+public class HeroCommandManager : MonoBehaviour, IDragHandler
 {
     public enum eMoveState
     {
@@ -33,6 +34,8 @@ public class HeroCommandManager : MonoBehaviour
 
     // 우측 마우스
     public RaycastHit2D m_right_mouse;
+
+    LineRenderer m_line_renderer;
 
     void Start()
     {
@@ -257,9 +260,17 @@ public class HeroCommandManager : MonoBehaviour
                         // 선택 영웅이 바뀌는 경우
                         else
                         {
-                            circle_below_hero.color = new Color(255, 255, 255, 255);
-                            m_selected_hero = m_left_mouse.collider.gameObject;
-                            m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+                            for (int i = 0; i < m_heroes.Length; i++)
+                            {
+                                var hero = m_heroes[i].GetComponent<Hero>();
+                                if(m_heroes[i] == m_left_mouse.collider.gameObject)
+                                {
+                                    m_selected_hero = m_left_mouse.collider.gameObject;
+                                    m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+                                }
+                                else
+                                    m_heroes[i].GetComponent<Hero>().transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
+                            }
                         }
                     }
                     // 예전에 선택했던 영웅이 없었으면 선택 영웅을 지정함
@@ -289,5 +300,23 @@ public class HeroCommandManager : MonoBehaviour
             m_right_mouse = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f);
         }
         #endregion
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        Vector2 mouse_pos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+
+        m_line_renderer = m_selected_hero != null ? m_selected_hero.GetComponent<LineRenderer>() : null;
+
+        if (m_line_renderer)
+        {
+            m_line_renderer.SetPosition(0, m_selected_hero.transform.GetChild(0).transform.position);
+            if (m_selected_hero.GetComponent<Hero>().m_target_enemy != null)
+                m_line_renderer.SetPosition(1, m_selected_hero.GetComponent<Hero>().m_target_enemy.transform.GetChild(0).transform.position);
+            else
+                m_line_renderer.SetPosition(1, m_selected_hero.GetComponent<Hero>().m_point_target);
+        }
+
+        throw new System.NotImplementedException();
     }
 }
