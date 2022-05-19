@@ -48,16 +48,18 @@ public class HeroCommandManager : MonoBehaviour
         m_group_by_target = new Dictionary<string, List<Hero>>();
         m_enemy_pos = new Dictionary<string, Vector2>();
 
-        m_heroes = GameObject.FindGameObjectsWithTag("Character");
+        m_heroes = GameObject.FindGameObjectsWithTag("Hero");
         m_enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
     void Update()
     {
+        OnMouseEvent();
+
         // 특정 조건인 경우에만 밑을 수행하여 최적화 가능
         // 비활성화 되거나 죽은 개체들 빼고 넣는 로직 추가해야댐
-        m_heroes = GameObject.FindGameObjectsWithTag("Character");
-        m_enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        //m_heroes = GameObject.FindGameObjectsWithTag("Hero");
+        //m_enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         // 이동 상태는 기본적으로 None -> Straight -> Rotation(도중에 Straight로 빠질 수 있음) -> None 순으로 진행된다.
 
@@ -92,7 +94,7 @@ public class HeroCommandManager : MonoBehaviour
             // 길이 정해졌는데 땅이 선택된 경우
             else
             {
-                if (distance_to_target > 0.1f)
+                if (distance_to_target > 0.05f)
                 {
                     hero.m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
                     hero.m_vec_direction = hero.m_point_target - (Vector2)hero.transform.position;
@@ -141,12 +143,14 @@ public class HeroCommandManager : MonoBehaviour
                 {
                     float distance_to_target = Vector2.Distance(heros[i].transform.position, heros[i].m_point_target);
 
+                    /*
                     if (distance_to_target > 0.1f)
                     {
                         // 각도 조정을 하려했는데 영웅과 적 사이 거리가 멀다면 다시 Rotation 상태에서 Straight 상태로 변경한다.
                         heros[i].m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
                         continue;
                     }
+                    */
 
                     if (heros[i].transform.position.x < m_enemy_pos[enemy_name].x)
                         left_pos_heros.Add(heros[i]);
@@ -207,9 +211,10 @@ public class HeroCommandManager : MonoBehaviour
     void OnMouseEvent()
     {
         #region 좌측 클릭
+        m_left_mouse = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f);
         if (Input.GetMouseButtonDown(0))
         {
-            Hero sel_hero = m_selected_hero != null ? m_selected_hero.GetComponent<Hero>() : new Hero();
+            Hero sel_hero = m_selected_hero != null ? m_selected_hero.GetComponent<Hero>() : null;
             SpriteRenderer circle_below_hero = m_selected_hero != null ? m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>() : null;
 
             // 충돌체를 가지고 있는 녀석을 클릭한 경우...[ex) 적, 영웅]
@@ -246,6 +251,7 @@ public class HeroCommandManager : MonoBehaviour
                             circle_below_hero.color = new Color(255, 255, 255, 0);
                             */
                             circle_below_hero.color = new Color(255, 255, 255, 0);
+                            m_selected_hero = null;
                         }
                         // 선택 영웅이 바뀌는 경우
                         else

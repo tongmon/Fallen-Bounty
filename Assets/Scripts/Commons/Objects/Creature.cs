@@ -20,11 +20,22 @@ public class Creature : MonoBehaviour
 
     public Vector2 m_vec_direction;
 
-    protected virtual void Start()
+    protected void Awake()
     {
         
     }
-    protected virtual void Update()
+
+    protected void Start()
+    {
+        
+    }
+
+    protected void Update()
+    {
+        
+    }
+
+    protected void FixedUpdate()
     {
         
     }

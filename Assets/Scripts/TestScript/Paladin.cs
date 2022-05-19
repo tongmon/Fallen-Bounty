@@ -2,19 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TemplateHero : Hero
+public class Paladin : Hero
 {
-    public TemplateHero()
-    {
-        m_name = GetType().Name;
-        m_ability_holder = new AbilityHolder(gameObject);
-    }
 
     private new void Awake()
     {
         base.Awake();
+        m_name = GetType().Name;
+        m_ability_holder = new AbilityHolder(gameObject);
     }
 
+    // Start is called before the first frame update
     private new void Start()
     {
         base.Start();
@@ -23,5 +21,10 @@ public class TemplateHero : Hero
     private new void Update()
     {
         base.Update();
+    }
+
+    private new void FixedUpdate()
+    {
+        base.FixedUpdate();
     }
 }

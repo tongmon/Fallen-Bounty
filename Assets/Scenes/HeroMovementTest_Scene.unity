@@ -505,12 +505,12 @@ GameObject:
   m_Component:
   - component: {fileID: 706469685}
   - component: {fileID: 706469684}
-  - component: {fileID: 706469683}
   - component: {fileID: 706469682}
   - component: {fileID: 706469681}
+  - component: {fileID: 706469686}
   m_Layer: 0
   m_Name: Warrior
-  m_TagString: Character
+  m_TagString: Hero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -640,26 +640,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &706469683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 706469680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282cf0cc970b29245843dbca6fecbbff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_move_state: 0
-  m_target_point: {x: 0, y: 0}
-  m_vec_move_dir: {x: 0, y: 0}
-  m_focus_object: {fileID: 0}
-  m_focus_enemy: {fileID: 0}
-  m_horizontal_speed: 0
-  m_vertical_speed: 0
-  m_attack_range: 0
 --- !u!212 &706469684
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -728,6 +708,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &706469686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706469680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a01c08bc77ef06458e37e5fae96d882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_name: 
+  m_health: 0
+  m_x_velocity: 0
+  m_y_velocity: 0
+  m_status_effect: 0
+  m_abilities_limit: 0
+  m_vec_direction: {x: 0, y: 0}
+  m_attack_power: 0
+  m_magic_power: 0
+  m_attack_speed: 0
+  m_attack_range: 0
+  m_point_target: {x: 0, y: 0}
+  m_state_move: 0
+  m_target_enemy: {fileID: 0}
 --- !u!1 &952443518
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,6 +902,54 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1192266384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1192266385}
+  - component: {fileID: 1192266386}
+  m_Layer: 0
+  m_Name: CommandManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1192266385
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192266384}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.14387247, y: -0.035154592, z: 1.4446192}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1192266386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192266384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a31aeb8408dbf647ad28d31dc639780, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_enemies: []
+  m_heroes: []
+  m_selected_hero: {fileID: 0}
+  m_angles: []
 --- !u!1 &1365128752
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,12 +1044,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1738066501}
   - component: {fileID: 1738066500}
-  - component: {fileID: 1738066499}
   - component: {fileID: 1738066498}
   - component: {fileID: 1738066497}
+  - component: {fileID: 1738066502}
   m_Layer: 0
   m_Name: Paladin
-  m_TagString: Character
+  m_TagString: Hero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1125,26 +1179,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &1738066499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1738066496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282cf0cc970b29245843dbca6fecbbff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_move_state: 0
-  m_target_point: {x: 0, y: 0}
-  m_vec_move_dir: {x: 0, y: 0}
-  m_focus_object: {fileID: 0}
-  m_focus_enemy: {fileID: 0}
-  m_horizontal_speed: 0
-  m_vertical_speed: 0
-  m_attack_range: 0
 --- !u!212 &1738066500
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1213,6 +1247,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1738066502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738066496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944a2afef4a2dfe43aea2d0ffd9d8365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_name: Paladin
+  m_health: 0
+  m_x_velocity: 0
+  m_y_velocity: 0
+  m_status_effect: 0
+  m_abilities_limit: 0
+  m_vec_direction: {x: 0, y: 0}
+  m_attack_power: 0
+  m_magic_power: 0
+  m_attack_speed: 0
+  m_attack_range: 0
+  m_point_target: {x: 0, y: 0}
+  m_state_move: 0
+  m_target_enemy: {fileID: 0}
 --- !u!1 &1793807685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,12 +1367,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1829472357}
   - component: {fileID: 1829472356}
-  - component: {fileID: 1829472355}
   - component: {fileID: 1829472354}
   - component: {fileID: 1829472353}
+  - component: {fileID: 1829472358}
   m_Layer: 0
   m_Name: Cleric
-  m_TagString: Character
+  m_TagString: Hero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1442,26 +1502,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &1829472355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1829472352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282cf0cc970b29245843dbca6fecbbff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_move_state: 0
-  m_target_point: {x: 0, y: 0}
-  m_vec_move_dir: {x: 0, y: 0}
-  m_focus_object: {fileID: 0}
-  m_focus_enemy: {fileID: 0}
-  m_horizontal_speed: 0
-  m_vertical_speed: 0
-  m_attack_range: 0
 --- !u!212 &1829472356
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1530,6 +1570,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1829472358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829472352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea189d79451f1fe44962513b52d025ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_name: 
+  m_health: 0
+  m_x_velocity: 0
+  m_y_velocity: 0
+  m_status_effect: 0
+  m_abilities_limit: 0
+  m_vec_direction: {x: 0, y: 0}
+  m_attack_power: 0
+  m_magic_power: 0
+  m_attack_speed: 0
+  m_attack_range: 0
+  m_point_target: {x: 0, y: 0}
+  m_state_move: 0
+  m_target_enemy: {fileID: 0}
 --- !u!1 &1860715117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1624,12 +1690,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1879025269}
   - component: {fileID: 1879025268}
-  - component: {fileID: 1879025267}
   - component: {fileID: 1879025266}
   - component: {fileID: 1879025265}
+  - component: {fileID: 1879025270}
   m_Layer: 0
   m_Name: Witch
-  m_TagString: Character
+  m_TagString: Hero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1759,26 +1825,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &1879025267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1879025264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282cf0cc970b29245843dbca6fecbbff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_move_state: 0
-  m_target_point: {x: 0, y: 0}
-  m_vec_move_dir: {x: 0, y: 0}
-  m_focus_object: {fileID: 0}
-  m_focus_enemy: {fileID: 0}
-  m_horizontal_speed: 0
-  m_vertical_speed: 0
-  m_attack_range: 0
 --- !u!212 &1879025268
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1847,6 +1893,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1879025270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879025264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fffa80844f0ec534a838233e2df1b032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_name: 
+  m_health: 0
+  m_x_velocity: 0
+  m_y_velocity: 0
+  m_status_effect: 0
+  m_abilities_limit: 0
+  m_vec_direction: {x: 0, y: 0}
+  m_attack_power: 0
+  m_magic_power: 0
+  m_attack_speed: 0
+  m_attack_range: 0
+  m_point_target: {x: 0, y: 0}
+  m_state_move: 0
+  m_target_enemy: {fileID: 0}
 --- !u!1 &1938066849
 GameObject:
   m_ObjectHideFlags: 0

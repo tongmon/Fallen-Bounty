@@ -19,12 +19,23 @@ public class Hero : Creature
 
     public GameObject m_target_enemy;
 
-    protected override void Start()
+    protected new void Awake()
+    {
+        base.Awake();
+
+        m_state_move = HeroCommandManager.eMoveState.STATE_MOVE_NONE;
+        m_target_enemy = null;
+        m_x_velocity = 1.5f;
+        m_y_velocity = 2f;
+        m_attack_range = 2f;
+    }
+
+    protected new void Start()
     {
         base.Start();
     }
 
-    protected override void Update()
+    protected new void Update()
     {
         base.Update();
 
@@ -33,5 +44,16 @@ public class Hero : Creature
             transform.rotation = Quaternion.Euler(0, 180, 0);
         else
             transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    protected new void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if (m_state_move != HeroCommandManager.eMoveState.STATE_MOVE_NONE)
+        {
+            m_vec_direction.Normalize();
+            transform.Translate(new Vector2(m_vec_direction.x * m_y_velocity * Time.deltaTime, m_vec_direction.y * m_x_velocity * Time.deltaTime), Space.World);
+        }
     }
 }
