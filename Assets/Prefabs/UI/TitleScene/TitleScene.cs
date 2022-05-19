@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class TitleScene : MonoBehaviour
 {
-    [SerializeField] Text m_title_name_text;
+    [SerializeField] Text m_title_name_text; //제목 글씨
     public void Start()
     {
-        m_title_name_text.DOText("Fallen Bounty", 2.0f);
+        m_title_name_text.DOText("Fallen Bounty", 2.0f); //글씨가 써지는 두트윈 적용
     }
     public void StartJourneyClicked()
     {
