@@ -734,6 +734,7 @@ MonoBehaviour:
   m_point_target: {x: 0, y: 0}
   m_state_move: 0
   m_target_enemy: {fileID: 0}
+  m_line_renderer: {fileID: 0}
 --- !u!1 &952443518
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,6 +951,7 @@ MonoBehaviour:
   m_heroes: []
   m_selected_hero: {fileID: 0}
   m_angles: []
+  m_mouse_hold_time: 0
 --- !u!1 &1365128752
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,6 +1275,7 @@ MonoBehaviour:
   m_point_target: {x: 0, y: 0}
   m_state_move: 0
   m_target_enemy: {fileID: 0}
+  m_line_renderer: {fileID: 0}
 --- !u!1 &1793807685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,6 +1599,7 @@ MonoBehaviour:
   m_point_target: {x: 0, y: 0}
   m_state_move: 0
   m_target_enemy: {fileID: 0}
+  m_line_renderer: {fileID: 0}
 --- !u!1 &1860715117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1919,6 +1923,7 @@ MonoBehaviour:
   m_point_target: {x: 0, y: 0}
   m_state_move: 0
   m_target_enemy: {fileID: 0}
+  m_line_renderer: {fileID: 0}
 --- !u!1 &1938066849
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,15 +19,19 @@ public class Hero : Creature
 
     public GameObject m_target_enemy;
 
+    public LineRenderer m_line_renderer;
+
     protected new void Awake()
     {
         base.Awake();
 
+        m_line_renderer = GetComponent<LineRenderer>();
         m_state_move = HeroCommandManager.eMoveState.STATE_MOVE_NONE;
         m_target_enemy = null;
         m_x_velocity = 1f;
         m_y_velocity = 1.5f;
         m_attack_range = 3f;
+        m_point_target = transform.position;
     }
 
     protected new void Start()
@@ -44,6 +48,16 @@ public class Hero : Creature
             transform.rotation = Quaternion.Euler(0, 180, 0);
         else
             transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        /*
+        #region 선그리기
+        if (m_state_move != HeroCommandManager.eMoveState.STATE_MOVE_NONE)
+        {
+            m_line_renderer.SetPosition(0, transform.Find("FocusCircle").transform.position);
+            m_line_renderer.SetPosition(1, m_point_target);
+        }
+        #endregion
+        */
     }
 
     protected new void FixedUpdate()
