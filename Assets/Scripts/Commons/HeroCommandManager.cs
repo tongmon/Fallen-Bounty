@@ -19,6 +19,8 @@ public class HeroCommandManager : MonoBehaviour
 
     public GameObject m_selected_hero;
 
+    public GameObject m_dragging_hero;
+
     // 적의 위치가 담김
     public Dictionary<string, Vector2> m_enemy_pos;
 
@@ -221,10 +223,13 @@ public class HeroCommandManager : MonoBehaviour
         {
             m_mouse[0] = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity/*, 1 << LayerMask.NameToLayer("Command Layer")*/);
 
-            if (m_mouse[0].collider.gameObject.tag == "Hero")
+            if (m_mouse[0].collider != null)
             {
-                m_selected_hero = m_mouse[0].collider.gameObject;
-                m_line_renderer = m_selected_hero.GetComponent<Hero>().m_line_renderer;
+                if (m_mouse[0].collider.gameObject.tag == "Hero")
+                {
+                    // m_line_renderer = m_selected_hero.GetComponent<Hero>().m_line_renderer;
+                    m_dragging_hero = m_mouse[0].collider.gameObject;
+                }
             }
         }
         #endregion
@@ -241,12 +246,11 @@ public class HeroCommandManager : MonoBehaviour
         {
             m_mouse[0] = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity/*, 1 << LayerMask.NameToLayer("Command Layer")*/);
 
-            Hero sel_hero = m_selected_hero != null ? m_selected_hero.GetComponent<Hero>() : null;
-            SpriteRenderer circle_below_hero = m_selected_hero != null ? m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>() : null;
-
             // 마우스를 잠깐 동안 눌렀다 떼면 클릭으로 간주함
-            if (m_mouse_hold_time[0] <= 0.5f)
+            if (m_mouse_hold_time[0] <= 0.2f)
             {
+                SpriteRenderer circle_below_hero = m_selected_hero != null ? m_selected_hero.GetComponent<Hero>().transform.Find("FocusCircle").GetComponent<SpriteRenderer>() : null;
+
                 if (m_mouse[0].collider != null)
                 {
                     // 적 클릭
@@ -300,28 +304,38 @@ public class HeroCommandManager : MonoBehaviour
                     }
                 }
 
+                m_mouse_hold_time[0] = 0;
                 return;
             }
 
             // 마우스 드래깅 하다가 뗀 상태
+
+            // 마우스를 뗀 위치에 오브젝트가 위치에 있음
             if (m_mouse[0].collider != null)
             {
                 if (m_mouse[0].collider.gameObject.tag == "Enemy")
                 {
-                    sel_hero.m_target_enemy = m_mouse[0].collider.gameObject;
-                    sel_hero.m_point_target = m_mouse[0].collider.transform.position;
-                    sel_hero.m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
+                    if (m_dragging_hero) 
+                    {
+                        m_dragging_hero.GetComponent<Hero>().m_target_enemy = m_mouse[0].collider.gameObject;
+                        m_dragging_hero.GetComponent<Hero>().m_point_target = m_mouse[0].collider.transform.position;
+                        m_dragging_hero.GetComponent<Hero>().m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
+                    }
                 }
                 else if (m_mouse[0].collider.gameObject.tag == "Hero")
                 {
 
                 }
             }
+            // 마우스를 뗀 위치가 땅임
             else
             {
-                sel_hero.m_target_enemy = null;
-                sel_hero.m_point_target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                sel_hero.m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
+                if (m_dragging_hero)
+                {
+                    m_dragging_hero.GetComponent<Hero>().m_target_enemy = null;
+                    m_dragging_hero.GetComponent<Hero>().m_point_target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    m_dragging_hero.GetComponent<Hero>().m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
+                }
             }
                 
 
@@ -337,6 +351,7 @@ public class HeroCommandManager : MonoBehaviour
             // 마우스를 잠깐 동안 눌렀다 떼면 클릭으로 간주함
             if (m_mouse_hold_time[1] <= 0.5f)
             {
+                m_mouse_hold_time[1] = 0;
                 return;
             }
 
@@ -355,12 +370,8 @@ public class HeroCommandManager : MonoBehaviour
             {
                 Destroy(m_line_renderer);
                 m_line_renderer = m_selected_hero.GetComponent<Hero>().m_line_renderer;
+                
 
-                m_line_renderer.sortingOrder = 1;
-                m_line_renderer.material = new Material(Shader.Find("Sprites/Default"));
-                m_line_renderer.material.color = Color.red;
-
-                m_line_renderer.SetVertexCount(2);
                 m_line_renderer.SetPosition(0, m_selected_hero.transform.Find("FocusCircle").transform.position);
                 m_line_renderer.SetPosition(1, m_selected_hero.GetComponent<Hero>().m_point_target);
             }
