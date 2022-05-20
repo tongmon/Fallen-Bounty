@@ -35,10 +35,13 @@ public class HeroCommandManager : MonoBehaviour
 
     public float[] m_mouse_hold_time;
 
-    public LineRenderer m_line_renderer;
+    // public LineRenderer m_line_renderer;
 
     void Start()
     {
+        //m_line_renderer.startWidth = 0.05f;
+        //m_line_renderer.endWidth = 0.05f;
+
         m_mouse_hold_time = new float[2];
         m_mouse = new RaycastHit2D[2];
 
@@ -227,8 +230,12 @@ public class HeroCommandManager : MonoBehaviour
             {
                 if (m_mouse[0].collider.gameObject.tag == "Hero")
                 {
-                    // m_line_renderer = m_selected_hero.GetComponent<Hero>().m_line_renderer;
                     m_dragging_hero = m_mouse[0].collider.gameObject;
+
+                    //m_line_renderer = m_dragging_hero.GetComponent<Hero>().m_line_renderer;
+
+                    m_dragging_hero.GetComponent<Hero>().m_line_renderer.startWidth = 0.05f;
+                    m_dragging_hero.GetComponent<Hero>().m_line_renderer.endWidth = 0.05f;
                 }
             }
         }
@@ -366,15 +373,13 @@ public class HeroCommandManager : MonoBehaviour
 
             m_mouse_hold_time[0] += Time.deltaTime;
 
-            if (m_line_renderer)
-            {
-                Destroy(m_line_renderer);
-                m_line_renderer = m_selected_hero.GetComponent<Hero>().m_line_renderer;
-                
+            //if (m_line_renderer)
+            //{
+            //m_line_renderer = m_dragging_hero.GetComponent<Hero>().m_line_renderer;
 
-                m_line_renderer.SetPosition(0, m_selected_hero.transform.Find("FocusCircle").transform.position);
-                m_line_renderer.SetPosition(1, m_selected_hero.GetComponent<Hero>().m_point_target);
-            }
+            m_dragging_hero.GetComponent<Hero>().m_line_renderer.SetPosition(0, m_dragging_hero.transform.Find("FocusCircle").transform.position);
+            m_dragging_hero.GetComponent<Hero>().m_line_renderer.SetPosition(1, m_dragging_hero.GetComponent<Hero>().m_point_target);
+            //}
         }
         #endregion
 
