@@ -20,9 +20,11 @@ public class Creature : MonoBehaviour
 
     public Vector2 m_vec_direction;
 
+    public bool m_selected;
+
     protected void Awake()
     {
-        
+        m_selected = false;
     }
 
     protected void Start()

@@ -17,6 +17,9 @@ public class Hero : Creature
     // 움직임 상태
     public HeroCommandManager.eMoveState m_state_move;
 
+    // 마우스 홀딩 시간
+    public float[] m_mouse_hold_time;
+
     public GameObject m_target_enemy;
 
     public LineRenderer m_line_renderer;
@@ -32,6 +35,7 @@ public class Hero : Creature
         m_y_velocity = 1.5f;
         m_attack_range = 3f;
         m_point_target = transform.position;
+        m_mouse_hold_time = new float[2];
     }
 
     protected new void Start()
@@ -43,20 +47,12 @@ public class Hero : Creature
     {
         base.Update();
 
+        /*
         // 영웅 좌우 방향 바꾸기
         if (m_point_target.x < transform.position.x)
             transform.rotation = Quaternion.Euler(0, 180, 0);
         else
             transform.rotation = Quaternion.Euler(0, 0, 0);
-
-        /*
-        #region 선그리기
-        if (m_state_move != HeroCommandManager.eMoveState.STATE_MOVE_NONE)
-        {
-            m_line_renderer.SetPosition(0, transform.Find("FocusCircle").transform.position);
-            m_line_renderer.SetPosition(1, m_point_target);
-        }
-        #endregion
         */
     }
 
@@ -69,5 +65,37 @@ public class Hero : Creature
             m_vec_direction.Normalize();
             transform.Translate(new Vector2(m_vec_direction.x * m_y_velocity * Time.deltaTime, m_vec_direction.y * m_x_velocity * Time.deltaTime), Space.World);
         }
+    }
+
+    protected virtual void OnMouseLeftDown()
+    {
+        if (!Input.GetMouseButtonDown(0))
+            return;
+    }
+
+    protected virtual void OnMouseLeftDrag()
+    {
+        if (!Input.GetMouseButtonDown(0))
+            return;
+    }
+
+    protected virtual void OnMouseLeftUp()
+    {
+
+    }
+
+    protected virtual void OnMouseRightDown()
+    {
+
+    }
+
+    protected virtual void OnMouseRightDrag()
+    {
+
+    }
+
+    protected virtual void OnMouseRightUp()
+    {
+
     }
 }

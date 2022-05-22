@@ -19,7 +19,7 @@ public class HeroCommandManager : MonoBehaviour
 
     public GameObject m_selected_hero;
 
-    public GameObject m_dragging_hero;
+    public GameObject m_selected_obj;
 
     // 적의 위치가 담김
     public Dictionary<string, Vector2> m_enemy_pos;
@@ -41,6 +41,7 @@ public class HeroCommandManager : MonoBehaviour
     {
         //m_line_renderer.startWidth = 0.05f;
         //m_line_renderer.endWidth = 0.05f;
+        m_selected_obj = null;
 
         m_mouse_hold_time = new float[2];
         m_mouse = new RaycastHit2D[2];
@@ -215,8 +216,6 @@ public class HeroCommandManager : MonoBehaviour
             }
         }
         #endregion
-
-
     }
 
     void OnMouseEvent()
@@ -228,16 +227,117 @@ public class HeroCommandManager : MonoBehaviour
 
             if (m_mouse[0].collider != null)
             {
-                if (m_mouse[0].collider.gameObject.tag == "Hero")
+                m_selected_obj = m_mouse[0].collider.gameObject;
+            }
+        }
+        #endregion
+
+        #region 좌측 홀딩
+        else if (Input.GetMouseButton(0))
+        {
+            m_mouse[0] = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity/*, 1 << LayerMask.NameToLayer("Command Layer")*/);
+
+            m_mouse_hold_time[0] += Time.deltaTime;
+        }
+        #endregion
+
+        #region 좌측 클릭업
+        else if (Input.GetMouseButtonUp(0))
+        {
+            m_mouse[0] = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity/*, 1 << LayerMask.NameToLayer("Command Layer")*/);
+
+            SpriteRenderer circle_below_hero = m_selected_hero != null ? m_selected_hero.GetComponent<Hero>().transform.Find("FocusCircle").GetComponent<SpriteRenderer>() : null;
+
+            #region 좌측 클릭
+            // 마우스를 잠깐 동안 눌렀다 떼면 클릭으로 간주함
+            if (m_mouse_hold_time[0] <= 0.2f)
+            {
+                
+            }
+            #endregion
+
+            #region 좌측 드래깅
+            // 마우스를 뗀 위치에 오브젝트가 위치에 있음
+            if (m_mouse[0].collider != null)
+            {
+                if (m_mouse[0].collider.gameObject.tag == "Enemy")
                 {
-                    m_dragging_hero = m_mouse[0].collider.gameObject;
-
-                    //m_line_renderer = m_dragging_hero.GetComponent<Hero>().m_line_renderer;
-
-                    m_dragging_hero.GetComponent<Hero>().m_line_renderer.startWidth = 0.05f;
-                    m_dragging_hero.GetComponent<Hero>().m_line_renderer.endWidth = 0.05f;
+                    if (m_selected_obj.tag == "Hero") 
+                    {
+                        m_selected_obj.GetComponent<Hero>().m_target_enemy = m_mouse[0].collider.gameObject;
+                        m_selected_obj.GetComponent<Hero>().m_point_target = m_mouse[0].collider.transform.position;
+                        m_selected_obj.GetComponent<Hero>().m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
+                    }
+                    else if(m_selected_obj.tag == "Enemy")
+                    {
+                        if(m_selected_obj == m_mouse[0].collider.gameObject)
+                        {
+                            // 적에 대한 정보를 보여줘야 됨
+                        }
+                    }
+                }
+                else if (m_mouse[0].collider.gameObject.tag == "Hero")
+                {
+                    if(m_selected_obj != m_mouse[0].collider.gameObject)
+                    {
+                        m_selected_obj.GetComponent<Hero>().m_target_enemy = null;
+                        m_selected_obj.GetComponent<Hero>().m_point_target = m_mouse[0].collider.transform.position;
+                        m_selected_obj.GetComponent<Hero>().m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
+                    }
+                    else if (m_selected_hero)
+                    {
+                        // 선택했던 영웅 한번 더 클릭
+                        if (m_mouse[0].collider.gameObject == m_selected_hero)
+                        {
+                            circle_below_hero.color = new Color(255, 255, 255, 0);
+                            m_selected_hero = null;
+                        }
+                        // 선택 영웅이 바뀌는 경우
+                        else
+                        {
+                            for (int i = 0; i < m_heroes.Length; i++)
+                            {
+                                var hero = m_heroes[i].GetComponent<Hero>();
+                                if (m_heroes[i] == m_mouse[0].collider.gameObject)
+                                {
+                                    m_selected_hero = m_mouse[0].collider.gameObject;
+                                    m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+                                }
+                                else
+                                    m_heroes[i].GetComponent<Hero>().transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
+                            }
+                        }
+                    }
+                    // 예전에 선택했던 영웅이 없었으면 선택 영웅을 지정함
+                    else if (!m_selected_hero)
+                    {
+                        m_selected_hero = m_selected_obj;
+                        m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+                    }
                 }
             }
+            // 마우스를 뗀 위치가 땅임
+            else
+            {
+                if (!m_selected_obj)
+                {
+                    if (m_selected_hero)
+                    {
+                        m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
+                        m_selected_hero = null;
+                    }
+                }
+                else if (m_selected_obj.tag == "Hero")
+                {
+                    m_selected_obj.GetComponent<Hero>().m_target_enemy = null;
+                    m_selected_obj.GetComponent<Hero>().m_point_target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    m_selected_obj.GetComponent<Hero>().m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
+                }
+            }
+
+            m_selected_obj = null;
+            m_mouse_hold_time[0] = 0;
+            #endregion
         }
         #endregion
 
@@ -248,105 +348,10 @@ public class HeroCommandManager : MonoBehaviour
         }
         #endregion
 
-        #region 좌측 클릭업
-        else if (Input.GetMouseButtonUp(0))
+        #region 우측 홀딩
+        else if (Input.GetMouseButton(1))
         {
-            m_mouse[0] = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity/*, 1 << LayerMask.NameToLayer("Command Layer")*/);
-
-            // 마우스를 잠깐 동안 눌렀다 떼면 클릭으로 간주함
-            if (m_mouse_hold_time[0] <= 0.2f)
-            {
-                SpriteRenderer circle_below_hero = m_selected_hero != null ? m_selected_hero.GetComponent<Hero>().transform.Find("FocusCircle").GetComponent<SpriteRenderer>() : null;
-
-                if (m_mouse[0].collider != null)
-                {
-                    // 적 클릭
-                    if (m_mouse[0].collider.gameObject.tag == "Enemy")
-                    {
-                        // 적에 대한 정보를 보여줘야 됨
-                    }
-                    // 영웅 클릭
-                    else if (m_mouse[0].collider.gameObject.tag == "Hero")
-                    {
-                        if (m_selected_hero != null)
-                        {
-                            // 선택했던 영웅 한번 더 클릭
-                            if (m_mouse[0].collider.gameObject == m_selected_hero)
-                            {
-                                circle_below_hero.color = new Color(255, 255, 255, 0);
-                                m_selected_hero = null;
-                            }
-                            // 선택 영웅이 바뀌는 경우
-                            else
-                            {
-                                for (int i = 0; i < m_heroes.Length; i++)
-                                {
-                                    var hero = m_heroes[i].GetComponent<Hero>();
-                                    if (m_heroes[i] == m_mouse[0].collider.gameObject)
-                                    {
-                                        m_selected_hero = m_mouse[0].collider.gameObject;
-                                        m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
-                                    }
-                                    else
-                                        m_heroes[i].GetComponent<Hero>().transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
-                                }
-                            }
-                        }
-                        // 예전에 선택했던 영웅이 없었으면 선택 영웅을 지정함
-                        else
-                        {
-                            m_selected_hero = m_mouse[0].collider.gameObject;
-                            m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
-                        }
-                    }
-                }
-                // 맨 바닥을 클릭한 경우
-                else
-                {
-                    m_selected_hero = null;
-                    for (int i = 0; i < m_heroes.Length; i++)
-                    {
-                        var hero = m_heroes[i].GetComponent<Hero>();
-                        m_heroes[i].GetComponent<Hero>().transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
-                    }
-                }
-
-                m_mouse_hold_time[0] = 0;
-                return;
-            }
-
-            // 마우스 드래깅 하다가 뗀 상태
-
-            // 마우스를 뗀 위치에 오브젝트가 위치에 있음
-            if (m_mouse[0].collider != null)
-            {
-                if (m_mouse[0].collider.gameObject.tag == "Enemy")
-                {
-                    if (m_dragging_hero) 
-                    {
-                        m_dragging_hero.GetComponent<Hero>().m_target_enemy = m_mouse[0].collider.gameObject;
-                        m_dragging_hero.GetComponent<Hero>().m_point_target = m_mouse[0].collider.transform.position;
-                        m_dragging_hero.GetComponent<Hero>().m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
-                    }
-                }
-                else if (m_mouse[0].collider.gameObject.tag == "Hero")
-                {
-
-                }
-            }
-            // 마우스를 뗀 위치가 땅임
-            else
-            {
-                if (m_dragging_hero)
-                {
-                    m_dragging_hero.GetComponent<Hero>().m_target_enemy = null;
-                    m_dragging_hero.GetComponent<Hero>().m_point_target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    m_dragging_hero.GetComponent<Hero>().m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
-                }
-            }
-                
-
-            m_mouse_hold_time[0] = 0;
+            m_mouse_hold_time[1] += Time.deltaTime;
         }
         #endregion
 
@@ -363,30 +368,6 @@ public class HeroCommandManager : MonoBehaviour
             }
 
             m_mouse_hold_time[1] = 0;
-        }
-        #endregion
-
-        #region 좌측 홀딩
-        else if (Input.GetMouseButton(0))
-        {
-            m_mouse[0] = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity/*, 1 << LayerMask.NameToLayer("Command Layer")*/);
-
-            m_mouse_hold_time[0] += Time.deltaTime;
-
-            //if (m_line_renderer)
-            //{
-            //m_line_renderer = m_dragging_hero.GetComponent<Hero>().m_line_renderer;
-
-            m_dragging_hero.GetComponent<Hero>().m_line_renderer.SetPosition(0, m_dragging_hero.transform.Find("FocusCircle").transform.position);
-            m_dragging_hero.GetComponent<Hero>().m_line_renderer.SetPosition(1, m_dragging_hero.GetComponent<Hero>().m_point_target);
-            //}
-        }
-        #endregion
-
-        #region 우측 홀딩
-        else if (Input.GetMouseButton(1))
-        {
-            m_mouse_hold_time[1] += Time.deltaTime;
         }
         #endregion
     }
