@@ -9,9 +9,9 @@ public class OptionScene : MonoBehaviour
     [SerializeField] GameObject ResolutionSetting;
     [SerializeField] GameObject KeySetting;
     [SerializeField] GameObject GameplaySetting;
-    [SerializeField] GameObject Skill;
+    [SerializeField] GameObject Skill; //스킬 프리팹
     bool m_skillMove = false;
-    public void AudioButtonClicked()
+    public void AudioButtonClicked() //각 버튼 클릭시 온오프 적용
     {
         AudioSetting.SetActive(true);
         ResolutionSetting.SetActive(false);
@@ -53,7 +53,7 @@ public class OptionScene : MonoBehaviour
     }
     private void Update()
     {
-        if (m_skillMove) Skill.transform.position = new Vector3(-0.8f, -1.5f , 0);
+        if (m_skillMove) Skill.transform.position = new Vector3(-0.8f, -1.5f , 0); //스킬 프리팹을 씬으로 등장시킴
         else Skill.transform.position = new Vector3(-10, -15 , 0);
     }
 }
