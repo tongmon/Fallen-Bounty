@@ -84,8 +84,7 @@ public class HeroCommandManager : MonoBehaviour
             float distance_to_target = Vector2.Distance(hero.transform.position, hero.m_point_target);
 
             // 길이 정해졌는데 적이 선택된 경우
-            if (m_mouse[0].collider != null
-                && m_mouse[0].collider.gameObject.transform.tag == "Enemy")
+            if (hero.m_target_enemy)
             {
                 // 적의 위치가 사거리와 맞지 않음
                 if (Mathf.Abs(distance_to_target - hero.m_attack_range) > 0.05f)
@@ -260,10 +259,17 @@ public class HeroCommandManager : MonoBehaviour
             // 마우스를 뗀 위치에 오브젝트가 위치에 있음
             if (m_mouse[0].collider != null)
             {
+                // 마우스를 뗀 위치가 적
                 if (m_mouse[0].collider.gameObject.tag == "Enemy")
                 {
                     if (m_selected_obj.tag == "Hero") 
                     {
+                        if (m_selected_hero)
+                            m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
+
+                        m_selected_hero = m_selected_obj;
+                        m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+
                         m_selected_obj.GetComponent<Hero>().m_target_enemy = m_mouse[0].collider.gameObject;
                         m_selected_obj.GetComponent<Hero>().m_point_target = m_mouse[0].collider.transform.position;
                         m_selected_obj.GetComponent<Hero>().m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
@@ -276,10 +282,18 @@ public class HeroCommandManager : MonoBehaviour
                         }
                     }
                 }
+                // 마우스를 뗀 위치가 영웅
                 else if (m_mouse[0].collider.gameObject.tag == "Hero")
                 {
+                    // 힐러나 영웅을 타겟팅으로 행동하는 객체들은 밑과 다른 로직을 사용해야됨...
                     if(m_selected_obj != m_mouse[0].collider.gameObject)
                     {
+                        if (m_selected_hero)
+                            m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
+                        
+                        m_selected_hero = m_selected_obj;
+                        m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+
                         m_selected_obj.GetComponent<Hero>().m_target_enemy = null;
                         m_selected_obj.GetComponent<Hero>().m_point_target = m_mouse[0].collider.transform.position;
                         m_selected_obj.GetComponent<Hero>().m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
@@ -316,9 +330,10 @@ public class HeroCommandManager : MonoBehaviour
                     }
                 }
             }
-            // 마우스를 뗀 위치가 땅임
+            // 마우스를 뗀 위치가 땅
             else
             {
+                // 그냥 맨바닥 클릭한 경우
                 if (!m_selected_obj)
                 {
                     if (m_selected_hero)
@@ -329,11 +344,19 @@ public class HeroCommandManager : MonoBehaviour
                 }
                 else if (m_selected_obj.tag == "Hero")
                 {
+                    if (m_selected_hero)
+                        m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
+
+                    m_selected_hero = m_selected_obj;
+                    m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+
                     m_selected_obj.GetComponent<Hero>().m_target_enemy = null;
                     m_selected_obj.GetComponent<Hero>().m_point_target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     m_selected_obj.GetComponent<Hero>().m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
                 }
             }
+
+            
 
             m_selected_obj = null;
             m_mouse_hold_time[0] = 0;

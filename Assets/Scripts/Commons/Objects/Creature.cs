@@ -20,6 +20,8 @@ public class Creature : MonoBehaviour
 
     public Vector2 m_vec_direction;
 
+    public SpriteRenderer m_sprite_seleted_circle;
+
     public bool m_selected;
 
     protected void Awake()
