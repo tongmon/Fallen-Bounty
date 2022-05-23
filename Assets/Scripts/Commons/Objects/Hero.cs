@@ -29,6 +29,11 @@ public class Hero : Creature
         base.Awake();
 
         m_line_renderer = GetComponent<LineRenderer>();
+        m_line_renderer.startWidth = 0.05f;
+        m_line_renderer.endWidth = 0.05f;
+
+        m_sprite_seleted_circle = transform.Find("FocusCircle").GetComponent<SpriteRenderer>();
+        
         m_state_move = HeroCommandManager.eMoveState.STATE_MOVE_NONE;
         m_target_enemy = null;
         m_x_velocity = 1f;

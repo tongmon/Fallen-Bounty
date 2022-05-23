@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class Witch : Hero
 {
-    public SpriteRenderer circle_below_hero;
-
     private new void Awake()
     {
         base.Awake();
+
         m_name = GetType().Name;
         m_ability_holder = new AbilityHolder(gameObject);
-        m_sprite_seleted_circle = transform.Find("FocusCircle").GetComponent<SpriteRenderer>();
     }
 
     // Start is called before the first frame update
@@ -32,7 +30,6 @@ public class Witch : Hero
 
     protected override void OnMouseLeftDown()
     {
-        /*
         if (!Input.GetMouseButtonDown(0))
             return;
 
@@ -42,18 +39,9 @@ public class Witch : Hero
             return;
 
         if(mouse.collider && mouse.collider.gameObject != gameObject)
-        {
-            circle_below_hero.color = new Color(255, 255, 255, 0);
-            m_selected = false;
             return;
-        }
 
-        if(circle_below_hero.color.a == 0)
-        {
-            circle_below_hero.color = new Color(255, 255, 255, 255);
-            m_selected = true;
-        }
-        */
+
     }
 
     protected override void OnMouseLeftDrag()

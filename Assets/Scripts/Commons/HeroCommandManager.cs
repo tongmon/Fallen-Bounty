@@ -64,6 +64,7 @@ public class HeroCommandManager : MonoBehaviour
 
     void Update()
     {
+        // 마우스 이벤트
         OnMouseEvent();
 
         // 특정 조건인 경우에만 밑을 수행하여 최적화 가능
@@ -236,6 +237,12 @@ public class HeroCommandManager : MonoBehaviour
         {
             m_mouse[0] = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity/*, 1 << LayerMask.NameToLayer("Command Layer")*/);
 
+            if(m_selected_obj && m_selected_obj.tag == "Hero")
+            {
+                m_selected_obj.GetComponent<Hero>().m_line_renderer.SetPosition(0, m_selected_obj.transform.position);
+                m_selected_obj.GetComponent<Hero>().m_line_renderer.SetPosition(1, m_mouse[0].transform.position);
+            }
+
             m_mouse_hold_time[0] += Time.deltaTime;
         }
         #endregion
@@ -262,13 +269,13 @@ public class HeroCommandManager : MonoBehaviour
                 // 마우스를 뗀 위치가 적
                 if (m_mouse[0].collider.gameObject.tag == "Enemy")
                 {
-                    if (m_selected_obj.tag == "Hero") 
+                    if (m_selected_obj.tag == "Hero")
                     {
                         if (m_selected_hero)
-                            m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
+                            m_selected_hero.GetComponent<Hero>().m_sprite_seleted_circle.color = new Color(255, 255, 255, 0);
 
                         m_selected_hero = m_selected_obj;
-                        m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+                        m_selected_hero.GetComponent<Hero>().m_sprite_seleted_circle.color = new Color(255, 255, 255, 255);
 
                         m_selected_obj.GetComponent<Hero>().m_target_enemy = m_mouse[0].collider.gameObject;
                         m_selected_obj.GetComponent<Hero>().m_point_target = m_mouse[0].collider.transform.position;
@@ -289,10 +296,10 @@ public class HeroCommandManager : MonoBehaviour
                     if(m_selected_obj != m_mouse[0].collider.gameObject)
                     {
                         if (m_selected_hero)
-                            m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
+                            m_selected_hero.GetComponent<Hero>().m_sprite_seleted_circle.color = new Color(255, 255, 255, 0);
                         
                         m_selected_hero = m_selected_obj;
-                        m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+                        m_selected_hero.GetComponent<Hero>().m_sprite_seleted_circle.color = new Color(255, 255, 255, 255);
 
                         m_selected_obj.GetComponent<Hero>().m_target_enemy = null;
                         m_selected_obj.GetComponent<Hero>().m_point_target = m_mouse[0].collider.transform.position;
@@ -315,10 +322,10 @@ public class HeroCommandManager : MonoBehaviour
                                 if (m_heroes[i] == m_mouse[0].collider.gameObject)
                                 {
                                     m_selected_hero = m_mouse[0].collider.gameObject;
-                                    m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+                                    m_selected_hero.GetComponent<Hero>().m_sprite_seleted_circle.color = new Color(255, 255, 255, 255);
                                 }
                                 else
-                                    m_heroes[i].GetComponent<Hero>().transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
+                                    m_heroes[i].GetComponent<Hero>().m_sprite_seleted_circle.color = new Color(255, 255, 255, 0);
                             }
                         }
                     }
@@ -326,7 +333,7 @@ public class HeroCommandManager : MonoBehaviour
                     else if (!m_selected_hero)
                     {
                         m_selected_hero = m_selected_obj;
-                        m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+                        m_selected_hero.GetComponent<Hero>().m_sprite_seleted_circle.color = new Color(255, 255, 255, 255);
                     }
                 }
             }
@@ -338,26 +345,24 @@ public class HeroCommandManager : MonoBehaviour
                 {
                     if (m_selected_hero)
                     {
-                        m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
+                        m_selected_hero.GetComponent<Hero>().m_sprite_seleted_circle.color = new Color(255, 255, 255, 0);
                         m_selected_hero = null;
                     }
                 }
                 else if (m_selected_obj.tag == "Hero")
                 {
                     if (m_selected_hero)
-                        m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
+                        m_selected_hero.GetComponent<Hero>().m_sprite_seleted_circle.color = new Color(255, 255, 255, 0);
 
                     m_selected_hero = m_selected_obj;
-                    m_selected_hero.transform.Find("FocusCircle").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+                    m_selected_hero.GetComponent<Hero>().m_sprite_seleted_circle.color = new Color(255, 255, 255, 255);
 
                     m_selected_obj.GetComponent<Hero>().m_target_enemy = null;
                     m_selected_obj.GetComponent<Hero>().m_point_target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     m_selected_obj.GetComponent<Hero>().m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
                 }
             }
-
-            
-
+           
             m_selected_obj = null;
             m_mouse_hold_time[0] = 0;
             #endregion

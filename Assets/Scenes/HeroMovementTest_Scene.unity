@@ -727,12 +727,14 @@ MonoBehaviour:
   m_status_effect: 0
   m_abilities_limit: 0
   m_vec_direction: {x: 0, y: 0}
+  m_sprite_seleted_circle: {fileID: 0}
   m_attack_power: 0
   m_magic_power: 0
   m_attack_speed: 0
   m_attack_range: 0
   m_point_target: {x: 0, y: 0}
   m_state_move: 0
+  m_mouse_hold_time: []
   m_target_enemy: {fileID: 0}
   m_line_renderer: {fileID: 0}
 --- !u!1 &952443518
@@ -950,8 +952,9 @@ MonoBehaviour:
   m_enemies: []
   m_heroes: []
   m_selected_hero: {fileID: 0}
+  m_selected_obj: {fileID: 0}
   m_angles: []
-  m_mouse_hold_time: 0
+  m_mouse_hold_time: []
 --- !u!1 &1365128752
 GameObject:
   m_ObjectHideFlags: 0
@@ -1268,12 +1271,14 @@ MonoBehaviour:
   m_status_effect: 0
   m_abilities_limit: 0
   m_vec_direction: {x: 0, y: 0}
+  m_sprite_seleted_circle: {fileID: 0}
   m_attack_power: 0
   m_magic_power: 0
   m_attack_speed: 0
   m_attack_range: 0
   m_point_target: {x: 0, y: 0}
   m_state_move: 0
+  m_mouse_hold_time: []
   m_target_enemy: {fileID: 0}
   m_line_renderer: {fileID: 0}
 --- !u!1 &1793807685
@@ -1592,12 +1597,14 @@ MonoBehaviour:
   m_status_effect: 0
   m_abilities_limit: 0
   m_vec_direction: {x: 0, y: 0}
+  m_sprite_seleted_circle: {fileID: 0}
   m_attack_power: 0
   m_magic_power: 0
   m_attack_speed: 0
   m_attack_range: 0
   m_point_target: {x: 0, y: 0}
   m_state_move: 0
+  m_mouse_hold_time: []
   m_target_enemy: {fileID: 0}
   m_line_renderer: {fileID: 0}
 --- !u!1 &1860715117
@@ -1916,12 +1923,14 @@ MonoBehaviour:
   m_status_effect: 0
   m_abilities_limit: 0
   m_vec_direction: {x: 0, y: 0}
+  m_sprite_seleted_circle: {fileID: 0}
   m_attack_power: 0
   m_magic_power: 0
   m_attack_speed: 0
   m_attack_range: 0
   m_point_target: {x: 0, y: 0}
   m_state_move: 0
+  m_mouse_hold_time: []
   m_target_enemy: {fileID: 0}
   m_line_renderer: {fileID: 0}
 --- !u!1 &1938066849

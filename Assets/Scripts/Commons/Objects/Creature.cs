@@ -22,11 +22,9 @@ public class Creature : MonoBehaviour
 
     public SpriteRenderer m_sprite_seleted_circle;
 
-    public bool m_selected;
-
     protected void Awake()
     {
-        m_selected = false;
+        
     }
 
     protected void Start()
