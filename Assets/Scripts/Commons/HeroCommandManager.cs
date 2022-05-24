@@ -237,12 +237,6 @@ public class HeroCommandManager : MonoBehaviour
         {
             m_mouse[0] = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity/*, 1 << LayerMask.NameToLayer("Command Layer")*/);
 
-            if(m_selected_obj && m_selected_obj.tag == "Hero")
-            {
-                m_selected_obj.GetComponent<Hero>().m_line_renderer.SetPosition(0, m_selected_obj.transform.position);
-                m_selected_obj.GetComponent<Hero>().m_line_renderer.SetPosition(1, m_mouse[0].transform.position);
-            }
-
             m_mouse_hold_time[0] += Time.deltaTime;
         }
         #endregion
@@ -302,7 +296,8 @@ public class HeroCommandManager : MonoBehaviour
                         m_selected_hero.GetComponent<Hero>().m_sprite_seleted_circle.color = new Color(255, 255, 255, 255);
 
                         m_selected_obj.GetComponent<Hero>().m_target_enemy = null;
-                        m_selected_obj.GetComponent<Hero>().m_point_target = m_mouse[0].collider.transform.position;
+                        m_selected_obj.GetComponent<Hero>().m_point_target = m_mouse[0].collider.transform.position 
+                            + new Vector3(0, m_selected_obj.GetComponent<SpriteRenderer>().size.y / 2, 0);
                         m_selected_obj.GetComponent<Hero>().m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
                     }
                     else if (m_selected_hero)
@@ -358,7 +353,8 @@ public class HeroCommandManager : MonoBehaviour
                     m_selected_hero.GetComponent<Hero>().m_sprite_seleted_circle.color = new Color(255, 255, 255, 255);
 
                     m_selected_obj.GetComponent<Hero>().m_target_enemy = null;
-                    m_selected_obj.GetComponent<Hero>().m_point_target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    m_selected_obj.GetComponent<Hero>().m_point_target = Camera.main.ScreenToWorldPoint(Input.mousePosition)
+                        + new Vector3(0, m_selected_obj.GetComponent<SpriteRenderer>().size.y / 2, 0);
                     m_selected_obj.GetComponent<Hero>().m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
                 }
             }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Hero : Creature
 {
+    public float m_dragline_alpha;
+    public Vector2 m_dragging_point;
+
     public float m_attack_power;
     public float m_magic_power;
     public float m_attack_speed;
@@ -41,6 +44,9 @@ public class Hero : Creature
         m_attack_range = 3f;
         m_point_target = transform.position;
         m_mouse_hold_time = new float[2];
+        
+        m_dragline_alpha = 0.0f;
+        m_dragging_point = new Vector2();
     }
 
     protected new void Start()
