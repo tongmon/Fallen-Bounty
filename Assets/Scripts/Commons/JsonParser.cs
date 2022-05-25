@@ -80,13 +80,13 @@ public class JsonParser
     {
         string str_json = JsonConvert.SerializeObject(json_data, Formatting.None);
         string full_path = string.Format("{0}/{1}.json", create_path, file_path);
-        File.WriteAllText(full_path, str_json);?
+        File.WriteAllText(full_path, str_json);
     }
 
     void CreateJsonFile(string full_path, JObject json_data)
     {
         string str_json = JsonConvert.SerializeObject(json_data, Formatting.None);
-        File.WriteAllText(full_path, str_json);?
+        File.WriteAllText(full_path, str_json);
     }
     #endregion
 
