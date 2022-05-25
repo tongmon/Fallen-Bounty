@@ -90,6 +90,13 @@ public class JsonParser
     }
     #endregion
 
-    T LoadJsonFile<T>(string loadPath, string fileName) { FileStream fileStream = new FileStream(string.Format("{0}/{1}.json", loadPath, fileName), FileMode.Open); byte[] data = new byte[fileStream.Length]; fileStream.Read(data, 0, data.Length); fileStream.Close(); string jsonData = Encoding.UTF8.GetString(data); return JsonConvert.DeserializeObject<T>(jsonData); }
-    출처: https://wergia.tistory.com/163 [베르의 프로그래밍 노트:티스토리]
+    T LoadJsonFile<T>(string loadPath, string fileName) 
+    { 
+        FileStream fileStream = new FileStream(string.Format("{0}/{1}.json", loadPath, fileName), FileMode.Open); 
+        byte[] data = new byte[fileStream.Length]; 
+        fileStream.Read(data, 0, data.Length); 
+        fileStream.Close(); 
+        string jsonData = Encoding.UTF8.GetString(data); 
+        return JsonConvert.DeserializeObject<T>(jsonData); 
+    }
 }
