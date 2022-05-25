@@ -1,35 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+    
 namespace Map
 {
-    /*
-     필요한것 : 맵 저장용 리스트, 맵 검사용 배열, 맵 종류, 현재 노드 위치, 보스 노드. 
-     */
-    public class Map : ScriptableObject
+    public class Map : MonoBehaviour
     {
-        List<List<string>> m_map = new List<List<string>>();
-    }
-    public enum MapType
-    {
-        Common,
-        Elite,
-        Train,
-        Battle,
-        Town,
-        Store,
-        Cursed,
-        Boss
-    }
-    public class MapInfo
-    {
-        public MapType m_map_type;
-        public int m_distance;
-    } 
-
-    public class MapSetting
-    {
-        
+        public m_MapType m_map_type;
+        public Sprite m_sprite;
+        public List <MapBluePrint> m_map_List;
+        int i = 0;
+        private void Awake()
+        {
+            while (true)//할당할때까지 반복
+            {
+                i = Random.Range(0, 14);
+                Debug.Log(i);
+                ///if (!m_map_blue_print.m_is_exist[i])
+                {
+                    //m_map_blue_print.m_is_exist[i] = true;
+                    m_map_type = (m_MapType)i;
+                    //m_sprite = m_map_blue_print.m_sprite;
+                    break;
+                }
+            }
+        }
     }
 }
