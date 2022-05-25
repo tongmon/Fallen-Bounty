@@ -30,7 +30,7 @@ jarray.Add("Paladin");
 [
   1,
   "Paladin"
-]?
+]
 
 // 内靛
 var jarray = new JArray();
@@ -50,6 +50,33 @@ json.Add("friends", jarray);
     "Cleric"
   ]
 }
+
+
+[
+
+{
+  "name" : "preload map setting 1"
+  0 : [1,2]
+  1 : []
+}
+
+{
+  "name" : "preload map setting 2"
+  "attack_power": 1.5
+}
+
+{
+  "name": "Paladin",
+  "attack_power": 1.5
+}
+
+{
+  "name": "Paladin",
+  "attack_power": 1.5
+}
+
+]
+
 */
 
 public class JsonParser
@@ -60,26 +87,26 @@ public class JsonParser
     }
 
     #region JSON 颇老 积己
-    void CreateJsonFile(string create_path, string file_path, string json_data) 
+    void CreateJsonFile(string create_path, string file_name, string json_data) 
     { 
-        FileStream fileStream = new FileStream(string.Format("{0}/{1}.json", create_path, file_path), FileMode.Create); 
-        byte[] data = Encoding.UTF8.GetBytes(json_data); 
-        fileStream.Write(data, 0, data.Length); 
-        fileStream.Close(); 
+        FileStream file_stream = new FileStream(string.Format("{0}/{1}.json", create_path, file_name), FileMode.Create); 
+        byte[] data = Encoding.UTF8.GetBytes(json_data);
+        file_stream.Write(data, 0, data.Length);
+        file_stream.Close(); 
     }
 
     void CreateJsonFile(string full_path, string json_data)
     {
-        FileStream fileStream = new FileStream(string.Format("{0}.json", full_path), FileMode.Create);
+        FileStream file_stream = new FileStream(string.Format("{0}.json", full_path), FileMode.Create);
         byte[] data = Encoding.UTF8.GetBytes(json_data);
-        fileStream.Write(data, 0, data.Length);
-        fileStream.Close();
+        file_stream.Write(data, 0, data.Length);
+        file_stream.Close();
     }
 
-    void CreateJsonFile(string create_path, string file_path, JObject json_data)
+    void CreateJsonFile(string create_path, string file_name, JObject json_data)
     {
         string str_json = JsonConvert.SerializeObject(json_data, Formatting.None);
-        string full_path = string.Format("{0}/{1}.json", create_path, file_path);
+        string full_path = string.Format("{0}/{1}.json", create_path, file_name);
         File.WriteAllText(full_path, str_json);
     }
 
@@ -90,13 +117,26 @@ public class JsonParser
     }
     #endregion
 
-    T LoadJsonFile<T>(string loadPath, string fileName) 
+    #region JSON 颇老 佬扁
+    T LoadJsonFile<T>(string saved_path, string file_name) 
     { 
-        FileStream fileStream = new FileStream(string.Format("{0}/{1}.json", loadPath, fileName), FileMode.Open); 
-        byte[] data = new byte[fileStream.Length]; 
-        fileStream.Read(data, 0, data.Length); 
-        fileStream.Close(); 
+        FileStream file_stream = new FileStream(string.Format("{0}/{1}.json", saved_path, file_name), FileMode.Open); 
+        byte[] data = new byte[file_stream.Length];
+        file_stream.Read(data, 0, data.Length);
+        file_stream.Close(); 
         string jsonData = Encoding.UTF8.GetString(data); 
         return JsonConvert.DeserializeObject<T>(jsonData); 
     }
+
+    T LoadJsonFile<T>(string full_path)
+    {
+        FileStream file_stream = new FileStream(string.Format("{0}.json", full_path), FileMode.Open);
+        byte[] data = new byte[file_stream.Length];
+        file_stream.Read(data, 0, data.Length);
+        file_stream.Close();
+        string jsonData = Encoding.UTF8.GetString(data);
+        return JsonConvert.DeserializeObject<T>(jsonData);
+    }
+
+    #endregion
 }
