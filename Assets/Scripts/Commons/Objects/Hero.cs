@@ -4,28 +4,31 @@ using UnityEngine;
 
 public class Hero : Creature
 {
-    public float m_dragline_alpha;
-    public Vector2 m_dragging_point;
-
-    public float m_attack_power;
+    #region Data from JSON file
+    // 물리 공격력
+    public float m_physic_power;
+    // 마법 공격력
     public float m_magic_power;
-    public float m_attack_speed;
-    
+    // 평타 속도
+    public float m_attack_speed;   
     // 공격 범위
     public float m_attack_range;
+    #endregion
 
     // 타겟 위치
     public Vector2 m_point_target;
-
-    // 움직임 상태
-    public HeroCommandManager.eMoveState m_state_move;
-
     // 마우스 홀딩 시간
     public float[] m_mouse_hold_time;
-
+    // 움직임 상태
+    public HeroCommandManager.eMoveState m_state_move;
+    // 캐릭터 타게팅 상태
     public GameObject m_target_enemy;
-
+    // 캐릭터 드래깅 선
     public LineRenderer m_line_renderer;
+    // 드래깅 선 투명도
+    public float m_dragline_alpha;
+    // 드래깅 선 목표점
+    public Vector2 m_dragging_point;
 
     protected new void Awake()
     {

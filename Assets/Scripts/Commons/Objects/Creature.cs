@@ -4,24 +4,32 @@ using UnityEngine;
 
 public class Creature : MonoBehaviour
 {
-    public AbilityHolder m_ability_holder;
-
+    #region Data from JSON file
+    // 생명체 이름
     public string m_name;
-
+    // 생명력(체력)
     public float m_health;
+    // 좌우 속도
     public float m_x_velocity;
+    // 상하 속도
     public float m_y_velocity;
-
     // 64bit, 최대 64개의 상태이상
     public long m_status_effect;
+    // 마력 방어력
+    public float m_magic_armor;
+    // 물리 방어력
+    public float m_physic_armor;
+    #endregion
 
     // 스킬 제한 개수
     public int m_abilities_limit;
-
+    // 생명체가 향하는 방향
     public Vector2 m_vec_direction;
-
+    // 스킬 홀더
+    public AbilityHolder m_ability_holder;
+    // 생명체 선택 포커스 스프라이트
     public SpriteRenderer m_sprite_seleted_circle;
-
+    // 생명체 선택 유무
     public bool m_selected;
 
     protected void Awake()

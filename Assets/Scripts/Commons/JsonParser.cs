@@ -50,33 +50,6 @@ json.Add("friends", jarray);
     "Cleric"
   ]
 }
-
-
-[
-
-{
-  "name" : "preload map setting 1"
-  0 : [1,2]
-  1 : []
-}
-
-{
-  "name" : "preload map setting 2"
-  "attack_power": 1.5
-}
-
-{
-  "name": "Paladin",
-  "attack_power": 1.5
-}
-
-{
-  "name": "Paladin",
-  "attack_power": 1.5
-}
-
-]
-
 */
 
 public class JsonParser
@@ -124,8 +97,8 @@ public class JsonParser
         byte[] data = new byte[file_stream.Length];
         file_stream.Read(data, 0, data.Length);
         file_stream.Close(); 
-        string jsonData = Encoding.UTF8.GetString(data); 
-        return JsonConvert.DeserializeObject<T>(jsonData); 
+        string json_data = Encoding.UTF8.GetString(data); 
+        return JsonConvert.DeserializeObject<T>(json_data); 
     }
 
     T LoadJsonFile<T>(string full_path)
@@ -134,9 +107,33 @@ public class JsonParser
         byte[] data = new byte[file_stream.Length];
         file_stream.Read(data, 0, data.Length);
         file_stream.Close();
-        string jsonData = Encoding.UTF8.GetString(data);
-        return JsonConvert.DeserializeObject<T>(jsonData);
+        string json_data = Encoding.UTF8.GetString(data);
+        return JsonConvert.DeserializeObject<T>(json_data);
     }
 
+    List<T> LoadJsonArrayFile<T>(string full_path)
+    {
+        List<T> ret_list = new List<T>();
+        FileStream file_stream = new FileStream(string.Format("{0}.json", full_path), FileMode.Open);
+        byte[] data = new byte[file_stream.Length];
+        file_stream.Read(data, 0, data.Length);
+        file_stream.Close();
+
+        string json_data = Encoding.UTF8.GetString(data);
+        JArray jarray = JArray.Parse(json_data);
+
+        foreach (JObject jobject in jarray.Children<JObject>())
+        {
+            T json_class = jobject.ToObject<T>();
+            ret_list.Add(json_class);
+        }
+
+        return ret_list;
+    }
     #endregion
+}
+
+class JsonHero
+{
+
 }
