@@ -50,6 +50,12 @@ json.Add("friends", jarray);
     "Cleric"
   ]
 }
+
+- derived class에서의 사용은 밑의 링크 참고
+https://stackoverflow.com/questions/8513042/json-net-serialize-deserialize-derived-types
+
+- 지금 MonoBehaviour 자체를 상속받는 형태로 가고 있는데 이를 따로 분리 시키는 구조 고려해봐야 댐...
+위의 이유는 json 파싱할 때 클래스가 뻥튀기되기 때문에 이를 최대한 줄여야댐
 */
 
 public class JsonParser
