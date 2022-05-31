@@ -203,7 +203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ede99d402bdfc4c89615dbb1c22c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_map_node: {fileID: 1776590156405739495, guid: 583fb66633793c74d83e0f0104e2625d, type: 3}
+  m_prefab_canvas: {fileID: 0}
+  m_sprite: []
 --- !u!1001 &1125168420
 PrefabInstance:
   m_ObjectHideFlags: 0

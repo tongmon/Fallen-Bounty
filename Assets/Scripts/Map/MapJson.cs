@@ -20,6 +20,7 @@ namespace Map
     [System.Serializable]
     public class MapInfo
     {
+        public GameObject m_map_node; //맵 노드
         public List<int> map_path = new List<int>(); //맵 경로 저장 리스트
         public List<int> map_path1 = new List<int>();
         public List<int> map_path2= new List<int>();
@@ -38,21 +39,26 @@ namespace Map
     }
     public class MapJson : MonoBehaviour
     {
-        [SerializeField] GameObject m_map_node;
+        [SerializeField] GameObject m_prefab_canvas;
         [SerializeField] Sprite[] m_sprite;
         private static string m_save_path => "Assets/Resources/MapJson/";
 
-        private void Awake()
+        private void Start()
         {
             if (!Directory.Exists(m_save_path)) //디렉토리가 없으면
             {
                 Directory.CreateDirectory(m_save_path); //만듦
-                MapInfo m_mapInfo = new MapInfo();
+                MapInfo m_mapInfo = new MapInfo();//맵인포 객체 생성
+                m_mapInfo.m_map_node = Resources.Load<GameObject>("MapPrefab"); //리소스폴더에서 찾기
+                Instantiate(m_mapInfo.m_map_node, m_prefab_canvas.transform);
                 for (int i = 0; i < 30; i += 3)
                 {
                     m_mapInfo.map_path.Add(Random.Range(i, i + 2)); //랜덤으로 경로설정 * 3
                     m_mapInfo.map_path1.Add(Random.Range(i, i + 2));
                     m_mapInfo.map_path2.Add(Random.Range(i, i + 2));
+                    m_mapInfo.m_map_node.transform.GetChild(i).transform.Translate(new Vector2(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f)));
+                    m_mapInfo.m_map_node.transform.GetChild(i+1).transform.Translate(new Vector2(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f)));
+                    m_mapInfo.m_map_node.transform.GetChild(i+2).transform.Translate(new Vector2(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f)));
                 }
                 for (int i = 0; i < m_mapInfo.map_path.Count; i++)
                 {
@@ -101,7 +107,8 @@ namespace Map
             {
                 string save_file_path = m_save_path + "MapJson.json";//json 경로
                 string save_file = File.ReadAllText(save_file_path); //json 읽기
-                MapInfo mapInfo = JsonUtility.FromJson<MapInfo>(save_file); //json 적용
+                MapInfo m_mapInfo = JsonUtility.FromJson<MapInfo>(save_file); //json 적용
+                Instantiate(m_mapInfo.m_map_node, m_prefab_canvas.transform);
             }
         }
     }
