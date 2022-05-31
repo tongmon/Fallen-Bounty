@@ -21,9 +21,9 @@ namespace Map
     public class MapInfo
     {
         public GameObject m_map_node; //맵 노드
-        public List<int> map_path = new List<int>(); //맵 경로 저장 리스트
-        public List<int> map_path1 = new List<int>();
-        public List<int> map_path2= new List<int>();
+        public List<GameObject> map_path = new List<GameObject>(); //맵 경로 저장 리스트
+        public List<GameObject> map_path1 = new List<GameObject>(); 
+        public List<GameObject> map_path2 = new List<GameObject>(); 
 
         public List <Sprite> sprite = new List<Sprite>(); //스트라이트 리스트
         public List<Sprite> sprite1 = new List<Sprite>();
@@ -41,7 +41,7 @@ namespace Map
     {
         [SerializeField] GameObject m_prefab_canvas;
         [SerializeField] Sprite[] m_sprite;
-        private static string m_save_path => "Assets/Resources/MapJson/";
+        private static string m_save_path => "Assets/Resources/MapJson/MapJson.json";
 
         private void Start()
         {
@@ -51,29 +51,35 @@ namespace Map
                 MapInfo m_mapInfo = new MapInfo();//맵인포 객체 생성
                 m_mapInfo.m_map_node = Resources.Load<GameObject>("MapPrefab"); //리소스폴더에서 찾기
                 Instantiate(m_mapInfo.m_map_node, m_prefab_canvas.transform);
-                for (int i = 0; i < 30; i += 3)
+                for (int i = 0; i < 30; i += 3) //경로설정
                 {
-                    m_mapInfo.map_path.Add(Random.Range(i, i + 2)); //랜덤으로 경로설정 * 3
-                    m_mapInfo.map_path1.Add(Random.Range(i, i + 2));
-                    m_mapInfo.map_path2.Add(Random.Range(i, i + 2));
-                    m_mapInfo.m_map_node.transform.GetChild(i).transform.Translate(new Vector2(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f)));
-                    m_mapInfo.m_map_node.transform.GetChild(i+1).transform.Translate(new Vector2(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f)));
-                    m_mapInfo.m_map_node.transform.GetChild(i+2).transform.Translate(new Vector2(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f)));
+                    m_mapInfo.map_path.Add(m_mapInfo.m_map_node.transform.GetChild(Random.Range(i, i + 2)).gameObject); 
+                    m_mapInfo.map_path1.Add(m_mapInfo.m_map_node.transform.GetChild(Random.Range(i, i + 2)).gameObject);
+                    m_mapInfo.map_path2.Add(m_mapInfo.m_map_node.transform.GetChild(Random.Range(i, i + 2)).gameObject);
+                    m_mapInfo.m_map_node.transform.GetChild(i).transform.Translate(new Vector2(Random.Range(-0.5f, 0.2f), Random.Range(-0.5f, 0.5f))); //랜덤좌표로 조금이동
+                    m_mapInfo.m_map_node.transform.GetChild(i+1).transform.Translate(new Vector2(Random.Range(-0.5f, 0.2f), Random.Range(-0.5f, 0.5f)));
+                    m_mapInfo.m_map_node.transform.GetChild(i+2).transform.Translate(new Vector2(Random.Range(-0.5f, 0.2f), Random.Range(-0.5f, 0.5f)));
                 }
-                for (int i = 0; i < m_mapInfo.map_path.Count; i++)
+                for (int i = 0; i < m_mapInfo.map_path.Count; i++) //줄 긋기, 랜덤 맵타입 삽입
                 {
                     int map_number = Random.Range(0, 6);
                     if (map_number == 1 && m_mapInfo.elite_exist == true)
                     {
                         while (map_number == 1) //엘리트는 유일해야함
                         {
-                            map_number = Random.Range(0, 6); 
+                            map_number = Random.Range(0, 6);
                         }
                     }
                     else if (map_number == 1) m_mapInfo.elite_exist = true;
                     m_mapInfo.mapType.Add((eMapType)map_number); //그 맵타입 저장
-                    //m_mapInfo.sprite.Add(m_sprite[map_number]);
-
+                    //m_mapInfo.sprite.Add(m_sprite[map_number]); //UI삽입인데 아직 스프라이트가 없음
+                }
+                for (int i = 0; i < m_mapInfo.map_path1.Count; i++) 
+                {
+                    m_mapInfo.m_map_node.transform.GetChild(i).GetComponent<LineRenderer>().SetPosition(0, m_mapInfo.m_map_node.transform.GetChild(i).transform.position);//위치 저장이 안됨.
+                    m_mapInfo.m_map_node.transform.GetChild(i).GetComponent<LineRenderer>().SetPosition(1, m_mapInfo.m_map_node.transform.GetChild(i+1).transform.position);
+                    m_mapInfo.m_map_node.transform.GetChild(i).GetComponent<LineRenderer>().startWidth = 0.5f;
+                    m_mapInfo.m_map_node.transform.GetChild(i).GetComponent<LineRenderer>().endWidth = 0.5f;
                     int map_number1 = Random.Range(0, 6);
                     if (map_number1 == 1 && m_mapInfo.elite_exist1 == true)
                     {
@@ -84,8 +90,10 @@ namespace Map
                     }
                     else if (map_number1 == 1) m_mapInfo.elite_exist1 = true;
                     m_mapInfo.mapType1.Add((eMapType)map_number1);
-                    //m_mapInfo.sprite1.Add(m_sprite[map_number]);
-
+                    //m_mapInfo.sprite1.Add(m_sprite[map_number]); 
+                }
+                for (int i = 0; i < m_mapInfo.map_path2.Count; i++)
+                {
                     int map_number2 = Random.Range(0, 6);
                     if (map_number2 == 1 && m_mapInfo.elite_exist == true)
                     {
@@ -105,7 +113,7 @@ namespace Map
             }
             else
             {
-                string save_file_path = m_save_path + "MapJson.json";//json 경로
+                string save_file_path = m_save_path;//json 경로
                 string save_file = File.ReadAllText(save_file_path); //json 읽기
                 MapInfo m_mapInfo = JsonUtility.FromJson<MapInfo>(save_file); //json 적용
                 Instantiate(m_mapInfo.m_map_node, m_prefab_canvas.transform);
