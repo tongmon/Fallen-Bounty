@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_prefab_canvas: {fileID: 2009020934}
+  m_saved_map: {fileID: 1202149371478504701, guid: 2f632c92aa5187f4cb95104703c05d83, type: 3}
   m_sprite: []
 --- !u!1001 &1125168420
 PrefabInstance:
