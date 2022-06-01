@@ -18,8 +18,9 @@ namespace Map
         Boss
     }
     [System.Serializable]
-    public class MapInfo
+    public class MapInfo 
     {
+        public GameObject m_map_node;
         public List<GameObject> map_path = new List<GameObject>(); //맵 경로 저장 리스트
         public List<GameObject> map_path1 = new List<GameObject>(); 
         public List<GameObject> map_path2 = new List<GameObject>(); 
@@ -49,6 +50,7 @@ namespace Map
             {
                 Directory.CreateDirectory(m_save_path); //만듦
                 MapInfo m_mapInfo = new MapInfo();//맵 인포 객체 생성
+                //m_mapInfo.m_map_node = Resources.Load<GameObject>("MapPrefab");
                 m_saved_map = Resources.Load<GameObject>("MapPrefab"); //논리오류가있다
                 for (int i = 0; i < 30; i += 3) //맵 경로설정
                 {
