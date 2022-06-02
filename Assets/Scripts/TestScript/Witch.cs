@@ -1,16 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using JsonSubTypes;
+using Newtonsoft.Json;
 using UnityEngine;
 
+[JsonConverter(typeof(JsonSubtypes))]
 public class Witch : Hero
 {
     private new void Awake()
     {
         base.Awake();
 
-        m_name = GetType().Name;
+        type_name = GetType().Name;
         m_ability_holder = new AbilityHolder(gameObject);
+
+        // MonoBehavior가 null로 변하는 문제를 해결해야함...
+        // 현재 떠오른 해결 방안으로는... Witch : IHero, MonoBehavior 이렇게 가는거 정도...?
+        Hero temp = this.GetComponent<Hero>();
+        temp = JsonParser.LoadJsonFile<Hero>(Application.dataPath + "/DataFiles/ObjectFiles/witch");
+
+        // HeroData temp_hero = JsonParser.LoadJsonFile<HeroData>(Application.dataPath + "/DataFiles/ObjectFiles/witch");
+        // JsonParser.Loadtest();
+        // List<HeroData> temp_list = JsonParser.LoadJsonArrayFile<HeroData>(Application.dataPath + "/DataFiles/ObjectFiles/hero_list");
     }
 
     // Start is called before the first frame update

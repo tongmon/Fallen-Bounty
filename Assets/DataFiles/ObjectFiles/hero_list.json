@@ -1,0 +1,61 @@
+[
+{
+	"name" : "Witch",
+	"health" : 30,
+	"x_velocity" : 5,
+	"y_velocity" : 7,
+	"status_effect" : 0,
+	"magic_armor" : 10,
+	"physic_armor" : 5,
+	"physic_power" : 15,
+	"magic_power" : 15,
+	"attack_speed" : 3,
+	"attack_range" : 10
+	"debuff_cooltime" : 3
+},
+
+{
+	"name" : "Paladin",
+	"health" : 30,
+	"x_velocity" : 5,
+	"y_velocity" : 7,
+	"status_effect" : 0,
+	"magic_armor" : 10,
+	"physic_armor" : 5,
+	"physic_power" : 15,
+	"magic_power" : 15,
+	"attack_speed" : 3,
+	"attack_range" : 10
+	"holy_state" : 100
+},
+
+{
+	"name" : "Cleric",
+	"health" : 30,
+	"x_velocity" : 5,
+	"y_velocity" : 7,
+	"status_effect" : 0,
+	"magic_armor" : 10,
+	"physic_armor" : 5,
+	"physic_power" : 15,
+	"magic_power" : 15,
+	"attack_speed" : 3,
+	"attack_range" : 10
+	"heal_power" : 2
+},
+
+{
+	"name" : "Warrior",
+	"health" : 30,
+	"x_velocity" : 5,
+	"y_velocity" : 7,
+	"status_effect" : 0,
+	"magic_armor" : 10,
+	"physic_armor" : 5,
+	"physic_power" : 15,
+	"magic_power" : 15,
+	"attack_speed" : 3,
+	"attack_range" : 10
+	"armor_inchant_power" : 1
+}
+]

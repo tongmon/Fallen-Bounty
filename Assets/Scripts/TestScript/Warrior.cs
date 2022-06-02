@@ -8,7 +8,8 @@ public class Warrior : Hero
     {
         base.Awake();
 
-        m_name = GetType().Name;
+        type_name = GetType().Name;
+
         m_ability_holder = new AbilityHolder(gameObject);
     }
 

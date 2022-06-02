@@ -35,12 +35,12 @@ public class HeroHolder
     {
         if (m_heroes.Count < m_hero_limit)
         {
-            m_heroes_dict[hero.m_name] = m_heroes.Count;
+            m_heroes_dict[hero.type_name] = m_heroes.Count;
             m_heroes.Add(hero);
         }
         else
         {
-            m_sub_heroes_dict[hero.m_name] = m_sub_heroes.Count;
+            m_sub_heroes_dict[hero.type_name] = m_sub_heroes.Count;
             m_sub_heroes.Add(hero);
         }
     }

@@ -6,7 +6,7 @@ public class TemplateHero : Hero
 {
     public TemplateHero()
     {
-        m_name = GetType().Name;
+        type_name = GetType().Name;
         m_ability_holder = new AbilityHolder(gameObject);
     }
 
