@@ -1,152 +1,152 @@
 {
     "map_path": [
         {
-            "instanceID": 24702
+            "instanceID": -97614
         },
         {
-            "instanceID": 24602
+            "instanceID": -97674
         },
         {
-            "instanceID": 24626
+            "instanceID": -97754
         },
         {
-            "instanceID": 24658
+            "instanceID": -97794
         },
         {
-            "instanceID": 24650
+            "instanceID": -97854
         },
         {
-            "instanceID": 24678
+            "instanceID": -97934
         },
         {
-            "instanceID": 24686
+            "instanceID": -97994
         },
         {
-            "instanceID": 24674
+            "instanceID": -98034
         },
         {
-            "instanceID": 24618
+            "instanceID": -98094
         },
         {
-            "instanceID": 24642
+            "instanceID": -98174
         },
         {
-            "instanceID": 24714
+            "instanceID": -98214
         }
     ],
     "map_path1": [
         {
-            "instanceID": 24670
+            "instanceID": -97614
         },
         {
-            "instanceID": 24602
+            "instanceID": -97674
         },
         {
-            "instanceID": 24638
+            "instanceID": -97754
         },
         {
-            "instanceID": 24614
+            "instanceID": -97794
         },
         {
-            "instanceID": 24710
+            "instanceID": -97854
         },
         {
-            "instanceID": 24678
+            "instanceID": -97934
         },
         {
-            "instanceID": 24646
+            "instanceID": -97974
         },
         {
-            "instanceID": 24666
+            "instanceID": -98054
         },
         {
-            "instanceID": 24618
+            "instanceID": -98114
         },
         {
-            "instanceID": 24642
+            "instanceID": -98154
         },
         {
-            "instanceID": 24714
+            "instanceID": -98214
         }
     ],
     "map_path2": [
         {
-            "instanceID": 24702
+            "instanceID": -97614
         },
         {
-            "instanceID": 24602
+            "instanceID": -97674
         },
         {
-            "instanceID": 24638
+            "instanceID": -97754
         },
         {
-            "instanceID": 24658
+            "instanceID": -97794
         },
         {
-            "instanceID": 24710
+            "instanceID": -97854
         },
         {
-            "instanceID": 24654
+            "instanceID": -97914
         },
         {
-            "instanceID": 24646
+            "instanceID": -97994
         },
         {
-            "instanceID": 24674
+            "instanceID": -98054
         },
         {
-            "instanceID": 24594
+            "instanceID": -98114
         },
         {
-            "instanceID": 24622
+            "instanceID": -98174
         },
         {
-            "instanceID": 24714
+            "instanceID": -98214
         }
     ],
     "sprite": [],
     "sprite1": [],
     "sprite2": [],
     "mapType": [
-        2,
+        5,
+        4,
         2,
         5,
+        1,
+        0,
+        3,
+        4,
         2,
         2,
-        0,
-        4,
-        4,
-        0,
-        0,
         7
     ],
     "mapType1": [
-        3,
         1,
         5,
-        0,
-        0,
+        3,
+        4,
         2,
-        0,
-        0,
+        3,
         5,
-        5,
+        3,
+        4,
+        0,
         7
     ],
     "mapType2": [
-        5,
-        2,
-        5,
-        4,
-        5,
-        5,
         0,
+        4,
+        3,
+        0,
+        4,
         2,
-        5,
+        4,
+        0,
+        3,
         3,
         7
     ],
-    "elite_exist": false,
+    "elite_exist": true,
     "elite_exist1": true,
     "elite_exist2": false
 }

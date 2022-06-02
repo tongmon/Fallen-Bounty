@@ -203,9 +203,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ede99d402bdfc4c89615dbb1c22c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_sprite: []
   m_prefab_canvas: {fileID: 2009020934}
   m_saved_map: {fileID: 1202149371478504701, guid: 2f632c92aa5187f4cb95104703c05d83, type: 3}
-  m_sprite: []
 --- !u!1001 &1125168420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -217,6 +217,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1450229043}
+    - target: {fileID: 977965470533520404, guid: ced55cd262367614faf88aa8a7451c76, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 977965470533520405, guid: ced55cd262367614faf88aa8a7451c76, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 977965470533520405, guid: ced55cd262367614faf88aa8a7451c76, type: 3}
       propertyPath: m_ReferenceResolution.y
       value: 1200
@@ -255,6 +263,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 977965470533520407, guid: ced55cd262367614faf88aa8a7451c76, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977965470533520407, guid: ced55cd262367614faf88aa8a7451c76, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977965470533520407, guid: ced55cd262367614faf88aa8a7451c76, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977965470533520407, guid: ced55cd262367614faf88aa8a7451c76, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 977965470533520407, guid: ced55cd262367614faf88aa8a7451c76, type: 3}
