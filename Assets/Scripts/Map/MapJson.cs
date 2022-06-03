@@ -57,34 +57,31 @@ namespace Map
                 MapInfo m_mapInfo = new MapInfo();//맵 인포 객체 생성
                 Instantiate(Resources.Load<GameObject>("MapPrefab"), m_prefab_canvas.transform); //인스턴스 화
                 GameObject map = GameObject.FindGameObjectWithTag("Map");//객체 연결
-                m_mapInfo.map_path.Add(map.transform.GetChild(0).gameObject);//초기 값 설정
-                m_mapInfo.map_path1.Add(map.transform.GetChild(1).gameObject);
-                m_mapInfo.map_path2.Add(map.transform.GetChild(2).gameObject);
-                for (int i = 0; i < 30; i++) //맵 경로설정
+                for (int i = 0; i < 75; i++) //맵 경로설정
                 {
-                    map.transform.GetChild(i).transform.Translate(new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f))); //위치 랜덤화
+                    map.transform.GetChild(i).transform.Translate(new Vector2(Random.Range(-0.15f, 0.15f), Random.Range(-0.15f, 0.15f))); //위치 랜덤화
                     m_mapInfo.map_position.Add(map.transform.GetChild(i).transform.position);//랜덤화된 위치 저장
 
                     map.transform.GetChild(i).GetComponent<LineRenderer>().startWidth = 0.05f;//길이 설정 먼저하기
                     map.transform.GetChild(i).GetComponent<LineRenderer>().endWidth = 0.05f;
                     map.transform.GetChild(i).GetComponent<LineRenderer>().SetPosition(0, map.transform.GetChild(i).transform.position);
 
-                    if(i%3 == 0 && i!=0)
+                    if(i % 3 == 0)
                     {
                         m_mapInfo.map_path.Add(map.transform.GetChild(Random.Range(i, i + 2)).gameObject);
                     }
-                    else if(i%3 == 1 && i!=1)
+                    else if(i % 3 == 1)
                     {
                         m_mapInfo.map_path.Add(map.transform.GetChild(Random.Range(i-1, i + 1)).gameObject);
                     }
-                    else if(i%3 == 2 && i!=2)
+                    else if(i % 3 == 2)
                     {
                         m_mapInfo.map_path.Add(map.transform.GetChild(Random.Range(i-2, i)).gameObject);
                     }
                 }
-                m_mapInfo.map_path.Add(map.transform.GetChild(30).gameObject);//보스 노드 넣기
-                m_mapInfo.map_path1.Add(map.transform.GetChild(30).gameObject);
-                m_mapInfo.map_path2.Add(map.transform.GetChild(30).gameObject);
+                m_mapInfo.map_path.Add(map.transform.GetChild(75).gameObject);//보스 노드 넣기
+                m_mapInfo.map_path1.Add(map.transform.GetChild(75).gameObject);
+                m_mapInfo.map_path2.Add(map.transform.GetChild(75).gameObject);
 
                 for (int i = 0; i < m_mapInfo.map_path.Count-1; i++) //랜덤 맵타입 삽입
                 {
@@ -131,13 +128,13 @@ namespace Map
                     m_mapInfo.mapType2.Add((eMapType)map_number2);
                     //m_mapInfo.sprite2.Add(m_sprite[map_number]);
                 }
-                for(int i=0; i<30; i++)
+                for(int i=0; i < 75; i++)
                 {
-                    if(map.transform.GetChild(i).GetComponent<LineRenderer>().GetPosition(1).x == 0 && map.transform.GetChild(i).GetComponent<LineRenderer>().GetPosition(1).y == 0)
+                    m_mapInfo.line_position.Add(map.transform.GetChild(i).GetComponent<LineRenderer>().GetPosition(1));
+                    if (map.transform.GetChild(i).GetComponent<LineRenderer>().GetPosition(1).x == 0 && map.transform.GetChild(i).GetComponent<LineRenderer>().GetPosition(1).y == 0)
                     {
                         Destroy(map.transform.GetChild(i).gameObject);
                     }
-                    else m_mapInfo.line_position.Add(map.transform.GetChild(i).GetComponent<LineRenderer>().GetPosition(1));
                 }
                 m_mapInfo.mapType.Add(eMapType.Boss);//맵종류 보스넣기
                 m_mapInfo.mapType1.Add(eMapType.Boss);
@@ -157,7 +154,7 @@ namespace Map
                 Instantiate(Resources.Load<GameObject>("MapPrefab"), m_prefab_canvas.transform);//저장된 맵 인스턴스화
                 GameObject map = GameObject.FindGameObjectWithTag("Map");//다시 찾아서 연결
 
-                for(int i = 0; i < 30; i++)//위치 일치화, 줄 긋기가 필요함
+                for(int i = 0; i < 75; i++)//위치 일치화, 줄 긋기가 필요함
                 {
                     map.transform.GetChild(i).transform.position = m_mapInfo.map_position[i];
                     map.transform.GetChild(i).GetComponent<LineRenderer>().startWidth = 0.05f;
