@@ -30,6 +30,8 @@ namespace Map
         public List<eMapType> mapType1 = new List<eMapType>();
         public List<eMapType> mapType2 = new List<eMapType>();
 
+        public List<Vector3> line_position = new List<Vector3>();//라인위치 저장 리스트
+
         public List<Sprite> sprite = new List<Sprite>(); //스트라이트 리스트
         public List<Sprite> sprite1 = new List<Sprite>();
         public List<Sprite> sprite2 = new List<Sprite>();
@@ -42,9 +44,11 @@ namespace Map
     {
         [SerializeField] Sprite[] m_sprite;
         [SerializeField] GameObject m_prefab_canvas;
-        LineRenderer l;//이걸써보자
         private static string m_save_path => "Assets/Resources/MapJson/";
+        void GetNumber(int num)
+        {
 
+        }
         private void Start()
         {
             if (!Directory.Exists(m_save_path)) //디렉토리가 없으면
@@ -53,28 +57,30 @@ namespace Map
                 MapInfo m_mapInfo = new MapInfo();//맵 인포 객체 생성
                 Instantiate(Resources.Load<GameObject>("MapPrefab"), m_prefab_canvas.transform); //인스턴스 화
                 GameObject map = GameObject.FindGameObjectWithTag("Map");//객체 연결
-                for (int i = 0; i < 30; i += 3) //맵 경로설정
+                m_mapInfo.map_path.Add(map.transform.GetChild(0).gameObject);//초기 값 설정
+                m_mapInfo.map_path1.Add(map.transform.GetChild(1).gameObject);
+                m_mapInfo.map_path2.Add(map.transform.GetChild(2).gameObject);
+                for (int i = 0; i < 30; i++) //맵 경로설정
                 {
                     map.transform.GetChild(i).transform.Translate(new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f))); //위치 랜덤화
-                    map.transform.GetChild(i+1).transform.Translate(new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f))); 
-                    map.transform.GetChild(i+2).transform.Translate(new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f)));
                     m_mapInfo.map_position.Add(map.transform.GetChild(i).transform.position);//랜덤화된 위치 저장
-                    m_mapInfo.map_position.Add(map.transform.GetChild(i+1).transform.position);
-                    m_mapInfo.map_position.Add(map.transform.GetChild(i+2).transform.position);
 
                     map.transform.GetChild(i).GetComponent<LineRenderer>().startWidth = 0.05f;//길이 설정 먼저하기
                     map.transform.GetChild(i).GetComponent<LineRenderer>().endWidth = 0.05f;
                     map.transform.GetChild(i).GetComponent<LineRenderer>().SetPosition(0, map.transform.GetChild(i).transform.position);
-                    map.transform.GetChild(i+1).GetComponent<LineRenderer>().startWidth = 0.05f;
-                    map.transform.GetChild(i+1).GetComponent<LineRenderer>().endWidth = 0.05f;
-                    map.transform.GetChild(i+1).GetComponent<LineRenderer>().SetPosition(0, map.transform.GetChild(i+1).transform.position);
-                    map.transform.GetChild(i+2).GetComponent<LineRenderer>().startWidth = 0.05f;
-                    map.transform.GetChild(i+2).GetComponent<LineRenderer>().endWidth = 0.05f;
-                    map.transform.GetChild(i+2).GetComponent<LineRenderer>().SetPosition(0, map.transform.GetChild(i+2).transform.position);
 
-                    m_mapInfo.map_path.Add(map.transform.GetChild(Random.Range(i, i + 2)).gameObject); //얘네 수정 해야됨.
-                    m_mapInfo.map_path1.Add(map.transform.GetChild(Random.Range(i, i + 2)).gameObject);
-                    m_mapInfo.map_path2.Add(map.transform.GetChild(Random.Range(i, i + 2)).gameObject);
+                    if(i%3 == 0 && i!=0)
+                    {
+                        m_mapInfo.map_path.Add(map.transform.GetChild(Random.Range(i, i + 2)).gameObject);
+                    }
+                    else if(i%3 == 1 && i!=1)
+                    {
+                        m_mapInfo.map_path.Add(map.transform.GetChild(Random.Range(i-1, i + 1)).gameObject);
+                    }
+                    else if(i%3 == 2 && i!=2)
+                    {
+                        m_mapInfo.map_path.Add(map.transform.GetChild(Random.Range(i-2, i)).gameObject);
+                    }
                 }
                 m_mapInfo.map_path.Add(map.transform.GetChild(30).gameObject);//보스 노드 넣기
                 m_mapInfo.map_path1.Add(map.transform.GetChild(30).gameObject);
@@ -125,6 +131,14 @@ namespace Map
                     m_mapInfo.mapType2.Add((eMapType)map_number2);
                     //m_mapInfo.sprite2.Add(m_sprite[map_number]);
                 }
+                for(int i=0; i<30; i++)
+                {
+                    if(map.transform.GetChild(i).GetComponent<LineRenderer>().GetPosition(1).x == 0 && map.transform.GetChild(i).GetComponent<LineRenderer>().GetPosition(1).y == 0)
+                    {
+                        Destroy(map.transform.GetChild(i).gameObject);
+                    }
+                    else m_mapInfo.line_position.Add(map.transform.GetChild(i).GetComponent<LineRenderer>().GetPosition(1));
+                }
                 m_mapInfo.mapType.Add(eMapType.Boss);//맵종류 보스넣기
                 m_mapInfo.mapType1.Add(eMapType.Boss);
                 m_mapInfo.mapType2.Add(eMapType.Boss);
@@ -143,12 +157,20 @@ namespace Map
                 Instantiate(Resources.Load<GameObject>("MapPrefab"), m_prefab_canvas.transform);//저장된 맵 인스턴스화
                 GameObject map = GameObject.FindGameObjectWithTag("Map");//다시 찾아서 연결
 
-                for(int i =0;i<=30; i++)//위치 일치화, 줄 긋기가 필요함
+                for(int i = 0; i < 30; i++)//위치 일치화, 줄 긋기가 필요함
                 {
                     map.transform.GetChild(i).transform.position = m_mapInfo.map_position[i];
                     map.transform.GetChild(i).GetComponent<LineRenderer>().startWidth = 0.05f;
                     map.transform.GetChild(i).GetComponent<LineRenderer>().endWidth = 0.05f;
-                    map.transform.GetChild(i).GetComponent<LineRenderer>().SetPosition(0, map.transform.GetChild(i).transform.position);
+                    if (m_mapInfo.line_position[i].x == 0 && m_mapInfo.line_position[i].y == 0)
+                    {
+                        Destroy(map.transform.GetChild(i).gameObject);//줄 없는애들 삭제  
+                    }
+                    else
+                    {
+                        map.transform.GetChild(i).GetComponent<LineRenderer>().SetPosition(0, map.transform.GetChild(i).transform.position);
+                        map.transform.GetChild(i).GetComponent<LineRenderer>().SetPosition(1, m_mapInfo.line_position[i]);
+                    }
                 }
             }
         }

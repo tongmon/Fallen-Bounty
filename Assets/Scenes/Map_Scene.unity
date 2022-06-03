@@ -205,7 +205,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_sprite: []
   m_prefab_canvas: {fileID: 977965469475486031}
-  m_saved_map: {fileID: 1202149371478504701, guid: 2f632c92aa5187f4cb95104703c05d83, type: 3}
 --- !u!1 &1450229041
 GameObject:
   m_ObjectHideFlags: 0
