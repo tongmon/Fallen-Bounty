@@ -60,7 +60,7 @@ public class CardManager
                         // 해당 스킬을 가지고 있는 영웅이 여러 명이면 현재 사용중인 영웅 중에 한명을 무작위로 뽑아서 타켓으로 지정해줌
                         else if (heroes.Count > 1)
                         {
-                            m_cards[i].m_apply_hero = hero_holder.m_heroes[UnityEngine.Random.Range(0, hero_holder.m_heroes.Count - 1)].type_name;
+                            m_cards[i].m_apply_hero = ((HeroData)hero_holder.m_heroes[UnityEngine.Random.Range(0, hero_holder.m_heroes.Count - 1)].m_data).type_name;
                             available_cards.Add(m_cards[i]);
                         }
                     }

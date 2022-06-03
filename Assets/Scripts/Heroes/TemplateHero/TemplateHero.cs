@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class TemplateHero : Hero
 {
-    public TemplateHero()
+    protected override void OnAwake()
     {
-        type_name = GetType().Name;
-        m_ability_holder = new AbilityHolder(gameObject);
+
     }
 
-    private new void Awake()
+    protected override void OnStart()
     {
-        base.Awake();
+
     }
 
-    private new void Start()
+    protected override void OnUpdate()
     {
-        base.Start();
+        
     }
 
-    private new void Update()
+    protected override void OnFixedUpdate()
     {
-        base.Update();
+
     }
 }

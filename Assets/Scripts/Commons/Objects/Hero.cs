@@ -4,6 +4,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using UnityEngine;
 
+/*
 [JsonConverter(typeof(JsonSubtypes))]
 public class Hero : Creature
 {
@@ -116,12 +117,26 @@ public class Hero : Creature
 
     }
 }
+*/
 
-/*
-public class Hero : MonoBehaviour
+[JsonConverter(typeof(JsonSubtypes))]
+[JsonSubtypes.KnownSubTypeWithProperty(typeof(Witch), "gained_soul_num")]
+public class HeroData : CreatureData
 {
-    HeroData m_data;
+    #region Data from JSON file
+    // 물리 공격력
+    public float physic_power;
+    // 마법 공격력
+    public float magic_power;
+    // 평타 속도
+    public float attack_speed;
+    // 공격 범위
+    public float attack_range;
+    #endregion
+}
 
+public class Hero : Creature
+{
     // 타겟 위치
     public Vector2 m_point_target;
     // 마우스 홀딩 시간
@@ -136,5 +151,49 @@ public class Hero : MonoBehaviour
     public float m_dragline_alpha;
     // 드래깅 선 목표점
     public Vector2 m_dragging_point;
+
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+
+        m_line_renderer = GetComponent<LineRenderer>();
+        m_line_renderer.startWidth = 0.05f;
+        m_line_renderer.endWidth = 0.05f;
+
+        m_sprite_seleted_circle = transform.Find("FocusCircle").GetComponent<SpriteRenderer>();
+
+        m_state_move = HeroCommandManager.eMoveState.STATE_MOVE_NONE;
+        m_target_enemy = null;
+
+        m_point_target = transform.position;
+        m_mouse_hold_time = new float[2];
+
+        m_dragline_alpha = 0.0f;
+        m_dragging_point = new Vector2();
+    }
+
+    protected override void OnStart()
+    {
+
+    }
+
+    protected override void OnUpdate()
+    {
+
+    }
+
+    protected override void OnFixedUpdate()
+    {
+        if (m_state_move != HeroCommandManager.eMoveState.STATE_MOVE_NONE)
+        {
+            m_vec_direction.Normalize();
+            transform.Translate(new Vector2(m_vec_direction.x * ((HeroData)m_data).y_velocity * Time.deltaTime,
+                m_vec_direction.y * ((HeroData)m_data).x_velocity * Time.deltaTime), Space.World);
+        }
+    }
+
+    protected override void OnMouseLeftDown()
+    {
+
+    }
 }
-*/

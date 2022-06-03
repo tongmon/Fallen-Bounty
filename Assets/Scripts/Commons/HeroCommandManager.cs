@@ -88,11 +88,11 @@ public class HeroCommandManager : MonoBehaviour
             if (hero.m_target_enemy)
             {
                 // 적의 위치가 사거리와 맞지 않음
-                if (Mathf.Abs(distance_to_target - hero.attack_range) > 0.05f)
+                if (Mathf.Abs(distance_to_target - ((HeroData)hero.m_data).attack_range) > 0.05f)
                 {
                     hero.m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
                     // 적이 사거리 안에 없는 경우
-                    if (distance_to_target >= hero.attack_range)
+                    if (distance_to_target >= ((HeroData)hero.m_data).attack_range)
                         hero.m_vec_direction = hero.m_point_target - (Vector2)hero.transform.position;
                     // 적이 사거리보다 가까운 경우
                     else
@@ -186,7 +186,7 @@ public class HeroCommandManager : MonoBehaviour
                     if (Mathf.Abs(Mathf.Abs(m_angles[j]) - Mathf.Abs(m_angle_def[i, j])) >= 1.0f)
                     {
                         right_pos_heros[j].m_state_move = eMoveState.STATE_MOVE_ROTATION;
-                        dest_vec = Quaternion.Euler(0, 0, m_angle_def[i, j]) * new Vector2(right_pos_heros[j].attack_range, 0);
+                        dest_vec = Quaternion.Euler(0, 0, m_angle_def[i, j]) * new Vector2(((HeroData)right_pos_heros[j].m_data).attack_range, 0);
                         right_pos_heros[j].m_vec_direction = m_enemy_pos[enemy_name] - (Vector2)right_pos_heros[j].transform.position + dest_vec;
                     }
                     else
@@ -206,8 +206,8 @@ public class HeroCommandManager : MonoBehaviour
 
                     if (Mathf.Abs(Mathf.Abs(m_angles[j]) - Mathf.Abs(m_angle_def[i, j])) >= 1.0f)
                     {
-                        left_pos_heros[j].m_state_move = eMoveState.STATE_MOVE_ROTATION;
-                        dest_vec = Quaternion.Euler(0, 0, 180 - m_angle_def[i, j]) * new Vector2(left_pos_heros[j].attack_range, 0);
+                        left_pos_heros[j].m_state_move = eMoveState.STATE_MOVE_ROTATION; 
+                        dest_vec = Quaternion.Euler(0, 0, 180 - m_angle_def[i, j]) * new Vector2(((HeroData)left_pos_heros[j].m_data).attack_range, 0);
                         left_pos_heros[j].m_vec_direction = m_enemy_pos[enemy_name] - (Vector2)left_pos_heros[j].transform.position + dest_vec;
                     }
                     else

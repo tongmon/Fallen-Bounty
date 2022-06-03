@@ -4,42 +4,24 @@ using UnityEngine;
 
 public class Cleric : Hero
 {
-    private new void Awake()
+    protected override void OnAwake()
     {
-        base.Awake();
-
-        type_name = GetType().Name;
-        m_ability_holder = new AbilityHolder(gameObject);
+        base.OnAwake();
     }
 
-    // Start is called before the first frame update
-    private new void Start()
+    protected override void OnStart()
     {
-        base.Start();
+
     }
 
-    private new void Update()
+    protected override void OnUpdate()
     {
-        base.Update();
-
-        OnMouseEvent();
-
         DrawLine();
     }
 
-    private new void FixedUpdate()
+    protected override void OnFixedUpdate()
     {
-        base.FixedUpdate();
-    }
-
-    void OnMouseEvent()
-    {
-        OnMouseLeftDown();
-        OnMouseLeftDrag();
-        OnMouseLeftUp();
-        OnMouseRightDown();
-        OnMouseRightDrag();
-        OnMouseRightUp();
+        base.OnFixedUpdate();
     }
 
     protected override void OnMouseLeftDown()
