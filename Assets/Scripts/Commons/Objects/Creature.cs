@@ -67,6 +67,7 @@ public class CreatureData
 {
     #region Data from JSON file
     // 생명체 이름
+    // [JsonProperty(PropertyName = "Type Name")] 나중에 보기 쉽게 이렇게 바꿔야 됨
     public string type_name;
     // 생명력(체력)
     public float health;
