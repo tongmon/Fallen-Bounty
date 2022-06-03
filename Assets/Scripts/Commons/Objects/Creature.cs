@@ -60,7 +60,9 @@ public class Creature : MonoBehaviour
 */
 
 [JsonConverter(typeof(JsonSubtypes))]
-[JsonSubtypes.KnownSubTypeWithProperty(typeof(Hero), "physic_power")]
+[JsonSubtypes.KnownSubType(typeof(HeroData), "physic_power")]
+[JsonSubtypes.KnownSubType(typeof(WitchData), "gained_soul_num")]
+// [JsonSubtypes.KnownSubTypeWithProperty(typeof(WitchData), "gained_soul_num")]
 public class CreatureData
 {
     #region Data from JSON file
@@ -72,12 +74,10 @@ public class CreatureData
     public float x_velocity;
     // 상하 속도
     public float y_velocity;
-    // 64bit, 최대 64개의 상태이상
-    public long status_effect;
     // 마력 방어력
-    public float magic_armor;
+    public int magic_armor;
     // 물리 방어력
-    public float physic_armor;
+    public int physic_armor;
     #endregion
 }
 
@@ -96,6 +96,8 @@ public class Creature : MonoBehaviour
     public SpriteRenderer m_sprite_seleted_circle;
     // 생명체 선택 유무
     public bool m_selected;
+    // 64bit, 최대 64개의 상태이상
+    public long m_status_effect;
 
     protected void Awake()
     {

@@ -151,11 +151,22 @@ public class JsonParser
 
         string json_data = Encoding.UTF8.GetString(data);
         JArray jarray = JArray.Parse(json_data);
-      
+
+        var settings = new JsonSerializerSettings();
+        settings.Converters.Add(JsonSubtypesWithPropertyConverterBuilder
+            .Of(typeof(CreatureData))
+            .RegisterSubtypeWithProperty(typeof(HeroData), "physic_power")
+            .RegisterSubtypeWithProperty(typeof(WitchData), "gained_soul_num")
+            .Build());
+
         foreach (JObject jobject in jarray.Children<JObject>())
         {
-            T json_class = (T)jobject.ToObject(Type.GetType(jobject["type_name"].ToString()));
-            ret_list.Add(json_class);
+            // var json_class = jobject.ToObject(Type.GetType(jobject["type_name"].ToString()));
+            //ret_list.Add(json_class);
+
+            string temp_data = jobject.ToString();
+            WitchData k = JsonConvert.DeserializeObject<WitchData>(temp_data, settings);
+          
         }
 
         return ret_list;

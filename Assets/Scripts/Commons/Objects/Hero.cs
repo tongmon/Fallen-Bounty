@@ -120,14 +120,14 @@ public class Hero : Creature
 */
 
 [JsonConverter(typeof(JsonSubtypes))]
-[JsonSubtypes.KnownSubTypeWithProperty(typeof(Witch), "gained_soul_num")]
+[JsonSubtypes.KnownSubType(typeof(WitchData), "gained_soul_num")]
 public class HeroData : CreatureData
 {
     #region Data from JSON file
     // 물리 공격력
-    public float physic_power;
+    public int physic_power;
     // 마법 공격력
-    public float magic_power;
+    public int magic_power;
     // 평타 속도
     public float attack_speed;
     // 공격 범위

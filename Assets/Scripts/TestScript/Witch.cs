@@ -158,7 +158,6 @@ public class Witch : Hero
 }
 */
 
-[JsonConverter(typeof(JsonSubtypes))]
 public class WitchData : HeroData
 {
     #region Data from JSON file
@@ -171,6 +170,9 @@ public class Witch : Hero
     protected override void OnAwake()
     {
         base.OnAwake();
+
+        List<HeroData> temp = JsonParser.LoadJsonArrayFileTest<HeroData>(Application.dataPath + "/DataFiles/ObjectFiles/hero_list");
+        m_data = temp[0];
     }
 
     protected override void OnStart()

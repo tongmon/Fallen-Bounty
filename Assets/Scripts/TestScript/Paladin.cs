@@ -1,6 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using JsonSubTypes;
+using Newtonsoft.Json;
 using UnityEngine;
+
+[JsonConverter(typeof(JsonSubtypes))]
+public class PaladinData : HeroData
+{
+    #region Data from JSON file
+    int holy_state;
+    #endregion
+}
 
 public class Paladin : Hero
 {
