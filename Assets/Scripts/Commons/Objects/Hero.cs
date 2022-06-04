@@ -119,6 +119,11 @@ public class Hero : Creature
 }
 */
 
+[JsonConverter(typeof(JsonSubtypes))]
+[JsonSubtypes.KnownSubTypeWithProperty(typeof(WitchData), "gained_soul_num")]
+[JsonSubtypes.KnownSubTypeWithProperty(typeof(PaladinData), "holy_state")]
+[JsonSubtypes.KnownSubTypeWithProperty(typeof(WarriorData), "armor_inchant_power")]
+[JsonSubtypes.KnownSubTypeWithProperty(typeof(ClericData), "heal_power")]
 public class HeroData : CreatureData
 {
     #region Data from JSON file

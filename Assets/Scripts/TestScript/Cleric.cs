@@ -8,7 +8,7 @@ using UnityEngine;
 public class ClericData : HeroData
 {
     #region Data from JSON file
-    int heal_power;
+    public int heal_power;
     #endregion
 }
 
@@ -17,6 +17,17 @@ public class Cleric : Hero
     protected override void OnAwake()
     {
         base.OnAwake();
+
+        List<HeroData> hero_list = JsonParser.LoadJsonArrayToBaseList<HeroData>(Application.dataPath + "/DataFiles/ObjectFiles/hero_list");
+
+        for (int i = 0; i < hero_list.Count; i++)
+        {
+            if (hero_list[i].type_name == "ClericData")
+            {
+                m_data = hero_list[i];
+                break;
+            }
+        }
     }
 
     protected override void OnStart()

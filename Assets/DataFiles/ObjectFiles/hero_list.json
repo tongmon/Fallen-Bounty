@@ -1,57 +1,57 @@
 [
-{
-	"type_name" : "WitchData",
-	"health" : 30,
-	"x_velocity" : 1,
-	"y_velocity" : 1.5,
-	"magic_armor" : 10,
-	"physic_armor" : 5,
-	"physic_power" : 15,
-	"magic_power" : 15,
-	"attack_speed" : 3,
-	"attack_range" : 3,
-	"gained_soul_num" : 3
-},
+	{
+		"type_name": "WitchData",
+		"health": 30,
+		"x_velocity": 1,
+		"y_velocity": 1.5,
+		"magic_armor": 10,
+		"physic_armor": 5,
+		"physic_power": 15,
+		"magic_power": 15,
+		"attack_speed": 3,
+		"attack_range": 3,
+		"gained_soul_num": 3
+	},
 
-{
-	"type_name" : "PaladinData",
-	"health" : 30,
-	"x_velocity" : 1,
-	"y_velocity" : 1.5,
-	"magic_armor" : 10,
-	"physic_armor" : 5,
-	"physic_power" : 15,
-	"magic_power" : 15,
-	"attack_speed" : 3,
-	"attack_range" : 3,
-	"holy_state" : 100
-},
+	{
+		"type_name": "PaladinData",
+		"health": 30,
+		"x_velocity": 1,
+		"y_velocity": 1.5,
+		"magic_armor": 10,
+		"physic_armor": 5,
+		"physic_power": 15,
+		"magic_power": 15,
+		"attack_speed": 3,
+		"attack_range": 3,
+		"holy_state": 100
+	},
 
-{
-	"type_name" : "ClericData",
-	"health" : 30,
-	"x_velocity" : 1,
-	"y_velocity" : 1.5,
-	"magic_armor" : 10,
-	"physic_armor" : 5,
-	"physic_power" : 15,
-	"magic_power" : 15,
-	"attack_speed" : 3,
-	"attack_range" : 3,
-	"heal_power" : 2
-},
+	{
+		"type_name": "ClericData",
+		"health": 30,
+		"x_velocity": 1,
+		"y_velocity": 1.5,
+		"magic_armor": 10,
+		"physic_armor": 5,
+		"physic_power": 15,
+		"magic_power": 15,
+		"attack_speed": 3,
+		"attack_range": 3,
+		"heal_power": 2
+	},
 
-{
-	"type_name" : "WarriorData",
-	"health" : 30,
-	"x_velocity" : 1,
-	"y_velocity" : 1.5,
-	"magic_armor" : 10,
-	"physic_armor" : 5,
-	"physic_power" : 15,
-	"magic_power" : 15,
-	"attack_speed" : 3,
-	"attack_range" : 3,
-	"armor_inchant_power" : 1
-}
+	{
+		"type_name": "WarriorData",
+		"health": 30,
+		"x_velocity": 1,
+		"y_velocity": 1.5,
+		"magic_armor": 10,
+		"physic_armor": 5,
+		"physic_power": 15,
+		"magic_power": 15,
+		"attack_speed": 3,
+		"attack_range": 3,
+		"armor_inchant_power": 1
+	}
 ]

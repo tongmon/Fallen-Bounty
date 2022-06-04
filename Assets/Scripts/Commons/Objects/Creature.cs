@@ -60,14 +60,12 @@ public class Creature : MonoBehaviour
 */
 
 [JsonConverter(typeof(JsonSubtypes))]
-[JsonSubtypes.KnownSubType(typeof(HeroData), "physic_power")]
-[JsonSubtypes.KnownSubType(typeof(WitchData), "gained_soul_num")]
-// [JsonSubtypes.KnownSubTypeWithProperty(typeof(WitchData), "gained_soul_num")]
+[JsonSubtypes.KnownSubTypeWithProperty(typeof(HeroData), "physic_power")]
 public class CreatureData
 {
     #region Data from JSON file
     // 생명체 이름
-    // [JsonProperty(PropertyName = "Type Name")] 나중에 보기 쉽게 이렇게 바꿔야 됨
+    // [JsonProperty(PropertyName = "Type Name")] 나중에 보기 쉽게 이렇게 바꿀 수 있음
     public string type_name;
     // 생명력(체력)
     public float health;

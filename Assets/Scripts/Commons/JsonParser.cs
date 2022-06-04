@@ -121,7 +121,7 @@ public class JsonParser
         return JsonConvert.DeserializeObject<T>(json_data);
     }
 
-    public static List<T> LoadJsonArrayFile<T>(string full_path)
+    public static List<T> LoadJsonArrayToList<T>(string full_path)
     {
         List<T> ret_list = new List<T>();
         FileStream file_stream = new FileStream(string.Format("{0}.json", full_path), FileMode.Open);
@@ -141,7 +141,7 @@ public class JsonParser
         return ret_list;
     }
 
-    public static List<T> LoadJsonArrayFileTest<T>(string full_path)
+    public static List<T> LoadJsonArrayToBaseList<T>(string full_path, string type_name_key_str = "type_name")
     {
         List<T> ret_list = new List<T>();
         FileStream file_stream = new FileStream(string.Format("{0}.json", full_path), FileMode.Open);
@@ -152,21 +152,10 @@ public class JsonParser
         string json_data = Encoding.UTF8.GetString(data);
         JArray jarray = JArray.Parse(json_data);
 
-        var settings = new JsonSerializerSettings();
-        settings.Converters.Add(JsonSubtypesWithPropertyConverterBuilder
-            .Of(typeof(CreatureData))
-            .RegisterSubtypeWithProperty(typeof(HeroData), "physic_power")
-            .RegisterSubtypeWithProperty(typeof(WitchData), "gained_soul_num")
-            .Build());
-
         foreach (JObject jobject in jarray.Children<JObject>())
         {
-            // var json_class = jobject.ToObject(Type.GetType(jobject["type_name"].ToString()));
-            //ret_list.Add(json_class);
-
-            string temp_data = jobject.ToString();
-            WitchData k = JsonConvert.DeserializeObject<WitchData>(temp_data, settings);
-          
+            var json_class = jobject.ToObject(Type.GetType(jobject[type_name_key_str].ToString()));
+            ret_list.Add((T)json_class);      
         }
 
         return ret_list;

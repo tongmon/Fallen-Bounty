@@ -12,7 +12,9 @@ public class XmlParser
 
     }
 
-    // XmlParser.LoadXml()로 사용
+
+    /*
+    // XmlParser.LoadXml()로 사용, 잠정 보류
     static public void LoadXml(string filepath, HeroManager hero_manager)
     {
         m_doc.Load(filepath);
@@ -25,9 +27,10 @@ public class XmlParser
             float health = (float)System.Convert.ToDouble(node.GetAttribute("Health"));
             float magic_power = (float)System.Convert.ToDouble(node.GetAttribute("MagicPower"));
 
-            hero_manager.AddHero(script_name /* 넣을거 추후에 추가 */);
+            hero_manager.AddHero(script_name ); // 넣을거 추후에 추가
         }
     }
+    */
 
     static public void LoadXml(string filepath, AbilityManager abillity_manager)
     {
