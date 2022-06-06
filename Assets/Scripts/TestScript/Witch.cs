@@ -172,6 +172,7 @@ public class Witch : Hero
     {
         base.OnAwake();
 
+        /*
         List<HeroData> hero_list = JsonParser.LoadJsonArrayToBaseList<HeroData>(Application.dataPath + "/DataFiles/ObjectFiles/hero_list");
         
         for (int i = 0; i < hero_list.Count; i++)
@@ -182,6 +183,7 @@ public class Witch : Hero
                 break;
             }
         }
+        */
     }
 
     protected override void OnStart()

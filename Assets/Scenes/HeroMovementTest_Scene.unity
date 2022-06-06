@@ -720,23 +720,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a01c08bc77ef06458e37e5fae96d882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: 
-  m_health: 0
-  m_x_velocity: 0
-  m_y_velocity: 0
-  m_status_effect: 0
   m_abilities_limit: 0
   m_vec_direction: {x: 0, y: 0}
   m_sprite_seleted_circle: {fileID: 0}
-  m_attack_power: 0
-  m_magic_power: 0
-  m_attack_speed: 0
-  m_attack_range: 0
+  m_selected: 0
+  m_status_effect: 0
   m_point_target: {x: 0, y: 0}
-  m_state_move: 0
   m_mouse_hold_time: []
+  m_state_move: 0
   m_target_enemy: {fileID: 0}
   m_line_renderer: {fileID: 0}
+  m_dragline_alpha: 0
+  m_dragging_point: {x: 0, y: 0}
 --- !u!1 &952443518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1264,23 +1259,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944a2afef4a2dfe43aea2d0ffd9d8365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Paladin
-  m_health: 0
-  m_x_velocity: 0
-  m_y_velocity: 0
-  m_status_effect: 0
   m_abilities_limit: 0
   m_vec_direction: {x: 0, y: 0}
   m_sprite_seleted_circle: {fileID: 0}
-  m_attack_power: 0
-  m_magic_power: 0
-  m_attack_speed: 0
-  m_attack_range: 0
+  m_selected: 0
+  m_status_effect: 0
   m_point_target: {x: 0, y: 0}
-  m_state_move: 0
   m_mouse_hold_time: []
+  m_state_move: 0
   m_target_enemy: {fileID: 0}
   m_line_renderer: {fileID: 0}
+  m_dragline_alpha: 0
+  m_dragging_point: {x: 0, y: 0}
+--- !u!1 &1770159559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1770159561}
+  - component: {fileID: 1770159560}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1770159560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770159559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e669452495abf47468961cf561e314a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_hero_limit: 0
+  m_card_option_limit: 0
+--- !u!4 &1770159561
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770159559}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.082550816, y: 0.13360822, z: 0.262744}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1793807685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,23 +1626,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea189d79451f1fe44962513b52d025ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: 
-  m_health: 0
-  m_x_velocity: 0
-  m_y_velocity: 0
-  m_status_effect: 0
   m_abilities_limit: 0
   m_vec_direction: {x: 0, y: 0}
   m_sprite_seleted_circle: {fileID: 0}
-  m_attack_power: 0
-  m_magic_power: 0
-  m_attack_speed: 0
-  m_attack_range: 0
+  m_selected: 0
+  m_status_effect: 0
   m_point_target: {x: 0, y: 0}
-  m_state_move: 0
   m_mouse_hold_time: []
+  m_state_move: 0
   m_target_enemy: {fileID: 0}
   m_line_renderer: {fileID: 0}
+  m_dragline_alpha: 0
+  m_dragging_point: {x: 0, y: 0}
 --- !u!1 &1860715117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1916,23 +1947,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fffa80844f0ec534a838233e2df1b032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: 
-  m_health: 0
-  m_x_velocity: 0
-  m_y_velocity: 0
-  m_status_effect: 0
   m_abilities_limit: 0
   m_vec_direction: {x: 0, y: 0}
   m_sprite_seleted_circle: {fileID: 0}
-  m_attack_power: 0
-  m_magic_power: 0
-  m_attack_speed: 0
-  m_attack_range: 0
+  m_selected: 0
+  m_status_effect: 0
   m_point_target: {x: 0, y: 0}
-  m_state_move: 0
   m_mouse_hold_time: []
+  m_state_move: 0
   m_target_enemy: {fileID: 0}
   m_line_renderer: {fileID: 0}
+  m_dragline_alpha: 0
+  m_dragging_point: {x: 0, y: 0}
 --- !u!1 &1938066849
 GameObject:
   m_ObjectHideFlags: 0
