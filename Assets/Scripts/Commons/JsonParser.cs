@@ -149,6 +149,9 @@ public class JsonParser
         file_stream.Read(data, 0, data.Length);
         file_stream.Close();
 
+        if(data.Length == 0)
+            return ret_list;
+
         string json_data = Encoding.UTF8.GetString(data);
         JArray jarray = JArray.Parse(json_data);
 
