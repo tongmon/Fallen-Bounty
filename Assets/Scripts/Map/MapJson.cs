@@ -19,11 +19,14 @@ namespace Map
     }
     public class TreeNode //트리로 맵 노드 구현
     {
-        public GameObject map_object; //게임오브젝트 정보저장
-        public Sprite map_sprite; //저장될 스프라이트
+        public GameObject map_object;//게임오브젝트 정보저장
+        public Sprite map_sprite;//저장될 스프라이트
         public eMapType map_type; //저장될 맵 종류
 
-        public List<TreeNode> children = new List<TreeNode>(); //자식으로 가지잇기
+        public int left_index;
+        public int right_index;
+
+        public List<TreeNode> children = new List<TreeNode>();
     }
     [System.Serializable]
     public class MapInfo 
@@ -31,16 +34,7 @@ namespace Map
         public List<Vector3> map_position = new List<Vector3>();//맵 위치 저장 리스트
         public List<Vector3> line_position = new List<Vector3>();//라인위치 저장 리스트
 
-        public int [] root = new int[2];
-        public int [] root1 = new int[2];
-        public int [] root2 = new int[2];
-        public int [] root3 = new int[2];
-
-        public TreeNode node = new TreeNode();
-
-        public bool elite_exist = false; //엘리트 확인용 부울변수
-        public bool elite_exist1 = false;
-        public bool elite_exist2 = false;
+        public TreeNode[] node1 = new TreeNode[10];//부모들
     }
     public class MapJson : MonoBehaviour
     {
@@ -56,12 +50,6 @@ namespace Map
                 Instantiate(Resources.Load<GameObject>("MapPrefab"), m_prefab_canvas.transform); //인스턴스 화
                 GameObject map = GameObject.FindGameObjectWithTag("Map");//객체 연결
 
-                TreeNode tree = new TreeNode();
-
-                tree.map_object = map.transform.GetChild(0).gameObject;
-
-                m_mapInfo.node.children.Add(tree);
-              
 
                 for (int i = 4; i < 40; i++) //맵 경로설정
                 {
@@ -74,7 +62,13 @@ namespace Map
 
                     if(i % 4 == 0)
                     {
-         
+                        TreeNode tree = new TreeNode();
+                        if(Random.Range(0,2) == 0)
+                        {
+                            tree.map_object = map.transform.GetChild(Random.Range(i, i + 3)).gameObject;
+                            if (Random.Range(0, 1) == 1) m_mapInfo.node1[0].children.Add(tree);
+                            //m_mapInfo.node1
+                        }
                     }
                     else if(i % 4 == 1)
                     {
