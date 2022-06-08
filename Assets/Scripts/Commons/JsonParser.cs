@@ -14,7 +14,7 @@ using UnityEngine;
 
 // 코드
 var json = new JObject();
-json.Add("name", "Paladin");
+json.Add("name", "Paladin");        
 json.Add("attack_power", 1.5);
 
 // json.ToString() 결과
