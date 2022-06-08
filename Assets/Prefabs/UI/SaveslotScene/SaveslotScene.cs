@@ -3,43 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using DG.Tweening;
-using System.IO;
-using System;
-using Newtonsoft.Json.Linq;
 
-namespace Save {
-    public class SaveslotScene : MonoBehaviour
+
+public class SaveslotScene : MonoBehaviour
+{
+    [SerializeField] GameObject m_title_name; //게임 제목
+    GameObject m_click_object; //클릭한 객체 저장용
+    private void Start()
     {
-        [SerializeField] GameObject m_title_name; //게임 제목
-        public GameObject m_click_object; //클릭한 객체 저장용
-        SaveStat save_stat = new SaveStat();
-        private static string m_save_path => "Assets/Resources/SaveFileJson/";
-        private void Start()
-        {
-            m_title_name.transform.DOMoveY(3, 1.5f); //시작시 제목 이동 ,두트윈 이용
-            GetComponent<RectTransform>();
-        }
-        public void ButtonClicked()
-        {
-            m_click_object = EventSystem.current.currentSelectedGameObject; //클릭한 객체 저장
-            StartCoroutine("ButtonDoTween"); //코루틴호출
-        }
-        public void ExitButtonClicked()
-        {
-            Application.Quit(); //끄기버튼
-        }
-        IEnumerator ButtonDoTween()
-        {
-            save_stat = JsonParser.LoadJsonFile<SaveStat>(m_save_path, m_click_object + "json");//불러오기 가능
-            m_click_object.GetComponentInParent<Canvas>().sortingOrder = 1; //각 레이어를 구분해 맨앞으로 보내기
-            m_click_object.transform.DOMoveX(0, 1.5f);
-            yield return new WaitForSecondsRealtime(1.5f);
-            m_click_object.transform.DOScaleX(2.5f, 1.5f);
-            m_click_object.transform.DOScaleY(2.5f, 1.5f);
-            yield return new WaitForSecondsRealtime(1.5f);
-            DontDestroyOnLoad(m_click_object);
-            SceneManager.LoadScene("Title_Scene"); //마지막으로 씬 불러오기
-        }
+        m_title_name.transform.DOMoveY(3, 1.5f); //시작시 제목 이동 ,두트윈 이용
+        GetComponent<RectTransform>();
+    }
+    public void ButtonClicked()
+    {
+        m_click_object = EventSystem.current.currentSelectedGameObject; //클릭한 객체 저장
+        StartCoroutine("ButtonDoTween"); //코루틴호출
+    }
+    public void ExitButtonClicked()
+    {
+        Application.Quit(); //끄기버튼
+    }
+    IEnumerator ButtonDoTween()
+    {
+        m_click_object.GetComponentInParent<Canvas>().sortingOrder = 1; //각 레이어를 구분해 맨앞으로 보내기
+        m_click_object.transform.DOMoveX(0, 1.5f);
+        yield return new WaitForSecondsRealtime(1.5f);
+        m_click_object.transform.DOScaleX(2.5f, 1.5f);
+        m_click_object.transform.DOScaleY(2.5f, 1.5f);
+        yield return new WaitForSecondsRealtime(1.5f);
+        SceneManager.LoadScene("Title_Scene"); //마지막으로 씬 불러오기
     }
 }
