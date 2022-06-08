@@ -5,22 +5,22 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 [JsonConverter(typeof(JsonSubtypes))]
-public class DashAbilityEnhanceCard : Card
+public class AllHeroStatUpCard : Card
 {
-    public float dash_power;
+    public float stat_up_rate;
 
-    public DashAbilityEnhanceCard(string description, int quality)
+    public AllHeroStatUpCard(string description, string target, int quality)
     {
         card_name = GetType().Name;
         this.description = description;
         this.quality = quality;
+        apply_target = target;
     }
 
-    public override void Acquisit(GameObject obj)
+    public override void Acquisit(GameObject obj) 
     {
         Player player = obj.GetComponent<Player>();
 
-        HeroHolder hero_holder = player.m_hero_holder;
         
     }
 }

@@ -14,7 +14,7 @@ using UnityEngine;
 
 // 코드
 var json = new JObject();
-json.Add("name", "Paladin");
+json.Add("name", "Paladin");        
 json.Add("attack_power", 1.5);
 
 // json.ToString() 결과
@@ -148,6 +148,9 @@ public class JsonParser
         byte[] data = new byte[file_stream.Length];
         file_stream.Read(data, 0, data.Length);
         file_stream.Close();
+
+        if(data.Length == 0)
+            return ret_list;
 
         string json_data = Encoding.UTF8.GetString(data);
         JArray jarray = JArray.Parse(json_data);

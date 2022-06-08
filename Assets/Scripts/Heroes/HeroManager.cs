@@ -20,7 +20,7 @@ public class HeroManager
         m_heroes_dict = new Dictionary<string, int>();
 
         // json ÀÐ¾î¿Í¼­ ¿µ¿õ ÃÊ±âÈ­
-        m_heroes = JsonParser.LoadJsonArrayToBaseList<HeroData>(Application.dataPath + "/DataFiles/ObjectFiles/hero_list");
+        m_heroes = JsonParser.LoadJsonArrayToBaseList<HeroData>(Application.dataPath + "/DataFiles/ObjectFiles/HeroList");
 
         for (int i = 0; i < m_heroes.Count; i++)
             m_heroes_dict[m_heroes[i].type_name] = i;
@@ -41,8 +41,8 @@ public class HeroManager
     */
 
     // ¿µ¿õ È¹µæ
-    public HeroData GetHero(string hero_type_name)
+    public HeroData GetHero(string hero_name)
     {
-        return m_heroes[m_heroes_dict[hero_type_name]];
+        return m_heroes[m_heroes_dict[hero_name + "Data"]];
     }
 }
