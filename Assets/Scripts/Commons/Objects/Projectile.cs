@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 투사체 기본 클래스
 public class Projectile : MonoBehaviour
 {
     void Awake()

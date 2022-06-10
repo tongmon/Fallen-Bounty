@@ -35,8 +35,6 @@ public class HeroCommandManager : MonoBehaviour
 
     public float[] m_mouse_hold_time;
 
-    // public LineRenderer m_line_renderer;
-
     void Start()
     {
         //m_line_renderer.startWidth = 0.05f;

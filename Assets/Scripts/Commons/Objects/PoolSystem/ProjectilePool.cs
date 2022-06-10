@@ -2,19 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 싱글톤으로 구현, 일단은 투사체만...
-public class ObjectPooler : MonoBehaviour
+// 투사체 오브젝트 풀링 시스템
+public class ProjectilePool : MonoBehaviour
 {
-    public static ObjectPooler m_instance;
+    public static ProjectilePool m_instance;
 
-    private GameObject m_pooling_obj_prefab;
+    [SerializeField]
+    private GameObject m_pooling_prefab;
 
     Queue<Projectile> m_pools;
 
-    private void Awake()
+    void Awake()
     {
         m_instance = this;
         m_pools = new Queue<Projectile>();
+    }
+
+    void Update()
+    {
+        
     }
 
     void InitPools(int pool_num)
@@ -28,13 +34,13 @@ public class ObjectPooler : MonoBehaviour
     Projectile CreateObj()
     {
         // 게임 실행 도중에 오브젝트 생성하는 함수 -> Instantiate
-        var new_obj = Instantiate(m_pooling_obj_prefab).GetComponent<Projectile>();
+        var new_obj = Instantiate(m_pooling_prefab).GetComponent<Projectile>();
         new_obj.gameObject.SetActive(false);
         new_obj.transform.SetParent(transform);
         return new_obj;
     }
 
-    public static Projectile GetObj()
+    public static object GetObj()
     {
         if (m_instance.m_pools.Count > 0)
         {
@@ -45,10 +51,10 @@ public class ObjectPooler : MonoBehaviour
         }
         else
         {
-            var newObj = m_instance.CreateObj();
-            newObj.gameObject.SetActive(true);
-            newObj.transform.SetParent(null);
-            return newObj;
+            var new_obj = m_instance.CreateObj();
+            new_obj.gameObject.SetActive(true);
+            new_obj.transform.SetParent(null);
+            return new_obj;
         }
     }
 

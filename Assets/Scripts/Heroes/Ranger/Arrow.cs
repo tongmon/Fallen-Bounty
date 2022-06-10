@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Arrow : Projectile
 {
+    public long m_attribute; // 화살 속성, 64bit
+
     protected override void OnAwake()
     {
 
