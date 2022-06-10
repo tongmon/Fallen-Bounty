@@ -32,13 +32,17 @@ public class Ranger : Hero
 
     protected override void OnUpdate()
     {
-        DrawLine();
+        OnDrawLine();
+
+        OnAttack();
     }
 
     protected override void OnFixedUpdate()
     {
         base.OnFixedUpdate();
     }
+
+
 
     protected override void OnMouseLeftDown()
     {
@@ -126,7 +130,7 @@ public class Ranger : Hero
 
     // 선그리기, 모든 영웅은 선을 평소에 그리고 있지만 alpha 값이 0이라 보이진 않는다.
     // 플레이어가 드래그하기로 선택하면 그때 선의 alpha값이 1로 변해 플레이어에게 보이게 됨.
-    protected void DrawLine()
+    protected void OnDrawLine()
     {
         m_line_renderer = GetComponent<LineRenderer>();
 
@@ -138,5 +142,30 @@ public class Ranger : Hero
 
         m_line_renderer.SetPosition(0, m_sprite_seleted_circle.transform.position);
         m_line_renderer.SetPosition(1, m_dragging_point);
+    }
+
+    protected void OnAttack()
+    {
+        m_cur_attack_cooltime -= Time.deltaTime;
+
+        if (!m_target_enemy)
+            return;
+
+        float distance = Vector2.Distance(m_target_enemy.transform.position, transform.position);
+
+        // 공격 쿨타임이 되었고 사거리 내에 적이 있다면 투사체 발사
+        if (m_cur_attack_cooltime < 0 && distance <= ((RangerData)m_data).attack_range)
+        {
+            m_cur_attack_cooltime = ((RangerData)m_data).attack_cooltime;
+            var arrow = ProjectilePool.GetObj();
+            
+            // 총알 나가는 시작점 결정
+            arrow.transform.position = transform.position;
+
+            arrow.m_target = m_target_enemy;
+            arrow.m_shooter = gameObject;
+
+            arrow.Shoot();
+        }
     }
 }

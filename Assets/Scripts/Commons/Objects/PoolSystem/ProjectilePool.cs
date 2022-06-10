@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 투사체 오브젝트 풀링 시스템
+// 생각해보니 투사체말고 화살 오브젝트 풀링으로 바꿔야 할 수도... dequeue할 때 문제가 됨
 public class ProjectilePool : MonoBehaviour
 {
     public static ProjectilePool m_instance;
@@ -40,7 +41,7 @@ public class ProjectilePool : MonoBehaviour
         return new_obj;
     }
 
-    public static object GetObj()
+    public static Projectile GetObj()
     {
         if (m_instance.m_pools.Count > 0)
         {

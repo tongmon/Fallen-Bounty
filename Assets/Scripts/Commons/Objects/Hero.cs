@@ -131,8 +131,8 @@ public class HeroData : CreatureData
     public int physic_power;
     // 마법 공격력
     public int magic_power;
-    // 평타 속도
-    public float attack_speed;
+    // 평타 속도, 초 단위
+    public float attack_cooltime;
     // 공격 범위
     public float attack_range;
     #endregion
@@ -154,6 +154,8 @@ public class Hero : Creature
     public float m_dragline_alpha;
     // 드래깅 선 목표점
     public Vector2 m_dragging_point;
+    // 공격 속도
+    public float m_cur_attack_cooltime;
 
     protected override void OnAwake()
     {
@@ -173,6 +175,8 @@ public class Hero : Creature
 
         m_dragline_alpha = 0.0f;
         m_dragging_point = new Vector2();
+
+        m_cur_attack_cooltime = 999999;
     }
 
     protected override void OnStart()
