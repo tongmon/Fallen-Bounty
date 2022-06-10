@@ -23,7 +23,6 @@ public class MapNode
     public GameObject m_object;
     public Sprite m_sprite;
     public eMapType m_mapType;
-
     public List<MapNode> m_parent;
     public List<MapNode> m_children;
 
