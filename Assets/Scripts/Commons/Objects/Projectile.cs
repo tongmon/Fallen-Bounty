@@ -5,6 +5,7 @@ using UnityEngine;
 // 투사체 기본 클래스
 public class Projectile : MonoBehaviour
 {
+    public string m_type_name;
     public GameObject m_shooter;
     public GameObject m_target;
 
@@ -33,6 +34,11 @@ public class Projectile : MonoBehaviour
         OnFixedUpdate();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        OnProjectileCollisionEnter(collision);
+    }
+
     protected virtual void OnAwake()
     {
         m_collider = GetComponent<BoxCollider2D>();
@@ -44,6 +50,11 @@ public class Projectile : MonoBehaviour
     }
 
     protected virtual void OnUpdate()
+    {
+
+    }
+
+    protected virtual void OnProjectileCollisionEnter(Collision2D collider)
     {
 
     }
@@ -62,11 +73,6 @@ public class Projectile : MonoBehaviour
     // 투사체 삭제
     public virtual void Destroy()
     {
-        ProjectilePool.ReturnObject(this);
-    }
-
-    public virtual void OnCollisionEnter(Collision collider)
-    {
-
+        ProjectilePool.ReturnObject(m_type_name, this);
     }
 }

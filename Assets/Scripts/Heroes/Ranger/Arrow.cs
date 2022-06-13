@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Arrow : Projectile
 {
-    public long m_attribute; // È­»ì ¼Ó¼º, 64bit
-    public float m_exsist_time; // È­»ì Á¸Àç ½Ã°£
+    public long m_attribute; // ìƒíƒœì´ìƒ, 64bit
+    public float m_exsist_time; // í™”ì‚´ ì¡´ì¬ ì‹œê°„
 
     public override void Shoot()
     {
         m_direction = m_target.transform.position - m_shooter.transform.position;
         m_exsist_time = 0;
+
+        m_velocity.x = 15.0f;
+        m_velocity.y = 10.0f;
     }
 
     public override void Destroy()
@@ -21,6 +24,8 @@ public class Arrow : Projectile
     protected override void OnAwake()
     {
         base.OnAwake();
+
+        m_type_name = GetType().Name;
     }
 
     protected override void OnStart()
@@ -32,7 +37,7 @@ public class Arrow : Projectile
     {
         m_exsist_time += Time.deltaTime;
 
-        // È­»ì Á¸Àç ½Ã°£ÀÌ 5ÃÊ°¡ ³Ñ¾î°¡¸é »èÁ¦
+        // 5ì´ˆ ì´í•˜ë¡œ ì¡´ì¬í•˜ê²Œ
         if (m_exsist_time >= 5)
         {
             Destroy();
@@ -44,10 +49,12 @@ public class Arrow : Projectile
         base.OnFixedUpdate();
     }
 
-    public override void OnCollisionEnter(Collision collider)
+    protected override void OnProjectileCollisionEnter(Collision2D collider)
     {
-        // Å¸°Ù°ú Ãæµ¹ Çß´Ù¸é »èÁ¦
-        if(collider.gameObject == m_target)
+        base.OnProjectileCollisionEnter(collider);
+
+        // ì ê³¼ ì¶©ëŒí•˜ë©´ í™”ì‚´ ì œê±°
+        if (collider.gameObject == m_target)
         {
             Destroy();
         }

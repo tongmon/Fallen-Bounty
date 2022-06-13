@@ -53,5 +53,21 @@
 		"attack_cooltime": 3,
 		"attack_range": 3,
 		"armor_inchant_power": 1
+	},
+	
+	{
+		"type_name": "RangerData",
+		"health": 30,
+		"x_velocity": 1,
+		"y_velocity": 1.5,
+		"magic_armor": 10,
+		"physic_armor": 5,
+		"physic_power": 15,
+		"magic_power": 15,
+		"attack_cooltime": 3,
+		"attack_range": 10,
+		"weakness_hit_cnt": 0,
+		"weakness_popup_cooltime": 3,
+		"projectile_type": "Arrow"
 	}
 ]

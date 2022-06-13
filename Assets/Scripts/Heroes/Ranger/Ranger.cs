@@ -11,6 +11,7 @@ public class RangerData : HeroData
     #region Data from JSON file
     public int weakness_hit_cnt;
     public float weakness_popup_cooltime;
+    public string projectile_type;
     #endregion
 }
 
@@ -23,11 +24,13 @@ public class Ranger : Hero
     {
         base.OnAwake();
 
+        // ((RangerData)m_data).projectile_type = "Arrow";
     }
 
     protected override void OnStart()
     {
-
+        // 초기에 화살 5개 생성
+        ProjectilePool.InitPool(((RangerData)m_data).projectile_type, 5);
     }
 
     protected override void OnUpdate()
@@ -157,7 +160,7 @@ public class Ranger : Hero
         if (m_cur_attack_cooltime < 0 && distance <= ((RangerData)m_data).attack_range)
         {
             m_cur_attack_cooltime = ((RangerData)m_data).attack_cooltime;
-            var arrow = ProjectilePool.GetObj();
+            var arrow = ProjectilePool.GetObj(((RangerData)m_data).projectile_type);
             
             // 총알 나가는 시작점 결정
             arrow.transform.position = transform.position;

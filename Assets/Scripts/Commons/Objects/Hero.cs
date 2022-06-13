@@ -176,7 +176,7 @@ public class Hero : Creature
         m_dragline_alpha = 0.0f;
         m_dragging_point = new Vector2();
 
-        m_cur_attack_cooltime = 999999;
+        m_cur_attack_cooltime = 0;
     }
 
     protected override void OnStart()
