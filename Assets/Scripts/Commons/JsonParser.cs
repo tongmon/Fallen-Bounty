@@ -66,7 +66,7 @@ public class JsonParser
 {
     static JsonParser()
     {
-
+        //이경준 바보
     }
 
     #region JSON 파일 생성
