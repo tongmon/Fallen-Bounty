@@ -35,7 +35,7 @@ public class ProjectilePool : MonoBehaviour
 
     public static void InitPool(string projectile_name, int pool_num)
     {
-        m_instance.m_pooling_prefab[projectile_name] = GameObject.Find(projectile_name);
+        m_instance.m_pooling_prefab[projectile_name] = Resources.Load<GameObject>("Prefabs/Object/Projectile/" + projectile_name); // GameObject.Find(projectile_name);
         m_instance.m_pools[projectile_name] = new Queue<Projectile>();
         for (int i = 0; i < pool_num; i++)
         {

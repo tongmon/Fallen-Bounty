@@ -10,6 +10,7 @@ public class Arrow : Projectile
     public override void Shoot()
     {
         m_direction = m_target.transform.position - m_shooter.transform.position;
+
         m_exsist_time = 0;
 
         m_velocity.x = 15.0f;
@@ -51,8 +52,6 @@ public class Arrow : Projectile
 
     protected override void OnProjectileCollisionEnter(Collision2D collider)
     {
-        base.OnProjectileCollisionEnter(collider);
-
         // 적과 충돌하면 화살 제거
         if (collider.gameObject == m_target)
         {
