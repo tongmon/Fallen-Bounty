@@ -10,7 +10,7 @@
 		"magic_power": 15,
 		"attack_cooltime": 3,
 		"melee_range": -1,
-		"ranged_range" : 50,
+		"ranged_range": 50,
 		"weakness_hit_cnt": 0,
 		"weakness_popup_cooltime": 3,
 		"projectile_type": "Arrow"

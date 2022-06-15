@@ -66,8 +66,10 @@ public class MapJson : MonoBehaviour
                         }
                     }
                 }
+                
                 m_node[i].m_mapType = (eMapType)map_num;
-                jarray.Add(JsonUtility.ToJson(m_node[i], true));
+
+                jarray.Add(JObject.Parse(JsonUtility.ToJson(m_node[i], true)));
             }//何葛 磊侥 包拌积己
             JsonParser.CreateJsonFile(m_path, "MapJson", jarray.ToString());
         }

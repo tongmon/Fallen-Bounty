@@ -1,0 +1,402 @@
+[
+  {
+    "m_num": 0,
+    "m_object": {
+      "instanceID": -17204
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 0
+  },
+  {
+    "m_num": 1,
+    "m_object": {
+      "instanceID": -17224
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 3
+  },
+  {
+    "m_num": 2,
+    "m_object": {
+      "instanceID": -17244
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 4
+  },
+  {
+    "m_num": 3,
+    "m_object": {
+      "instanceID": -17264
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 1
+  },
+  {
+    "m_num": 4,
+    "m_object": {
+      "instanceID": -17284
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 4
+  },
+  {
+    "m_num": 5,
+    "m_object": {
+      "instanceID": -17304
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 4
+  },
+  {
+    "m_num": 6,
+    "m_object": {
+      "instanceID": -17324
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 3
+  },
+  {
+    "m_num": 7,
+    "m_object": {
+      "instanceID": -17344
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 1
+  },
+  {
+    "m_num": 8,
+    "m_object": {
+      "instanceID": -17364
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 2
+  },
+  {
+    "m_num": 9,
+    "m_object": {
+      "instanceID": -17384
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 5
+  },
+  {
+    "m_num": 10,
+    "m_object": {
+      "instanceID": -17404
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 1
+  },
+  {
+    "m_num": 11,
+    "m_object": {
+      "instanceID": -17424
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 0
+  },
+  {
+    "m_num": 12,
+    "m_object": {
+      "instanceID": -17444
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 5
+  },
+  {
+    "m_num": 13,
+    "m_object": {
+      "instanceID": -17464
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 1
+  },
+  {
+    "m_num": 14,
+    "m_object": {
+      "instanceID": -17484
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 0
+  },
+  {
+    "m_num": 15,
+    "m_object": {
+      "instanceID": -17504
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 1
+  },
+  {
+    "m_num": 16,
+    "m_object": {
+      "instanceID": -17524
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 3
+  },
+  {
+    "m_num": 17,
+    "m_object": {
+      "instanceID": -17544
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 4
+  },
+  {
+    "m_num": 18,
+    "m_object": {
+      "instanceID": -17564
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 4
+  },
+  {
+    "m_num": 19,
+    "m_object": {
+      "instanceID": -17584
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 2
+  },
+  {
+    "m_num": 20,
+    "m_object": {
+      "instanceID": -17604
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 3
+  },
+  {
+    "m_num": 21,
+    "m_object": {
+      "instanceID": -17624
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 0
+  },
+  {
+    "m_num": 22,
+    "m_object": {
+      "instanceID": -17644
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 5
+  },
+  {
+    "m_num": 23,
+    "m_object": {
+      "instanceID": -17664
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 3
+  },
+  {
+    "m_num": 24,
+    "m_object": {
+      "instanceID": -17684
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 3
+  },
+  {
+    "m_num": 25,
+    "m_object": {
+      "instanceID": -17704
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 1
+  },
+  {
+    "m_num": 26,
+    "m_object": {
+      "instanceID": -17724
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 4
+  },
+  {
+    "m_num": 27,
+    "m_object": {
+      "instanceID": -17744
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 2
+  },
+  {
+    "m_num": 28,
+    "m_object": {
+      "instanceID": -17764
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 3
+  },
+  {
+    "m_num": 29,
+    "m_object": {
+      "instanceID": -17784
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 3
+  },
+  {
+    "m_num": 30,
+    "m_object": {
+      "instanceID": -17804
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 1
+  },
+  {
+    "m_num": 31,
+    "m_object": {
+      "instanceID": -17824
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 1
+  },
+  {
+    "m_num": 32,
+    "m_object": {
+      "instanceID": -17844
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 3
+  },
+  {
+    "m_num": 33,
+    "m_object": {
+      "instanceID": -17864
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 3
+  },
+  {
+    "m_num": 34,
+    "m_object": {
+      "instanceID": -17884
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 1
+  },
+  {
+    "m_num": 35,
+    "m_object": {
+      "instanceID": -17904
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 4
+  },
+  {
+    "m_num": 36,
+    "m_object": {
+      "instanceID": -17924
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 2
+  },
+  {
+    "m_num": 37,
+    "m_object": {
+      "instanceID": -17944
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 5
+  },
+  {
+    "m_num": 38,
+    "m_object": {
+      "instanceID": -17964
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 1
+  },
+  {
+    "m_num": 39,
+    "m_object": {
+      "instanceID": -17984
+    },
+    "m_sprite": {
+      "instanceID": 0
+    },
+    "m_mapType": 0
+  }
+]
