@@ -162,7 +162,7 @@ public class Ranger : Hero
             m_cur_attack_cooltime = ((RangerData)m_data).attack_cooltime;
             var arrow = ProjectilePool.GetObj(((RangerData)m_data).projectile_type);
             
-            // 총알 나가는 시작점 결정
+            // 총알 나가는 시작점 결정, 추후 수정
             arrow.m_rigidbody.MovePosition(m_rigidbody.position);
 
             arrow.m_target = m_target_enemy;
