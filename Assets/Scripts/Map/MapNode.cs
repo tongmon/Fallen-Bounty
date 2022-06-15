@@ -23,14 +23,14 @@ public class MapNode
     public GameObject m_object;
     public Sprite m_sprite;
     public eMapType m_mapType;
-    public List<MapNode> m_parent;
-    public List<MapNode> m_children;
+    public MapNode m_parent;
+    public MapNode m_children;
 
     public MapNode()
     {
-        m_mapType = eMapType.Common; 
-        m_parent = new List<MapNode>();
-        m_children = new List<MapNode>();
+        m_mapType = eMapType.Common;
+        m_parent = null;
+        m_children = null;
         this.m_object = null;
         this.m_sprite = null;
     }
