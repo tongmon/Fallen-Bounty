@@ -37,8 +37,6 @@ public class HeroCommandManager : MonoBehaviour
 
     void Start()
     {
-        //m_line_renderer.startWidth = 0.05f;
-        //m_line_renderer.endWidth = 0.05f;
         m_selected_obj = null;
 
         m_mouse_hold_time = new float[2];
@@ -85,19 +83,36 @@ public class HeroCommandManager : MonoBehaviour
             // 길이 정해졌는데 적이 선택된 경우
             if (hero.m_target_enemy)
             {
-                // 적의 위치가 사거리와 맞지 않음
-                if (Mathf.Abs(distance_to_target - ((HeroData)hero.m_data).attack_range) > 0.05f)
+                // 원거리 캐릭터
+                if (((HeroData)hero.m_data).melee_range < 0)
                 {
-                    hero.m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
-                    // 적이 사거리 안에 없는 경우
-                    if (distance_to_target >= ((HeroData)hero.m_data).attack_range)
+                    // 적의 위치가 사거리와 맞지 않음
+                    if (distance_to_target >= ((HeroData)hero.m_data).ranged_range)
+                    {
+                        hero.m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
                         hero.m_vec_direction = hero.m_point_target - (Vector2)hero.transform.position;
-                    // 적이 사거리보다 가까운 경우
+                    }
+                    // 이 부분 추후 수정해야 됨
                     else
-                        hero.m_vec_direction = (Vector2)hero.transform.position - hero.m_point_target;
+                        hero.m_state_move = eMoveState.STATE_MOVE_NONE;
                 }
-                else
-                    hero.m_state_move = eMoveState.STATE_MOVE_ROTATION;
+                // 근접 캐릭터
+                else 
+                {
+                    // 적의 위치가 사거리와 맞지 않음
+                    if (Mathf.Abs(distance_to_target - ((HeroData)hero.m_data).melee_range) > 0.05f)
+                    {
+                        hero.m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
+                        // 적이 사거리 안에 없는 경우
+                        if (distance_to_target >= ((HeroData)hero.m_data).melee_range)
+                            hero.m_vec_direction = hero.m_point_target - (Vector2)hero.transform.position;
+                        // 적이 사거리보다 가까운 경우
+                        else
+                            hero.m_vec_direction = (Vector2)hero.transform.position - hero.m_point_target;
+                    }
+                    else
+                        hero.m_state_move = eMoveState.STATE_MOVE_ROTATION;
+                }
             }
             // 길이 정해졌는데 땅이 선택된 경우
             else
@@ -147,7 +162,9 @@ public class HeroCommandManager : MonoBehaviour
             for (int i = 0; i < heros.Count; i++)
             {
                 // 영웅이동 방법이 회전이나 정지 상태인 경우 영웅의 각도를 조절한다.
-                if (heros[i].m_state_move == eMoveState.STATE_MOVE_NONE || heros[i].m_state_move == eMoveState.STATE_MOVE_ROTATION)
+                // 원거리 캐릭터는 각도 이동을 따로 하지 않는다.
+                if ((heros[i].m_state_move == eMoveState.STATE_MOVE_NONE || heros[i].m_state_move == eMoveState.STATE_MOVE_ROTATION)
+                    && ((HeroData)heros[i].m_data).melee_range >= 0)
                 {
                     float distance_to_target = Vector2.Distance(heros[i].transform.position, heros[i].m_point_target);
 
@@ -184,7 +201,7 @@ public class HeroCommandManager : MonoBehaviour
                     if (Mathf.Abs(Mathf.Abs(m_angles[j]) - Mathf.Abs(m_angle_def[i, j])) >= 1.0f)
                     {
                         right_pos_heros[j].m_state_move = eMoveState.STATE_MOVE_ROTATION;
-                        dest_vec = Quaternion.Euler(0, 0, m_angle_def[i, j]) * new Vector2(((HeroData)right_pos_heros[j].m_data).attack_range, 0);
+                        dest_vec = Quaternion.Euler(0, 0, m_angle_def[i, j]) * new Vector2(((HeroData)right_pos_heros[j].m_data).melee_range, 0);
                         right_pos_heros[j].m_vec_direction = m_enemy_pos[enemy_name] - (Vector2)right_pos_heros[j].transform.position + dest_vec;
                     }
                     else
@@ -205,7 +222,7 @@ public class HeroCommandManager : MonoBehaviour
                     if (Mathf.Abs(Mathf.Abs(m_angles[j]) - Mathf.Abs(m_angle_def[i, j])) >= 1.0f)
                     {
                         left_pos_heros[j].m_state_move = eMoveState.STATE_MOVE_ROTATION; 
-                        dest_vec = Quaternion.Euler(0, 0, 180 - m_angle_def[i, j]) * new Vector2(((HeroData)left_pos_heros[j].m_data).attack_range, 0);
+                        dest_vec = Quaternion.Euler(0, 0, 180 - m_angle_def[i, j]) * new Vector2(((HeroData)left_pos_heros[j].m_data).melee_range, 0);
                         left_pos_heros[j].m_vec_direction = m_enemy_pos[enemy_name] - (Vector2)left_pos_heros[j].transform.position + dest_vec;
                     }
                     else

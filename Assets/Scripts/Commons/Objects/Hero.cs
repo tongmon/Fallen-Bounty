@@ -134,7 +134,9 @@ public class HeroData : CreatureData
     // 평타 속도, 초 단위
     public float attack_cooltime;
     // 공격 범위
-    public float attack_range;
+    public float melee_range;
+    // 공격 범위
+    public float ranged_range;
     #endregion
 }
 
@@ -146,7 +148,7 @@ public class Hero : Creature
     public float[] m_mouse_hold_time;
     // 움직임 상태
     public HeroCommandManager.eMoveState m_state_move;
-    // 캐릭터 타게팅 상태
+    // 캐릭터 타게팅 상대
     public GameObject m_target_enemy;
     // 캐릭터 드래깅 선
     public LineRenderer m_line_renderer;
@@ -193,9 +195,11 @@ public class Hero : Creature
     {
         if (m_state_move != HeroCommandManager.eMoveState.STATE_MOVE_NONE)
         {
-            m_vec_direction.Normalize();
-            transform.Translate(new Vector2(m_vec_direction.x * ((HeroData)m_data).y_velocity * Time.deltaTime,
-                m_vec_direction.y * ((HeroData)m_data).x_velocity * Time.deltaTime), Space.World);
+            m_rigidbody.velocity = m_vec_direction.normalized * new Vector2(((HeroData)m_data).x_velocity, ((HeroData)m_data).y_velocity);
+        }
+        else
+        {
+            m_rigidbody.velocity = new Vector2(0, 0);
         }
     }
 

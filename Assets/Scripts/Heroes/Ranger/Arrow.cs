@@ -13,8 +13,7 @@ public class Arrow : Projectile
 
         m_exsist_time = 0;
 
-        m_velocity.x = 15.0f;
-        m_velocity.y = 10.0f;
+        m_rigidbody.velocity = new Vector2(15.0f, 10.0f) * m_direction.normalized;
     }
 
     public override void Destroy()

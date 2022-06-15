@@ -157,13 +157,13 @@ public class Ranger : Hero
         float distance = Vector2.Distance(m_target_enemy.transform.position, transform.position);
 
         // 공격 쿨타임이 되었고 사거리 내에 적이 있다면 투사체 발사
-        if (m_cur_attack_cooltime < 0 && distance <= ((RangerData)m_data).attack_range)
+        if (m_cur_attack_cooltime < 0 && distance <= ((RangerData)m_data).ranged_range)
         {
             m_cur_attack_cooltime = ((RangerData)m_data).attack_cooltime;
             var arrow = ProjectilePool.GetObj(((RangerData)m_data).projectile_type);
             
             // 총알 나가는 시작점 결정
-            arrow.transform.position = transform.position;
+            arrow.m_rigidbody.MovePosition(m_rigidbody.position);
 
             arrow.m_target = m_target_enemy;
             arrow.m_shooter = gameObject;

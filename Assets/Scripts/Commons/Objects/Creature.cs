@@ -93,6 +93,8 @@ public class Creature : MonoBehaviour
     public AbilityHolder m_ability_holder;
     // 생명체 선택 포커스 스프라이트
     public SpriteRenderer m_sprite_seleted_circle;
+    // 생명체 강체
+    public Rigidbody2D m_rigidbody;
     // 생명체 선택 유무
     public bool m_selected;
     // 64bit, 최대 64개의 상태이상
@@ -124,6 +126,7 @@ public class Creature : MonoBehaviour
     protected virtual void OnAwake()
     {
         m_selected = false;
+        m_rigidbody = GetComponent<Rigidbody2D>();
     }
 
     protected virtual void OnStart()

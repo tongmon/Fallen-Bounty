@@ -9,10 +9,9 @@ public class Projectile : MonoBehaviour
     public GameObject m_shooter;
     public GameObject m_target;
 
-    public BoxCollider2D m_collider;
+    public Rigidbody2D m_rigidbody;
 
     public Vector2 m_direction;
-    public Vector2 m_velocity;
 
     void Awake()
     {
@@ -41,7 +40,7 @@ public class Projectile : MonoBehaviour
 
     protected virtual void OnAwake()
     {
-        m_collider = GetComponent<BoxCollider2D>();
+        m_rigidbody = GetComponent<Rigidbody2D>();
     }
 
     protected virtual void OnStart()
@@ -60,8 +59,8 @@ public class Projectile : MonoBehaviour
     }
 
     protected virtual void OnFixedUpdate()
-    {
-        transform.Translate(m_direction.normalized * m_velocity * Time.deltaTime);
+    {    
+
     }
 
     // น฿ป็
