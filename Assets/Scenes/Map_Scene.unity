@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PrefabCanvas: {fileID: 977965469475486031}
-  m_map_prefab: {fileID: 298981720440145628, guid: 2cb9c51fe29a9eb4d8185c73a55a81c0, type: 3}
+  m_map_prefab: {fileID: 6086768603826044771, guid: 5ea2855cf7bed6245a577dc9e05e7655, type: 3}
   m_path: 
 --- !u!1 &1450229041
 GameObject:

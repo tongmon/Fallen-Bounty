@@ -34,4 +34,5 @@ public class MapNode
         this.m_position = new Vector3(0,0,0);
         this.m_sprite = null;
     }
+    
 }
