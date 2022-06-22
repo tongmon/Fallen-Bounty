@@ -148,7 +148,7 @@ public class Hero : Creature
     public float[] m_mouse_hold_time;
     // 움직임 상태
     public HeroCommandManager.eMoveState m_state_move;
-    // 캐릭터 타게팅 상대
+    // 캐릭터 타겟팅 상대
     public GameObject m_target_enemy;
     // 캐릭터 드래깅 선
     public LineRenderer m_line_renderer;
@@ -201,10 +201,5 @@ public class Hero : Creature
         {
             m_rigidbody.velocity = new Vector2(0, 0);
         }
-    }
-
-    protected override void OnMouseLeftDown()
-    {
-
     }
 }

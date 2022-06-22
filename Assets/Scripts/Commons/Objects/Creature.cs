@@ -100,6 +100,11 @@ public class Creature : MonoBehaviour
     // 64bit, 최대 64개의 상태이상
     public long m_status_effect;
 
+    // 입력 처리 컴포넌트
+    public InputComponent m_input_component;
+    // 그래픽 처리 컴포넌트
+    public GraphicsComponent m_graphics_component;
+
     protected void Awake()
     {
         OnAwake();
@@ -112,9 +117,6 @@ public class Creature : MonoBehaviour
 
     protected void Update()
     {
-        // 마우스 이벤트
-        OnMouseEvent();
-
         OnUpdate();
     }
 
@@ -140,46 +142,6 @@ public class Creature : MonoBehaviour
     }
 
     protected virtual void OnFixedUpdate()
-    {
-
-    }
-
-    protected void OnMouseEvent()
-    {
-        OnMouseLeftDown();
-        OnMouseLeftDrag();
-        OnMouseLeftUp();
-        OnMouseRightDown();
-        OnMouseRightDrag();
-        OnMouseRightUp();
-    }
-
-    protected virtual void OnMouseLeftDown()
-    {
-
-    }
-
-    protected virtual void OnMouseLeftDrag()
-    {
-
-    }
-
-    protected virtual void OnMouseLeftUp()
-    {
-
-    }
-
-    protected virtual void OnMouseRightDown()
-    {
-
-    }
-
-    protected virtual void OnMouseRightDrag()
-    {
-
-    }
-
-    protected virtual void OnMouseRightUp()
     {
 
     }

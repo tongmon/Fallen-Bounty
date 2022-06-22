@@ -24,7 +24,8 @@ public class Ranger : Hero
     {
         base.OnAwake();
 
-        // ((RangerData)m_data).projectile_type = "Arrow";
+        m_input_component = new RangerInputComponent(gameObject);
+        m_graphics_component = new RangerGraphicsComponent(gameObject);
     }
 
     protected override void OnStart()
@@ -35,9 +36,10 @@ public class Ranger : Hero
 
     protected override void OnUpdate()
     {
-        OnDrawLine();
-
-        OnAttack();
+        // 레인저 입력 처리
+        m_input_component.Update();
+        // 레인저 그래픽 처리
+        m_graphics_component.Update();
     }
 
     protected override void OnFixedUpdate()
@@ -92,6 +94,7 @@ public class Ranger : Hero
         m_mouse_hold_time[0] += Time.deltaTime;
     }
 
+    /*
     protected override void OnMouseLeftUp()
     {
         if (!Input.GetMouseButtonUp(0))
@@ -171,4 +174,5 @@ public class Ranger : Hero
             arrow.Shoot();
         }
     }
+    */
 }
