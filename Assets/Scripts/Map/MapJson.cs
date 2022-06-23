@@ -15,9 +15,9 @@ public class MapJson : MonoBehaviour
     {
         m_node = new List<MapNode>();
         m_path = "Assets/Resources/MapJson/";
-        Instantiate(m_map_prefab, m_PrefabCanvas.transform);
-        GameObject map = GameObject.FindGameObjectWithTag("Map");
-        JArray jarray = new JArray();
+        Instantiate(m_map_prefab, m_PrefabCanvas.transform);//맵 인스턴스화
+        GameObject map = GameObject.FindGameObjectWithTag("Map");//맵 연결
+        JArray jarray = new JArray(); //리스트형으로 Json 선언
         if (!File.Exists(m_path + "MapJson.json"))
         {
             for (int i = 0; i < 40; i++)//초기화
@@ -82,7 +82,6 @@ public class MapJson : MonoBehaviour
                     }
                 }
                 m_node[i].m_mapType = (eMapType)map_num;
-                jarray.Add(JObject.Parse(JsonUtility.ToJson(m_node[i], true)));
             }//부모 자식 관계생성
             for (int i = 4; i < m_node.Count - 1; i++) { 
                 if(m_node[i].m_parent_num.Count == 0) //검사 잘하는데 뭔가 오류가 난다.
@@ -108,6 +107,7 @@ public class MapJson : MonoBehaviour
                     m_node[node_num].m_child_num.Add(i);
                 }
             } //함더 포문 돌기.
+            for(int i = 0; i<m_node.Count; i++) jarray.Add(JObject.Parse(JsonUtility.ToJson(m_node[i], true))); //여기서 생성
             for (int i = 0; i < m_node.Count - 1; i++)
             {
                 GameObject obj = map.transform.GetChild(i).gameObject;
