@@ -8,7 +8,7 @@ public class HeroGraphicsComponent : GraphicsComponent
     public float m_dragline_fade_speed;
     public LineRenderer m_line_renderer;
 
-    public SpriteRenderer m_sprite_seleted_circle;
+    public SpriteRenderer m_sprite_seleted_sprite;
 
     public HeroGraphicsComponent(GameObject gameobject) : base(gameobject)
     {
@@ -19,10 +19,16 @@ public class HeroGraphicsComponent : GraphicsComponent
     {
         base.Update();
 
-        OnDrawLine();
+        OnDrawDragLine();
+        OnDrawSelectedSprite();
     }
 
-    protected virtual void OnDrawLine()
+    protected virtual void OnDrawDragLine()
+    {
+
+    }
+
+    protected virtual void OnDrawSelectedSprite()
     {
 
     }

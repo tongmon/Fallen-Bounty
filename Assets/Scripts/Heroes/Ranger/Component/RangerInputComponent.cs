@@ -36,7 +36,7 @@ public class RangerInputComponent : HeroInputComponent
 
                 if (m_mouse_hit.collider && m_mouse_hit.collider.tag == "Enemy")
                 {
-                    m_dragging_point = ((EnemyGraphicsComponent)m_mouse_hit.collider.GetComponent<Enemy>().m_graphics_component).m_sprite_seleted_circle.transform.position;
+                    m_dragging_point = ((EnemyGraphicsComponent)m_mouse_hit.collider.GetComponent<Enemy>().m_graphics_component).m_sprite_seleted_sprite.transform.position;
                 }
                 else
                 {
@@ -59,7 +59,7 @@ public class RangerInputComponent : HeroInputComponent
 
             if(m_mouse_hit.collider && m_mouse_hit.collider.tag == "Enemy")
             {
-                m_dragging_point = ((EnemyGraphicsComponent)m_mouse_hit.collider.GetComponent<Enemy>().m_graphics_component).m_sprite_seleted_circle.transform.position;
+                m_dragging_point = ((EnemyGraphicsComponent)m_mouse_hit.collider.GetComponent<Enemy>().m_graphics_component).m_sprite_seleted_sprite.transform.position;
             }
             else
             {

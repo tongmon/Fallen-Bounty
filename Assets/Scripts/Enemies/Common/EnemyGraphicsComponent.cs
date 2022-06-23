@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyGraphicsComponent : GraphicsComponent
 {
-    public SpriteRenderer m_sprite_seleted_circle;
+    public SpriteRenderer m_sprite_seleted_sprite;
 
     public EnemyGraphicsComponent(GameObject gameobject) : base(gameobject)
     {
