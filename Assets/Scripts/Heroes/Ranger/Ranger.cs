@@ -36,6 +36,8 @@ public class Ranger : Hero
 
     protected override void OnUpdate()
     {
+        // 컴포넌트간 통신을 변수를 직접 넘겨주는 방식으로 사용하기에 각 컴포넌트간의 Udate() 순서가 중요하다.
+
         // 레인저 입력 처리
         m_input_component.Update();
         // 레인저 그래픽 처리
@@ -47,8 +49,7 @@ public class Ranger : Hero
         base.OnFixedUpdate();
     }
 
-
-
+    /*
     protected override void OnMouseLeftDown()
     {
         if (!Input.GetMouseButtonDown(0))
@@ -94,7 +95,6 @@ public class Ranger : Hero
         m_mouse_hold_time[0] += Time.deltaTime;
     }
 
-    /*
     protected override void OnMouseLeftUp()
     {
         if (!Input.GetMouseButtonUp(0))
@@ -149,7 +149,7 @@ public class Ranger : Hero
         m_line_renderer.SetPosition(0, m_sprite_seleted_circle.transform.position);
         m_line_renderer.SetPosition(1, m_dragging_point);
     }
-
+    */
     protected void OnAttack()
     {
         m_cur_attack_cooltime -= Time.deltaTime;
@@ -174,5 +174,4 @@ public class Ranger : Hero
             arrow.Shoot();
         }
     }
-    */
 }

@@ -2,16 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangerInputComponent : InputComponent
+public class RangerInputComponent : HeroInputComponent
 {
     Ranger m_data;
-
-    public Vector2 m_dragging_point;
 
     public RangerInputComponent(GameObject gameobject) : base(gameobject)
     {
         m_data = gameobject.GetComponent<Ranger>();
-        m_dragging_point = new Vector2();
     }
 
     protected override void OnMouseLeftDown()
@@ -39,7 +36,7 @@ public class RangerInputComponent : InputComponent
 
                 if (m_mouse_hit.collider && m_mouse_hit.collider.tag == "Enemy")
                 {
-                    m_dragging_point = ((RangerGraphicsComponent)m_data.m_graphics_component).m_sprite_seleted_circle.transform.position;
+                    m_dragging_point = ((EnemyGraphicsComponent)m_mouse_hit.collider.GetComponent<Enemy>().m_graphics_component).m_sprite_seleted_circle.transform.position;
                 }
                 else
                 {
@@ -59,7 +56,18 @@ public class RangerInputComponent : InputComponent
         if (((RangerGraphicsComponent)m_data.m_graphics_component).m_dragline_alpha == 1.0f)
         {
             ((RangerGraphicsComponent)m_data.m_graphics_component).m_dragline_alpha = 0.99f;
+
+            if(m_mouse_hit.collider && m_mouse_hit.collider.tag == "Enemy")
+            {
+                m_dragging_point = ((EnemyGraphicsComponent)m_mouse_hit.collider.GetComponent<Enemy>().m_graphics_component).m_sprite_seleted_circle.transform.position;
+            }
+            else
+            {
+                m_dragging_point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
         }
+
+        m_data.m_selected = false;
     }
 
     protected override void OnMouseRightDown()
