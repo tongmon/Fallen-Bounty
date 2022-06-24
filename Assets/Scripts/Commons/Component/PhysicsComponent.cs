@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class PhysicsComponent
 {
+    public object m_data;
+
     // 물리 강체
     public Rigidbody2D m_rigidbody;
-
-    // 생명체가 향하는 방향
-    public Vector2 m_vec_direction;
 
     public PhysicsComponent(GameObject gameobject)
     {
         m_rigidbody = gameobject.GetComponent<Rigidbody2D>();
-        m_vec_direction = new Vector2();
     }
 
     public virtual void Update()
     {
+        m_rigidbody.velocity = new Vector2();
+    }
 
+    public void AddVelocity(Vector2 power, Vector2 direction)
+    {
+        m_rigidbody.velocity += power * direction;
+    }
+
+    public void SetVelocity(Vector2 power, Vector2 direction)
+    {
+        m_rigidbody.velocity = power * direction;
     }
 }

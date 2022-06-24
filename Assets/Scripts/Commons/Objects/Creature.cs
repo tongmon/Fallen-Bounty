@@ -36,8 +36,6 @@ public class Creature : MonoBehaviour
     public Vector2 m_vec_direction;
     // 스킬 홀더
     public AbilityHolder m_ability_holder;
-    // 생명체 강체
-    public Rigidbody2D m_rigidbody;
     // 생명체 선택 유무
     public bool m_selected;
 
@@ -78,7 +76,6 @@ public class Creature : MonoBehaviour
     protected virtual void OnAwake()
     {
         m_selected = false;
-        m_rigidbody = GetComponent<Rigidbody2D>();
     }
 
     protected virtual void OnStart()

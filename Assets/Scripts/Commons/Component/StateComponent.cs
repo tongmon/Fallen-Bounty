@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StateComponent
 {
+    public object m_data; 
+ 
     public StateComponent(GameObject gameobject)
     {
 

@@ -8,6 +8,8 @@ public class InputComponent
     // 마우스 홀딩 시간
     public float[] m_mouse_hold_time;
 
+    Vector2 m_point_clicked;
+
     public InputComponent(GameObject gameobject)
     {
         m_mouse_hold_time = new float[2] { 0, 0 };
@@ -22,12 +24,23 @@ public class InputComponent
 
     protected void OnMouseEvent()
     {
-        OnMouseLeftDown();
-        OnMouseLeftDrag();
-        OnMouseLeftUp();
-        OnMouseRightDown();
-        OnMouseRightDrag();
-        OnMouseRightUp();
+        if (Input.GetMouseButtonDown(0))
+            OnMouseLeftDown();
+
+        if (Input.GetMouseButton(0))
+            OnMouseLeftDrag();
+
+        if (Input.GetMouseButtonUp(0))
+            OnMouseLeftUp();
+
+        if (Input.GetMouseButtonDown(1))
+            OnMouseRightDown();
+
+        if (Input.GetMouseButton(1))
+            OnMouseRightDrag();
+
+        if (Input.GetMouseButtonUp(1))
+            OnMouseRightUp();
     }
 
     protected virtual void OnMouseLeftDown()

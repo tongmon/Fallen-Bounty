@@ -158,6 +158,8 @@ public class Ranger : Hero
         m_line_renderer.SetPosition(1, m_dragging_point);
     }
     */
+
+    /*
     protected void OnAttack()
     {
         m_cur_attack_cooltime -= Time.deltaTime;
@@ -182,4 +184,5 @@ public class Ranger : Hero
             arrow.Shoot();
         }
     }
+    */
 }

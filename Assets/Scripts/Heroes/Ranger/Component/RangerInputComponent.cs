@@ -13,9 +13,6 @@ public class RangerInputComponent : HeroInputComponent
 
     protected override void OnMouseLeftDown()
     {
-        if (!Input.GetMouseButtonDown(0))
-            return;
-
         if (m_mouse_hit.collider && m_mouse_hit.collider.gameObject == m_data.gameObject)
             m_data.m_selected = true;
     }
@@ -23,9 +20,6 @@ public class RangerInputComponent : HeroInputComponent
     // ±×·¡ÇÈ ÄÄÆ÷³ÍÆ®¶û Ä¿ÇÃ¸µ µÇ¾î ÀÖ´Âµ¥ ³öµÖµµ µÇÁö¸¸... ¸Õ°¡ ²¬²ô·¯¿ò
     protected override void OnMouseLeftDrag()
     {
-        if (!Input.GetMouseButton(0))
-            return;
-
         m_mouse_hold_time[0] += Time.deltaTime;
 
         if (m_data.m_selected)
@@ -50,9 +44,6 @@ public class RangerInputComponent : HeroInputComponent
 
     protected override void OnMouseLeftUp()
     {
-        if (!Input.GetMouseButtonUp(0))
-            return;
-
         if (((RangerGraphicsComponent)m_data.m_graphics_component).m_dragline_alpha == 1.0f)
         {
             ((RangerGraphicsComponent)m_data.m_graphics_component).m_dragline_alpha = 0.99f;

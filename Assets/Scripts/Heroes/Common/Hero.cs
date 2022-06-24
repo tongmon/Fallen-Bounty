@@ -57,13 +57,6 @@ public class Hero : Creature
 
     protected override void OnFixedUpdate()
     {
-        if (m_state_move != HeroCommandManager.eMoveState.STATE_MOVE_NONE)
-        {
-            m_rigidbody.velocity = m_vec_direction.normalized * new Vector2(((HeroData)m_data).x_velocity, ((HeroData)m_data).y_velocity);
-        }
-        else
-        {
-            m_rigidbody.velocity = new Vector2(0, 0);
-        }
+        
     }
 }

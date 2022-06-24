@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HeroMoveStateComponent : StateComponent
 {
-    Hero m_data;
     public HeroMoveStateComponent(GameObject gameobject) : base(gameobject)
     {
         m_data = gameobject.GetComponent<Hero>();
@@ -14,7 +13,14 @@ public class HeroMoveStateComponent : StateComponent
 
     public override void Update()
     {
-        // m_data.
+        if (((Hero)m_data).m_target_enemy)
+        {
+            
+        }
+        else
+        {
+
+        }
     }
 
     public override void Enter()
