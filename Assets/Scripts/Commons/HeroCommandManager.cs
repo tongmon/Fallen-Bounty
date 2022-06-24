@@ -61,7 +61,7 @@ public class HeroCommandManager : MonoBehaviour
     void Update()
     {
         // 마우스 이벤트
-        OnMouseEvent();
+        // OnMouseEvent();
 
         // 특정 조건인 경우에만 밑을 수행하여 최적화 가능
         // 비활성화 되거나 죽은 개체들 빼고 넣는 로직 추가해야댐
@@ -233,12 +233,13 @@ public class HeroCommandManager : MonoBehaviour
         #endregion
     }
 
+    /*
     void OnMouseEvent()
     {  
         #region 좌측 클릭 다운
         if (Input.GetMouseButtonDown(0))
         {
-            m_mouse[0] = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity/*, 1 << LayerMask.NameToLayer("Command Layer")*/);
+            m_mouse[0] = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity); // , 1 << LayerMask.NameToLayer("Command Layer")
 
             if (m_mouse[0].collider != null)
             {
@@ -250,7 +251,7 @@ public class HeroCommandManager : MonoBehaviour
         #region 좌측 홀딩
         else if (Input.GetMouseButton(0))
         {
-            m_mouse[0] = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity/*, 1 << LayerMask.NameToLayer("Command Layer")*/);
+            m_mouse[0] = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity); // , 1 << LayerMask.NameToLayer("Command Layer")
 
             m_mouse_hold_time[0] += Time.deltaTime;
         }
@@ -259,7 +260,7 @@ public class HeroCommandManager : MonoBehaviour
         #region 좌측 클릭업
         else if (Input.GetMouseButtonUp(0))
         {
-            m_mouse[0] = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity/*, 1 << LayerMask.NameToLayer("Command Layer")*/);
+            m_mouse[0] = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity); // , 1 << LayerMask.NameToLayer("Command Layer")
 
             SpriteRenderer circle_below_hero = m_selected_hero != null ? m_selected_hero.GetComponent<Hero>().transform.Find("FocusCircle").GetComponent<SpriteRenderer>() : null;
 
@@ -410,4 +411,5 @@ public class HeroCommandManager : MonoBehaviour
         }
         #endregion
     }
+    */
 }

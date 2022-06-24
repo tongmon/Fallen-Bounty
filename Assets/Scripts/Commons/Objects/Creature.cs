@@ -40,13 +40,20 @@ public class Creature : MonoBehaviour
     public Rigidbody2D m_rigidbody;
     // 생명체 선택 유무
     public bool m_selected;
-    // 64bit, 최대 64개의 상태이상
-    public long m_status_effect;
 
     // 입력 처리 컴포넌트
     public InputComponent m_input_component;
     // 그래픽 처리 컴포넌트
     public GraphicsComponent m_graphics_component;
+    // 물치 처리 컴포넌트
+    public PhysicsComponent m_physics_component;
+
+    // 이동 상태 처리 컴포넌트
+    public StateComponent m_movement_state;
+    // 공격 상태 처리 컴포넌트
+    public StateComponent m_attack_state;
+    // 상태 이상 처리 컴포넌트
+    public StateComponent m_buff_debuff_state;
 
     protected void Awake()
     {
