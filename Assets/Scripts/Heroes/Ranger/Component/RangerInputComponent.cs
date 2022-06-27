@@ -47,6 +47,7 @@ public class RangerInputComponent : HeroInputComponent
 
         var data = (Ranger)m_data;
 
+        // 드래깅 라인 관련 변수 조정
         if (((RangerGraphicsComponent)data.m_graphics_component).m_dragline_alpha == 1.0f && data.m_selected)
         {
             ((RangerGraphicsComponent)data.m_graphics_component).m_dragline_alpha = 0.99f;
@@ -73,15 +74,20 @@ public class RangerInputComponent : HeroInputComponent
             // 마우스를 뗀 위치가 영웅
             else if (m_mouse_hit.collider.gameObject.tag == "Hero")
             {
-                data.m_target = m_mouse_hit.collider.gameObject.GetComponent<Hero>();
-                data.m_point_target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                //data.m_target = m_mouse_hit.collider.gameObject.GetComponent<Hero>();
+                data.m_point_target = m_mouse_l_click_up;
                 data.m_selected = false;
             }
         }
         // 마우스를 뗀 위치가 땅
         else
         {
-            data.m_selected = false;
+            if (data.m_selected)
+            {
+                //data.m_target = null;
+                data.m_point_target = m_mouse_l_click_up;
+                data.m_movement_state = new HeroMoveStateComponent(data.gameObject);
+            }
         }
     }
 

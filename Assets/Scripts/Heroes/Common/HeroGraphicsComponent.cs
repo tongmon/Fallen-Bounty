@@ -8,6 +8,7 @@ public class HeroGraphicsComponent : GraphicsComponent
     public float m_dragline_fade_speed;
     public LineRenderer m_line_renderer;
 
+    public float m_seleted_sprite_alpha;
     public SpriteRenderer m_sprite_seleted_sprite;
 
     public HeroGraphicsComponent(GameObject gameobject) : base(gameobject)
