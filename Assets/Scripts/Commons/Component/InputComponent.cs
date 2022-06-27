@@ -19,16 +19,16 @@ public class InputComponent
     public float[] m_mouse_hold_time;
 
     // 마우스 클릭 다운하는 순간 좌표
-    Vector2 m_mouse_r_click_down;
-    Vector2 m_mouse_l_click_down;
+    public Vector2 m_mouse_r_click_down;
+    public Vector2 m_mouse_l_click_down;
 
     // 마우스 클릭 업하는 순간 좌표
-    Vector2 m_mouse_r_click_up;
-    Vector2 m_mouse_l_click_up;
+    public Vector2 m_mouse_r_click_up;
+    public Vector2 m_mouse_l_click_up;
 
     // 마우스 클릭 좌표 (다운, 업 좌표가 같고 업, 다운 사이 클릭 속도가 특정 수치 사이면 기록)
-    Vector2 m_r_point_clicked;
-    Vector2 m_l_point_clicked;
+    public Vector2 m_r_point_clicked;
+    public Vector2 m_l_point_clicked;
 
     // 마우스 클릭 사이 초 간격
     float m_time_betw_click;

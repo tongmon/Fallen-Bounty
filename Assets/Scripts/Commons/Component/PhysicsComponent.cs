@@ -9,18 +9,17 @@ public class PhysicsComponent
     // 물리 강체
     public Rigidbody2D m_rigidbody;
 
-    // 추가적인 넉백 속도
-    public Vector2 m_knockback_velocity;
-    // 넉백 속도 감소 수치
-    public Vector2 m_knockback_decrease;
+    // 추가적으로 가해질 속도
+    public List<Vector2> m_extra_velocity;
+    // 추가적으로 가해질 속도의 감소치
+    public List<Vector2> m_extra_decrease;
 
     public PhysicsComponent(GameObject gameobject)
     {
         m_rigidbody = gameobject.GetComponent<Rigidbody2D>();
 
-        m_knockback_velocity = new Vector2();
-
-        m_knockback_decrease = new Vector2(2.0f, 2.0f);
+        m_extra_velocity = new List<Vector2>();
+        m_extra_decrease = new List<Vector2>();
     }
 
     public virtual void Update()
@@ -28,9 +27,19 @@ public class PhysicsComponent
         m_rigidbody.velocity = Vector2.zero;
 
         #region 넉백 속도 계산
-        m_knockback_velocity.x = m_knockback_velocity.x > 0 ? m_knockback_velocity.x - m_knockback_decrease.x : 0;
-        m_knockback_velocity.y = m_knockback_velocity.y > 0 ? m_knockback_velocity.y - m_knockback_decrease.y : 0;
-        m_rigidbody.velocity += m_knockback_velocity;
+        for (int i = 0; i < m_extra_velocity.Count; i++)
+        {
+            float extra_x_vel = m_extra_velocity[i].x > 0 ? m_extra_velocity[i].x - m_extra_decrease[i].x : 0;
+            float extra_y_vel = m_extra_velocity[i].y > 0 ? m_extra_velocity[i].y - m_extra_decrease[i].y : 0;
+            m_extra_velocity[i] = new Vector2(extra_x_vel, extra_y_vel);
+
+            m_rigidbody.velocity += m_extra_velocity[i];
+
+            if (extra_x_vel == 0 && extra_y_vel == 0) {
+                m_extra_velocity.RemoveAt(i);
+                m_extra_decrease.RemoveAt(i--);
+            }
+        }
         #endregion
     }
 
@@ -44,14 +53,19 @@ public class PhysicsComponent
         m_rigidbody.velocity = power * direction;
     }
 
-    public void AddKnockBack(Vector2 power, Vector2 direction)
+    public void AddExtraVelocity(int power, Vector2 direction, Vector2 decrease)
     {
-        m_knockback_velocity += power * direction;
+        m_extra_velocity.Add(power * direction.normalized);
+        m_extra_decrease.Add(decrease);
     }
 
-    public void SetKnockBack(Vector2 power, Vector2 direction)
+    public void SetExtraVelocity(int index, int power, Vector2 direction, Vector2 decrease)
     {
-        m_knockback_velocity = power * direction;
+        if (m_extra_velocity.Count >= index)
+            return;
+
+        m_extra_velocity[index] = power * direction.normalized;
+        m_extra_decrease[index] = decrease;
     }
 
     public Vector2 GetPosition()

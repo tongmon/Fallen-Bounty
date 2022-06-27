@@ -16,6 +16,9 @@ public class HeroInputComponent : InputComponent
     protected override void OnMouseLeftDown()
     {
         base.OnMouseLeftDown();
+
+        if (m_mouse_hit.collider && m_mouse_hit.collider.gameObject == ((Hero)m_data).gameObject)
+            ((Hero)m_data).m_selected = true;
     }
 
     protected override void OnMouseLeftDrag()
