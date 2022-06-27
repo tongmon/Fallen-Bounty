@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RangerInputComponent : HeroInputComponent
 {
-    Ranger m_data;
-
     public RangerInputComponent(GameObject gameobject) : base(gameobject)
     {
         m_data = gameobject.GetComponent<Ranger>();
@@ -13,20 +11,24 @@ public class RangerInputComponent : HeroInputComponent
 
     protected override void OnMouseLeftDown()
     {
-        if (m_mouse_hit.collider && m_mouse_hit.collider.gameObject == m_data.gameObject)
-            m_data.m_selected = true;
+        base.OnMouseLeftDown();
+
+        if (m_mouse_hit.collider && m_mouse_hit.collider.gameObject == ((Ranger)m_data).gameObject)
+            ((Ranger)m_data).m_selected = true;
     }
 
     // ±×·¡ÇÈ ÄÄÆ÷³ÍÆ®¶û Ä¿ÇÃ¸µ µÇ¾î ÀÖ´Âµ¥ ³öµÖµµ µÇÁö¸¸... ¸Õ°¡ ²¬²ô·¯¿ò
     protected override void OnMouseLeftDrag()
     {
-        m_mouse_hold_time[0] += Time.deltaTime;
+        base.OnMouseLeftDrag();
 
-        if (m_data.m_selected)
+        var data = (Ranger)m_data;
+
+        if (data.m_selected)
         {
-            if (!m_mouse_hit.collider || m_mouse_hit.collider.gameObject != m_data.gameObject)
+            if (!m_mouse_hit.collider || m_mouse_hit.collider.gameObject != data.gameObject)
             {
-                ((RangerGraphicsComponent)m_data.m_graphics_component).m_dragline_alpha = 1.0f;
+                ((RangerGraphicsComponent)data.m_graphics_component).m_dragline_alpha = 1.0f;
 
                 if (m_mouse_hit.collider && m_mouse_hit.collider.tag == "Enemy")
                 {
@@ -38,15 +40,19 @@ public class RangerInputComponent : HeroInputComponent
                 }
             }
             else
-                ((RangerGraphicsComponent)m_data.m_graphics_component).m_dragline_alpha = 0.0f;
+                ((RangerGraphicsComponent)data.m_graphics_component).m_dragline_alpha = 0.0f;
         }
     }
 
     protected override void OnMouseLeftUp()
     {
-        if (((RangerGraphicsComponent)m_data.m_graphics_component).m_dragline_alpha == 1.0f)
+        base.OnMouseLeftUp();
+
+        var data = (Ranger)m_data;
+
+        if (((RangerGraphicsComponent)data.m_graphics_component).m_dragline_alpha == 1.0f)
         {
-            ((RangerGraphicsComponent)m_data.m_graphics_component).m_dragline_alpha = 0.99f;
+            ((RangerGraphicsComponent)data.m_graphics_component).m_dragline_alpha = 0.99f;
 
             if(m_mouse_hit.collider && m_mouse_hit.collider.tag == "Enemy")
             {
@@ -58,21 +64,21 @@ public class RangerInputComponent : HeroInputComponent
             }
         }
 
-        m_data.m_selected = false;
+        data.m_selected = false;
     }
 
     protected override void OnMouseRightDown()
     {
-
+        base.OnMouseRightDown();
     }
 
     protected override void OnMouseRightDrag()
     {
-
+        base.OnMouseRightDrag();
     }
 
     protected override void OnMouseRightUp()
     {
-
+        base.OnMouseRightUp();
     }
 }

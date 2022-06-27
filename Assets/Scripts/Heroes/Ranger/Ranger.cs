@@ -26,7 +26,7 @@ public class Ranger : Hero
 
         m_input_component = new RangerInputComponent(gameObject);
         m_graphics_component = new RangerGraphicsComponent(gameObject);
-        // m_physics_component = 
+        m_physics_component = new RangerPhysicsComponent(gameObject);
     }
 
     protected override void OnStart()
@@ -37,10 +37,12 @@ public class Ranger : Hero
 
     protected override void OnUpdate()
     {
-        // 컴포넌트간 통신을 변수를 직접 넘겨주는 방식으로 사용하기에 각 컴포넌트간의 Udate() 순서가 중요하다.
+        // 컴포넌트간 통신을 변수를 직접 넘겨주는 방식으로 사용하기에 각 컴포넌트간의 Update() 순서가 중요하다.
 
         // 레인저 입력 처리
         m_input_component.Update();
+        // 레인저 물리 처리
+        m_physics_component.Update();
         // 레인저 그래픽 처리
         m_graphics_component.Update();
         

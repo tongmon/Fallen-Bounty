@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangerPhysicsComponent : MonoBehaviour
+public class RangerPhysicsComponent : HeroPhysicsComponent
 {
-    // Start is called before the first frame update
-    void Start()
+    public RangerPhysicsComponent(GameObject gameobject) : base(gameobject)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        m_data = gameobject.GetComponent<Ranger>();
     }
 }

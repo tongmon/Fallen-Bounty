@@ -8,7 +8,7 @@ public class StateComponent
  
     public StateComponent(GameObject gameobject)
     {
-
+        m_data = gameobject;
     }
 
     public virtual void Update()

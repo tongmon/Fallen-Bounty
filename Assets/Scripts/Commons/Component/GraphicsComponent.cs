@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GraphicsComponent
 {
+    public object m_data;
+
     public GraphicsComponent(GameObject gameobject)
     {
 

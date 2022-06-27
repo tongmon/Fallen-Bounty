@@ -24,12 +24,12 @@ public class HeroData : CreatureData
 
 public class Hero : Creature
 {
-    // 타겟 위치
-    public Vector2 m_point_target;
     // 움직임 상태
     public HeroCommandManager.eMoveState m_state_move;
-    // 캐릭터 타겟팅 상대
-    public GameObject m_target_enemy;
+    // 캐릭터 타겟팅
+    public Creature m_target;
+    // 타겟 위치
+    public Vector2 m_point_target;
     // 공격 속도
     public float m_cur_attack_cooltime;
 
@@ -38,7 +38,7 @@ public class Hero : Creature
         base.OnAwake();
 
         m_state_move = HeroCommandManager.eMoveState.STATE_MOVE_NONE;
-        m_target_enemy = null;
+        m_target = null;
 
         m_point_target = transform.position;
 

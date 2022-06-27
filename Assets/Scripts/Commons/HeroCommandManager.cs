@@ -70,6 +70,7 @@ public class HeroCommandManager : MonoBehaviour
 
         // 이동 상태는 기본적으로 None -> Straight -> Rotation(도중에 Straight로 빠질 수 있음) -> None 순으로 진행된다.
 
+        /*
         #region 영웅 직선 이동 조정
         for (int i = 0; i < m_heroes.Length; i++)
         {
@@ -168,15 +169,6 @@ public class HeroCommandManager : MonoBehaviour
                 {
                     float distance_to_target = Vector2.Distance(heros[i].transform.position, heros[i].m_point_target);
 
-                    /*
-                    if (distance_to_target > 0.1f)
-                    {
-                        // 각도 조정을 하려했는데 영웅과 적 사이 거리가 멀다면 다시 Rotation 상태에서 Straight 상태로 변경한다.
-                        heros[i].m_state_move = eMoveState.STATE_MOVE_STRAIGHT;
-                        continue;
-                    }
-                    */
-
                     if (heros[i].transform.position.x < m_enemy_pos[enemy_name].x)
                         left_pos_heros.Add(heros[i]);
                     else
@@ -231,6 +223,7 @@ public class HeroCommandManager : MonoBehaviour
             }
         }
         #endregion
+        */
     }
 
     /*
@@ -412,4 +405,4 @@ public class HeroCommandManager : MonoBehaviour
         #endregion
     }
     */
-}
+    }
