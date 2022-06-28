@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyGraphicsComponent : GraphicsComponent
 {
-    public SpriteRenderer m_sprite_seleted_sprite;
+    public float m_seleted_sprite_alpha;
+    public SpriteRenderer m_seleted_sprite;
 
     public EnemyGraphicsComponent(GameObject gameobject) : base(gameobject)
     {

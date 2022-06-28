@@ -9,15 +9,15 @@ public class HeroGraphicsComponent : GraphicsComponent
     public LineRenderer m_line_renderer;
 
     public float m_seleted_sprite_alpha;
-    public SpriteRenderer m_sprite_seleted_sprite;
+    public SpriteRenderer m_seleted_sprite;
 
     public HeroGraphicsComponent(GameObject gameobject) : base(gameobject)
     {
-        m_dragline_alpha = 0.0f;
+        m_seleted_sprite_alpha = m_dragline_alpha = 0.0f;
 
         m_line_renderer = ((Hero)m_data).GetComponent<LineRenderer>();
 
-        m_sprite_seleted_sprite = ((Hero)m_data).transform.Find("FocusCircle").GetComponent<SpriteRenderer>();
+        m_seleted_sprite = ((Hero)m_data).transform.Find("FocusCircle").GetComponent<SpriteRenderer>();
 
         m_dragline_fade_speed = 3.0f;
     }

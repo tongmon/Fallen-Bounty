@@ -19,6 +19,8 @@ public class HeroInputComponent : InputComponent
 
         if (m_mouse_hit.collider && m_mouse_hit.collider.gameObject == ((Hero)m_data).gameObject)
             ((Hero)m_data).m_selected = true;
+        else
+            ((Hero)m_data).m_selected = false;
     }
 
     protected override void OnMouseLeftDrag()

@@ -29,7 +29,7 @@ public class RangerInputComponent : HeroInputComponent
 
                 if (m_mouse_hit.collider && m_mouse_hit.collider.tag == "Enemy")
                 {
-                    m_dragging_point = ((EnemyGraphicsComponent)m_mouse_hit.collider.GetComponent<Enemy>().m_graphics_component).m_sprite_seleted_sprite.transform.position;
+                    m_dragging_point = ((EnemyGraphicsComponent)m_mouse_hit.collider.GetComponent<Enemy>().m_graphics_component).m_seleted_sprite.transform.position;
                 }
                 else
                 {
@@ -47,48 +47,64 @@ public class RangerInputComponent : HeroInputComponent
 
         var data = (Ranger)m_data;
 
-        // 드래깅 라인 관련 변수 조정
-        if (((RangerGraphicsComponent)data.m_graphics_component).m_dragline_alpha == 1.0f && data.m_selected)
+        if (data.m_selected)
         {
-            ((RangerGraphicsComponent)data.m_graphics_component).m_dragline_alpha = 0.99f;
-
-            if(m_mouse_hit.collider && m_mouse_hit.collider.tag == "Enemy")
+            // 드래깅 라인 관련 변수 조정
+            if (((RangerGraphicsComponent)data.m_graphics_component).m_dragline_alpha == 1.0f)
             {
-                m_dragging_point = ((EnemyGraphicsComponent)m_mouse_hit.collider.GetComponent<Enemy>().m_graphics_component).m_sprite_seleted_sprite.transform.position;
+                ((RangerGraphicsComponent)data.m_graphics_component).m_dragline_alpha = 0.99f;
+
+                if (m_mouse_hit.collider && m_mouse_hit.collider.tag == "Enemy")
+                {
+                    m_dragging_point = ((EnemyGraphicsComponent)m_mouse_hit.collider.GetComponent<Enemy>().m_graphics_component).m_seleted_sprite.transform.position;
+                }
+                else
+                {
+                    m_dragging_point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                }
             }
+
+            if (m_mouse_hit.collider)
+            {
+                // 마우스를 뗀 위치가 적
+                if (m_mouse_hit.collider.gameObject.tag == "Enemy")
+                {
+                    data.m_target = m_mouse_hit.collider.gameObject.GetComponent<Enemy>();
+                    data.m_point_target = data.m_target.m_physics_component.GetPosition();
+                    data.m_movement_state = new HeroMoveStateComponent(data.gameObject);
+                }
+                // 마우스를 뗀 위치가 영웅
+                else if (m_mouse_hit.collider.gameObject.tag == "Hero")
+                {
+                    if (m_mouse_hit.collider.gameObject == data.gameObject)
+                    {
+                        // 선택한 영웅 다시 선택
+                        if (((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha > 0)
+                        {
+                            ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 0;
+                        }
+                        else
+                        {
+                            ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 255;
+                        }
+                    }
+                    else
+                    {
+                        //data.m_target = m_mouse_hit.collider.gameObject.GetComponent<Hero>();
+                        data.m_point_target = m_mouse_l_click_up;
+                    }
+                }
+            }
+            // 마우스를 뗀 위치가 땅
             else
-            {
-                m_dragging_point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            }
-        }
-
-        if(m_mouse_hit.collider && data.m_selected)
-        {
-            // 마우스를 뗀 위치가 적
-            if (m_mouse_hit.collider.gameObject.tag == "Enemy")
-            {
-                data.m_target = m_mouse_hit.collider.gameObject.GetComponent<Enemy>();
-                data.m_point_target = data.m_target.m_physics_component.GetPosition();
-                data.m_movement_state = new HeroMoveStateComponent(data.gameObject);
-            }
-            // 마우스를 뗀 위치가 영웅
-            else if (m_mouse_hit.collider.gameObject.tag == "Hero")
-            {
-                //data.m_target = m_mouse_hit.collider.gameObject.GetComponent<Hero>();
-                data.m_point_target = m_mouse_l_click_up;
-                data.m_selected = false;
-            }
-        }
-        // 마우스를 뗀 위치가 땅
-        else
-        {
-            if (data.m_selected)
             {
                 //data.m_target = null;
                 data.m_point_target = m_mouse_l_click_up;
                 data.m_movement_state = new HeroMoveStateComponent(data.gameObject);
             }
         }
+        else
+            ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 0;
     }
 
     protected override void OnMouseRightDown()

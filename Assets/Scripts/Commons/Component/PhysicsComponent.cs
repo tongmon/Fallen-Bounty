@@ -26,14 +26,14 @@ public class PhysicsComponent
     {
         m_rigidbody.velocity = Vector2.zero;
 
-        #region 넉백 속도 계산
+        #region 추가 속도 계산
         for (int i = 0; i < m_extra_velocity.Count; i++)
         {
+            m_rigidbody.velocity += m_extra_velocity[i];
+
             float extra_x_vel = m_extra_velocity[i].x > 0 ? m_extra_velocity[i].x - m_extra_decrease[i].x : 0;
             float extra_y_vel = m_extra_velocity[i].y > 0 ? m_extra_velocity[i].y - m_extra_decrease[i].y : 0;
             m_extra_velocity[i] = new Vector2(extra_x_vel, extra_y_vel);
-
-            m_rigidbody.velocity += m_extra_velocity[i];
 
             if (extra_x_vel == 0 && extra_y_vel == 0) {
                 m_extra_velocity.RemoveAt(i);
