@@ -39,6 +39,11 @@ public class Creature : MonoBehaviour
     // 생명체 선택 유무
     public bool m_selected;
 
+    // 캐릭터 타겟팅
+    public Creature m_target;
+    // 타겟 위치
+    public Vector2 m_point_target;
+
     // 입력 처리 컴포넌트
     public InputComponent m_input_component;
     // 그래픽 처리 컴포넌트
@@ -76,6 +81,7 @@ public class Creature : MonoBehaviour
     protected virtual void OnAwake()
     {
         m_selected = false;
+        m_target = null;
     }
 
     protected virtual void OnStart()

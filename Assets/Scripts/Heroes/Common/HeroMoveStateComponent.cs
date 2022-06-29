@@ -18,7 +18,7 @@ public class HeroMoveStateComponent : StateComponent
         float distance_to_target = Vector2.Distance(data.m_physics_component.GetPosition(), data.m_target ? data.m_target.m_physics_component.GetPosition() : data.m_point_target);
 
         // 타겟팅된 적이 있는 경우
-        if ((Enemy)data.m_target) 
+        if (data.m_target && data.m_target is Enemy) 
         {
             // 원거리 캐릭터
             if (((HeroData)data.m_data).melee_range < 0)
@@ -50,6 +50,47 @@ public class HeroMoveStateComponent : StateComponent
                 else
                 {
                     // 다음 상태로 넘어가게 하거나 아니면 바로 로테이션 시키던가 해야됨
+                    List<Creature> creatures = ObjectObserver.Instance.m_group_by_target[data.m_target];
+                    List<Hero> heroes = new List<Hero>();
+                    Vector2 hero_pos = data.m_physics_component.GetPosition(), target_pos = data.m_target.m_physics_component.GetPosition();
+                    bool is_right = true;
+                    int cnt = -1, order = -1, st, end;
+                    float angle = 0, angle_def;
+
+                    // 현재 영웅이 타게팅한 적의 좌측에 있음
+                    if (hero_pos.x < target_pos.x)
+                    {
+                        st = ObjectObserver.Instance.m_right_side_creature_index[data.m_target];
+                        end = creatures.Count;
+                        is_right = false;
+                    }
+                    else
+                    {
+                        st = 0;
+                        end = ObjectObserver.Instance.m_right_side_creature_index[data.m_target];
+                    }
+
+                    for (int i = st; i < end; i++)
+                    {
+                        if (creatures[i] is Hero)
+                        {
+                            cnt++;
+                            if (creatures[i].gameObject == data.gameObject)
+                                order = cnt;
+                        }
+                    }
+
+                    angle = Quaternion.FromToRotation(is_right ? Vector2.right : Vector2.left, hero_pos - target_pos).eulerAngles.z;
+                    angle = Mathf.Min(360 - angle, angle);
+                    angle_def = ObjectObserver.Instance.m_angle_def[cnt, order];
+
+                    if (Mathf.Abs(Mathf.Abs(angle) - Mathf.Abs(angle_def)) >= 1.0f)
+                    {
+                        Vector2 dest_vec = Quaternion.Euler(0, 0, is_right ? angle_def : 180 - angle_def) * new Vector2(((HeroData)data.m_data).melee_range, 0);
+                        data.m_vec_direction = target_pos - hero_pos + dest_vec;
+                    }
+                    else
+                        data.m_movement_state = new HeroIdleStateComponent(data.gameObject);
                 }
             } 
         }
