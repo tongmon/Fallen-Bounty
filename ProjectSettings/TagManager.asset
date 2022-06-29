@@ -9,6 +9,7 @@ TagManager:
   - Hero
   - Map
   - SaveFileName
+  - Button
   layers:
   - Default
   - TransparentFX
