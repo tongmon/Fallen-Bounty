@@ -23,16 +23,20 @@ public class Ranger : Hero
     protected override void OnAwake()
     {
         base.OnAwake();
-
-        m_input_component = new RangerInputComponent(gameObject);
-        m_graphics_component = new RangerGraphicsComponent(gameObject);
-        m_physics_component = new RangerPhysicsComponent(gameObject);
     }
 
     protected override void OnStart()
     {
+        // 컴포넌트들은 무조건 Awake말고 Start에서 초기화해야 안꼬임
+        // 이유는 m_physics_component 얘에 들어있는 히어로 이동 속도가 json을 파싱해서 얻어오기 때문
+        m_input_component = new RangerInputComponent(gameObject);
+        m_physics_component = new RangerPhysicsComponent(gameObject);
+        m_graphics_component = new RangerGraphicsComponent(gameObject);
+
+        m_movement_state = new HeroIdleStateComponent(gameObject);
+
         // 초기에 화살 5개 생성
-        ProjectilePool.InitPool(((RangerData)m_data).projectile_type, 5);
+        // ProjectilePool.InitPool(((RangerData)m_data).projectile_type, 5);
     }
 
     protected override void OnUpdate()
@@ -48,10 +52,13 @@ public class Ranger : Hero
         
         // 이동 상태 처리
         m_movement_state.Update();
+
+        /*
         // 공격 상태 처리
         m_attack_state.Update();
         // 상태 이상 처리
         m_buff_debuff_state.Update();
+        */
     }
 
     protected override void OnFixedUpdate()

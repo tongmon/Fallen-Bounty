@@ -2,8 +2,8 @@
 	{
 		"type_name": "RangerData",
 		"health": 30,
-		"x_velocity": 1,
-		"y_velocity": 1.5,
+		"x_velocity": 10,
+		"y_velocity": 10,
 		"magic_armor": 10,
 		"physic_armor": 5,
 		"physic_power": 15,

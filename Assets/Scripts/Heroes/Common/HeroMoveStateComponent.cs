@@ -15,7 +15,11 @@ public class HeroMoveStateComponent : StateComponent
     public override void Update()
     {
         var data = (Hero)m_data;
-        float distance_to_target = Vector2.Distance(data.m_physics_component.GetPosition(), data.m_target ? data.m_target.m_physics_component.GetPosition() : data.m_point_target);
+        float distance_to_target = Vector2.Distance(
+            data.m_target ? data.m_physics_component.GetPosition() : ((HeroPhysicsComponent)data.m_physics_component).GetBottom(),
+            data.m_target ? data.m_target.m_physics_component.GetPosition() : data.m_point_target
+            );
+        float move_gap = 10 * Vector2.Distance(Vector2.zero, Time.deltaTime * ((HeroPhysicsComponent)data.m_physics_component).m_move_velocity * data.m_vec_direction.normalized);
 
         // 타겟팅된 적이 있는 경우
         if (data.m_target && data.m_target is Enemy) 
@@ -38,7 +42,7 @@ public class HeroMoveStateComponent : StateComponent
             else
             {
                 // 적의 위치가 사거리와 맞지 않음
-                if (Mathf.Abs(distance_to_target - ((HeroData)data.m_data).melee_range) > 0.05f)
+                if (Mathf.Abs(distance_to_target - ((HeroData)data.m_data).melee_range) > move_gap)
                 {
                     // 적이 사거리 안에 없는 경우
                     if (distance_to_target >= ((HeroData)data.m_data).melee_range)
@@ -96,9 +100,9 @@ public class HeroMoveStateComponent : StateComponent
         }
         else
         {
-            if (distance_to_target > 0.05f)
+            if (distance_to_target > move_gap)
             {
-                data.m_vec_direction = data.m_point_target - data.m_physics_component.GetPosition();
+                data.m_vec_direction = data.m_point_target - ((HeroPhysicsComponent)data.m_physics_component).GetBottom();
             }
             else
             {

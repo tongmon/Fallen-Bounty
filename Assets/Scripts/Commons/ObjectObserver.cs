@@ -50,6 +50,7 @@ public class ObjectObserver : MonoBehaviour
 
     void Start()
     {
+        m_inst.m_right_side_creature_index = new Dictionary<Creature, int>();
         m_inst.m_group_by_target = new Dictionary<Creature, List<Creature>>();
         m_inst.m_creatures = new Dictionary<string, List<Creature>>();
         Creature[] all_creatures = Resources.FindObjectsOfTypeAll<Creature>();

@@ -9,6 +9,10 @@ public class EnemyGraphicsComponent : GraphicsComponent
 
     public EnemyGraphicsComponent(GameObject gameobject) : base(gameobject)
     {
+        m_data = gameobject.GetComponent<Enemy>();
 
+        m_seleted_sprite = ((Enemy)m_data).transform.Find("FocusCircle").GetComponent<SpriteRenderer>();
+
+        m_seleted_sprite_alpha = 0.0f;
     }
 }

@@ -101,6 +101,7 @@ public class RangerInputComponent : HeroInputComponent
                 //data.m_target = null;
                 data.m_point_target = m_mouse_l_click_up;
                 data.m_movement_state = new HeroMoveStateComponent(data.gameObject);
+                ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 255;
             }
         }
         else
