@@ -15,4 +15,16 @@ public class EnemyGraphicsComponent : GraphicsComponent
 
         m_seleted_sprite_alpha = 0.0f;
     }
+
+    public override void Update()
+    {
+        base.Update();
+
+        OnDrawSelectedSprite();
+    }
+
+    protected virtual void OnDrawSelectedSprite()
+    {
+
+    }
 }

@@ -6,44 +6,42 @@ public class EnemyInputComponent : InputComponent
 {
     public EnemyInputComponent(GameObject gameobject) : base(gameobject)
     {
-
+        m_data = gameobject.GetComponent<Enemy>();
     }
 
     protected override void OnMouseLeftDown()
     {
-        if (!Input.GetMouseButtonDown(0))
-            return;
+        base.OnMouseLeftDown();
+
+        if (m_mouse_hit.collider && m_mouse_hit.collider.gameObject == ((Enemy)m_data).gameObject)
+            ((Enemy)m_data).m_selected = true;
+        else
+            ((Enemy)m_data).m_selected = false;
     }
 
     // ±×·¡ÇÈ ÄÄÆ÷³ÍÆ®¶û Ä¿ÇÃ¸µ µÇ¾î ÀÖ´Âµ¥ ³öµÖµµ µÇÁö¸¸... ¸Õ°¡ ²¬²ô·¯¿ò
     protected override void OnMouseLeftDrag()
     {
-        if (!Input.GetMouseButton(0))
-            return;
-
-        m_mouse_hold_time[0] += Time.deltaTime;
+        base.OnMouseLeftDrag();
     }
 
     protected override void OnMouseLeftUp()
     {
-        if (!Input.GetMouseButtonUp(0))
-            return;
-
-        
+        base.OnMouseLeftUp();
     }
 
     protected override void OnMouseRightDown()
     {
-
+        base.OnMouseRightDown();
     }
 
     protected override void OnMouseRightDrag()
     {
-
+        base.OnMouseRightDrag();
     }
 
     protected override void OnMouseRightUp()
     {
-
+        base.OnMouseRightUp();
     }
 }

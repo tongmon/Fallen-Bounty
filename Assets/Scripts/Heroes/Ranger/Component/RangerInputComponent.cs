@@ -92,6 +92,7 @@ public class RangerInputComponent : HeroInputComponent
                     {
                         //data.m_target = m_mouse_hit.collider.gameObject.GetComponent<Hero>();
                         data.m_point_target = m_mouse_l_click_up;
+                        ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 255;
                     }
                 }
             }

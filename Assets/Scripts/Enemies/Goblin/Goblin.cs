@@ -18,9 +18,9 @@ public class Goblin : Enemy
     {
         base.OnAwake();
 
-        m_input_component = new InputComponent(gameObject);
+        m_input_component = new GoblinInputComponent(gameObject);
         m_graphics_component = new GoblinGraphicsComponent(gameObject);
-        m_physics_component = new PhysicsComponent(gameObject);
+        m_physics_component = new GoblinPhysicsComponent(gameObject);
 
         // m_movement_state = new HeroIdleStateComponent(gameObject);
     }
