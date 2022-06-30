@@ -44,7 +44,7 @@ public class LogScene : MonoBehaviour
         ItemButtonList.SetActive(true);
         CharacterButtonList.SetActive(false);
         StageButtonList.SetActive(false);
-        ChallengesButtonList.SetActive(false);
+        ChallengesButtonList.transform.parent.parent.parent.gameObject.SetActive(false);
         ClearLogText.SetActive(false);
     }
     public void CharacterButton()
@@ -52,7 +52,7 @@ public class LogScene : MonoBehaviour
         ItemButtonList.SetActive(false);
         CharacterButtonList.SetActive(true);
         StageButtonList.SetActive(false);
-        ChallengesButtonList.SetActive(false);
+        ChallengesButtonList.transform.parent.parent.parent.gameObject.SetActive(false);
         ClearLogText.SetActive(false);
     }
     public void StageButton()
@@ -60,7 +60,7 @@ public class LogScene : MonoBehaviour
         ItemButtonList.SetActive(false);
         CharacterButtonList.SetActive(false);
         StageButtonList.SetActive(true);
-        ChallengesButtonList.SetActive(false);
+        ChallengesButtonList.transform.parent.parent.parent.gameObject.SetActive(false);
         ClearLogText.SetActive(false);
     }
     public void ChallengeButton()
@@ -68,7 +68,7 @@ public class LogScene : MonoBehaviour
         ItemButtonList.SetActive(false);
         CharacterButtonList.SetActive(false);
         StageButtonList.SetActive(false);
-        ChallengesButtonList.SetActive(true);
+        ChallengesButtonList.transform.parent.parent.parent.gameObject.SetActive(true);
         ClearLogText.SetActive(false);
     }
     public void ClearButton()
@@ -76,7 +76,7 @@ public class LogScene : MonoBehaviour
         ItemButtonList.SetActive(false);
         CharacterButtonList.SetActive(false);
         StageButtonList.SetActive(false);
-        ChallengesButtonList.SetActive(false);
+        ChallengesButtonList.transform.parent.parent.parent.gameObject.SetActive(false);
         ClearLogText.SetActive(true);
     }
     public void BackButton()

@@ -6,31 +6,18 @@ using UnityEngine.UI;
 public class MouseOver : MonoBehaviour
 {
     [SerializeField] GameObject m_panel;
+    RaycastHit2D mouse_pos;
+
     private void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        Physics.Raycast(ray, out hit);
+        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouse_pos = Physics2D.Raycast(pos, Vector2.zero, 0f);
 
-        if(hit.collider != null &&hit.collider.tag != "Button") //콜리더 필요함
+        if(mouse_pos.collider != null)
         {
-            OnMouseOver();
+            Debug.Log("yes");
         }
     }
 
-    private void OnMouseEnter() //정보객체랑 연결해야함
-    {
-        m_panel.SetActive(true);
-    }
 
-    private void OnMouseOver()
-    {
-        m_panel.SetActive(true);
-        m_panel.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + new Vector3(150, -200, 0);
-        //현재객체의 정보를 패널 텍스트로 바꿔야함.
-    }
-    private void OnMouseExit()
-    {
-        m_panel.SetActive(false);
-    }
 }
