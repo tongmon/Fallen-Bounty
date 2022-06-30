@@ -17,7 +17,7 @@ public class HeroMoveStateComponent : StateComponent
         var data = (Hero)m_data;
         float distance_to_target = Vector2.Distance(
             data.m_target ? data.m_physics_component.GetPosition() : ((HeroPhysicsComponent)data.m_physics_component).GetBottom(),
-            data.m_target ? data.m_target.m_physics_component.GetPosition() : data.m_point_target
+            data.m_target ? data.m_target.m_physics_component.GetPosition() : data.m_point_target.Value
             );
         float move_gap = 10 * Vector2.Distance(Vector2.zero, Time.deltaTime * ((HeroPhysicsComponent)data.m_physics_component).m_move_velocity * data.m_vec_direction.normalized);
 
@@ -34,8 +34,15 @@ public class HeroMoveStateComponent : StateComponent
                 }
                 else
                 {
-                    // 적이 사거리 내에 들어와 있다면 idle 상태로 변경
-                    data.m_movement_state = new HeroIdleStateComponent(data.gameObject);
+                    // 적은 타겟팅 되었는데 플레이어가 땅을 찍음 
+                    if (data.m_point_target != null)
+                    {
+                        data.m_vec_direction = data.m_point_target.Value - ((HeroPhysicsComponent)data.m_physics_component).GetBottom();
+                    }
+                    else
+                    {
+                        data.m_movement_state = new HeroIdleStateComponent(data.gameObject);
+                    }
                 }
             }
             // 근접 캐릭터
@@ -94,7 +101,17 @@ public class HeroMoveStateComponent : StateComponent
                         data.m_vec_direction = target_pos - hero_pos + dest_vec;
                     }
                     else
-                        data.m_movement_state = new HeroIdleStateComponent(data.gameObject);
+                    {
+                        // 적은 타겟팅 되었는데 플레이어가 땅을 찍음 
+                        if (data.m_point_target != null)
+                        {
+                            data.m_vec_direction = data.m_point_target.Value - ((HeroPhysicsComponent)data.m_physics_component).GetBottom();
+                        }
+                        else
+                        {
+                            data.m_movement_state = new HeroIdleStateComponent(data.gameObject);
+                        }
+                    }
                 }
             } 
         }
@@ -102,7 +119,7 @@ public class HeroMoveStateComponent : StateComponent
         {
             if (distance_to_target > move_gap)
             {
-                data.m_vec_direction = data.m_point_target - ((HeroPhysicsComponent)data.m_physics_component).GetBottom();
+                data.m_vec_direction = data.m_point_target.Value - ((HeroPhysicsComponent)data.m_physics_component).GetBottom();
             }
             else
             {
