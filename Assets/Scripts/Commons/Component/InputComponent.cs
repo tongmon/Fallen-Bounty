@@ -15,6 +15,8 @@ public class InputComponent
 
     // 클릭 좌표 충돌 정보
     public RaycastHit2D m_mouse_hit;
+
+    public RaycastHit2D m_mouse_hit_test;//테스트용
     // 마우스 홀딩 시간
     public float[] m_mouse_hold_time;
 
@@ -45,6 +47,7 @@ public class InputComponent
     public virtual void Update()
     {
         m_mouse_hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity);
+        m_mouse_hit_test = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 1 << 6);
         m_l_point_clicked = m_r_point_clicked = m_mouse_l_click_up = m_mouse_r_click_up = m_mouse_l_click_down = m_mouse_r_click_down = m_screen_border;
         
         OnMouseEvent();
