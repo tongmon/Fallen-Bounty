@@ -14,5 +14,6 @@
 		"weakness_hit_cnt": 0,
 		"weakness_popup_cooltime": 3,
 		"projectile_type": "Arrow"
+		"arrow_speed" : { 10, 10 }
 	}
 ]

@@ -6,10 +6,11 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public string m_type_name;
-    public GameObject m_shooter;
-    public GameObject m_target;
+    public Creature m_shooter;
+    public Creature m_target;
 
-    public Rigidbody2D m_rigidbody;
+    public PhysicsComponent m_physics_component;
+    public GraphicsComponent m_graphics_component;
 
     public Vector2 m_direction;
 
@@ -40,7 +41,7 @@ public class Projectile : MonoBehaviour
 
     protected virtual void OnAwake()
     {
-        m_rigidbody = GetComponent<Rigidbody2D>();
+        
     }
 
     protected virtual void OnStart()
@@ -60,12 +61,6 @@ public class Projectile : MonoBehaviour
 
     protected virtual void OnFixedUpdate()
     {    
-
-    }
-
-    // น฿ป็
-    public virtual void Shoot()
-    {
 
     }
 

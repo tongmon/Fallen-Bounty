@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class Arrow : Projectile
 {
-    public long m_attribute; // 상태이상, 64bit
+    // public long m_attribute; // 상태이상, 64bit
     public float m_exsist_time; // 화살 존재 시간
 
-    public override void Shoot()
+    public void SetPosition(Vector2 position)
     {
-        m_direction = m_target.transform.position - m_shooter.transform.position;
+        m_physics_component.m_rigidbody.MovePosition(position);
+    }
+
+    public void Shoot(Vector2 speed)
+    {
+        m_direction = m_target.m_physics_component.GetPosition() - m_shooter.m_physics_component.GetPosition();
 
         m_exsist_time = 0;
 
-        m_rigidbody.velocity = new Vector2(15.0f, 10.0f) * m_direction.normalized;
+        ((ArrowPhysicsComponent)m_physics_component).SetSpeed(speed, m_direction);
     }
 
     public override void Destroy()
@@ -26,6 +31,9 @@ public class Arrow : Projectile
         base.OnAwake();
 
         m_type_name = GetType().Name;
+
+        m_physics_component = new ArrowPhysicsComponent(gameObject);
+        m_graphics_component = new ArrowGraphicComponent(gameObject);
     }
 
     protected override void OnStart()
@@ -42,6 +50,9 @@ public class Arrow : Projectile
         {
             Destroy();
         }
+
+        m_physics_component.Update();
+        m_graphics_component.Update();
     }
 
     protected override void OnFixedUpdate()
@@ -52,7 +63,7 @@ public class Arrow : Projectile
     protected override void OnProjectileCollisionEnter(Collision2D collider)
     {
         // 적과 충돌하면 화살 제거
-        if (collider.gameObject == m_target)
+        if (collider.gameObject == m_target.gameObject)
         {
             Destroy();
         }

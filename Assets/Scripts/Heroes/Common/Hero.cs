@@ -31,7 +31,7 @@ public class Hero : Creature
     {
         base.OnAwake();
 
-        m_point_target = Vector2.zero;
+        m_point_target = null;
 
         m_cur_attack_cooltime = 0;
     }
