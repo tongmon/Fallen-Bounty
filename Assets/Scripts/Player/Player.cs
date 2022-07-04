@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
         m_hero_limit = 1;
         m_card_option_limit = 3;
 
+        /*
         // 히어로 초기화
         m_hero_manager = new HeroManager(gameObject);
         GameObject[] heros = GameObject.FindGameObjectsWithTag("Hero");
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
         {
             heros[i].GetComponent<Hero>().m_data = m_hero_manager.GetHero(heros[i].name);        
         }
+        */
     }
 
     // Start is called before the first frame update

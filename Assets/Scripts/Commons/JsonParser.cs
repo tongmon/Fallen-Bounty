@@ -62,11 +62,58 @@ https://makolyte.com/csharp-deserialize-json-to-a-derived-type/
 위의 이유는 json 파싱할 때 클래스가 뻥튀기되기 때문에 이를 최대한 줄여야댐
 */
 
+[JsonConverter(typeof(JsonSubtypes))]
+public class JsonVector2
+{
+    public float x;
+    public float y;
+
+    public JsonVector2(float x, float y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    public static implicit operator Vector2(JsonVector2 vec)
+    {
+        return new Vector2(vec.x, vec.y);
+    }
+
+    public static explicit operator JsonVector2(Vector2 vec)
+    {
+        return (new JsonVector2(vec.x, vec.y));
+    }
+}
+
 public class JsonParser
 {
-    static JsonParser()
+    private static JsonParser m_inst = null;
+
+    #region 영웅 Json 파일
+    public List<HeroData> m_heroes;
+    public Dictionary<string, int> m_heroes_dict;
+    #endregion
+
+    JsonParser()
     {
-        //이경준 바보
+        m_heroes = new List<HeroData>();
+        m_heroes_dict = new Dictionary<string, int>();
+        m_heroes = LoadJsonArrayToBaseList<HeroData>(Application.dataPath + "/DataFiles/ObjectFiles/HeroList");
+        for (int i = 0; i < m_heroes.Count; i++)
+            m_heroes_dict[m_heroes[i].type_name] = i;
+    }
+
+    public static JsonParser Instance
+    {
+        get
+        {
+            if (null == m_inst)
+            {
+                //게임 인스턴스가 없다면 하나 생성해서 넣어준다.
+                m_inst = new JsonParser();
+            }
+            return m_inst;
+        }
     }
 
     #region JSON 파일 생성
@@ -164,4 +211,10 @@ public class JsonParser
         return ret_list;
     }
     #endregion
+
+    // 영웅 획득
+    public static HeroData GetHero(string hero_name)
+    {
+        return Instance.m_heroes[Instance.m_heroes_dict[hero_name + "Data"]];
+    }
 }

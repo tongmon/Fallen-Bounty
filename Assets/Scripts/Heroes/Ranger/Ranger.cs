@@ -12,7 +12,7 @@ public class RangerData : HeroData
     public int weakness_hit_cnt;
     public float weakness_popup_cooltime;
     public string projectile_type;
-    public Vector2 arrow_speed; 
+    public JsonVector2 arrow_speed; 
     #endregion
 }
 
@@ -29,18 +29,17 @@ public class Ranger : Hero
         base.OnAwake();
 
         m_target_on = false;
-    }
+        m_data = JsonParser.GetHero("Ranger");
 
-    protected override void OnStart()
-    {
-        // 컴포넌트들은 무조건 Awake말고 Start에서 초기화해야 안꼬임
-        // 이유는 m_physics_component 얘에 들어있는 히어로 이동 속도가 json을 파싱해서 얻어오기 때문
         m_input_component = new RangerInputComponent(gameObject);
         m_physics_component = new RangerPhysicsComponent(gameObject);
         m_graphics_component = new RangerGraphicsComponent(gameObject);
 
         m_movement_state = new HeroIdleStateComponent(gameObject);
+    }
 
+    protected override void OnStart()
+    {
         // 초기에 화살 5개 생성
         ProjectilePool.InitPool(((RangerData)m_data).projectile_type, 5);
     }
