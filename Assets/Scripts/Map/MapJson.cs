@@ -15,8 +15,7 @@ public class MapJson : MonoBehaviour
     {
         m_node = new List<MapNode>();
         m_path = "Assets/Resources/MapJson/";
-        Instantiate(m_map_prefab, m_PrefabCanvas.transform);//맵 인스턴스화
-        GameObject map = GameObject.FindGameObjectWithTag("Map");//맵 연결
+        GameObject map = Instantiate(m_map_prefab, m_PrefabCanvas.transform); //맵 인스턴스화
         JArray jarray = new JArray(); //리스트형으로 Json 선언
         if (!File.Exists(m_path + "MapJson.json"))
         {

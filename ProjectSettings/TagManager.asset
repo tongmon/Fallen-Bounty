@@ -7,7 +7,6 @@ TagManager:
   - Character
   - Enemy
   - Hero
-  - Map
   - SaveFileName
   - Button
   layers:
