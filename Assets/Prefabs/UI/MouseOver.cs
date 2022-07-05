@@ -2,22 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class MouseOver : MonoBehaviour
 {
-    [SerializeField] GameObject m_panel;
-    RaycastHit2D mouse_pos;
+    [SerializeField] Image m_panel;
 
-    private void Update()
+    public void MouseEnter()
     {
+        m_panel.gameObject.SetActive(true);
+        m_panel.DOColor(Color.white, 0.3f);
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouse_pos = Physics2D.Raycast(pos, Vector2.zero, 0f);
 
-        if(mouse_pos.collider != null)
-        {
-            Debug.Log("yes");
-        }
+        m_panel.transform.position = pos * Camera.main.transform.localScale;
+        m_panel.transform.localPosition += new Vector3(250, -100);
     }
-
-
+    
+    public void MouseOut()
+    {
+        StartCoroutine(MOut());
+    }
+    IEnumerator MOut()
+    {
+        m_panel.DOFade(0, 0.3f);
+        yield return new WaitForSecondsRealtime(0.3f);
+        m_panel.gameObject.SetActive(false);
+        StopCoroutine(MOut());
+    }
 }
