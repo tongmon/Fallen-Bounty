@@ -16,11 +16,11 @@ public class RangerRunStateComponent : StateComponent
         var data = (Ranger)m_data;
 
         float distance_to_target = Vector2.Distance(
-            data.m_point_target == null ? data.m_physics_component.GetPosition() : ((HeroPhysicsComponent)data.m_physics_component).GetBottom(),
-            data.m_point_target == null ? data.m_target.m_physics_component.GetPosition() : data.m_point_target.Value
+            data.m_target ? data.m_physics_component.GetPosition() : ((HeroPhysicsComponent)data.m_physics_component).GetBottom(),
+            data.m_target ? data.m_target.m_physics_component.GetPosition() : data.m_point_target.Value
             );
 
-        float move_gap = 10 * Vector2.Distance(Vector2.zero, Time.deltaTime * ((HeroPhysicsComponent)data.m_physics_component).m_move_velocity * data.m_vec_direction.normalized);
+        float move_gap = Time.deltaTime * ((HeroPhysicsComponent)data.m_physics_component).m_move_velocity.magnitude;
 
         // 타겟팅된 적이 있는 경우
         if (data.m_target && data.m_target is Enemy)
@@ -33,19 +33,15 @@ public class RangerRunStateComponent : StateComponent
             else
             {
                 // 타겟팅된 적이 있는데 플레이어가 이동을 시킴
-                if (data.m_target_on)
-                {
+                if (Mathf.Round(distance_to_target) > Mathf.Round(move_gap))
                     data.m_vec_direction = data.m_point_target.Value - ((HeroPhysicsComponent)data.m_physics_component).GetBottom();
-                }
                 else
-                {
                     data.m_movement_state = new HeroIdleStateComponent(data.gameObject);
-                }
             }
         }
         else
         {
-            if (distance_to_target > move_gap)
+            if (Mathf.Round(distance_to_target) > Mathf.Round(move_gap))
             {
                 data.m_vec_direction = data.m_point_target.Value - ((HeroPhysicsComponent)data.m_physics_component).GetBottom();
             }

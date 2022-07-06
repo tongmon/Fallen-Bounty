@@ -70,10 +70,7 @@ public class RangerInputComponent : HeroInputComponent
                 if (m_mouse_hit.collider.gameObject.tag == "Enemy")
                 {
                     data.m_target = m_mouse_hit.collider.gameObject.GetComponent<Enemy>();
-                    if (!data.m_target_on)
-                        data.m_point_target = null;
                     data.m_movement_state = new RangerRunStateComponent(data.gameObject);
-                    data.m_target_on = true;
                     ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 255;
                 }
                 // ¸¶¿ì½º¸¦ ¶¾ À§Ä¡°¡ ¿µ¿õ
