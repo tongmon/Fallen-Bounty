@@ -26,7 +26,7 @@ public class Arrow : Projectile
         base.Destroy();
     }
 
-    protected override void OnAwake()
+    public override void OnAwake()
     {
         base.OnAwake();
 

@@ -12,7 +12,7 @@ public class RangerData : HeroData
     public int weakness_hit_cnt;
     public float weakness_popup_cooltime;
     public string projectile_type;
-    public JsonVector2 arrow_speed; 
+    public JsonVector2 arrow_velocity; 
     #endregion
 }
 
@@ -21,14 +21,10 @@ public class Ranger : Hero
     //private long m_arrow_attribute; // 화살 속성, 64bit
     //private GameObject m_arrow;
 
-    // 궁수가 적을 타게팅하고 있는지 여부, 타게팅된 적이 죽는 경우나 궁수 생성시에만 false가 됨
-    public bool m_target_on;
-
     protected override void OnAwake()
     {
         base.OnAwake();
 
-        m_target_on = false;
         m_data = JsonParser.GetHero("Ranger");
 
         m_input_component = new RangerInputComponent(gameObject);

@@ -32,7 +32,7 @@ public class RangerAutoAttackStateComponent : StateComponent
             arrow.m_target = data.m_target;
             arrow.m_shooter = data;
 
-            arrow.Shoot(((RangerData)data.m_data).arrow_speed);
+            arrow.Shoot(((RangerData)data.m_data).arrow_velocity);
         }
     }
 

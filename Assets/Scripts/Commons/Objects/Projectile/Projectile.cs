@@ -39,7 +39,7 @@ public class Projectile : MonoBehaviour
         OnProjectileCollisionEnter(collision);
     }
 
-    protected virtual void OnAwake()
+    public virtual void OnAwake()
     {
         
     }
