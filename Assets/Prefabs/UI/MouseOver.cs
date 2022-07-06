@@ -14,8 +14,9 @@ public class MouseOver : MonoBehaviour
         m_panel.DOColor(Color.white, 0.3f);
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+
         m_panel.transform.position = pos * Camera.main.transform.localScale;
-        m_panel.transform.localPosition += new Vector3(250, -100);
+        m_panel.transform.localPosition = new Vector3(m_panel.transform.localPosition.x + 250, m_panel.transform.localPosition.y - 100, 0);
     }
     
     public void MouseOut()
