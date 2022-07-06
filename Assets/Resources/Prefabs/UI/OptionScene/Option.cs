@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class OptionScene : MonoBehaviour
+public class Option : MonoBehaviour
 {
     [SerializeField] GameObject AudioSetting;
     [SerializeField] GameObject ResolutionSetting;

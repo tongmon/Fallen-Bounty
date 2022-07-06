@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LogScene : MonoBehaviour
+public class Log : MonoBehaviour
 {
     [SerializeField] GameObject ItemButtonList;
     [SerializeField] GameObject CharacterButtonList;
@@ -11,7 +11,7 @@ public class LogScene : MonoBehaviour
     [SerializeField] GameObject ChallengesButtonList;
     [SerializeField] GameObject ClearLogText;
     SaveState save_state;
-    private void Start()
+    private void OnEnable()
     {
         save_state = JsonParser.LoadJsonFile<SaveState>(GameObject.FindGameObjectWithTag("SaveFileName").transform.name);
         foreach(eItem item in save_state.unlock_item)

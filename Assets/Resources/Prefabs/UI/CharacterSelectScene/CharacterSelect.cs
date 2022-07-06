@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class CharacterSelectScene : MonoBehaviour
+public class CharacterSelect : MonoBehaviour
 {
     [SerializeField] Image m_skill_button1;
     [SerializeField] Image m_skill_button2;

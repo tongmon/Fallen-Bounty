@@ -5,13 +5,13 @@ using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class TitleScene : MonoBehaviour
+public class Title : MonoBehaviour
 {
     SaveState save_state;
     [SerializeField] Text m_title_name_text; //제목 글씨
-    public void Start()
+    public void OnEnable()
     {
-        m_title_name_text.DOText("Fallen Bounty", 2.0f); //글씨가 써지는 두트윈 적용
+        m_title_name_text.DOText("Half Blood", 2.0f); //글씨가 써지는 두트윈 적용
         save_state = JsonParser.LoadJsonFile<SaveState>(GameObject.FindGameObjectWithTag("SaveFileName").transform.name);
     }
     public void StartJourneyClicked()

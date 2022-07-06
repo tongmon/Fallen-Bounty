@@ -7,13 +7,13 @@ using System.IO;
 using DG.Tweening;
 
 
-public class SaveslotScene : MonoBehaviour
+public class Saveslot : MonoBehaviour
 {
     [SerializeField] GameObject m_title_name; //게임 제목
     public GameObject s_name;
     GameObject m_click_object; //클릭한 객체 저장용
     SaveState save_state;
-    private void Start()
+    private void OnEnable()
     {
         m_title_name.transform.DOMoveY(3, 1.5f); //시작시 제목 이동 ,두트윈 이용
         GetComponent<RectTransform>();
@@ -47,9 +47,11 @@ public class SaveslotScene : MonoBehaviour
         m_click_object.GetComponentInParent<Canvas>().sortingOrder = 1; //각 레이어를 구분해 맨앞으로 보내기
         m_click_object.transform.DOMoveX(0, 1.5f);
         yield return new WaitForSecondsRealtime(1.5f);
+
         m_click_object.transform.DOScaleX(2.5f, 1.5f);
         m_click_object.transform.DOScaleY(2.5f, 1.5f);
         yield return new WaitForSecondsRealtime(1.5f);
-        SceneManager.LoadScene("Title_Scene"); //마지막으로 씬 불러오기
+
+        GameObject.Find("EventSystem").GetComponent<CanvasManager>().TitleCanvasAdd();
     }
 }

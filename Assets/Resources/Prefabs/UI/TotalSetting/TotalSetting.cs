@@ -17,7 +17,7 @@ public class TotalSetting : MonoBehaviour
     Vector2[] m_target_vec = { new Vector2(2, 0.75f), new Vector2(0, 2), new Vector2(-2, 0.75f), new Vector2(0, 0) };
     //캐릭터 이동시 이용할 좌표들
 
-    void Start()
+    void OnEnable()
     {
         StartCoroutine(Box());//코루틴이용
         StartCoroutine(BookShelf());
