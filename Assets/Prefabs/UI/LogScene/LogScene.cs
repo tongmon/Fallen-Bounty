@@ -14,29 +14,30 @@ public class LogScene : MonoBehaviour
     private void Start()
     {
         save_state = JsonParser.LoadJsonFile<SaveState>(GameObject.FindGameObjectWithTag("SaveFileName").transform.name);
+        foreach(eItem item in save_state.unlock_item)
+        {
+            ItemButtonList.transform.GetChild((int)item).GetComponent<Image>().color = new Color(255, 255, 255, 1);
+        }
+        foreach (eCharacter character in save_state.unlock_character)
+        {
+            CharacterButtonList.transform.GetChild((int)character).GetComponent<Image>().color = new Color(255, 255, 255, 1);
+        }
+        foreach (eStage stage in save_state.unlock_character)
+        {
+            StageButtonList.transform.GetChild((int)stage).GetComponent<Image>().color = new Color(255, 255, 255, 1);
+        }
+        foreach (eChallenges challenges in save_state.unlock_character)
+        {
+            ChallengesButtonList.transform.GetChild((int)challenges).GetComponent<Image>().color = new Color(255, 255, 255, 1);
+        }
 
-        for(int i = 0; i<save_state.unlock_item.Count; i++)
-        {
-            ItemButtonList.transform.GetChild(i).GetComponent<Image>().color = new Color(255, 255, 255, 1);
-        }
-        for (int i = 0; i < save_state.unlock_character.Count; i++)
-        {
-            CharacterButtonList.transform.GetChild(i).GetComponent<Image>().color = new Color(255, 255, 255, 1);
-        }
-        for (int i = 0; i < save_state.unlock_stage.Count; i++)
-        {
-            StageButtonList.transform.GetChild(i).GetComponent<Image>().color = new Color(255, 255, 255, 1);
-        }
-        for (int i = 0; i < save_state.unlock_challenges.Count; i++)
-        {
-            ChallengesButtonList.transform.GetChild(i).GetComponent<Image>().color = new Color(255, 255, 255, 1);
-        }
-        string a= null;
+        /*string a= null;
         for(int i = 0; i<save_state.clear_log.Length; i++)
         {
             a.Insert(0, save_state.clear_log[i]);
         }
         ClearLogText.GetComponent<Text>().text = a; //적용되는지 모름
+        */
     }
 
     public void ItemButton()
