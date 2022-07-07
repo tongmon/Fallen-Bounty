@@ -680,6 +680,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_title_name: {fileID: 166471263}
+  save_button:
+  - {fileID: 684086833}
+  - {fileID: 1692617229}
+  - {fileID: 2070699004}
   s_name: {fileID: 625898298}
 --- !u!1 &566734820
 GameObject:

@@ -80,8 +80,4 @@ public class Log : MonoBehaviour
         ChallengesButtonList.transform.parent.parent.parent.gameObject.SetActive(false);
         ClearLogText.SetActive(true);
     }
-    public void BackButton()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Title_Scene");
-    }
 }

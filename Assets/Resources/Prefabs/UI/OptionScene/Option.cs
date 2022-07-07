@@ -47,10 +47,6 @@ public class Option : MonoBehaviour
         KeySetting.SetActive(false);
         GameplaySetting.SetActive(true);
     }
-    public void BackButtonClicked()
-    {
-        SceneManager.LoadScene("Title_Scene");
-    }
     private void Update()
     {
         if (m_skillMove) Skill.transform.position = new Vector3(-0.8f, -1.5f , 0); //Ω∫≈≥ «¡∏Æ∆’¿ª æ¿¿∏∑Œ µÓ¿ÂΩ√≈¥

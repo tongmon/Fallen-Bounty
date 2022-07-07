@@ -129,7 +129,7 @@ MonoBehaviour:
   ItemButtonList: {fileID: 3141107106518669124}
   CharacterButtonList: {fileID: 3141107106441728727}
   StageButtonList: {fileID: 3141107105061148147}
-  ChallengesButtonList: {fileID: 3141107106095699110}
+  ChallengesButtonList: {fileID: 3141107105499077962}
   ClearLogText: {fileID: 3141107105640911822}
 --- !u!1 &3141107104822781114
 GameObject:
