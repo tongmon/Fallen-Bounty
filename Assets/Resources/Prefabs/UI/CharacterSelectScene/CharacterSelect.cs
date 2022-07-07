@@ -29,6 +29,6 @@ public class CharacterSelect : MonoBehaviour
         FadeInOut.DOColor(Color.black, 0.3f);
         yield return new WaitForSecondsRealtime(0.3f);
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MapScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Map_Scene");
     }
 }
