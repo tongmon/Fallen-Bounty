@@ -680,6 +680,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_title_name: {fileID: 166471263}
+  save_button:
+  - {fileID: 684086833}
+  - {fileID: 1692617229}
+  - {fileID: 2070699004}
   s_name: {fileID: 625898298}
 --- !u!1 &566734820
 GameObject:
@@ -2219,6 +2223,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 808685514}
+    - target: {fileID: 8932957154931923034, guid: 2370ee53667a45b4989162c30f1acab3, type: 3}
+      propertyPath: FadeInOut
+      value: 
+      objectReference: {fileID: 1807136163}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2370ee53667a45b4989162c30f1acab3, type: 3}
 --- !u!1 &1983815046 stripped

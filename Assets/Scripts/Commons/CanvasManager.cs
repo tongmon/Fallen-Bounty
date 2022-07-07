@@ -50,29 +50,33 @@ public class CanvasManager : MonoBehaviour
     IEnumerator CanvasIn(int index)
     {
         FadeInOut.gameObject.SetActive(true);
-        FadeInOut.DOColor(Color.black, 0.3f);
-        yield return new WaitForSecondsRealtime(0.3f);
+        FadeInOut.DOColor(Color.black, 1.0f);
+        yield return new WaitForSecondsRealtime(1.0f);
 
-        FadeInOut.DOFade(0, 0.3f);
         m_canvasList.Last.Value.gameObject.SetActive(false);
-        m_canvasList.AddFirst(m_canvas[index].gameObject);
-        yield return new WaitForSecondsRealtime(0.3f);
+        m_canvasList.AddLast(m_canvas[index].gameObject);
+        FadeInOut.DOFade(0, 1.0f);
+        yield return new WaitForSecondsRealtime(0.5f);
 
         m_canvas[index].gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(0.5f);
+
         FadeInOut.gameObject.SetActive(false);
     }
     IEnumerator CanvasOut()
     {
         FadeInOut.gameObject.SetActive(true);
-        FadeInOut.DOColor(Color.black, 0.3f);
-        yield return new WaitForSecondsRealtime(0.3f);
+        FadeInOut.DOColor(Color.black, 1.0f);
+        yield return new WaitForSecondsRealtime(1.0f);
 
-        FadeInOut.DOFade(0, 0.3f);
         m_canvasList.Last.Value.gameObject.SetActive(false);
         m_canvasList.RemoveLast();
-        yield return new WaitForSecondsRealtime(0.3f);
+        FadeInOut.DOFade(0, 1.0f);
+        yield return new WaitForSecondsRealtime(0.5f);
 
         m_canvasList.Last.Value.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(0.5f);
+
         FadeInOut.gameObject.SetActive(false);
     }
 }
