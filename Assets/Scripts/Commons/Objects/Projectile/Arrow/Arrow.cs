@@ -21,6 +21,21 @@ public class Arrow : Projectile
         ((ArrowPhysicsComponent)m_physics_component).SetSpeed(speed, m_direction);
     }
 
+    // 쏘는 물체, 타겟 물체, 투사체 속도, 화살 발사 시작점
+    public void Shoot(Creature shooter, Creature target, Vector2 speed, Vector2? start_point = null)
+    {
+        m_shooter = shooter;
+        m_target = target;
+
+        SetPosition(start_point == null ? m_shooter.m_physics_component.GetPosition() : start_point.Value);
+
+        m_direction = m_target.m_physics_component.GetPosition() - start_point == null ? m_shooter.m_physics_component.GetPosition() : start_point.Value;
+
+        m_exsist_time = 0;
+
+        ((ArrowPhysicsComponent)m_physics_component).SetSpeed(speed, m_direction);
+    }
+
     public override void Destroy()
     {
         base.Destroy();

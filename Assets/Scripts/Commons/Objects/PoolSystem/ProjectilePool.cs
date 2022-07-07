@@ -33,7 +33,7 @@ public class ProjectilePool
     Projectile CreateObj(string projectile_name)
     {
         // 게임 실행 도중에 오브젝트 생성하는 함수 -> Instantiate
-        var new_obj = Object.Instantiate(m_pooling_prefab[projectile_name]).GetComponent<Projectile>();
+        var new_obj = Object.Instantiate(Instance.m_pooling_prefab[projectile_name]).GetComponent<Projectile>();
         new_obj.gameObject.SetActive(false);
         //new_obj.transform.SetParent(transform);
         return new_obj;
@@ -51,16 +51,18 @@ public class ProjectilePool
 
     public static Projectile GetObj(string projectile_name)
     {
-        if (Instance.m_pools.Count > 0)
+        if (Instance.m_pools[projectile_name].Count > 0)
         {
             var obj = Instance.m_pools[projectile_name].Dequeue();
             //obj.transform.SetParent(null);
+            obj.OnAwake();
             obj.gameObject.SetActive(true);
             return obj;
         }
         else
         {
-            var new_obj = Instance.CreateObj(projectile_name);
+            var new_obj = Instance.CreateObj(projectile_name);            
+            new_obj.OnAwake();
             new_obj.gameObject.SetActive(true);
             //new_obj.transform.SetParent(null);
             return new_obj;
@@ -71,7 +73,6 @@ public class ProjectilePool
     {
         obj.gameObject.SetActive(false);
         //obj.transform.SetParent();
-        obj.OnAwake();
         Instance.m_pools[projectile_name].Enqueue(obj);
     }
 }

@@ -32,6 +32,8 @@ public class Ranger : Hero
         m_graphics_component = new RangerGraphicsComponent(gameObject);
 
         m_movement_state = new HeroIdleStateComponent(gameObject);
+
+        m_attack_state = new RangerAutoAttackStateComponent(gameObject);
     }
 
     protected override void OnStart()
@@ -53,10 +55,10 @@ public class Ranger : Hero
         
         // 이동 상태 처리
         m_movement_state.Update();
-
-        /*
         // 공격 상태 처리
         m_attack_state.Update();
+
+        /*
         // 상태 이상 처리
         m_buff_debuff_state.Update();
         */

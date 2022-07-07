@@ -17,6 +17,8 @@ public class ArrowPhysicsComponent : PhysicsComponent
         m_collider = gameobject.GetComponent<Collider2D>();
 
         m_angle = 0;
+
+        m_move_velocity = Vector2.zero;
     }
 
     public override void Update()
