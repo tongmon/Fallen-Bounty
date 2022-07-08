@@ -14,6 +14,8 @@ public class Projectile : MonoBehaviour
 
     public Vector2 m_direction;
 
+    public bool m_shooted;
+
     void Awake()
     {
         OnAwake();
@@ -26,7 +28,8 @@ public class Projectile : MonoBehaviour
 
     void Update()
     {
-        OnUpdate();
+        if (m_shooted)
+            OnUpdate();
     }
 
     void FixedUpdate()
@@ -36,12 +39,13 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        OnProjectileCollisionEnter(collision);
+        if (m_shooted)
+            OnProjectileCollisionEnter(collision);
     }
 
     public virtual void OnAwake()
     {
-        
+        m_shooted = false;
     }
 
     protected virtual void OnStart()
@@ -54,6 +58,7 @@ public class Projectile : MonoBehaviour
 
     }
 
+    // 총알이 쏴진 후에 충돌 검사한다. (m_shooted 얘가 true인 경우만 발동됨)
     protected virtual void OnProjectileCollisionEnter(Collision2D collider)
     {
 

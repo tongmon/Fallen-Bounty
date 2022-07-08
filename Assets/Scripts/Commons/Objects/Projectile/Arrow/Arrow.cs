@@ -17,8 +17,9 @@ public class Arrow : Projectile
         m_direction = m_target.m_physics_component.GetPosition() - m_shooter.m_physics_component.GetPosition();
 
         m_exsist_time = 0;
-
         ((ArrowPhysicsComponent)m_physics_component).SetSpeed(speed, m_direction);
+
+        m_shooted = true;
     }
 
     // 쏘는 물체, 타겟 물체, 투사체 속도, 화살 발사 시작점
@@ -29,11 +30,13 @@ public class Arrow : Projectile
 
         SetPosition(start_point == null ? m_shooter.m_physics_component.GetPosition() : start_point.Value);
 
-        m_direction = m_target.m_physics_component.GetPosition() - start_point == null ? m_shooter.m_physics_component.GetPosition() : start_point.Value;
+        m_direction = m_target.m_physics_component.GetPosition() - (start_point == null ? m_shooter.m_physics_component.GetPosition() : start_point.Value);
 
         m_exsist_time = 0;
 
         ((ArrowPhysicsComponent)m_physics_component).SetSpeed(speed, m_direction);
+
+        m_shooted = true;
     }
 
     public override void Destroy()

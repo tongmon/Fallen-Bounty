@@ -51,28 +51,31 @@ public class ProjectilePool
 
     public static Projectile GetObj(string projectile_name)
     {
+
+        Projectile obj;
+
         if (Instance.m_pools[projectile_name].Count > 0)
-        {
-            var obj = Instance.m_pools[projectile_name].Dequeue();
-            //obj.transform.SetParent(null);
-            obj.OnAwake();
-            obj.gameObject.SetActive(true);
-            return obj;
-        }
+            obj = Instance.m_pools[projectile_name].Dequeue();
         else
-        {
-            var new_obj = Instance.CreateObj(projectile_name);            
-            new_obj.OnAwake();
-            new_obj.gameObject.SetActive(true);
-            //new_obj.transform.SetParent(null);
-            return new_obj;
-        }
+            obj = Instance.CreateObj(projectile_name);
+        
+        //obj.transform.SetParent(null);
+        obj.gameObject.SetActive(true);
+
+        Vector2 out_of_screen = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)) * new Vector2(3, 3);
+        obj.m_physics_component.m_rigidbody.MovePosition(out_of_screen);
+        obj.OnAwake();
+
+        return obj;
     }
 
     public static void ReturnObject(string projectile_name, Projectile obj)
     {
+        //obj.transform.SetParent(obj.m_shooter.transform);
+        Vector2 out_of_screen = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)) * new Vector2(3, 3);
+        obj.m_physics_component.m_rigidbody.MovePosition(out_of_screen);
         obj.gameObject.SetActive(false);
-        //obj.transform.SetParent();
+
         Instance.m_pools[projectile_name].Enqueue(obj);
     }
 }

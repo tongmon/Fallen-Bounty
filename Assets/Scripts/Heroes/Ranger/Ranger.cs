@@ -39,7 +39,7 @@ public class Ranger : Hero
     protected override void OnStart()
     {
         // 초기에 화살 5개 생성
-        ProjectilePool.InitPool(((RangerData)m_data).projectile_type, 5);
+        ProjectilePool.InitPool(((RangerData)m_data).projectile_type, 3);
     }
 
     protected override void OnUpdate()

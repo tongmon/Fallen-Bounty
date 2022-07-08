@@ -29,6 +29,7 @@ public class RangerAutoAttackStateComponent : StateComponent
             data.m_cur_attack_cooltime = ((RangerData)data.m_data).attack_cooltime;
             Arrow arrow = (Arrow)ProjectilePool.GetObj(((RangerData)data.m_data).projectile_type);
 
+            /*
             // 총알 나가는 시작점 결정, 추후 수정
             arrow.SetPosition(data.m_physics_component.GetPosition());
 
@@ -36,9 +37,9 @@ public class RangerAutoAttackStateComponent : StateComponent
             arrow.m_shooter = data;
 
             arrow.Shoot(((RangerData)data.m_data).arrow_velocity);
+            */
 
-            // 밑이 더 효율적이나 방향 문제있음, 추후수정
-            // arrow.Shoot(data, data.m_target, ((RangerData)data.m_data).arrow_velocity);
+            arrow.Shoot(data, data.m_target, ((RangerData)data.m_data).arrow_velocity);
         }
     }
 
