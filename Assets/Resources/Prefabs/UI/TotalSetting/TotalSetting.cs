@@ -10,25 +10,54 @@ public class TotalSetting : MonoBehaviour
     [SerializeField] GameObject[] m_box; //아이템박스
     [SerializeField] GameObject m_book_shelf;//스킬창 박스
     [SerializeField] GameObject[] m_char;//캐릭터 4개
-    [SerializeField] Image m_stat_panel;//캐릭터 스텟창
     [SerializeField] GameObject m_hero_name;//캐릭터이름
     [SerializeField] GameObject m_hero_status;//캐릭터 변수들
-    [SerializeField] Button m_start_button;//선택종료 버튼
-    Vector2[] m_target_vec = { new Vector2(2, 0.75f), new Vector2(0, 2), new Vector2(-2, 0.75f), new Vector2(0, 0) };
-    //캐릭터 이동시 이용할 좌표들
+    Vector2 []m_pos = new Vector2[10];
 
+
+    [SerializeField] Image m_stat_panel;//캐릭터 스텟창
+    [SerializeField] Image FadeInOut;
+    [SerializeField] Button m_start_button;//선택종료 버튼
+    Vector2[] m_target_vec = { new Vector2(2, 1.5f), new Vector2(0, 2.25f), new Vector2(-2, 1.5f), new Vector2(0, 0.75f) };
+    //캐릭터 이동시 이용할 좌표들
+    private void Awake()
+    {
+        for(int i = 0; i < m_pos.Length- 1; i++)
+        {
+            m_pos[i] = m_box[i].transform.localPosition;
+        }
+        m_pos[9] = m_book_shelf.transform.localPosition;
+    }
     void OnEnable()
     {
+        for (int i = 0; i < m_pos.Length - 1; i++)
+        {
+            m_box[i].transform.localPosition = m_pos[i];
+        }
+        m_book_shelf.transform.localPosition = m_pos[9];
+        
         StartCoroutine(Box());//코루틴이용
         StartCoroutine(BookShelf());
         StartCoroutine(StatPanel());
         m_start_button.GetComponent<Image>().DOColor(Color.white, 1.0f);//점차 나타나는 두트윈
     }
+    public void StartButtonClicked()//캐릭터 선택된후 시작.
+    {
+        StartCoroutine(StartScene());
+    }
+    IEnumerator StartScene()
+    {
+        FadeInOut.gameObject.SetActive(true);
+        FadeInOut.DOColor(Color.black, 0.3f);
+        yield return new WaitForSecondsRealtime(0.3f);
+
+        SceneManager.LoadScene("Map_Scene");
+    }
     IEnumerator Box() { //아이템창 랜덤으로 등장
         for(int i = 0; i<9; i++)
         {
             yield return new WaitForSecondsRealtime(Random.Range(0, 0.3f));
-            Vector2 target_vec = m_box[i].transform.position + new Vector3(5, -1.5f, 0);
+            Vector2 target_vec = m_box[i].transform.position + new Vector3(6, -1.5f, 0);
             m_box[i].transform.DORotate(new Vector3(0,0,180), 1);
             m_box[i].transform.DOMove(target_vec, 1);
         }
@@ -37,7 +66,7 @@ public class TotalSetting : MonoBehaviour
     IEnumerator BookShelf() //스킬창 나타나기
     {
         yield return 0;
-        m_book_shelf.transform.DOMoveX(6, 1);
+        m_book_shelf.transform.DOMoveX(8, 1);
         StopCoroutine(BookShelf());
     }
     IEnumerator StatPanel()//스텟 나타나기

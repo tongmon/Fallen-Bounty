@@ -56,10 +56,10 @@ public class CanvasManager : MonoBehaviour
         m_canvasList.Last.Value.gameObject.SetActive(false);
         m_canvasList.AddLast(m_canvas[index].gameObject);
         FadeInOut.DOFade(0, 1.0f);
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.4f);
 
         m_canvas[index].gameObject.SetActive(true);
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.6f);
 
         FadeInOut.gameObject.SetActive(false);
     }
@@ -72,10 +72,10 @@ public class CanvasManager : MonoBehaviour
         m_canvasList.Last.Value.gameObject.SetActive(false);
         m_canvasList.RemoveLast();
         FadeInOut.DOFade(0, 1.0f);
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.4f);
 
         m_canvasList.Last.Value.gameObject.SetActive(true);
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.6f);
 
         FadeInOut.gameObject.SetActive(false);
     }
