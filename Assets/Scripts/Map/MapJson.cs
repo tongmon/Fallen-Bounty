@@ -33,7 +33,7 @@ public class MapJson : MonoBehaviour
                 temp.m_num = i;
                 temp.m_mapType = eMapType.Common;
                 GameObject obj = map.transform.GetChild(i).gameObject;
-                obj.transform.Translate(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
+                obj.transform.Translate(Random.Range(-0.4f, 0.4f), Random.Range(-0.4f, 0.4f), 0);
                 obj.GetComponent<LineRenderer>().startWidth = 0.05f;
                 obj.GetComponent<LineRenderer>().endWidth = 0.05f;
                 obj.GetComponent<LineRenderer>().SetPosition(1, obj.transform.position);

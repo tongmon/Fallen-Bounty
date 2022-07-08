@@ -14,7 +14,7 @@ public class RangerInputComponent : HeroInputComponent
         base.OnMouseLeftDown();
     }
 
-    // 그래픽 컴포넌트랑 커플링 되어 있는데 놔둬도 되지만... 먼가 껄끄러움
+    // 그래픽 컴포넌트랑 커플링 되어 있는데 놔둬도 되지만... 먼가 껄끄러움 -- 커플이라서 껄끄러워하는거야? 그럼 안돼
     protected override void OnMouseLeftDrag()
     {
         base.OnMouseLeftDrag();
@@ -96,7 +96,7 @@ public class RangerInputComponent : HeroInputComponent
                     }
                 }
             }
-            // 마우스를 뗀 위치가 땅
+            // 마우스를 뗀 위치가 땅땅땅 빵~
             else
             {
                 //data.m_target = null;
