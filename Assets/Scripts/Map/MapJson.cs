@@ -2,22 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using DG.Tweening;
 
 public class MapJson : MonoBehaviour
 {
     [SerializeField] GameObject m_PrefabCanvas;//인스턴스화 위치
     [SerializeField] GameObject m_map_prefab;
+
+    [SerializeField] Image FadeInOut;
     public string m_path;//파일경로
     List<MapNode> m_node;
-    private void Start()
+
+    IEnumerator FadeIn()
     {
-        m_node = new List<MapNode>();
-        m_path = "Assets/Resources/MapJson/";
-        Instantiate(m_map_prefab, m_PrefabCanvas.transform);//맵 인스턴스화
-        GameObject map = GameObject.FindGameObjectWithTag("Map");//맵 연결
-        JArray jarray = new JArray(); //리스트형으로 Json 선언
+        FadeInOut.DOFade(0, 1.0f);
+        yield return new WaitForSecondsRealtime(1.0f);
+        FadeInOut.gameObject.SetActive(false);
+    }
+    IEnumerator MapCreate(GameObject map, JArray jarray)
+    {
+        yield return new WaitForSecondsRealtime(0f);
         if (!File.Exists(m_path + "MapJson.json"))
         {
             for (int i = 0; i < 40; i++)//초기화
@@ -26,7 +33,7 @@ public class MapJson : MonoBehaviour
                 temp.m_num = i;
                 temp.m_mapType = eMapType.Common;
                 GameObject obj = map.transform.GetChild(i).gameObject;
-                obj.transform.Translate(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
+                obj.transform.Translate(Random.Range(-0.4f, 0.4f), Random.Range(-0.4f, 0.4f), 0);
                 obj.GetComponent<LineRenderer>().startWidth = 0.05f;
                 obj.GetComponent<LineRenderer>().endWidth = 0.05f;
                 obj.GetComponent<LineRenderer>().SetPosition(1, obj.transform.position);
@@ -37,7 +44,7 @@ public class MapJson : MonoBehaviour
             boss.m_num = 40;
             boss.m_mapType = eMapType.Boss;
             m_node.Add(boss);
-            for (int i =0; i < m_node.Count - 1; i++) 
+            for (int i = 0; i < m_node.Count - 1; i++)
             {
                 int node_num = 0;
                 int map_num = Random.Range(0, 7);
@@ -69,7 +76,7 @@ public class MapJson : MonoBehaviour
                 if (i > 3)
                 {
                     bool isElite = false;
-                    for(int j = 0; j< m_node[j].m_parent_num.Count; j++)
+                    for (int j = 0; j < m_node[j].m_parent_num.Count; j++)
                     {
                         if (m_node[m_node[j].m_parent_num[j]].m_mapType == eMapType.Elite) isElite = true;
                     }
@@ -83,8 +90,9 @@ public class MapJson : MonoBehaviour
                 }
                 m_node[i].m_mapType = (eMapType)map_num;
             }//부모 자식 관계생성
-            for (int i = 4; i < m_node.Count - 1; i++) { 
-                if(m_node[i].m_parent_num.Count == 0) //검사 잘하는데 뭔가 오류가 난다.
+            for (int i = 4; i < m_node.Count - 1; i++)
+            {
+                if (m_node[i].m_parent_num.Count == 0) //검사 잘하는데 뭔가 오류가 난다.
                 {
                     int node_num = 0;
                     if (i % 4 == 0)
@@ -93,7 +101,7 @@ public class MapJson : MonoBehaviour
                     }
                     else if (i % 4 == 1)
                     {
-                        node_num = Random.Range(i - 5 , i - 1);
+                        node_num = Random.Range(i - 5, i - 1);
                     }
                     else if (i % 4 == 2)
                     {
@@ -107,11 +115,11 @@ public class MapJson : MonoBehaviour
                     m_node[node_num].m_child_num.Add(i);
                 }
             } //함더 포문 돌기.
-            for(int i = 0; i<m_node.Count; i++) jarray.Add(JObject.Parse(JsonUtility.ToJson(m_node[i], true))); //여기서 생성
+            for (int i = 0; i < m_node.Count; i++) jarray.Add(JObject.Parse(JsonUtility.ToJson(m_node[i], true))); //여기서 생성
             for (int i = 0; i < m_node.Count - 1; i++)
             {
                 GameObject obj = map.transform.GetChild(i).gameObject;
-                if(m_node[i].m_child_num.Count > 1)
+                if (m_node[i].m_child_num.Count > 1)
                 {
                     obj.GetComponent<LineRenderer>().SetPosition(2, map.transform.GetChild(m_node[i].m_child_num[1]).position);
                 }
@@ -123,7 +131,7 @@ public class MapJson : MonoBehaviour
         else
         {
             m_node = JsonParser.LoadJsonArrayToList<MapNode>(m_path + "MapJson");
-            for (int i =0; i< m_node.Count - 1; i++)//인스턴스와 일치화
+            for (int i = 0; i < m_node.Count - 1; i++)//인스턴스와 일치화
             {
                 GameObject obj = map.transform.GetChild(i).gameObject;
                 obj.transform.position = m_node[i].m_position;
@@ -143,4 +151,14 @@ public class MapJson : MonoBehaviour
             }
         }
     }
+    private void Start()
+    {
+        StartCoroutine(FadeIn());
+        m_node = new List<MapNode>();
+        m_path = "Assets/Resources/MapJson/";
+        GameObject map = Instantiate(m_map_prefab, m_PrefabCanvas.transform); //맵 인스턴스화
+        JArray jarray = new JArray(); //리스트형으로 Json 선언
+        StartCoroutine(MapCreate(map, jarray));
+    }
+    
 }

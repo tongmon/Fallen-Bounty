@@ -14,7 +14,7 @@ public class HeroPhysicsComponent : PhysicsComponent
 
         m_body_collider = gameobject.GetComponent<CapsuleCollider2D>();
 
-        m_move_velocity = new Vector2(((HeroData)((Hero)m_data).m_data).x_velocity, ((HeroData)((Hero)m_data).m_data).y_velocity);
+        m_move_velocity = ((HeroData)((Hero)m_data).m_data).velocity;
     }
 
     public override void Update()

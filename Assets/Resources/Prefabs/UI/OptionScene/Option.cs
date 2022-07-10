@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class OptionScene : MonoBehaviour
+public class Option : MonoBehaviour
 {
     [SerializeField] GameObject AudioSetting;
     [SerializeField] GameObject ResolutionSetting;
@@ -46,10 +46,6 @@ public class OptionScene : MonoBehaviour
         ResolutionSetting.SetActive(false);
         KeySetting.SetActive(false);
         GameplaySetting.SetActive(true);
-    }
-    public void BackButtonClicked()
-    {
-        SceneManager.LoadScene("Title_Scene");
     }
     private void Update()
     {

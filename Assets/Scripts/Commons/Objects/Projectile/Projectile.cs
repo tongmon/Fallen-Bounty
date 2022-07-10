@@ -6,12 +6,15 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public string m_type_name;
-    public GameObject m_shooter;
-    public GameObject m_target;
+    public Creature m_shooter;
+    public Creature m_target;
 
-    public Rigidbody2D m_rigidbody;
+    public PhysicsComponent m_physics_component;
+    public GraphicsComponent m_graphics_component;
 
     public Vector2 m_direction;
+
+    public bool m_shooted;
 
     void Awake()
     {
@@ -25,7 +28,8 @@ public class Projectile : MonoBehaviour
 
     void Update()
     {
-        OnUpdate();
+        if (m_shooted)
+            OnUpdate();
     }
 
     void FixedUpdate()
@@ -35,12 +39,13 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        OnProjectileCollisionEnter(collision);
+        if (m_shooted)
+            OnProjectileCollisionEnter(collision);
     }
 
-    protected virtual void OnAwake()
+    public virtual void OnAwake()
     {
-        m_rigidbody = GetComponent<Rigidbody2D>();
+        m_shooted = false;
     }
 
     protected virtual void OnStart()
@@ -53,6 +58,7 @@ public class Projectile : MonoBehaviour
 
     }
 
+    // 총알이 쏴진 후에 충돌 검사한다. (m_shooted 얘가 true인 경우만 발동됨)
     protected virtual void OnProjectileCollisionEnter(Collision2D collider)
     {
 
@@ -60,12 +66,6 @@ public class Projectile : MonoBehaviour
 
     protected virtual void OnFixedUpdate()
     {    
-
-    }
-
-    // 발사
-    public virtual void Shoot()
-    {
 
     }
 

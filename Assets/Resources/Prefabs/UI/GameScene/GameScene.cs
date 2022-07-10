@@ -14,9 +14,11 @@ public class GameScene : MonoBehaviour
     [SerializeField] GameObject m_back_button;//스테이지 종료후 돌아가기버튼
     GameObject m_selected_reward_card;//내가 선택한 보상
     GameObject m_selected_panalty_card;//내가 선택한 패널티
+
     bool m_toggle = false;//일시정지 토글용 부울변수
     bool m_reward_selected = false;//보상 선택유무 부울변수
     bool m_panalty_selected = false;//패널티 선택유무 부울변수
+
     float m_angle = 0;//애니메이션용 각도변수
     float m_game_speed = 1.0f;//게임속도 저장용 변수 
     void Update()

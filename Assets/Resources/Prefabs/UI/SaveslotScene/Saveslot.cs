@@ -7,15 +7,33 @@ using System.IO;
 using DG.Tweening;
 
 
-public class SaveslotScene : MonoBehaviour
+public class Saveslot : MonoBehaviour
 {
     [SerializeField] GameObject m_title_name; //게임 제목
+    [SerializeField] GameObject[] save_button;
     public GameObject s_name;
     GameObject m_click_object; //클릭한 객체 저장용
     SaveState save_state;
-    private void Start()
+
+    List <Vector2> m_positon = new List<Vector2>();
+    private void Awake()
     {
-        m_title_name.transform.DOMoveY(3, 1.5f); //시작시 제목 이동 ,두트윈 이용
+        m_positon.Add(m_title_name.transform.localPosition);
+        m_positon.Add(save_button[0].transform.localPosition);
+        m_positon.Add(save_button[1].transform.localPosition);
+        m_positon.Add(save_button[2].transform.localPosition);
+    }
+    private void OnEnable()
+    {
+        m_title_name.transform.localPosition = m_positon[0];
+        for (int i = 0; i < 3; i++)
+        {
+            save_button[i].transform.localScale = new Vector3(1, 1, 1);
+            save_button[i].GetComponentInParent<Canvas>().sortingOrder = 0;
+            save_button[i].transform.localPosition = m_positon[i + 1];
+        }
+
+        m_title_name.transform.DOMoveY(4, 1.5f); //시작시 제목 이동 ,두트윈 이용
         GetComponent<RectTransform>();
     }
     public void ButtonClicked()
@@ -26,6 +44,8 @@ public class SaveslotScene : MonoBehaviour
     public void ExitButtonClicked()
     {
         Application.Quit(); //끄기버튼
+        System.TimeSpan time = System.DateTime.Now - save_state.last_playtime;
+        save_state.playtime = time.Minutes;
     }
     IEnumerator ButtonDoTween()
     {
@@ -47,9 +67,11 @@ public class SaveslotScene : MonoBehaviour
         m_click_object.GetComponentInParent<Canvas>().sortingOrder = 1; //각 레이어를 구분해 맨앞으로 보내기
         m_click_object.transform.DOMoveX(0, 1.5f);
         yield return new WaitForSecondsRealtime(1.5f);
+
         m_click_object.transform.DOScaleX(2.5f, 1.5f);
         m_click_object.transform.DOScaleY(2.5f, 1.5f);
         yield return new WaitForSecondsRealtime(1.5f);
-        SceneManager.LoadScene("Title_Scene"); //마지막으로 씬 불러오기
+
+        GameObject.Find("EventSystem").GetComponent<CanvasManager>().TitleCanvasAdd();
     }
 }

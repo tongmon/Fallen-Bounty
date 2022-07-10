@@ -2,17 +2,17 @@
 	{
 		"type_name": "RangerData",
 		"health": 30,
-		"x_velocity": 10,
-		"y_velocity": 10,
+		"velocity" : { "x" : 10, "y" : 10 },
 		"magic_armor": 10,
 		"physic_armor": 5,
 		"physic_power": 15,
 		"magic_power": 15,
 		"attack_cooltime": 3,
 		"melee_range": -1,
-		"ranged_range": 50,
+		"ranged_range": 90,
 		"weakness_hit_cnt": 0,
 		"weakness_popup_cooltime": 3,
-		"projectile_type": "Arrow"
+		"projectile_type": "Arrow",
+		"arrow_velocity" : { "x" : 25, "y" : 25 }
 	}
 ]

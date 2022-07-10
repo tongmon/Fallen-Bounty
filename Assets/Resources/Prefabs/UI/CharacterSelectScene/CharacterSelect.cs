@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using DG.Tweening;
 
-public class CharacterSelectScene : MonoBehaviour
+public class CharacterSelect : MonoBehaviour
 {
     [SerializeField] Image m_skill_button1;
     [SerializeField] Image m_skill_button2;
     [SerializeField] Image m_skill_button3;
     [SerializeField] Image m_skill_button4;
+
 
 
     //방법1 캐릭터내 변수 가져와서 스킬에 출력
@@ -18,12 +19,5 @@ public class CharacterSelectScene : MonoBehaviour
     {
 
     }
-    public void StartButtonClicked()//캐릭터 선택된후 시작.
-    {
-        SceneManager.LoadScene("Map_Scene");
-    }
-    public void BackButton()
-    {
-        SceneManager.LoadScene("Title_Scene");
-    }
+
 }

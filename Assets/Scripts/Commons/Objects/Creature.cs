@@ -14,10 +14,8 @@ public class CreatureData
     public string type_name;
     // 생명력(체력)
     public float health;
-    // 좌우 속도
-    public float x_velocity;
-    // 상하 속도
-    public float y_velocity;
+    // 생명체 속도
+    public JsonVector2 velocity;
     // 마력 방어력
     public int magic_armor;
     // 물리 방어력
