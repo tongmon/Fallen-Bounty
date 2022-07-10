@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class MouseOver : MonoBehaviour
+public class MouseOverPanel : MonoBehaviour
 {
     [SerializeField] Image m_panel;
 
