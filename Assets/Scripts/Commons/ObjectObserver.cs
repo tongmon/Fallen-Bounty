@@ -103,14 +103,14 @@ public class ObjectObserver : MonoBehaviour
             List<Creature> right_pos = new List<Creature>(), left_pos = new List<Creature>();
             for (int i = 0; i < creature_list.Count; i++)
             {
-                if (creature_list[i].m_physics_component.GetPosition().x < dict_data.Key.m_physics_component.GetPosition().x)
+                if (creature_list[i].m_physics_component.m_position.x < dict_data.Key.m_physics_component.m_position.x)
                     left_pos.Add(creature_list[i]);
                 else
                     right_pos.Add(creature_list[i]);
             }
 
-            right_pos = right_pos.OrderBy(y => y.m_physics_component.GetPosition().y).ToList();
-            left_pos = left_pos.OrderBy(y => y.m_physics_component.GetPosition().y).ToList();
+            right_pos = right_pos.OrderBy(y => y.m_physics_component.m_position.y).ToList();
+            left_pos = left_pos.OrderBy(y => y.m_physics_component.m_position.y).ToList();
 
             m_inst.m_right_side_creature_index[dict_data.Key] = right_pos.Count;
 

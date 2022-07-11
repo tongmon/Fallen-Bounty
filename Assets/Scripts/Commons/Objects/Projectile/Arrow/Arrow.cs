@@ -5,18 +5,17 @@ using UnityEngine;
 public class Arrow : Projectile
 {
     // public long m_attribute; // 상태이상, 64bit
-    public float m_exsist_time; // 화살 존재 시간
 
     public void SetPosition(Vector2 position)
     {
-        m_physics_component.m_rigidbody.MovePosition(position);
+        m_physics_component.m_rigidbody.position = position;
+        //m_physics_component.m_rigidbody.MovePosition(position);
     }
 
     public void Shoot(Vector2 speed)
     {
-        m_direction = m_target.m_physics_component.GetPosition() - m_shooter.m_physics_component.GetPosition();
+        m_direction = m_target.m_physics_component.m_position - m_shooter.m_physics_component.m_position;
 
-        m_exsist_time = 0;
         ((ArrowPhysicsComponent)m_physics_component).SetSpeed(speed, m_direction);
 
         m_shooted = true;
@@ -28,11 +27,9 @@ public class Arrow : Projectile
         m_shooter = shooter;
         m_target = target;
 
-        SetPosition(start_point == null ? m_shooter.m_physics_component.GetPosition() : start_point.Value);
+        SetPosition(start_point == null ? m_shooter.m_physics_component.m_position : start_point.Value);
 
-        m_direction = m_target.m_physics_component.GetPosition() - (start_point == null ? m_shooter.m_physics_component.GetPosition() : start_point.Value);
-
-        m_exsist_time = 0;
+        m_direction = m_target.m_physics_component.m_position - (start_point == null ? m_shooter.m_physics_component.m_position : start_point.Value);
 
         ((ArrowPhysicsComponent)m_physics_component).SetSpeed(speed, m_direction);
 

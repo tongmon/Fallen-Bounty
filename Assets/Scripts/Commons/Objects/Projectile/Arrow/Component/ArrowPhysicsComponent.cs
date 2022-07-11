@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ArrowPhysicsComponent : PhysicsComponent
 {
-    public Collider2D m_collider;
-
     public Vector2 m_move_velocity;
 
     public float m_angle;
@@ -13,8 +11,6 @@ public class ArrowPhysicsComponent : PhysicsComponent
     public ArrowPhysicsComponent(GameObject gameobject) : base(gameobject)
     {
         m_data = gameobject.GetComponent<Arrow>();
-
-        m_collider = gameobject.GetComponent<Collider2D>();
 
         m_angle = 0;
 
@@ -25,7 +21,7 @@ public class ArrowPhysicsComponent : PhysicsComponent
     {
         base.Update();
 
-        m_rigidbody.velocity += m_move_velocity;
+        m_velocity += m_move_velocity;
     }
 
     public void SetSpeed(Vector2 speed, Vector2 dir)

@@ -16,6 +16,8 @@ public class Projectile : MonoBehaviour
 
     public bool m_shooted;
 
+    public float m_exsist_time;
+
     void Awake()
     {
         OnAwake();
@@ -46,6 +48,7 @@ public class Projectile : MonoBehaviour
     public virtual void OnAwake()
     {
         m_shooted = false;
+        m_exsist_time = 0;
     }
 
     protected virtual void OnStart()
@@ -72,6 +75,7 @@ public class Projectile : MonoBehaviour
     // 투사체 삭제
     public virtual void Destroy()
     {
+        m_shooted = false;
         ProjectilePool.ReturnObject(m_type_name, this);
     }
 }

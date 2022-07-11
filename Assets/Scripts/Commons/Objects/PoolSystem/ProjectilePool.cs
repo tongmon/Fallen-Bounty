@@ -35,14 +35,17 @@ public class ProjectilePool
         // 게임 실행 도중에 오브젝트 생성하는 함수 -> Instantiate
         var new_obj = Object.Instantiate(Instance.m_pooling_prefab[projectile_name]).GetComponent<Projectile>();
         new_obj.gameObject.SetActive(false);
-        //new_obj.transform.SetParent(transform);
         return new_obj;
     }
 
     public static void InitPool(string projectile_name, int pool_num)
     {
-        Instance.m_pooling_prefab[projectile_name] = Resources.Load<GameObject>("Prefabs/Object/Projectile/" + projectile_name); // GameObject.Find(projectile_name);
-        Instance.m_pools[projectile_name] = new Queue<Projectile>();
+        if (!Instance.m_pooling_prefab.TryGetValue(projectile_name, out GameObject tmp))
+        {
+            Instance.m_pooling_prefab[projectile_name] = Resources.Load<GameObject>("Prefabs/Object/Projectile/" + projectile_name); // GameObject.Find(projectile_name);
+            Instance.m_pools[projectile_name] = new Queue<Projectile>();
+        }
+
         for (int i = 0; i < pool_num; i++)
         {
             Instance.m_pools[projectile_name].Enqueue(Instance.CreateObj(projectile_name));
@@ -51,7 +54,6 @@ public class ProjectilePool
 
     public static Projectile GetObj(string projectile_name)
     {
-
         Projectile obj;
 
         if (Instance.m_pools[projectile_name].Count > 0)
@@ -59,23 +61,15 @@ public class ProjectilePool
         else
             obj = Instance.CreateObj(projectile_name);
         
-        //obj.transform.SetParent(null);
         obj.gameObject.SetActive(true);
-
-        Vector2 out_of_screen = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)) * new Vector2(3, 3);
-        obj.m_physics_component.m_rigidbody.MovePosition(out_of_screen);
         obj.OnAwake();
 
         return obj;
     }
 
     public static void ReturnObject(string projectile_name, Projectile obj)
-    {
-        //obj.transform.SetParent(obj.m_shooter.transform);
-        Vector2 out_of_screen = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)) * new Vector2(3, 3);
-        obj.m_physics_component.m_rigidbody.MovePosition(out_of_screen);
+    {        
         obj.gameObject.SetActive(false);
-
         Instance.m_pools[projectile_name].Enqueue(obj);
     }
 }
