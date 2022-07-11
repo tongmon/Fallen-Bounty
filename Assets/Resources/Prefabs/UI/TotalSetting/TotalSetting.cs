@@ -57,7 +57,7 @@ public class TotalSetting : MonoBehaviour
         for(int i = 0; i<9; i++)
         {
             yield return new WaitForSecondsRealtime(Random.Range(0, 0.3f));
-            Vector2 target_vec = m_box[i].transform.position + new Vector3(6, -1.5f, 0);
+            Vector2 target_vec = m_box[i].transform.position + new Vector3(5.4f, -1.5f, 0);
             m_box[i].transform.DORotate(new Vector3(0,0,180), 1);
             m_box[i].transform.DOMove(target_vec, 1);
         }
@@ -66,7 +66,7 @@ public class TotalSetting : MonoBehaviour
     IEnumerator BookShelf() //스킬창 나타나기
     {
         yield return 0;
-        m_book_shelf.transform.DOMoveX(8, 1);
+        m_book_shelf.transform.DOMoveX(6.5f, 1);
         StopCoroutine(BookShelf());
     }
     IEnumerator StatPanel()//스텟 나타나기

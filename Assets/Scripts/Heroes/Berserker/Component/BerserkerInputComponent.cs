@@ -2,30 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangerInputComponent : HeroInputComponent
+public class BerserkerInputComponent : HeroInputComponent
 {
-    public RangerInputComponent(GameObject gameobject) : base(gameobject)
+    public BerserkerInputComponent(GameObject gameobject) : base(gameobject)
     {
-        m_data = gameobject.GetComponent<Ranger>();
+        m_data = gameobject.GetComponent<Berserker>();
     }
-
     protected override void OnMouseLeftDown()
     {
         base.OnMouseLeftDown();
     }
-
-    // ±×·¡ÇÈ ÄÄÆ÷³ÍÆ®¶û Ä¿ÇÃ¸µ µÇ¾î ÀÖ´Âµ¥ ³öµÖµµ µÇÁö¸¸... ¸Õ°¡ ²¬²ô·¯¿ò -- Ä¿ÇÃÀÌ¶ó¼­ ²¬²ô·¯¿öÇÏ´Â°Å¾ß? ±×·³ ¾ÈµÅ
+    
     protected override void OnMouseLeftDrag()
     {
         base.OnMouseLeftDrag();
 
-        var data = (Ranger)m_data;
+        var data = (Berserker)m_data;
 
         if (data.m_selected)
-        {   
+        {
             if (!m_mouse_hit.collider || m_mouse_hit.collider.gameObject != data.gameObject)
             {
-                ((RangerGraphicsComponent)data.m_graphics_component).m_dragline_alpha = 1.0f;
+                ((BerserkerGraphicsComponent)data.m_graphics_component).m_dragline_alpha = 1.0f;
 
                 if (m_mouse_hit.collider && m_mouse_hit.collider.tag == "Enemy")
                 {
@@ -37,10 +35,9 @@ public class RangerInputComponent : HeroInputComponent
                 }
             }
             else
-                ((RangerGraphicsComponent)data.m_graphics_component).m_dragline_alpha = 0.0f;
+                ((BerserkerGraphicsComponent)data.m_graphics_component).m_dragline_alpha = 0.0f;
         }
     }
-
     protected override void OnMouseLeftUp()
     {
         base.OnMouseLeftUp();
@@ -70,7 +67,7 @@ public class RangerInputComponent : HeroInputComponent
                 if (m_mouse_hit.collider.gameObject.tag == "Enemy")
                 {
                     data.m_target = m_mouse_hit.collider.gameObject.GetComponent<Enemy>();
-                    data.m_movement_state = new RangerRunStateComponent(data.gameObject);
+                    data.m_movement_state = new BerserkerRunStateComponent(data.gameObject);
                     ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 255;
                 }
                 // ¸¶¿ì½º¸¦ ¶¾ À§Ä¡°¡ ¿µ¿õ
@@ -96,19 +93,18 @@ public class RangerInputComponent : HeroInputComponent
                     }
                 }
             }
-            // ¸¶¿ì½º¸¦ ¶¾ À§Ä¡°¡ ¶¥¶¥¶¥ »§~
+            
             else
             {
                 //data.m_target = null;
                 data.m_point_target = m_mouse_l_click_up;
-                data.m_movement_state = new RangerRunStateComponent(data.gameObject);
+                data.m_movement_state = new BerserkerRunStateComponent(data.gameObject);
                 ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 255;
             }
         }
         else
             ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 0;
     }
-
     protected override void OnMouseRightDown()
     {
         base.OnMouseRightDown();
