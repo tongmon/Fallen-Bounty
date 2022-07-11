@@ -20,7 +20,7 @@ public class BersekerAutoAttackStateComponent : StateComponent
         if (!data.m_target)
             return;
 
-        float distance = Vector2.Distance(data.m_target.m_physics_component.GetPosition(), data.m_physics_component.GetPosition());
+        float distance = Vector2.Distance(data.m_target.m_physics_component.m_position, data.m_physics_component.m_position);
 
         if (data.m_cur_attack_cooltime < 0 && distance <= ((BerserkerData)data.m_data).ranged_range)
         {
