@@ -28,7 +28,7 @@ public class MouseOverPanel : MonoBehaviour
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         m_panel.transform.position = pos * Camera.main.transform.localScale;
-        m_panel.transform.localPosition = new Vector3(m_panel.transform.localPosition.x + 150, m_panel.transform.localPosition.y - 100, 0);
+        m_panel.transform.localPosition = new Vector3(m_panel.transform.localPosition.x + 250, m_panel.transform.localPosition.y - 100, 0);
     }
     IEnumerator MOut()
     {

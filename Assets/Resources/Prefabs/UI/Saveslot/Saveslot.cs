@@ -33,7 +33,7 @@ public class Saveslot : MonoBehaviour
             save_button[i].transform.localPosition = m_positon[i + 1];
         }
 
-        m_title_name.transform.DOMoveY(4, 1.5f); //시작시 제목 이동 ,두트윈 이용
+        m_title_name.transform.DOMoveY(3, 1.5f); //시작시 제목 이동 ,두트윈 이용
         GetComponent<RectTransform>();
     }
     public void ButtonClicked()
