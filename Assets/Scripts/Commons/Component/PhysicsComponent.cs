@@ -15,9 +15,6 @@ public class PhysicsComponent
     // 속도
     public Vector2 m_velocity { get { return m_rigidbody.velocity; } set { m_rigidbody.velocity = value; } }
 
-    // 예전 속도
-    public float m_velocity_past;
-
     // 질량
     public float m_mass { get { return m_rigidbody.mass; } set { m_rigidbody.mass = value; } }
 
@@ -34,10 +31,8 @@ public class PhysicsComponent
 
     public Vector2 m_left { get { return m_position - new Vector2(m_size.x / 2, 0); } }
 
-    // 추가적으로 가해질 속도
-    public List<Vector2> m_extra_velocity;
-    // 추가적으로 가해질 속도의 감소치
-    public List<Vector2> m_extra_decrease;
+    // 적용될 가속도, 가속도가 부여된 시점의 속도, 시간(1초 이상이 되면 리스트에서 제거)
+    public List<(Vector2, Vector2, float)> m_accels;
 
     public PhysicsComponent(GameObject gameobject)
     {
@@ -45,44 +40,23 @@ public class PhysicsComponent
 
         m_rigidbody = gameobject.GetComponent<Rigidbody2D>();
         m_collider = gameobject.GetComponent<Collider2D>();
-
-        m_extra_velocity = new List<Vector2>();
-        m_extra_decrease = new List<Vector2>();
     }
 
     public virtual void Update()
     {
-        m_velocity = Vector2.zero;
+        // 마찰력 처리
+        Vector2 friction = Vector2.zero; // 마찰력, 이렇게 하면 안되고 외부에서 얻어와야 됨
+        
+        Vector2 accel = friction / m_mass;
+        m_velocity += accel * Time.deltaTime;
 
-        #region 추가 속도 계산
-        for (int i = 0; i < m_extra_velocity.Count; i++)
-        {
-            m_velocity += m_extra_velocity[i];
 
-            float extra_x_vel = m_extra_velocity[i].x > 0 ? m_extra_velocity[i].x - m_extra_decrease[i].x : 0;
-            float extra_y_vel = m_extra_velocity[i].y > 0 ? m_extra_velocity[i].y - m_extra_decrease[i].y : 0;
-            m_extra_velocity[i] = new Vector2(extra_x_vel, extra_y_vel);
-
-            if (extra_x_vel == 0 && extra_y_vel == 0) {
-                m_extra_velocity.RemoveAt(i);
-                m_extra_decrease.RemoveAt(i--);
-            }
-        }
-        #endregion
+        // m_velocity = Vector2.zero;
     }
 
-    public void AddExtraVelocity(int power, Vector2 direction, Vector2 decrease)
+    public void AddForce(Vector2 force)
     {
-        m_extra_velocity.Add(power * direction.normalized);
-        m_extra_decrease.Add(decrease);
-    }
-
-    public void SetExtraVelocity(int index, int power, Vector2 direction, Vector2 decrease)
-    {
-        if (m_extra_velocity.Count >= index)
-            return;
-
-        m_extra_velocity[index] = power * direction.normalized;
-        m_extra_decrease[index] = decrease;
+        Vector2 accel = force / m_mass; // 가속도 획득
+        m_velocity += Time.deltaTime * accel;
     }
 }

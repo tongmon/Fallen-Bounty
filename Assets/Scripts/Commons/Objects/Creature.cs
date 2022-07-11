@@ -16,6 +16,8 @@ public class CreatureData
     public float health;
     // 생명체 속도
     public JsonVector2 velocity;
+    // 질량
+    public float mass;
     // 마력 방어력
     public int magic_armor;
     // 물리 방어력

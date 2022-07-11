@@ -4,6 +4,7 @@
 		"health": 30,
 		"velocity" : { "x" : 10, "y" : 10 },
 		"magic_armor": 10,
+		"mass" : 7,
 		"physic_armor": 5,
 		"physic_power": 15,
 		"magic_power": 15,
