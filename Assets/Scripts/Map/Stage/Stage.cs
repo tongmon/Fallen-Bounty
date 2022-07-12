@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
+
+    
+    void Awake()
+    {
+        
+    }
+
     // Start is called before the first frame update
     void Start()
     {
