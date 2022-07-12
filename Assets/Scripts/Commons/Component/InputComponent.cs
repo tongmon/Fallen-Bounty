@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class InputComponent
 {
@@ -46,8 +47,26 @@ public class InputComponent
 
     public virtual void Update()
     {
-        m_mouse_hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity);
+        // test by 유섭
         m_mouse_hit_test = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 1 << 6);
+
+
+        #region sorting layer에 따라 최상위 개체를 구함(z축 사용을 안하기 위함)
+        RaycastHit2D[] hit = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        int order = -1;
+        RaycastHit2D hit_top = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity);
+        foreach (RaycastHit2D ray in hit)
+        {
+            SortingGroup sort_group = ray.transform.GetComponent<SortingGroup>();
+            if (sort_group && order < sort_group.sortingOrder)
+            {
+                order = sort_group.sortingOrder;
+                hit_top = ray;
+            }
+        }
+        #endregion
+
+        m_mouse_hit = hit_top;
         m_l_point_clicked = m_r_point_clicked = m_mouse_l_click_up = m_mouse_r_click_up = m_mouse_l_click_down = m_mouse_r_click_down = m_screen_border;
         
         OnMouseEvent();
