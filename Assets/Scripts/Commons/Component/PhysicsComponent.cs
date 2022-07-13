@@ -44,6 +44,7 @@ public class PhysicsComponent
 
     public virtual void Update()
     {
+        /*
         // 마찰력 처리
         Vector2 friction = Vector2.zero; // 마찰력 크기(방향이 포함되면 안됨), 이렇게 하면 안되고 외부에서 얻어와야 됨
         friction *= -m_velocity.normalized; // 마찰력은 가해지는 속도의 반대 방향으로 적용
@@ -53,6 +54,9 @@ public class PhysicsComponent
             m_velocity = Vector2.zero;
         else
             m_velocity = friction_velocity;
+        */
+
+        m_velocity = Vector2.zero;
     }
 
     public void AddForce(Vector2 force)

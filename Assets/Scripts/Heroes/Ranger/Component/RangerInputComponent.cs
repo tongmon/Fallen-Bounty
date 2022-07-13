@@ -95,8 +95,15 @@ public class RangerInputComponent : HeroInputComponent
                         ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 255;
                     }
                 }
+                // ¸¶¿ì½º¸¦ ¶¾ À§Ä¡°¡ ¶¥
+                else
+                {
+                    data.m_point_target = m_mouse_l_click_up;
+                    data.m_movement_state = new RangerRunStateComponent(data.gameObject);
+                    ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 255;
+                }
             }
-            // ¸¶¿ì½º¸¦ ¶¾ À§Ä¡°¡ ¶¥¶¥¶¥ »§~
+            // ¸¶¿ì½º¸¦ ¶¾ À§Ä¡°¡ ¶¥, ¹Ø ·ÎÁ÷ ÃßÈÄ¿¡ »èÁ¦ÇØ¾ß µÊ
             else
             {
                 //data.m_target = null;
