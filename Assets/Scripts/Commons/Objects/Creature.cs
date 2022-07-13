@@ -79,6 +79,29 @@ public class Creature : MonoBehaviour
         OnFixedUpdate();
     }
 
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        OnCreatureCollisionEnter(collision);
+    }
+
+    protected void OnCollisionStay2D(Collision2D collision)
+    {
+        OnCreatureCollisionStay(collision);
+    }
+
+    protected void OnCollisionExit2D(Collision2D collision)
+    {
+        OnCreatureCollisionExit(collision);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Pool")
+        {
+
+        }
+    }
+
     protected virtual void OnAwake()
     {
         m_selected = false;
@@ -100,11 +123,18 @@ public class Creature : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnCreatureCollisionEnter(Collision2D collision)
     {
-        if(other.tag == "Pool")
-        {
-           
-        }
+
+    }
+
+    protected virtual void OnCreatureCollisionStay(Collision2D collision)
+    {
+
+    }
+
+    protected virtual void OnCreatureCollisionExit(Collision2D collision)
+    {
+
     }
 }

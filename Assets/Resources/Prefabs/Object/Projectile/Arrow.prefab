@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 2408275343798914216}
   - component: {fileID: 3461396373600976429}
   - component: {fileID: -8134167830178595282}
+  - component: {fileID: -8934639325930916718}
   m_Layer: 0
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,6 +104,7 @@ MonoBehaviour:
   m_shooter: {fileID: 0}
   m_target: {fileID: 0}
   m_direction: {x: 0, y: 0}
+  m_shooted: 0
   m_exsist_time: 0
 --- !u!58 &3461396373600976429
 CircleCollider2D:
@@ -141,3 +143,14 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!210 &-8934639325930916718
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7908453972762722555}
+  m_Enabled: 1
+  m_SortingLayerID: 1585079847
+  m_SortingLayer: 4
+  m_SortingOrder: 4

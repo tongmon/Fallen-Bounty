@@ -31,8 +31,10 @@ public class PhysicsComponent
 
     public Vector2 m_left { get { return m_position - new Vector2(m_size.x / 2, 0); } }
 
-    // 적용될 가속도, 가속도가 부여된 시점의 속도, 시간(1초 이상이 되면 리스트에서 제거)
-    public List<(Vector2, Vector2, float)> m_accels;
+    // 영향 받는 마찰력들... (sorting layer가 높은 녀석의 마찰력이 우선적으로 적용됨)
+    public SortedList m_affected_frictions;
+
+    public Vector2 m_affected_friction { get { return (Vector2)m_affected_frictions.GetByIndex(0); } }
 
     public PhysicsComponent(GameObject gameobject)
     {
@@ -44,9 +46,8 @@ public class PhysicsComponent
 
     public virtual void Update()
     {
-        /*
         // 마찰력 처리
-        Vector2 friction = Vector2.zero; // 마찰력 크기(방향이 포함되면 안됨), 이렇게 하면 안되고 외부에서 얻어와야 됨
+        Vector2 friction = new Vector2(m_affected_friction.x, m_affected_friction.y); // 마찰력 크기(방향이 포함되면 안됨), 이렇게 하면 안되고 외부에서 얻어와야 됨
         friction *= -m_velocity.normalized; // 마찰력은 가해지는 속도의 반대 방향으로 적용
         Vector2 accel = friction / m_mass;
         Vector2 friction_velocity = m_velocity + accel * Time.deltaTime;
@@ -54,9 +55,8 @@ public class PhysicsComponent
             m_velocity = Vector2.zero;
         else
             m_velocity = friction_velocity;
-        */
 
-        m_velocity = Vector2.zero;
+        // m_velocity = Vector2.zero;
     }
 
     public void AddForce(Vector2 force)

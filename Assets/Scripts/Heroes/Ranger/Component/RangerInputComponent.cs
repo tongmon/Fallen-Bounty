@@ -96,17 +96,21 @@ public class RangerInputComponent : HeroInputComponent
                     }
                 }
                 // 마우스를 뗀 위치가 땅
-                else
+                else if(m_mouse_hit.collider.gameObject.tag == "Terrain")
                 {
                     data.m_point_target = m_mouse_l_click_up;
                     data.m_movement_state = new RangerRunStateComponent(data.gameObject);
                     ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 255;
                 }
+                // 마우스를 뗀 위치가 장애물
+                else if (m_mouse_hit.collider.gameObject.tag == "Creature")
+                {
+                    
+                }
             }
-            // 마우스를 뗀 위치가 땅, 밑 로직 추후에 삭제해야 됨
+            // 정의되지 않은 모든 경우
             else
             {
-                //data.m_target = null;
                 data.m_point_target = m_mouse_l_click_up;
                 data.m_movement_state = new RangerRunStateComponent(data.gameObject);
                 ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 255;

@@ -5,6 +5,10 @@ using UnityEngine;
 public class Stage : MonoBehaviour
 {
 
+    //Stage m_inst = null;
+
+    // 일반 지면 마찰력
+    public float m_friction;
     
     void Awake()
     {
