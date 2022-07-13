@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JsonSubTypes;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.UI;
 
 [JsonConverter(typeof(JsonSubtypes))]
 [JsonSubtypes.KnownSubTypeWithProperty(typeof(HeroData), "physic_power")]
@@ -97,5 +98,13 @@ public class Creature : MonoBehaviour
     protected virtual void OnFixedUpdate()
     {
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Pool")
+        {
+           
+        }
     }
 }

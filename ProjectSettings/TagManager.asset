@@ -10,6 +10,7 @@ TagManager:
   - SaveFileName
   - Button
   - Terrain
+  - Pool
   layers:
   - Default
   - TransparentFX
