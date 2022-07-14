@@ -44,7 +44,7 @@ public class Field : MonoBehaviour
 
 
         // 마찰력 테스트
-        m_friction = 10;
+        m_friction = 200;
     }
 
     protected virtual void OnStart()
