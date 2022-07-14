@@ -48,8 +48,10 @@ public class Ranger : Hero
 
         // 레인저 입력 처리
         m_input_component.Update();
+        
         // 레인저 물리 처리
-        m_physics_component.Update();
+        // m_physics_component.Update();
+        
         // 레인저 그래픽 처리
         m_graphics_component.Update();
         
@@ -67,6 +69,8 @@ public class Ranger : Hero
     protected override void OnFixedUpdate()
     {
         base.OnFixedUpdate();
+
+        m_physics_component.FixedUpdate();
     }
 
     /*

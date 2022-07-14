@@ -46,12 +46,18 @@ public class PhysicsComponent
 
     public virtual void Update()
     {
+
+    }
+
+    public virtual void FixedUpdate()
+    {
         // 마찰력 처리
-        Vector2 friction = new Vector2(m_affected_friction.x, m_affected_friction.y); // 마찰력 크기(방향이 포함되면 안됨), 이렇게 하면 안되고 외부에서 얻어와야 됨
+        Vector2 friction = new Vector2(2300, 2300); // new Vector2(m_affected_friction.x, m_affected_friction.y); // 마찰력 크기(방향이 포함되면 안됨), 이렇게 하면 안되고 외부에서 얻어와야 됨
         friction *= -m_velocity.normalized; // 마찰력은 가해지는 속도의 반대 방향으로 적용
         Vector2 accel = friction / m_mass;
         Vector2 friction_velocity = m_velocity + accel * Time.deltaTime;
-        if (m_velocity.x * friction_velocity.x < 0 && m_velocity.y * friction_velocity.y < 0)
+
+        if (m_velocity.x * friction_velocity.x <= 0 && m_velocity.y * friction_velocity.y <= 0)
             m_velocity = Vector2.zero;
         else
             m_velocity = friction_velocity;
