@@ -13,6 +13,7 @@ public class Log : MonoBehaviour
     SaveState save_state;
     private void OnEnable()
     {
+        //클래스 생성해서 각 인포 불러와야함
         save_state = JsonParser.LoadJsonFile<SaveState>(GameObject.FindGameObjectWithTag("SaveFileName").transform.name);
         foreach(eItem item in save_state.unlock_item)
         {
