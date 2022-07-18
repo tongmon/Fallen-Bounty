@@ -11,6 +11,11 @@ public class Saveslot : MonoBehaviour
 {
     [SerializeField] GameObject m_title_name; //게임 제목
     [SerializeField] GameObject[] save_button;
+
+    [SerializeField] StageInfo[] stage_Info;
+    [SerializeField] ItemInfo[] item_Info;
+    [SerializeField] ChallengeInfo[] chanllenge_Info;
+
     public GameObject s_name;
     GameObject m_click_object; //클릭한 객체 저장용
     SaveState save_state;
@@ -53,8 +58,21 @@ public class Saveslot : MonoBehaviour
         if (!File.Exists(file_path + "SaveFile" + m_click_object.transform.name + "json"))
         {
             save_state = new SaveState();
+            for (int i = 0; i < stage_Info.Length; i++)
+            {
+                save_state.stage_info.Add(stage_Info[i]);
+            }
+
+            for (int i = 0; i < chanllenge_Info.Length; i++)
+            {
+                save_state.chanllenge_Info.Add(chanllenge_Info[i]);
+            }
+            for (int i = 0; i < item_Info.Length; i++)
+            {
+                save_state.item_info.Add(item_Info[i]);
+            }
             save_state.last_playtime = System.DateTime.Now;
-            JsonParser.CreateJsonFile(file_path + "SaveFile" + m_click_object.transform.name + "json", JsonUtility.ToJson(save_state));
+            JsonParser.CreateJsonFile(file_path + "SaveFile" + m_click_object.transform.name + "json", JsonUtility.ToJson(save_state, true));
             s_name.transform.name = file_path + "SaveFile" + m_click_object.transform.name + "json";
             DontDestroyOnLoad(s_name);
         }
@@ -64,6 +82,7 @@ public class Saveslot : MonoBehaviour
             s_name.transform.name = file_path + "SaveFile" + m_click_object.transform.name + "json";
             DontDestroyOnLoad(s_name);
         }
+
         m_click_object.GetComponentInParent<Canvas>().sortingOrder = 1; //각 레이어를 구분해 맨앞으로 보내기
         m_click_object.transform.DOMoveX(0, 1.5f);
         yield return new WaitForSecondsRealtime(1.5f);

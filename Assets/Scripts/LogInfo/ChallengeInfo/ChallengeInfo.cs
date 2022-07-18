@@ -5,8 +5,9 @@ using System;
 
 [Serializable]
 [CreateAssetMenu]
-public class ChanllengeInfo : Info
+
+public class ChallengeInfo : Info
 {
-    public int m_target_num;
-    public int m_total_num;
+    public float m_target_num;
+    public float m_total_num;
 }

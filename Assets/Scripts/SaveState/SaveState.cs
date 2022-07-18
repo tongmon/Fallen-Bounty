@@ -111,6 +111,16 @@ public class SaveState
     public List<eStage> unlock_stage;
     public List<eChallenges> unlock_challenges;
     public string[] clear_log;
+
+    public List<StageInfo> stage_info;
+    public List<ItemInfo> item_info;
+    public List<ChallengeInfo> chanllenge_Info;
+
+    /// <summary>
+    ///히어로 정보도 필요함
+    /// </summary>
+
+
     public SaveState()
     {
         playtime = 0.0f;
@@ -122,5 +132,9 @@ public class SaveState
         unlock_stage = new List<eStage>() { eStage.Woods, eStage.SnowMountain, eStage.Cave };
         unlock_challenges = new List<eChallenges>();
         clear_log = new string[10];//10개만 저장
+
+        stage_info = new List<StageInfo>();
+        item_info = new List<ItemInfo>();
+        chanllenge_Info = new List<ChallengeInfo>();
     }
 }

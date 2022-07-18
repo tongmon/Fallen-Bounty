@@ -1,1 +1,245 @@
-{"playtime":0.0,"clear_count":0,"unlock_item":[],"unlock_character":[0],"unlock_stage":[0,1,2],"unlock_challenges":[],"clear_log":["","","","","","","","","",""]}
+{
+    "playtime": 0.0,
+    "clear_count": 0,
+    "unlock_item": [],
+    "unlock_character": [
+        0
+    ],
+    "unlock_stage": [
+        0,
+        1,
+        2
+    ],
+    "unlock_challenges": [],
+    "clear_log": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "stage_info": [
+        {
+            "instanceID": -23040
+        },
+        {
+            "instanceID": -23320
+        },
+        {
+            "instanceID": -23426
+        },
+        {
+            "instanceID": -23552
+        },
+        {
+            "instanceID": -23648
+        },
+        {
+            "instanceID": -23748
+        },
+        {
+            "instanceID": -23870
+        }
+    ],
+    "item_info": [
+        {
+            "instanceID": 28486
+        },
+        {
+            "instanceID": 28440
+        },
+        {
+            "instanceID": 28442
+        },
+        {
+            "instanceID": 28444
+        },
+        {
+            "instanceID": 28446
+        },
+        {
+            "instanceID": 28448
+        },
+        {
+            "instanceID": 28450
+        },
+        {
+            "instanceID": 28452
+        },
+        {
+            "instanceID": 28454
+        },
+        {
+            "instanceID": 28456
+        },
+        {
+            "instanceID": 28458
+        },
+        {
+            "instanceID": 28460
+        },
+        {
+            "instanceID": 28462
+        },
+        {
+            "instanceID": 28464
+        },
+        {
+            "instanceID": 28466
+        },
+        {
+            "instanceID": 28468
+        },
+        {
+            "instanceID": 28470
+        },
+        {
+            "instanceID": 28472
+        },
+        {
+            "instanceID": 28474
+        },
+        {
+            "instanceID": 28476
+        },
+        {
+            "instanceID": 28478
+        },
+        {
+            "instanceID": 28480
+        },
+        {
+            "instanceID": 28482
+        },
+        {
+            "instanceID": 28484
+        }
+    ],
+    "chanllenge_Info": [
+        {
+            "instanceID": 47008
+        },
+        {
+            "instanceID": 47168
+        },
+        {
+            "instanceID": 47172
+        },
+        {
+            "instanceID": 47176
+        },
+        {
+            "instanceID": 47180
+        },
+        {
+            "instanceID": 47184
+        },
+        {
+            "instanceID": 47188
+        },
+        {
+            "instanceID": 47192
+        },
+        {
+            "instanceID": 47196
+        },
+        {
+            "instanceID": 47200
+        },
+        {
+            "instanceID": 47204
+        },
+        {
+            "instanceID": 47208
+        },
+        {
+            "instanceID": 47212
+        },
+        {
+            "instanceID": 47216
+        },
+        {
+            "instanceID": 47220
+        },
+        {
+            "instanceID": 47224
+        },
+        {
+            "instanceID": 47228
+        },
+        {
+            "instanceID": 47232
+        },
+        {
+            "instanceID": 47236
+        },
+        {
+            "instanceID": 47240
+        },
+        {
+            "instanceID": 47244
+        },
+        {
+            "instanceID": 47248
+        },
+        {
+            "instanceID": 47252
+        },
+        {
+            "instanceID": 47256
+        },
+        {
+            "instanceID": 47260
+        },
+        {
+            "instanceID": 47264
+        },
+        {
+            "instanceID": 47268
+        },
+        {
+            "instanceID": 47272
+        },
+        {
+            "instanceID": 47276
+        },
+        {
+            "instanceID": 47280
+        },
+        {
+            "instanceID": 47284
+        },
+        {
+            "instanceID": 47288
+        },
+        {
+            "instanceID": 47292
+        },
+        {
+            "instanceID": 47296
+        },
+        {
+            "instanceID": 47300
+        },
+        {
+            "instanceID": 47304
+        },
+        {
+            "instanceID": 47308
+        },
+        {
+            "instanceID": 47312
+        },
+        {
+            "instanceID": 47316
+        },
+        {
+            "instanceID": 47320
+        }
+    ]
+}

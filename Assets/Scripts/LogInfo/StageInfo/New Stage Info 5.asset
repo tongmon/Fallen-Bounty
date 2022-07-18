@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc84b19e9ecbe04f99a75313e17b672, type: 3}
+  m_Name: New Stage Info 5
+  m_EditorClassIdentifier: 
+  m_sprite: {fileID: 0}
+  m_name: Stage5
+  m_info: 5
+  m_unlock_condition: 55
+  m_boss_name: 
+  m_clear_time: 0
+  m_clear_count: 0
