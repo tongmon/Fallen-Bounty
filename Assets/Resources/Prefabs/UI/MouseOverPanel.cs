@@ -7,7 +7,7 @@ using DG.Tweening;
 public class MouseOverPanel : MonoBehaviour
 {
     [SerializeField] Image m_panel;
-
+    [SerializeField] ItemInfo[] m_item_info;
     public void MouseEnter()
     {
         StopCoroutine("MOut");

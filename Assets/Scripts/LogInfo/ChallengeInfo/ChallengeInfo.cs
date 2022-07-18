@@ -7,5 +7,6 @@ using System;
 [CreateAssetMenu]
 public class ChanllengeInfo : Info
 {
-    
+    public int m_target_num;
+    public int m_total_num;
 }
