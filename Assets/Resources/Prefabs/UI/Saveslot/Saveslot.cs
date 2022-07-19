@@ -65,7 +65,7 @@ public class Saveslot : MonoBehaviour
 
             for (int i = 0; i < chanllenge_Info.Length; i++)
             {
-                save_state.chanllenge_Info.Add(chanllenge_Info[i]);
+                save_state.chanllenge_info.Add(chanllenge_Info[i]);
             }
             for (int i = 0; i < item_Info.Length; i++)
             {

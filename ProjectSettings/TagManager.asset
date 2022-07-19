@@ -11,6 +11,10 @@ TagManager:
   - Button
   - Terrain
   - Pool
+  - Item
+  - Stage
+  - Challenge
+  - Log
   layers:
   - Default
   - TransparentFX

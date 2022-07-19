@@ -114,7 +114,7 @@ public class SaveState
 
     public List<StageInfo> stage_info;
     public List<ItemInfo> item_info;
-    public List<ChallengeInfo> chanllenge_Info;
+    public List<ChallengeInfo> chanllenge_info;
 
     /// <summary>
     ///히어로 정보도 필요함
@@ -135,6 +135,6 @@ public class SaveState
 
         stage_info = new List<StageInfo>();
         item_info = new List<ItemInfo>();
-        chanllenge_Info = new List<ChallengeInfo>();
+        chanllenge_info = new List<ChallengeInfo>();
     }
 }
