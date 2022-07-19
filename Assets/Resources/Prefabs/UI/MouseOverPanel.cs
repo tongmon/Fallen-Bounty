@@ -8,14 +8,20 @@ using UnityEngine.EventSystems;
 public class MouseOverPanel : MonoBehaviour
 {
     [SerializeField] Image m_panel;
-    SaveState save_state;
-    RaycastHit2D m_hit;
-
+    [SerializeField] Canvas m_canvas;
+    SaveState save_state; //Json 파일 로드
+    GraphicRaycaster m_gr;
+    PointerEventData m_ped;
+    private void Start()
+    {
+        m_gr = m_canvas.GetComponent<GraphicRaycaster>();
+        m_ped = new PointerEventData(null);
+    }
     public void JsonLoader()
     {
         save_state = JsonParser.LoadJsonFile<SaveState>(GameObject.FindGameObjectWithTag("SaveFileName").transform.name);
     }
-    public void MouseEnter()//객체 들어가는지 검사.
+    public void MouseEnter()
     {
         StopCoroutine("MOut");
         StartCoroutine("MIn");
@@ -26,31 +32,34 @@ public class MouseOverPanel : MonoBehaviour
         StopCoroutine("MIn");
         StartCoroutine("MOut");
     }
+
     IEnumerator MIn()
     {
-        yield return null;
-        m_hit = Physics2D.Raycast(Input.mousePosition, Vector2.zero, 300.0f);
-        if (m_hit.transform.tag == "item")
+        yield return new WaitForSecondsRealtime(0);
+        m_ped.position = Input.mousePosition;
+        List<RaycastResult> results = new List<RaycastResult>();
+        m_gr.Raycast(m_ped, results);
+        if (results[0].gameObject.transform.tag == "item")
         {
             //스프라이트 추가 필
-            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.item_info[int.Parse(m_hit.transform.name)].m_name);
+            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.item_info[int.Parse(results[0].gameObject.transform.name)].m_name);
         }
-        else if(m_hit.transform.tag == "Character")
+        else if(results[0].gameObject.transform.tag == "Character")
         {
-            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.chanllenge_info[int.Parse(m_hit.transform.name)].m_name);
+            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.chanllenge_info[int.Parse(results[0].gameObject.transform.name)].m_name);
         }
-        else if(m_hit.transform.tag == "Stage")
+        else if(results[0].gameObject.transform.tag == "Stage")
         {
-            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.stage_info[int.Parse(m_hit.transform.name)].m_name);
+            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.stage_info[int.Parse(results[0].gameObject.transform.name)].m_name);
         }
-        else if (m_hit.transform.tag == "Challenge")
+        else if (results[0].gameObject.transform.tag == "Challenge")
         {
-            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.chanllenge_info[int.Parse(m_hit.transform.name)].m_name);
+            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.chanllenge_info[int.Parse(results[0].gameObject.transform.name)].m_name);
         }
         m_panel.gameObject.SetActive(true);
         m_panel.DOColor(Color.white, 0.1f);
-        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         m_panel.transform.position = pos * Camera.main.transform.localScale;
         m_panel.transform.localPosition = new Vector3(m_panel.transform.localPosition.x + 350, m_panel.transform.localPosition.y - 175, 0);
     }
