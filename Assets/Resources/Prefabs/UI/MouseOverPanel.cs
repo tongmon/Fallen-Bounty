@@ -9,17 +9,17 @@ public class MouseOverPanel : MonoBehaviour
 {
     [SerializeField] Image m_panel;
     [SerializeField] Canvas m_canvas;
-    SaveState save_state; //Json 파일 로드
+
+    [SerializeField] ItemInfo[] item_info;
+    [SerializeField] StageInfo[] stage_info;
+    [SerializeField] ChallengeInfo[] challenge_info;
+
     GraphicRaycaster m_gr;
     PointerEventData m_ped;
     private void Start()
     {
         m_gr = m_canvas.GetComponent<GraphicRaycaster>();
         m_ped = new PointerEventData(null);
-    }
-    public void JsonLoader()
-    {
-        save_state = JsonParser.LoadJsonFile<SaveState>(GameObject.FindGameObjectWithTag("SaveFileName").transform.name);
     }
     public void MouseEnter()
     {
@@ -39,23 +39,22 @@ public class MouseOverPanel : MonoBehaviour
         m_ped.position = Input.mousePosition;
         List<RaycastResult> results = new List<RaycastResult>();
         m_gr.Raycast(m_ped, results);
-        Debug.Log(save_state.item_info[int.Parse(results[0].gameObject.transform.parent.transform.name)].m_name);//인덱스 오류남
         if (results[0].gameObject.transform.parent.transform.tag == "Item")
         {
             //스프라이트 추가 필
-            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.item_info[int.Parse(results[0].gameObject.transform.parent.transform.name)].m_name);
+            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", item_info[int.Parse(results[0].gameObject.transform.parent.name)].m_name);
         }   
         else if(results[0].gameObject.transform.parent.transform.tag == "Character")
         {
-            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.chanllenge_info[int.Parse(results[0].gameObject.transform.parent.transform.name)].m_name);
+            //m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", challenge_info[int.Parse(results[0].gameObject.transform.parent.name)].m_name);
         }
         else if(results[0].gameObject.transform.parent.transform.tag == "Stage")
         {
-            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.stage_info[int.Parse(results[0].gameObject.transform.parent.transform.name)].m_name);
+            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", stage_info[int.Parse(results[0].gameObject.transform.parent.name)].m_name);
         }
         else if (results[0].gameObject.transform.parent.transform.tag == "Challenge")
         {
-            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.chanllenge_info[int.Parse(results[0].gameObject.transform.parent.transform.name)].m_name);
+            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", challenge_info[int.Parse(results[0].gameObject.transform.parent.name)].m_name);
         }
         m_panel.gameObject.SetActive(true);
         m_panel.DOColor(Color.white, 0.1f);

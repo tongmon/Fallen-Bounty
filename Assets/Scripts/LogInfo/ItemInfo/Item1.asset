@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item1
   m_EditorClassIdentifier: 
   m_sprite: {fileID: 21300000, guid: 7269e12860adaf049b7da106caa8d590, type: 3}
-  m_name: A
+  m_name: 1
   m_info: AAA
   m_unlock_condition: A to A
   m_damage: 1

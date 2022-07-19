@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item
   m_EditorClassIdentifier: 
   m_sprite: {fileID: 0}
-  m_name: 
+  m_name: 0
   m_info: 
   m_unlock_condition: 
   m_damage: 0

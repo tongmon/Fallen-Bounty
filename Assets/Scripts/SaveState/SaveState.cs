@@ -112,10 +112,6 @@ public class SaveState
     public List<eChallenges> unlock_challenges;
     public string[] clear_log;
 
-    public List<StageInfo> stage_info;
-    public List<ItemInfo> item_info;
-    public List<ChallengeInfo> chanllenge_info;
-
     /// <summary>
     ///히어로 정보도 필요함
     /// </summary>
