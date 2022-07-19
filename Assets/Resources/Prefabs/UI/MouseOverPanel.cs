@@ -39,22 +39,23 @@ public class MouseOverPanel : MonoBehaviour
         m_ped.position = Input.mousePosition;
         List<RaycastResult> results = new List<RaycastResult>();
         m_gr.Raycast(m_ped, results);
-        if (results[0].gameObject.transform.tag == "item")
+        Debug.Log(save_state.item_info[int.Parse(results[0].gameObject.transform.parent.transform.name)].m_name);//인덱스 오류남
+        if (results[0].gameObject.transform.parent.transform.tag == "Item")
         {
             //스프라이트 추가 필
-            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.item_info[int.Parse(results[0].gameObject.transform.name)].m_name);
-        }
-        else if(results[0].gameObject.transform.tag == "Character")
+            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.item_info[int.Parse(results[0].gameObject.transform.parent.transform.name)].m_name);
+        }   
+        else if(results[0].gameObject.transform.parent.transform.tag == "Character")
         {
-            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.chanllenge_info[int.Parse(results[0].gameObject.transform.name)].m_name);
+            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.chanllenge_info[int.Parse(results[0].gameObject.transform.parent.transform.name)].m_name);
         }
-        else if(results[0].gameObject.transform.tag == "Stage")
+        else if(results[0].gameObject.transform.parent.transform.tag == "Stage")
         {
-            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.stage_info[int.Parse(results[0].gameObject.transform.name)].m_name);
+            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.stage_info[int.Parse(results[0].gameObject.transform.parent.transform.name)].m_name);
         }
-        else if (results[0].gameObject.transform.tag == "Challenge")
+        else if (results[0].gameObject.transform.parent.transform.tag == "Challenge")
         {
-            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.chanllenge_info[int.Parse(results[0].gameObject.transform.name)].m_name);
+            m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", save_state.chanllenge_info[int.Parse(results[0].gameObject.transform.parent.transform.name)].m_name);
         }
         m_panel.gameObject.SetActive(true);
         m_panel.DOColor(Color.white, 0.1f);

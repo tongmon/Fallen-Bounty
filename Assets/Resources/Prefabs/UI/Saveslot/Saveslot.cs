@@ -12,9 +12,9 @@ public class Saveslot : MonoBehaviour
     [SerializeField] GameObject m_title_name; //게임 제목
     [SerializeField] GameObject[] save_button;
 
-    [SerializeField] StageInfo[] stage_Info;
-    [SerializeField] ItemInfo[] item_Info;
-    [SerializeField] ChallengeInfo[] chanllenge_Info;
+    [SerializeField] StageInfo[] stage_info;
+    [SerializeField] ItemInfo[] item_info;
+    [SerializeField] ChallengeInfo[] challenge_info;
 
     public GameObject s_name;
     GameObject m_click_object; //클릭한 객체 저장용
@@ -27,6 +27,19 @@ public class Saveslot : MonoBehaviour
         m_positon.Add(save_button[0].transform.localPosition);
         m_positon.Add(save_button[1].transform.localPosition);
         m_positon.Add(save_button[2].transform.localPosition);
+        for (int i = 0; i < stage_info.Length; i++)
+        {
+            save_state.stage_info[i] = ScriptableObject.CreateInstance<StageInfo>();
+        }
+
+        for (int i = 0; i < challenge_info.Length; i++)
+        {
+            save_state.chanllenge_info[i] = ScriptableObject.CreateInstance<ChallengeInfo>();
+        }
+        for (int i = 0; i < item_info.Length; i++)
+        {
+            save_state.item_info[i] = ScriptableObject.CreateInstance<ItemInfo>();
+        }
     }
     private void OnEnable()
     {
@@ -58,18 +71,18 @@ public class Saveslot : MonoBehaviour
         if (!File.Exists(file_path + "SaveFile" + m_click_object.transform.name + "json"))
         {
             save_state = new SaveState();
-            for (int i = 0; i < stage_Info.Length; i++)
+            for (int i = 0; i < stage_info.Length; i++)
             {
-                save_state.stage_info.Add(stage_Info[i]);
+                save_state.stage_info.Add(stage_info[i]);
             }
 
-            for (int i = 0; i < chanllenge_Info.Length; i++)
+            for (int i = 0; i < challenge_info.Length; i++)
             {
-                save_state.chanllenge_info.Add(chanllenge_Info[i]);
+                save_state.chanllenge_info.Add(challenge_info[i]);
             }
-            for (int i = 0; i < item_Info.Length; i++)
+            for (int i = 0; i < item_info.Length; i++)
             {
-                save_state.item_info.Add(item_Info[i]);
+                save_state.item_info.Add(item_info[i]);
             }
             save_state.last_playtime = System.DateTime.Now;
             JsonParser.CreateJsonFile(file_path + "SaveFile" + m_click_object.transform.name + "json", JsonUtility.ToJson(save_state, true));

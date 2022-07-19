@@ -132,9 +132,5 @@ public class SaveState
         unlock_stage = new List<eStage>() { eStage.Woods, eStage.SnowMountain, eStage.Cave };
         unlock_challenges = new List<eChallenges>();
         clear_log = new string[10];//10개만 저장
-
-        stage_info = new List<StageInfo>();
-        item_info = new List<ItemInfo>();
-        chanllenge_info = new List<ChallengeInfo>();
     }
 }
