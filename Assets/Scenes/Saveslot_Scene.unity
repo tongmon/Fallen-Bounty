@@ -37940,6 +37940,14 @@ PrefabInstance:
       propertyPath: m_canvas
       value: 
       objectReference: {fileID: 2739624727512512338}
+    - target: {fileID: 4335058144277470234, guid: 3f9f5c214b9c57843a4a64a57944ca48, type: 3}
+      propertyPath: m_log_canvas
+      value: 
+      objectReference: {fileID: 2739624727512512338}
+    - target: {fileID: 4335058144277470234, guid: 3f9f5c214b9c57843a4a64a57944ca48, type: 3}
+      propertyPath: m_charSelect_canvas
+      value: 
+      objectReference: {fileID: 3370044816509746274}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f9f5c214b9c57843a4a64a57944ca48, type: 3}
 --- !u!114 &6595605654820908734
