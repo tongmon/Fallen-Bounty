@@ -5,19 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Saveslot_Scene.unity
     guid: 91b189f53de1a8b4db1cf5ed21916d2c
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Map_Scene.unity
     guid: ce3360b90aea8934a9017ba203babe18
   - enabled: 1
     path: Assets/Scenes/HeroMovementTest_Scene.unity
     guid: 235d1c97100ce05489dd4bd17b1896d9
+  - enabled: 1
+    path: Assets/Scenes/Scene_test_copy.unity
+    guid: bb960c95f955b5140b01fadc3e2458b3
   m_configObjects: {}

@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using DG.Tweening;
+
 
 public class MapJson : MonoBehaviour
 {
     [SerializeField] GameObject m_PrefabCanvas;//인스턴스화 위치
     [SerializeField] GameObject m_map_prefab;
+    [SerializeField] GameObject m_map_type;
 
     [SerializeField] Image FadeInOut;
     public string m_path;//파일경로
@@ -27,7 +31,8 @@ public class MapJson : MonoBehaviour
         yield return new WaitForSecondsRealtime(0f);
         if (!File.Exists(m_path + "MapJson.json"))
         {
-            for (int i = 0; i < 40; i++)//초기화
+            MapReset(map);
+            for (int i = 0; i < map.transform.childCount-1; i++)//초기화
             {
                 MapNode temp = new MapNode();//노드에 넣을 녀석들 생성
                 temp.m_num = i;
@@ -41,7 +46,7 @@ public class MapJson : MonoBehaviour
                 m_node.Add(temp);
             }
             MapNode boss = new MapNode();//보스 생성
-            boss.m_num = 40;
+            boss.m_num = map.transform.childCount;
             boss.m_mapType = eMapType.Boss;
             m_node.Add(boss);
             for (int i = 0; i < m_node.Count - 1; i++)
@@ -157,8 +162,33 @@ public class MapJson : MonoBehaviour
         m_node = new List<MapNode>();
         m_path = "Assets/Resources/MapJson/";
         GameObject map = Instantiate(m_map_prefab, m_PrefabCanvas.transform); //맵 인스턴스화
+        for(int i = 0; i < map.transform.childCount; i++)
+        {
+            map.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(MapLoad);
+        }
         JArray jarray = new JArray(); //리스트형으로 Json 선언
         StartCoroutine(MapCreate(map, jarray));
     }
-    
+    public void MapLoad()
+    {
+        for(int i = 0; i < m_map_prefab.transform.childCount; i++)
+        {
+            m_map_prefab.transform.GetChild(i).GetComponent<Button>().interactable = false;
+        }
+        m_map_type.name = m_node[int.Parse(EventSystem.current.currentSelectedGameObject.name)].m_mapType.ToString();//맵 타입저장
+        m_map_type.transform.GetChild(0).name = int.Parse(EventSystem.current.currentSelectedGameObject.name).ToString();
+        DontDestroyOnLoad(m_map_type);
+        SceneManager.LoadScene("Scene_test_copy");
+    }
+    public void MapReset(GameObject obj)//맵 초기화
+    {
+        for (int i = 0; i < 4; i++)//버튼 전부 켜주기
+        {
+            if (i < 4)
+            {
+                obj.transform.GetChild(i).GetComponent<Button>().interactable = true;
+            }
+            else obj.transform.GetChild(i).GetComponent<Button>().interactable = false;
+        }
+    }
 }

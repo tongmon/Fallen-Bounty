@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class GameScene : MonoBehaviour
 {
+    [SerializeField] GameObject m_map_obj;
     [SerializeField] GameObject m_panel; //이 패널이 먼저클릭되야하므로 새로운 컨버스의 패널이용
     [SerializeField] GameObject[] m_item; //아이템 리스트
     [SerializeField] GameObject[] m_reward_card; //스테이지 클리어시 등장하는 보상 카드리스트
@@ -14,13 +15,19 @@ public class GameScene : MonoBehaviour
     [SerializeField] GameObject m_back_button;//스테이지 종료후 돌아가기버튼
     GameObject m_selected_reward_card;//내가 선택한 보상
     GameObject m_selected_panalty_card;//내가 선택한 패널티
-
+    List <MapNode> m_node;
     bool m_toggle = false;//일시정지 토글용 부울변수
     bool m_reward_selected = false;//보상 선택유무 부울변수
     bool m_panalty_selected = false;//패널티 선택유무 부울변수
 
     float m_angle = 0;//애니메이션용 각도변수
     float m_game_speed = 1.0f;//게임속도 저장용 변수 
+
+    private void Start()
+    {
+        m_node = JsonParser.LoadJsonArrayToList<MapNode>("Assets/Resources/MapJson/MapJson");
+        //스테이지 여는방법 필요
+    }
     void Update()
     {
         if (m_reward_selected) //보상선택시 선택안된애들 날아가는 회전 애니메이션
@@ -145,6 +152,16 @@ public class GameScene : MonoBehaviour
     }
     public void BackToMap()//보상선택후 돌아가기
     {
+        for (int i = 0; i < m_map_obj.transform.childCount; i++)
+        {
+            m_map_obj.transform.GetChild(i).GetComponent<Button>().interactable = false;
+        }
+        if (m_node[int.Parse(GameObject.FindGameObjectWithTag("MapType").transform.GetChild(0).name)].m_child_num.Count > 1)
+        {
+            m_map_obj.transform.GetChild(m_node[int.Parse(GameObject.FindGameObjectWithTag("MapType").transform.GetChild(0).name)].m_child_num[1]).GetComponent<Button>().interactable = true;
+        }
+        m_map_obj.transform.GetChild(m_node[int.Parse(GameObject.FindGameObjectWithTag("MapType").transform.GetChild(0).name)].m_child_num[0]).GetComponent<Button>().interactable = true;
+        Destroy(GameObject.FindGameObjectWithTag("MapType"));
         UnityEngine.SceneManagement.SceneManager.LoadScene("Map_Scene");
     }
 }
