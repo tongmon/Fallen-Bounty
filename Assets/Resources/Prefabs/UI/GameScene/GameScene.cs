@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class GameScene : MonoBehaviour
 {
     [SerializeField] GameObject m_map_obj;
-    [SerializeField] GameObject m_panel; //이 패널이 먼저클릭되야하므로 새로운 컨버스의 패널이용
+    [SerializeField] GameObject m_pause_panel; //이 패널이 먼저클릭되야하므로 새로운 컨버스의 패널이용
+    [SerializeField] GameObject m_confirm_panel;
     [SerializeField] GameObject[] m_item; //아이템 리스트
     [SerializeField] GameObject[] m_reward_card; //스테이지 클리어시 등장하는 보상 카드리스트
     [SerializeField] GameObject[] m_panalty_card;//패널티 카드 리스트
     [SerializeField] GameObject m_back_button;//스테이지 종료후 돌아가기버튼
     GameObject m_selected_reward_card;//내가 선택한 보상
     GameObject m_selected_panalty_card;//내가 선택한 패널티
+
     List <MapNode> m_node;
+
     bool m_toggle = false;//일시정지 토글용 부울변수
     bool m_reward_selected = false;//보상 선택유무 부울변수
     bool m_panalty_selected = false;//패널티 선택유무 부울변수
@@ -58,7 +62,7 @@ public class GameScene : MonoBehaviour
     }
     public void PauseButton() //일시정지버튼
     {
-        m_panel.SetActive(true);//정지시 상호작용 패널
+        m_pause_panel.SetActive(true);//정지시 상호작용 패널
         Time.timeScale = 0.0f;//타임스케일 0이 정지
     }
     public void DoubleTime()
@@ -68,10 +72,23 @@ public class GameScene : MonoBehaviour
         else m_game_speed = 1.0f;
         Time.timeScale = m_game_speed;
     }
+    public void GiveUp()
+    {
+        m_confirm_panel.SetActive(true);
+    }
     public void BackToGameButton()//다시 게임으로 돌아가기, 즉 일시정지 해제
     {
         Time.timeScale = m_game_speed;//내 게임속도 반영
-        m_panel.SetActive(false);
+        m_pause_panel.SetActive(false);
+    }
+    public void BackToPause()//다시 일시정지로 돌아가기
+    {
+        m_confirm_panel.SetActive(false);
+    }
+    public void GiveUpYes()//json 삭제하고 나가기.
+    {
+        System.IO.File.Delete("Assets/Resources/MapJson/MapJson.json");
+        SceneManager.LoadScene("Saveslot_Scene");
     }
     public void ItemButton()//아이템 누르기
     {
@@ -150,6 +167,7 @@ public class GameScene : MonoBehaviour
         m_back_button.transform.DOScale(1, 0.5f);
         StopCoroutine(PanaltyCardSpawn());
     }
+
     public void BackToMap()//보상선택후 돌아가기
     {
         for (int i = 0; i < m_map_obj.transform.childCount; i++)

@@ -16,15 +16,20 @@ public class MapJson : MonoBehaviour
     [SerializeField] GameObject m_map_prefab;
     [SerializeField] GameObject m_map_type;
 
-    [SerializeField] Image FadeInOut;
     public string m_path;//파일경로
     List<MapNode> m_node;
 
-    IEnumerator FadeIn()
+    IEnumerator MapLoadC()
     {
-        FadeInOut.DOFade(0, 1.0f);
-        yield return new WaitForSecondsRealtime(1.0f);
-        FadeInOut.gameObject.SetActive(false);
+        yield return null;
+        for (int i = 0; i < m_map_prefab.transform.childCount; i++)
+        {
+            m_map_prefab.transform.GetChild(i).GetComponent<Button>().interactable = false;
+        }
+        m_map_type.name = m_node[int.Parse(EventSystem.current.currentSelectedGameObject.name)].m_mapType.ToString();//맵 타입저장
+        m_map_type.transform.GetChild(0).name = int.Parse(EventSystem.current.currentSelectedGameObject.name).ToString();
+        DontDestroyOnLoad(m_map_type);
+        SceneManager.LoadScene("Scene_test_copy");
     }
     IEnumerator MapCreate(GameObject map, JArray jarray)
     {
@@ -158,7 +163,6 @@ public class MapJson : MonoBehaviour
     }
     private void Start()
     {
-        StartCoroutine(FadeIn());
         m_node = new List<MapNode>();
         m_path = "Assets/Resources/MapJson/";
         GameObject map = Instantiate(m_map_prefab, m_PrefabCanvas.transform); //맵 인스턴스화
@@ -171,14 +175,7 @@ public class MapJson : MonoBehaviour
     }
     public void MapLoad()
     {
-        for(int i = 0; i < m_map_prefab.transform.childCount; i++)
-        {
-            m_map_prefab.transform.GetChild(i).GetComponent<Button>().interactable = false;
-        }
-        m_map_type.name = m_node[int.Parse(EventSystem.current.currentSelectedGameObject.name)].m_mapType.ToString();//맵 타입저장
-        m_map_type.transform.GetChild(0).name = int.Parse(EventSystem.current.currentSelectedGameObject.name).ToString();
-        DontDestroyOnLoad(m_map_type);
-        SceneManager.LoadScene("Scene_test_copy");
+        StartCoroutine(MapLoadC());
     }
     public void MapReset(GameObject obj)//맵 초기화
     {
