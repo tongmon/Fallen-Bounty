@@ -20,6 +20,7 @@ public class Ranger : Hero
 {
     //private long m_arrow_attribute; // 화살 속성, 64bit
     //private GameObject m_arrow;
+    Animator animator;
 
     protected override void OnAwake()
     {
@@ -40,6 +41,8 @@ public class Ranger : Hero
     {
         // 초기에 화살 5개 생성
         ProjectilePool.InitPool(((RangerData)m_data).projectile_type, 3);
+        animator = GetComponent<Animator>();
+        // 이거 움직이는데 넣어줘야함 animator.SetBool("isMove", true);
     }
 
     protected override void OnUpdate()

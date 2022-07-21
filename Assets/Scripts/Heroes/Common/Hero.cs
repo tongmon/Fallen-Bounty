@@ -26,7 +26,6 @@ public class Hero : Creature
 {
     // 공격 속도
     public float m_cur_attack_cooltime;
-
     protected override void OnAwake()
     {
         base.OnAwake();
