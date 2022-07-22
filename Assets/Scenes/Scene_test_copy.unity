@@ -2848,7 +2848,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1005765948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5428,6 +5428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c151ad84afe87408a28eb234d0fce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fade_image: {fileID: 993793148}
   m_map_obj: {fileID: 6086768603826044771, guid: 5ea2855cf7bed6245a577dc9e05e7655, type: 3}
   m_pause_panel: {fileID: 2120010812}
   m_confirm_panel: {fileID: 1569829783}

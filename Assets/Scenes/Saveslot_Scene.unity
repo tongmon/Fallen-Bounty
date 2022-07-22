@@ -5348,7 +5348,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &566734824
 RectTransform:
@@ -18956,7 +18956,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1807136162
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30669,6 +30669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e882c656aad9714683e8b3ac611f2ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fade_image: {fileID: 1807136163}
   m_box:
   - {fileID: 7494978843021230123}
   - {fileID: 7494978843519168893}
@@ -37906,6 +37907,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4335058144277470229, guid: 3f9f5c214b9c57843a4a64a57944ca48, type: 3}
       propertyPath: FadeInOut
+      value: 
+      objectReference: {fileID: 1807136163}
+    - target: {fileID: 4335058144277470229, guid: 3f9f5c214b9c57843a4a64a57944ca48, type: 3}
+      propertyPath: fade_image
       value: 
       objectReference: {fileID: 1807136163}
     - target: {fileID: 4335058144277470229, guid: 3f9f5c214b9c57843a4a64a57944ca48, type: 3}

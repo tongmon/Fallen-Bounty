@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class TotalSetting : MonoBehaviour
+public class TotalSetting : FadeInOut
 {
     [SerializeField] GameObject[] m_box; //아이템박스
     [SerializeField] GameObject m_book_shelf;//스킬창 박스
@@ -102,6 +102,12 @@ public class TotalSetting : MonoBehaviour
     }
     public void StartButton()//시작하기버튼
     {
+        StartCoroutine(StartGame());   
+    }
+    IEnumerator StartGame()
+    {
+        FadeOutForScene();
+        yield return new WaitForSecondsRealtime(1.0f);
         SceneManager.LoadScene("Map_Scene");//다음씬으로 이동
     }
 }

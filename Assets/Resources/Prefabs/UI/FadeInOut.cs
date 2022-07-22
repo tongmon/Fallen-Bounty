@@ -6,18 +6,40 @@ using DG.Tweening;
 public class FadeInOut : MonoBehaviour
 {
     [SerializeField] Image fade_image;
-    void Start()
+
+    public void FadeInM()
     {
-        fade_image.DOFade(0, 0.01f);
+        StartCoroutine(FadeIn());
+    }
+
+    public void FadeOutM()
+    {
+        StartCoroutine(FadeOut());
+    }
+    public void FadeOutForScene()
+    {
+        StartCoroutine(FadeOutScene());
     }
 
     IEnumerator FadeIn()
     {
-        yield return null;
+        fade_image.transform.parent.GetComponent<Canvas>().sortingOrder = 2;
+        fade_image.DOFade(0, 1.0f);
+        yield return new WaitForSecondsRealtime(1.0f);
+        fade_image.transform.parent.GetComponent<Canvas>().sortingOrder = -1;
     }
 
     IEnumerator FadeOut()
     {
+        fade_image.transform.parent.GetComponent<Canvas>().sortingOrder = 2;
+        fade_image.DOColor(Color.black, 1.0f);
+        yield return new WaitForSecondsRealtime(1.0f);
+        fade_image.transform.parent.GetComponent<Canvas>().sortingOrder = -1;
+    }
+    IEnumerator FadeOutScene()
+    {
         yield return null;
+        fade_image.transform.parent.GetComponent<Canvas>().sortingOrder = 2;
+        fade_image.DOColor(Color.black, 1.0f);
     }
 }

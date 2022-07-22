@@ -25,7 +25,6 @@ public class Saveslot : MonoBehaviour
     }
     private void OnEnable()
     {
-        m_title_name.transform.DORestart();
         m_title_name.transform.localPosition = m_positon[0];
         for (int i = 0; i < 3; i++)
         {

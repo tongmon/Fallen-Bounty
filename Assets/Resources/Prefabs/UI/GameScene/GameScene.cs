@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public class GameScene : MonoBehaviour
+public class GameScene : FadeInOut
 {
     [SerializeField] GameObject m_map_obj;
     [SerializeField] GameObject m_pause_panel; //이 패널이 먼저클릭되야하므로 새로운 컨버스의 패널이용
@@ -29,7 +29,7 @@ public class GameScene : MonoBehaviour
 
     private void Start()
     {
-        m_node = JsonParser.LoadJsonArrayToList<MapNode>("Assets/Resources/MapJson/MapJson");
+        StartCoroutine(OnStart());
     }
     void Update()
     {
@@ -86,11 +86,7 @@ public class GameScene : MonoBehaviour
     }
     public void GiveUpYes()//json 삭제하고 나가기.
     {
-        Time.timeScale = 1.0f;//타임스케일 0이 정지여서 풀어줘야 작동함
-        System.IO.File.Delete("Assets/Resources/MapJson/MapJson.json");
-        SceneManager.LoadScene("Saveslot_Scene");
-        Destroy(GameObject.FindGameObjectWithTag("MapType"));
-        Destroy(GameObject.FindGameObjectWithTag("SaveFileName"));
+        StartCoroutine(OnGiveUpYes());
     }
     public void ItemButton()//아이템 누르기
     {
@@ -102,6 +98,22 @@ public class GameScene : MonoBehaviour
             StartCoroutine(ItemRollBack());
             m_toggle = false;
         }
+    }
+    public void ItemUse()//아이템선택시 상호작용 , 미결
+    {
+
+    }
+    public void RewardSelect()//보상선택 코루틴호출
+    {
+        StartCoroutine(RewardCardMove());
+    }
+    public void PanaltySelect()//패널티선택 코루틴호출
+    {
+        StartCoroutine(PanaltyCardSpawn());
+    }
+    public void BackToMap()//보상선택후 돌아가기
+    {
+        StartCoroutine(OnBackToMap());
     }
     IEnumerator ItemOpen()
     {
@@ -127,18 +139,7 @@ public class GameScene : MonoBehaviour
             m_item[i].GetComponent<Button>().interactable = false;
         }
     }
-    public void ItemUse()//아이템선택시 상호작용 , 미결
-    {
 
-    }
-    public void RewardSelect()//보상선택 코루틴호출
-    {
-        StartCoroutine(RewardCardMove());
-    }
-    public void PanaltySelect()//패널티선택 코루틴호출
-    {
-        StartCoroutine(PanaltyCardSpawn());
-    }
     IEnumerator RewardCardMove()
     {
         m_selected_reward_card = EventSystem.current.currentSelectedGameObject;//선택한것 보상 저장
@@ -176,8 +177,17 @@ public class GameScene : MonoBehaviour
         StopCoroutine(PanaltyCardSpawn());
     }
 
-    public void BackToMap()//보상선택후 돌아가기
+    IEnumerator OnStart()
     {
+        yield return null;
+        FadeInM();
+        m_node = JsonParser.LoadJsonArrayToList<MapNode>("Assets/Resources/MapJson/MapJson");
+    }
+    
+    IEnumerator OnBackToMap()
+    {
+        FadeOutForScene();
+        yield return new WaitForSecondsRealtime(1.0f);
         for (int i = 0; i < m_map_obj.transform.childCount; i++)
         {
             m_map_obj.transform.GetChild(i).GetComponent<Button>().interactable = false;
@@ -189,6 +199,18 @@ public class GameScene : MonoBehaviour
         m_map_obj.transform.GetChild(m_node[int.Parse(GameObject.FindGameObjectWithTag("MapType").transform.GetChild(0).name)].m_child_num[0]).GetComponent<Button>().interactable = true;
         Destroy(GameObject.FindGameObjectWithTag("MapType"));
         SceneManager.LoadScene("Map_Scene");
+    }
+
+    IEnumerator OnGiveUpYes()
+    {
+        FadeOutForScene();
+        yield return new WaitForSecondsRealtime(1.0f);
+
+        Time.timeScale = 1.0f;//타임스케일 0이 정지여서 풀어줘야 작동함
+        System.IO.File.Delete("Assets/Resources/MapJson/MapJson.json");
+        SceneManager.LoadScene("Saveslot_Scene");
+        Destroy(GameObject.FindGameObjectWithTag("MapType"));
+        Destroy(GameObject.FindGameObjectWithTag("SaveFileName"));
     }
 }
 

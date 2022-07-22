@@ -235,10 +235,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ede99d402bdfc4c89615dbb1c22c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fade_image: {fileID: 972571954}
   m_PrefabCanvas: {fileID: 977965469475486031}
   m_map_prefab: {fileID: 6086768603826044771, guid: 5ea2855cf7bed6245a577dc9e05e7655, type: 3}
   m_map_type: {fileID: 67982341}
-  FadeInOut: {fileID: 972571954}
   m_path: 
 --- !u!1 &972571952
 GameObject:
@@ -418,7 +418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1457743254
 MonoBehaviour:
   m_ObjectHideFlags: 0

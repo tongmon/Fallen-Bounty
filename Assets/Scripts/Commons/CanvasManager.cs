@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-public class CanvasManager : MonoBehaviour
+public class CanvasManager : FadeInOut
 {
     [SerializeField] GameObject[] m_canvas;
-
+    FadeInOut FadeInOut;
     private LinkedList <GameObject> m_canvasList = new LinkedList<GameObject>();
 
 
@@ -49,15 +49,21 @@ public class CanvasManager : MonoBehaviour
     {
         m_canvasList.Last.Value.gameObject.SetActive(false);
         m_canvasList.AddLast(m_canvas[index].gameObject);
-        yield return new WaitForSecondsRealtime(0.4f);
-        
+        FadeOutM();
+        yield return new WaitForSecondsRealtime(1.0f);
+        FadeInM();
+        yield return new WaitForSecondsRealtime(0.6f);
+
         m_canvas[index].gameObject.SetActive(true);
     }
     IEnumerator CanvasOut()
     {
         m_canvasList.Last.Value.gameObject.SetActive(false);
         m_canvasList.RemoveLast();
-        yield return new WaitForSecondsRealtime(0.4f);
+        FadeOutM();
+        yield return new WaitForSecondsRealtime(1.0f);
+        FadeInM();
+        yield return new WaitForSecondsRealtime(0.6f);
 
         m_canvasList.Last.Value.gameObject.SetActive(true);
     }

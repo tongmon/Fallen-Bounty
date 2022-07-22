@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 using DG.Tweening;
 
 
-public class MapJson : MonoBehaviour
+public class MapJson : FadeInOut
 {
     [SerializeField] GameObject m_PrefabCanvas;//인스턴스화 위치
     [SerializeField] GameObject m_map_prefab;
@@ -21,7 +21,8 @@ public class MapJson : MonoBehaviour
 
     IEnumerator MapLoadC()
     {
-        yield return null;
+        FadeOutM();
+        yield return new WaitForSecondsRealtime(1.0f);
         for (int i = 0; i < m_map_prefab.transform.childCount; i++)
         {
             m_map_prefab.transform.GetChild(i).GetComponent<Button>().interactable = false;
@@ -163,10 +164,11 @@ public class MapJson : MonoBehaviour
     }
     private void Start()
     {
+        FadeInM();
         m_node = new List<MapNode>();
         m_path = "Assets/Resources/MapJson/";
         GameObject map = Instantiate(m_map_prefab, m_PrefabCanvas.transform); //맵 인스턴스화
-        for(int i = 0; i < map.transform.childCount; i++)
+        for (int i = 0; i < map.transform.childCount; i++)
         {
             map.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(MapLoad);
         }
