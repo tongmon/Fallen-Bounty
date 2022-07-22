@@ -92,10 +92,11 @@ public class MouseOverPanel : MonoBehaviour
         }
         m_panel.gameObject.SetActive(true);
         m_panel.DOColor(Color.white, 0.1f);
-
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         m_panel.transform.position = pos * Camera.main.transform.localScale;
         m_panel.transform.localPosition = new Vector3(m_panel.transform.localPosition.x + 350, m_panel.transform.localPosition.y - 175, 0);
+        yield return new WaitForSecondsRealtime(0.1f);
+        m_panel.DOKill();
     }
     IEnumerator MOut()
     {
@@ -110,5 +111,6 @@ public class MouseOverPanel : MonoBehaviour
         {
             m_panel.transform.GetChild(i).gameObject.SetActive(true);
         }
+        m_panel.DOKill();
     }
 }

@@ -30,7 +30,6 @@ public class GameScene : MonoBehaviour
     private void Start()
     {
         m_node = JsonParser.LoadJsonArrayToList<MapNode>("Assets/Resources/MapJson/MapJson");
-        //스테이지 여는방법 필요
     }
     void Update()
     {
@@ -87,8 +86,11 @@ public class GameScene : MonoBehaviour
     }
     public void GiveUpYes()//json 삭제하고 나가기.
     {
+        Time.timeScale = 1.0f;//타임스케일 0이 정지여서 풀어줘야 작동함
         System.IO.File.Delete("Assets/Resources/MapJson/MapJson.json");
         SceneManager.LoadScene("Saveslot_Scene");
+        Destroy(GameObject.FindGameObjectWithTag("MapType"));
+        Destroy(GameObject.FindGameObjectWithTag("SaveFileName"));
     }
     public void ItemButton()//아이템 누르기
     {
@@ -108,7 +110,10 @@ public class GameScene : MonoBehaviour
         {
             m_item[i].transform.DOLocalMoveX(-880 + 110 * i, 0.8f);//지정위치로 나열하기 두트윈
         }
-        StopCoroutine(ItemOpen());
+        for (int i = 0; i < m_item.Length-1; i++)
+        {
+            m_item[i].GetComponent<Button>().interactable = true;
+        }
     }
     IEnumerator ItemRollBack()
     {
@@ -117,7 +122,10 @@ public class GameScene : MonoBehaviour
         {
             m_item[i].transform.DOLocalMoveX(-880 + 10 * i, 0.8f);//다시 원래위치로 돌아가기 두트윈
         }
-        StopCoroutine(ItemRollBack());
+        for (int i = 0; i < m_item.Length-1; i++)
+        {
+            m_item[i].GetComponent<Button>().interactable = false;
+        }
     }
     public void ItemUse()//아이템선택시 상호작용 , 미결
     {
@@ -180,7 +188,7 @@ public class GameScene : MonoBehaviour
         }
         m_map_obj.transform.GetChild(m_node[int.Parse(GameObject.FindGameObjectWithTag("MapType").transform.GetChild(0).name)].m_child_num[0]).GetComponent<Button>().interactable = true;
         Destroy(GameObject.FindGameObjectWithTag("MapType"));
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Map_Scene");
+        SceneManager.LoadScene("Map_Scene");
     }
 }
 

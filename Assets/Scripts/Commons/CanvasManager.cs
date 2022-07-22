@@ -7,13 +7,11 @@ public class CanvasManager : MonoBehaviour
 {
     [SerializeField] GameObject[] m_canvas;
 
-    [SerializeField] Image FadeInOut;
-
     private LinkedList <GameObject> m_canvasList = new LinkedList<GameObject>();
 
 
     void Start()
-    {
+    { 
         m_canvas[0].SetActive(true);
         m_canvasList.AddFirst(m_canvas[0]);
     }
@@ -49,34 +47,18 @@ public class CanvasManager : MonoBehaviour
     }
     IEnumerator CanvasIn(int index)
     {
-        FadeInOut.gameObject.SetActive(true);
-        FadeInOut.DOColor(Color.black, 1.0f);
-        yield return new WaitForSecondsRealtime(1.0f);
-
         m_canvasList.Last.Value.gameObject.SetActive(false);
         m_canvasList.AddLast(m_canvas[index].gameObject);
-        FadeInOut.DOFade(0, 1.0f);
         yield return new WaitForSecondsRealtime(0.4f);
-
+        
         m_canvas[index].gameObject.SetActive(true);
-        yield return new WaitForSecondsRealtime(0.6f);
-
-        FadeInOut.gameObject.SetActive(false);
     }
     IEnumerator CanvasOut()
     {
-        FadeInOut.gameObject.SetActive(true);
-        FadeInOut.DOColor(Color.black, 1.0f);
-        yield return new WaitForSecondsRealtime(1.0f);
-
         m_canvasList.Last.Value.gameObject.SetActive(false);
         m_canvasList.RemoveLast();
-        FadeInOut.DOFade(0, 1.0f);
         yield return new WaitForSecondsRealtime(0.4f);
 
         m_canvasList.Last.Value.gameObject.SetActive(true);
-        yield return new WaitForSecondsRealtime(0.6f);
-
-        FadeInOut.gameObject.SetActive(false);
     }
 }

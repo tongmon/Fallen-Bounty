@@ -25,6 +25,7 @@ public class Saveslot : MonoBehaviour
     }
     private void OnEnable()
     {
+        m_title_name.transform.DORestart();
         m_title_name.transform.localPosition = m_positon[0];
         for (int i = 0; i < 3; i++)
         {
@@ -32,7 +33,6 @@ public class Saveslot : MonoBehaviour
             save_button[i].GetComponentInParent<Canvas>().sortingOrder = 0;
             save_button[i].transform.localPosition = m_positon[i + 1];
         }
-
         m_title_name.transform.DOMoveY(3, 1.5f); //시작시 제목 이동 ,두트윈 이용
         GetComponent<RectTransform>();
     }
