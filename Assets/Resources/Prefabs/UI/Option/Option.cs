@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Option : MonoBehaviour
+public class Option : FadeInOut
 {
     [SerializeField] GameObject AudioSetting;
     [SerializeField] GameObject ResolutionSetting;
@@ -17,6 +17,7 @@ public class Option : MonoBehaviour
         ResolutionSetting.SetActive(false);
         KeySetting.SetActive(false);
         GameplaySetting.SetActive(false);
+        m_skillMove = false;
     }
     public void ResolutionButtonClicked()
     {
@@ -24,7 +25,7 @@ public class Option : MonoBehaviour
         ResolutionSetting.SetActive(true);
         KeySetting.SetActive(false);
         GameplaySetting.SetActive(false);
-        m_skillMove ^= true;
+        m_skillMove = true;
     }
     public void GraphicButtonClicked()
     {
@@ -32,6 +33,7 @@ public class Option : MonoBehaviour
         ResolutionSetting.SetActive(false);
         KeySetting.SetActive(false);
         GameplaySetting.SetActive(false);
+        m_skillMove = false;
     }
     public void KeyboardButtonClicked()
     {
@@ -39,6 +41,7 @@ public class Option : MonoBehaviour
         ResolutionSetting.SetActive(false);
         KeySetting.SetActive(true);
         GameplaySetting.SetActive(false);
+        m_skillMove = false;
     }
     public void GameplayButtonClicked()
     {
@@ -46,6 +49,7 @@ public class Option : MonoBehaviour
         ResolutionSetting.SetActive(false);
         KeySetting.SetActive(false);
         GameplaySetting.SetActive(true);
+        m_skillMove = false;
     }
     private void Update()
     {

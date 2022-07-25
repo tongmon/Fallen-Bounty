@@ -32,7 +32,7 @@ public class ResolutionSetting : MonoBehaviour
     {
         for(int i=0; i<Screen.resolutions.Length; i++) 
         {
-            if (Screen.resolutions[i].refreshRate == 75) //해상도 hz값이 75인것만 Add하기
+            if (Screen.resolutions[i].refreshRate == 60) //해상도 hz값이 75인것만 Add하기
                 m_resolution.Add(Screen.resolutions[i]);
         }
         m_dropdown.options.Clear();//드롭다운 초기화
