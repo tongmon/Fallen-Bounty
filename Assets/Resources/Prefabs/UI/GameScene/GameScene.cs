@@ -15,8 +15,10 @@ public class GameScene : FadeInOut
     [SerializeField] GameObject[] m_reward_card; //스테이지 클리어시 등장하는 보상 카드리스트
     [SerializeField] GameObject[] m_panalty_card;//패널티 카드 리스트
     [SerializeField] GameObject m_back_button;//스테이지 종료후 돌아가기버튼
+    [SerializeField] ItemInfo[] m_itemInfos;
     GameObject m_selected_reward_card;//내가 선택한 보상
     GameObject m_selected_panalty_card;//내가 선택한 패널티
+    GameObject player;//연결할 플레이어
 
     List <MapNode> m_node;
 
@@ -30,6 +32,7 @@ public class GameScene : FadeInOut
     private void Start()
     {
         StartCoroutine(OnStart());
+        player = GameObject.Find("Player");
     }
     void Update()
     {
@@ -99,9 +102,11 @@ public class GameScene : FadeInOut
             m_toggle = false;
         }
     }
-    public void ItemUse()//아이템선택시 상호작용 , 미결
+    public void ItemUse()//아이템선택시 상호작용
     {
-
+        GameObject obj = EventSystem.current.currentSelectedGameObject;
+        
+        player.GetComponent<Player>().ThrowItem(m_itemInfos[int.Parse(obj.name)]);
     }
     public void RewardSelect()//보상선택 코루틴호출
     {
