@@ -30,10 +30,7 @@ public class FieldPhysicsComponent : PhysicsComponent
 
     public override void OnTriggerStay(Collider2D collision)
     {
-        foreach (Creature creature in m_collisions)
-        {
 
-        }
     }
 
     public override void OnTriggerExit(Collider2D collision)

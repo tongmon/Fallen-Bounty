@@ -15,4 +15,9 @@ public class GraphicsComponent
     {
         
     }
+
+    public virtual void OnWalkInPool(Field pool)
+    {
+
+    }
 }

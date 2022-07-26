@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Water : Field
 {
+    float m_depth;
+
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -12,6 +14,8 @@ public class Water : Field
         m_physics_component = new WaterPhysicsComponent(gameObject);
 
         m_friction = 2000;
+
+        m_depth = 6;
     }
 
     protected override void OnStart()

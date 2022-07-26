@@ -17,6 +17,13 @@ public class WaterPhysicsComponent : FieldPhysicsComponent
     public override void OnTriggerStay(Collider2D collision)
     {
         base.OnTriggerStay(collision);
+
+        Vector2 vec_center = m_collider.bounds.center;
+
+        foreach (Creature creature in m_collisions)
+        {
+            creature.m_graphics_component.OnWalkInPool((Water)m_data);
+        }
     }
 
     public override void OnTriggerExit(Collider2D collision)
