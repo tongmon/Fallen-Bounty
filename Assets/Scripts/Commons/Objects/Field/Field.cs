@@ -5,8 +5,11 @@ using UnityEngine;
 public class Field : MonoBehaviour
 {
     GraphicsComponent m_graphics_component;
-    
+    PhysicsComponent m_physics_component;
+
     float m_friction; // 마찰력 크기
+
+    HashSet<Creature> m_collisions;
 
     protected void Awake()
     {
@@ -41,7 +44,7 @@ public class Field : MonoBehaviour
     protected virtual void OnAwake()
     {
         m_graphics_component = new FieldGraphicsComponent(gameObject);
-
+        m_physics_component = new PhysicsComponent(gameObject);
 
         // 마찰력 테스트
         m_friction = 200;
@@ -64,21 +67,28 @@ public class Field : MonoBehaviour
 
     protected virtual void OnFieldCollisionEnter(Collision2D collision)
     {
+        if(collision.transform.tag == "Creature")
+        {
+            m_physics_component.OnCollisionEnter(collision);
+        }
+
+        /*
         Creature creature = collision.gameObject.GetComponent<Creature>();
         if (creature)
         {
             // sorting layer 순서에 따라 마찰력을 넣어준다.
             creature.m_physics_component.m_affected_frictions.Add(((FieldGraphicsComponent)m_graphics_component).m_field_sprite.sortingOrder, new Vector2(m_friction, m_friction));
         }
+        */
     }
 
     protected virtual void OnFieldCollisionStay(Collision2D collision)
     {
-
+        m_physics_component.OnCollisionStay(collision);
     }
 
     protected virtual void OnFieldCollisionExit(Collision2D collision)
     {
-
+        m_physics_component.OnCollisionExit(collision);
     }
 }

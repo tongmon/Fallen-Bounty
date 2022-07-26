@@ -48,4 +48,19 @@ public class HeroPhysicsComponent : PhysicsComponent
             m_velocity = friction_velocity;
         #endregion
     }
+
+    public override void OnCollisionEnter(Collision2D collision)
+    {
+
+    }
+
+    public override void OnCollisionStay(Collision2D collision)
+    {
+
+    }
+
+    public override void OnCollisionExit(Collision2D collision)
+    {
+
+    }
 }

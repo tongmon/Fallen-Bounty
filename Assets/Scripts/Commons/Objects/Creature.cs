@@ -132,16 +132,16 @@ public class Creature : MonoBehaviour
 
     protected virtual void OnCreatureCollisionEnter(Collision2D collision)
     {
-
+        m_physics_component.OnCollisionEnter(collision);
     }
 
     protected virtual void OnCreatureCollisionStay(Collision2D collision)
     {
-
+        m_physics_component.OnCollisionStay(collision);
     }
 
     protected virtual void OnCreatureCollisionExit(Collision2D collision)
     {
-
+        m_physics_component.OnCollisionExit(collision);
     }
 }

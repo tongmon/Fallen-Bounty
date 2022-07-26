@@ -55,6 +55,21 @@ public class PhysicsComponent
 
     }
 
+    public virtual void OnCollisionEnter(Collision2D collision)
+    {
+
+    }
+
+    public virtual void OnCollisionStay(Collision2D collision)
+    {
+
+    }
+
+    public virtual void OnCollisionExit(Collision2D collision)
+    {
+
+    }
+
     public void AddForce(Vector2 force)
     {
         Vector2 accel = force / m_mass; // °¡¼Óµµ È¹µæ

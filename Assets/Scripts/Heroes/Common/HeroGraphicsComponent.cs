@@ -11,6 +11,8 @@ public class HeroGraphicsComponent : GraphicsComponent
     public float m_seleted_sprite_alpha;
     public SpriteRenderer m_seleted_sprite;
 
+    public SpriteMask m_sprite_mask;
+
     public HeroGraphicsComponent(GameObject gameobject) : base(gameobject)
     {
         m_data = gameobject.GetComponent<Hero>();
@@ -22,6 +24,8 @@ public class HeroGraphicsComponent : GraphicsComponent
         m_seleted_sprite = ((Hero)m_data).transform.Find("FocusCircle").GetComponent<SpriteRenderer>();
 
         m_dragline_fade_speed = 3.0f;
+
+        m_sprite_mask = ((Hero)m_data).GetComponent<SpriteMask>();
     }
 
     public override void Update()
