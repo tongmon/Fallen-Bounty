@@ -34,7 +34,7 @@ public class PhysicsComponent
     // 영향 받는 마찰력들... (sorting layer가 높은 녀석의 마찰력이 우선적으로 적용됨)
     public SortedList m_affected_frictions;
 
-    public Vector2 m_affected_friction { get { return (Vector2)m_affected_frictions.GetByIndex(0); } }
+    public Vector2 m_affected_friction { get { return m_affected_frictions.Count == 0 ? Vector2.zero : (Vector2)m_affected_frictions.GetByIndex(m_affected_frictions.Count - 1); } }
 
     public PhysicsComponent(GameObject gameobject)
     {
@@ -66,6 +66,21 @@ public class PhysicsComponent
     }
 
     public virtual void OnCollisionExit(Collision2D collision)
+    {
+
+    }
+
+    public virtual void OnTriggerEnter(Collider2D collision)
+    {
+
+    }
+
+    public virtual void OnTriggerStay(Collider2D collision)
+    {
+
+    }
+
+    public virtual void OnTriggerExit(Collider2D collision)
     {
 
     }

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 public class Player : MonoBehaviour
 {
     // 히어로 소지량 제한수
@@ -31,8 +31,17 @@ public class Player : MonoBehaviour
         }
         */
     }
-
-    // Start is called before the first frame update
+    public void ThrowItem(ItemInfo item)
+    {
+        GameObject obj = Instantiate(new GameObject(), Input.mousePosition, Quaternion.Euler(0,0,0));
+        obj.AddComponent<Rigidbody2D>();
+        obj.GetComponent<Rigidbody2D>().isKinematic = true; 
+        obj.AddComponent<CircleCollider2D>();
+        obj.GetComponent<CircleCollider2D>().isTrigger = true;
+        obj.transform.localScale = new Vector2(item.m_range, item.m_range);//범위 조정
+        obj.transform.tag = "Item";//충돌하는 애들을 위한 검사
+        Destroy(obj, item.m_duration);//지속시간 이후 삭제
+    }
     void Start()
     {
         

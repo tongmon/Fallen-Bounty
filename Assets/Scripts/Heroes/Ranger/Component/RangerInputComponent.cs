@@ -96,7 +96,7 @@ public class RangerInputComponent : HeroInputComponent
                     }
                 }
                 // ¸¶¿ì½º¸¦ ¶¾ À§Ä¡°¡ ¶¥
-                else if(m_mouse_hit.collider.gameObject.tag == "Terrain")
+                else if(m_mouse_hit.collider.gameObject.tag == "Terrain") // m_mouse_hit.collider.gameObject.tag == "Terrain"
                 {
                     data.m_point_target = m_mouse_l_click_up;
                     data.m_movement_state = new RangerRunStateComponent(data.gameObject);

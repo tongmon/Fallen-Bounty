@@ -37,7 +37,7 @@ public class HeroPhysicsComponent : PhysicsComponent
         #endregion
 
         #region 마찰력 처리(모든 이동속도가 처리된 후에 마지막에 처리 해야 함)
-        Vector2 friction = new Vector2(200, 200); // m_affected_friction; // 마찰력 크기(방향이 포함되면 안됨), 이렇게 하면 안되고 외부에서 얻어와야 됨
+        Vector2 friction = m_affected_friction; // new Vector2(200, 200); // m_affected_friction; // 마찰력 크기(방향이 포함되면 안됨), 이렇게 하면 안되고 외부에서 얻어와야 됨
         friction *= -m_velocity.normalized; // 마찰력은 가해지는 속도의 반대 방향으로 적용
         Vector2 accel = friction / m_mass;
         Vector2 friction_velocity = m_velocity + accel * Time.deltaTime;
