@@ -10,10 +10,6 @@ public class Player : MonoBehaviour
     // 카드 선택지 개수 제한수
     public int m_card_option_limit;
 
-    // 아이템 소지 갯수 제한
-    public List<GameObject> m_item;
-    public int m_item_limit;
-
     public CardManager m_card_manager;
     public CardHolder m_card_holder;
 
@@ -24,8 +20,7 @@ public class Player : MonoBehaviour
     {
         m_hero_limit = 1;
         m_card_option_limit = 3;
-        m_item_limit = 4;
-        m_item = new List<GameObject>();
+
         /*
         // 히어로 초기화
         m_hero_manager = new HeroManager(gameObject);
@@ -47,7 +42,6 @@ public class Player : MonoBehaviour
         obj.transform.tag = "Item";//충돌하는 애들을 위한 검사
         Destroy(obj, item.m_duration);//지속시간 이후 삭제
     }
-    // Start is called before the first frame update
     void Start()
     {
         

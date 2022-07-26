@@ -108,6 +108,10 @@ public class GameScene : FadeInOut
         
         player.GetComponent<Player>().ThrowItem(m_itemInfos[int.Parse(obj.name)]);
     }
+    public void AddItem(ItemInfo item)//아이템 얻기인데, 사이즈 초과시를 어떻게 할지 정해야함
+    {
+        m_item[0].gameObject.name = item.m_name;
+    }
     public void RewardSelect()//보상선택 코루틴호출
     {
         StartCoroutine(RewardCardMove());
