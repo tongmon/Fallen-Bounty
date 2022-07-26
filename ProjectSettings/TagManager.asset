@@ -16,8 +16,6 @@ TagManager:
   - Challenge
   - Log
   - MapType
-  - Water_Test_Tag
-  - Ground_Test_Tag
   layers:
   - Default
   - TransparentFX
