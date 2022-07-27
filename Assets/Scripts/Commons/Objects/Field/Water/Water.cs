@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Water : Field
 {
-    float m_depth;
+    public float m_depth;
 
     protected override void OnAwake()
     {
