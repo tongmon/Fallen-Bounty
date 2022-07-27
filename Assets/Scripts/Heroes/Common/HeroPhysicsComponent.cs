@@ -17,6 +17,8 @@ public class HeroPhysicsComponent : PhysicsComponent
         m_move_velocity = ((HeroData)((Hero)m_data).m_data).velocity;
 
         m_bottom_collider = ((Hero)m_data).transform.Find("BottomCollider").GetComponent<Collider2D>();
+
+        m_bottom_collider.transform.position = m_bottom;
     }
 
     public override void Update()

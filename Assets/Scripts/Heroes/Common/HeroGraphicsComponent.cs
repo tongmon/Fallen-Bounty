@@ -54,6 +54,15 @@ public class HeroGraphicsComponent : GraphicsComponent
     public override void OnWalkInPool(Field pool)
     {
         Water water = (Water)pool;
+
+        if (!water.m_physics_component.m_collider.bounds.Contains(((Hero)m_data).m_physics_component.m_bottom))
+        {
+            m_sprite_mask.transform.position = new Vector3(((HeroPhysicsComponent)((Hero)m_data).m_physics_component).m_position.x,
+            ((Hero)m_data).m_physics_component.m_bottom.y - m_sprite_mask.bounds.size.y / 2, m_sprite_mask.transform.position.z);
+            
+            return;
+        }
+
         Vector2 water_size = water.m_physics_component.m_collider.bounds.size,
             origin = water.m_physics_component.m_collider.bounds.center,
             hero_bottom = ((Hero)m_data).m_physics_component.m_bottom,
