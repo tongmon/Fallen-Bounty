@@ -11,7 +11,8 @@ public class CanvasManager : FadeInOut
 
 
     void Start()
-    { 
+    {
+        FadeInM();
         m_canvas[0].SetActive(true);
         m_canvasList.AddFirst(m_canvas[0]);
     }

@@ -21,7 +21,7 @@ public class MapJson : FadeInOut
 
     IEnumerator MapLoadC()
     {
-        FadeOutM();
+        FadeOutForScene();
         yield return new WaitForSecondsRealtime(1.0f);
         for (int i = 0; i < m_map_prefab.transform.childCount; i++)
         {

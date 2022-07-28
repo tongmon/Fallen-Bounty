@@ -212,10 +212,10 @@ public class GameScene : FadeInOut
 
     IEnumerator OnGiveUpYes()
     {
-        FadeOutForScene();
-        yield return new WaitForSecondsRealtime(1.0f);
-
         Time.timeScale = 1.0f;//타임스케일 0이 정지여서 풀어줘야 작동함
+        FadeOutForScene();
+        yield return new WaitForSecondsRealtime(1.1f);
+
         System.IO.File.Delete("Assets/Resources/MapJson/MapJson.json");
         SceneManager.LoadScene("Saveslot_Scene");
         Destroy(GameObject.FindGameObjectWithTag("MapType"));

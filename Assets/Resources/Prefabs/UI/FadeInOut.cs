@@ -38,8 +38,8 @@ public class FadeInOut : MonoBehaviour
     }
     IEnumerator FadeOutScene()
     {
-        yield return null;
         fade_image.transform.parent.GetComponent<Canvas>().sortingOrder = 2;
         fade_image.DOColor(Color.black, 1.0f);
+        yield return null;
     }
 }
