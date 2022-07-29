@@ -15,9 +15,9 @@ public class FieldPhysicsComponent : PhysicsComponent
 
     public override void OnTriggerEnter(Collider2D collision)
     {
-        if(collision.tag == "Hero" || collision.tag == "Enemy")
+        if(collision.tag == "Hero_Bottom")
         {
-            Creature item = collision.gameObject.GetComponent<Creature>();
+            Creature item = collision.GetComponentInParent<Creature>();
             
             if (!m_collisions.TryGetValue(item, out Creature tmp))
                 m_collisions.Add(item);
@@ -35,11 +35,13 @@ public class FieldPhysicsComponent : PhysicsComponent
 
     public override void OnTriggerExit(Collider2D collision)
     {
-        if (collision.tag == "Hero" || collision.tag == "Enemy")
+        if (collision.tag == "Hero_Bottom")
         {
-            Creature item = collision.gameObject.GetComponent<Creature>();
+            Creature item = collision.GetComponentInParent<Creature>();
             m_collisions.Remove(item);
             item.m_physics_component.m_affected_frictions.Remove(((FieldGraphicsComponent)((Field)m_data).m_graphics_component).m_field_sprite.sortingOrder);
+
+            //((HeroGraphicsComponent)(item.m_graphics_component)).spr
         }
     }
 }

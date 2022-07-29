@@ -16,6 +16,7 @@ TagManager:
   - Challenge
   - Log
   - MapType
+  - Hero_Bottom
   layers:
   - Default
   - TransparentFX

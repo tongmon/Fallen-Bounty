@@ -6,6 +6,8 @@ public class HeroPhysicsComponent : PhysicsComponent
 {
     public Vector2 m_move_velocity;
 
+    public Collider2D m_bottom_collider;
+
     public HeroPhysicsComponent(GameObject gameobject) : base(gameobject)
     {
         m_data = gameobject.GetComponent<Hero>();
@@ -13,6 +15,10 @@ public class HeroPhysicsComponent : PhysicsComponent
         m_mass = ((HeroData)((Hero)m_data).m_data).mass;
 
         m_move_velocity = ((HeroData)((Hero)m_data).m_data).velocity;
+
+        m_bottom_collider = ((Hero)m_data).transform.Find("BottomCollider").GetComponent<Collider2D>();
+
+        m_bottom_collider.transform.position = m_bottom;
     }
 
     public override void Update()
