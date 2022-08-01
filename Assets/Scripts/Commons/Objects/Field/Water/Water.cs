@@ -30,6 +30,6 @@ public class Water : Field
 
     protected override void OnFixedUpdate()
     {
-        m_physics_component.Update();
+        m_physics_component.FixedUpdate();
     }
 }
