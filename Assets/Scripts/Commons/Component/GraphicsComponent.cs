@@ -9,7 +9,8 @@ public class GraphicsComponent
 
     public GraphicsComponent(GameObject gameobject)
     {
-        m_main_sprite = gameobject.GetComponent<SpriteRenderer>();
+        // .GetComponent<Hero>().transform.Find("FocusCircle").GetComponent<SpriteRenderer>()
+        // m_main_sprite = gameobject.  GetComponent<SpriteRenderer>();
     }
 
     public virtual void Update()

@@ -24,12 +24,17 @@ public class HeroGraphicsComponent : GraphicsComponent
 
         m_seleted_sprite = ((Hero)m_data).transform.Find("FocusCircle").GetComponent<SpriteRenderer>();
 
+        m_seleted_sprite.transform.position = new Vector3(((Hero)m_data).m_physics_component.m_position.x, 
+            ((Hero)m_data).m_physics_component.m_bottom.y, m_seleted_sprite.transform.position.z);
+
         m_dragline_fade_speed = 3.0f;
 
         m_sprite_mask = ((Hero)m_data).transform.Find("RangerSpriteMask").GetComponent<SpriteMask>();
 
-        m_sprite_mask.transform.position = new Vector3(((HeroPhysicsComponent)((Hero)m_data).m_physics_component).m_position.x,
+        m_sprite_mask.transform.position = new Vector3(((Hero)m_data).m_physics_component.m_position.x,
             ((Hero)m_data).m_physics_component.m_bottom.y - m_sprite_mask.bounds.size.y / 2, m_sprite_mask.transform.position.z);
+
+        m_main_sprite = ((Hero)m_data).transform.Find("RangerSprite").GetComponent<SpriteRenderer>();
     }
 
     public override void Update()
@@ -89,17 +94,28 @@ public class HeroGraphicsComponent : GraphicsComponent
         // 웅덩이 중심과 외곽 경계선 사이 거리
         float dist_bet_center_border = Vector2.Distance(origin, ray_hit_point);
 
+        // 캐릭터가 웅덩이 밖으로 나가버린 경우엔 잠기는 표현 방지
         if (dist_bet_center_border <= Vector2.Distance(hero_bottom, origin))
             return;
 
         // 캐릭터가 물에 잠기는 비율
         float sub_ratio = water.m_depth * dist_bet_creat_center / dist_bet_center_border;
 
+        m_main_sprite.transform.position = new Vector3(((Hero)m_data).m_physics_component.m_position.x
+            , ((Hero)m_data).m_physics_component.m_position.y - sub_ratio
+            , m_sprite_mask.transform.position.z);
+
+        /*
+        ((Hero)m_data).m_physics_component.m_rigidbody.position = new Vector3(((Hero)m_data).m_physics_component.m_position.x
+            , ((Hero)m_data).m_physics_component.m_position.y - sub_ratio
+            , m_sprite_mask.transform.position.z);
+        */
+
+        /*
         m_sprite_mask.transform.position = new Vector3(((HeroPhysicsComponent)((Hero)m_data).m_physics_component).m_position.x
             , ((Hero)m_data).m_physics_component.m_bottom.y - m_sprite_mask.bounds.size.y / 2 + sub_ratio
             , m_sprite_mask.transform.position.z);
+        */
     }
-
-
 }
 
