@@ -55,6 +55,7 @@ public class HeroGraphicsComponent : GraphicsComponent
     {
         Water water = (Water)pool;
 
+        /*
         if (!water.m_physics_component.m_collider.bounds.Contains(((Hero)m_data).m_physics_component.m_bottom))
         {
             m_sprite_mask.transform.position = new Vector3(((HeroPhysicsComponent)((Hero)m_data).m_physics_component).m_position.x,
@@ -62,6 +63,7 @@ public class HeroGraphicsComponent : GraphicsComponent
             
             return;
         }
+        */
 
         Vector2 water_size = water.m_physics_component.m_collider.bounds.size,
             origin = water.m_physics_component.m_collider.bounds.center,
@@ -86,6 +88,10 @@ public class HeroGraphicsComponent : GraphicsComponent
         float dist_bet_creat_center = Vector2.Distance(hero_bottom, ray_hit_point);
         // 웅덩이 중심과 외곽 경계선 사이 거리
         float dist_bet_center_border = Vector2.Distance(origin, ray_hit_point);
+
+        if (dist_bet_center_border <= dist_bet_creat_center)
+            return;
+
         // 캐릭터가 물에 잠기는 비율
         float sub_ratio = water.m_depth * dist_bet_creat_center / dist_bet_center_border;
 

@@ -25,6 +25,11 @@ public class Field : MonoBehaviour
         OnUpdate();
     }
 
+    private void FixedUpdate()
+    {
+        OnFixedUpdate();
+    }
+
     protected void OnTriggerEnter2D(Collider2D collision)
     {
         OnFieldTriggerEnter(collision);
