@@ -71,6 +71,17 @@ public class WaterPhysicsComponent : FieldPhysicsComponent
 
         int sorting_order = ((FieldGraphicsComponent)((Field)m_data).m_graphics_component).m_field_sprite.sortingOrder;
 
+        List<Creature> keys = m_collisions.Keys.ToList();
+        List<bool> vals = m_collisions.Values.ToList();
+        for (int i = 0; i < m_collisions.Count; i++)
+        {
+            if (vals[i])
+            {
+                keys[i].m_graphics_component.OnWalkInPool((Water)m_data);
+            }
+        }
+
+        /*
         foreach (KeyValuePair<Creature, bool> data in m_collisions)
         {
             if (data.Value)
@@ -78,5 +89,6 @@ public class WaterPhysicsComponent : FieldPhysicsComponent
                 data.Key.m_graphics_component.OnWalkInPool((Water)m_data);
             }
         }
+        */
     }
 }

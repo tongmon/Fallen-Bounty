@@ -70,7 +70,7 @@ public class HeroGraphicsComponent : GraphicsComponent
             hero_bottom = ((Hero)m_data).m_physics_component.m_bottom,
             ray_dir = hero_bottom - origin, ray_hit_point = Vector2.zero;
 
-        float half_size = Mathf.Max(water_size.x, water_size.y) / 2;
+        float half_size = Mathf.Max(water_size.x, water_size.y);// / 2;
 
         // 레이캐스트 시작 위치를 웅덩이 밖으로 빼내고 레이져 방향은 웅덩이 밖에서 웅덩이 중심으로 쏨
         Ray2D ray = new Ray2D(origin + ray_dir.normalized * half_size, -ray_dir.normalized);
@@ -89,7 +89,7 @@ public class HeroGraphicsComponent : GraphicsComponent
         // 웅덩이 중심과 외곽 경계선 사이 거리
         float dist_bet_center_border = Vector2.Distance(origin, ray_hit_point);
 
-        if (dist_bet_center_border <= dist_bet_creat_center)
+        if (dist_bet_center_border <= Vector2.Distance(hero_bottom, origin))
             return;
 
         // 캐릭터가 물에 잠기는 비율

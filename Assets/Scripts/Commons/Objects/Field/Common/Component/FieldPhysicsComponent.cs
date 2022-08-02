@@ -22,9 +22,6 @@ public class FieldPhysicsComponent : PhysicsComponent
 
             if (!m_collisions.TryGetValue(item, out bool tmp))
                 m_collisions[item] = false;
-
-            //if (!item.m_physics_component.m_affected_frictions.ContainsKey(sorting_order))
-                //item.m_physics_component.m_affected_frictions.Add(sorting_order, new Vector2(((Field)m_data).m_friction, ((Field)m_data).m_friction));
         }
     }
 
@@ -71,7 +68,7 @@ public class FieldPhysicsComponent : PhysicsComponent
             Creature item = collision.GetComponent<Creature>();
             m_collisions.Remove(item);
             
-            // item.m_physics_component.m_affected_frictions.Remove(((FieldGraphicsComponent)((Field)m_data).m_graphics_component).m_field_sprite.sortingOrder);
+            item.m_physics_component.m_affected_frictions.Remove(((FieldGraphicsComponent)((Field)m_data).m_graphics_component).m_field_sprite.sortingOrder);
         }
 
         /*
@@ -91,18 +88,18 @@ public class FieldPhysicsComponent : PhysicsComponent
         int sorting_order = ((FieldGraphicsComponent)((Field)m_data).m_graphics_component).m_field_sprite.sortingOrder;
 
         List<Creature> keys = m_collisions.Keys.ToList();
-        List<bool> vals = m_collisions.Values.ToList();
         for (int i = 0; i < m_collisions.Count; i++)
         {
             if (((Field)m_data).m_physics_component.m_collider.bounds.Contains(keys[i].m_physics_component.m_bottom))
             {
                 if (!keys[i].m_physics_component.m_affected_frictions.ContainsKey(sorting_order))
                     keys[i].m_physics_component.m_affected_frictions.Add(sorting_order, new Vector2(((Field)m_data).m_friction, ((Field)m_data).m_friction));
-                vals[i] = true;
+                m_collisions[keys[i]] = true;
             }
             else
             {
-                vals[i] = false;
+                if (sorting_order > (int)keys[i].m_physics_component.m_affected_frictions.GetKey(keys[i].m_physics_component.m_affected_frictions.Count - 1))
+                    m_collisions[keys[i]] = false;
                 keys[i].m_physics_component.m_affected_frictions.Remove(sorting_order);
             }
         }
