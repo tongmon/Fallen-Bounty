@@ -7,6 +7,7 @@ using System;
 [CreateAssetMenu]
 public class ItemInfo : Info
 {
+    public string m_type = string.Empty;
     public float m_damage = 0.0f;
     public float m_range = 0.0f;
     public float m_duration = 0.0f;

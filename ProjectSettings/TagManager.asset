@@ -17,6 +17,7 @@ TagManager:
   - Log
   - MapType
   - HeroFoot
+  - Skill
   layers:
   - Default
   - TransparentFX

@@ -11,7 +11,7 @@ public class GameScene : FadeInOut
     [SerializeField] GameObject m_map_obj;
     [SerializeField] GameObject m_pause_panel; //이 패널이 먼저클릭되야하므로 새로운 컨버스의 패널이용
     [SerializeField] GameObject m_confirm_panel;
-    [SerializeField] GameObject[] m_item; //아이템 리스트
+    [SerializeField] List <GameObject> m_item; //아이템 리스트
     [SerializeField] GameObject[] m_reward_card; //스테이지 클리어시 등장하는 보상 카드리스트
     [SerializeField] GameObject[] m_panalty_card;//패널티 카드 리스트
     [SerializeField] GameObject m_back_button;//스테이지 종료후 돌아가기버튼
@@ -108,10 +108,6 @@ public class GameScene : FadeInOut
         
         player.GetComponent<Player>().ThrowItem(m_itemInfos[int.Parse(obj.name)]);
     }
-    public void AddItem(ItemInfo item)//아이템 얻기인데, 사이즈 초과시를 어떻게 할지 정해야함
-    {
-        m_item[0].gameObject.name = item.m_name;
-    }
     public void RewardSelect()//보상선택 코루틴호출
     {
         StartCoroutine(RewardCardMove());
@@ -127,11 +123,11 @@ public class GameScene : FadeInOut
     IEnumerator ItemOpen()
     {
         yield return 0;
-        for (int i = 0; i < m_item.Length; i++)
+        for (int i = 0; i < m_item.Count; i++)
         {
             m_item[i].transform.DOLocalMoveX(-880 + 110 * i, 0.8f);//지정위치로 나열하기 두트윈
         }
-        for (int i = 0; i < m_item.Length-1; i++)
+        for (int i = 0; i < m_item.Count-1; i++)
         {
             m_item[i].GetComponent<Button>().interactable = true;
         }
@@ -139,11 +135,11 @@ public class GameScene : FadeInOut
     IEnumerator ItemRollBack()
     {
         yield return 0;
-        for (int i = 0; i < m_item.Length; i++)
+        for (int i = 0; i < m_item.Count; i++)
         {
             m_item[i].transform.DOLocalMoveX(-880 + 10 * i, 0.8f);//다시 원래위치로 돌아가기 두트윈
         }
-        for (int i = 0; i < m_item.Length-1; i++)
+        for (int i = 0; i < m_item.Count-1; i++)
         {
             m_item[i].GetComponent<Button>().interactable = false;
         }

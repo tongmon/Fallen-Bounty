@@ -4538,7 +4538,7 @@ GameObject:
   - component: {fileID: 1559764201}
   - component: {fileID: 1559764200}
   m_Layer: 5
-  m_Name: ItemButton
+  m_Name: 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5298,9 +5298,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e669452495abf47468961cf561e314a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_itmes:
+  - {fileID: 1559764198}
+  - {fileID: 272489640}
+  - {fileID: 2128682836}
+  - {fileID: 201876671}
   m_hero_limit: 0
   m_card_option_limit: 0
-  m_item_limit: 0
 --- !u!4 &1655247410
 Transform:
   m_ObjectHideFlags: 0

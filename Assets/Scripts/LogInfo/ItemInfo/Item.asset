@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_sprite: {fileID: 0}
   m_name: 0
-  m_info: 
+  m_info: Molotov
   m_unlock_condition: 
-  m_damage: 0
-  m_range: 0
-  m_duration: 0
-  m_cooltime: 0
+  m_type: Attack
+  m_damage: 2
+  m_range: 1
+  m_duration: 3
+  m_cooltime: 1

@@ -33,4 +33,11 @@ public class Enemy : Creature
     {
 
     }
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Item")
+        {
+            m_current_health -= float.Parse(other.name);
+        }
+    }
 }
