@@ -14,7 +14,15 @@ public class Ability : ScriptableObject
 
     // 저장된 상태, 고정값
     public float m_base_cooldown_time;
-    public float m_base_active_time;
+    public float m_base_active_time;//시전 시간
+    public float m_base_duration_time;//지속 시간
 
-    public virtual void Activate(GameObject obj) { }
+    public float m_base_phhsical_coefficient;//물리 계수
+    public float m_base_magic_coefficient;//마법 계수
+
+    public Vector2 m_base_range; //적용 범위
+    public virtual void Activate(GameObject obj) 
+    { 
+       
+    }
 }

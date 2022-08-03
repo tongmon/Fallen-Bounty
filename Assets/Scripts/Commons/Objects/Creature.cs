@@ -45,6 +45,13 @@ public class Creature : MonoBehaviour
     // 타겟 위치
     public Vector2? m_point_target;
 
+    //현재 체력
+    public float m_current_health;
+    //현재 방어력
+    public float m_current_armor;
+    //현재 마법저항력
+    public float m_current_magic_armor;
+
     // 입력 처리 컴포넌트
     public InputComponent m_input_component;
     // 그래픽 처리 컴포넌트
