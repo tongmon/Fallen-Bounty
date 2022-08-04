@@ -17,7 +17,7 @@ MonoBehaviour:
   m_info: Molotov
   m_unlock_condition: 
   m_type: Attack
-  m_damage: 2
+  m_damage: 0.5
   m_range: 2
   m_duration: 3
   m_cooltime: 1

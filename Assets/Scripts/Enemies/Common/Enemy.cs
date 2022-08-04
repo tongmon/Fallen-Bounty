@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 [JsonConverter(typeof(JsonSubtypes))]
-class EnemyData : CreatureData
+public class EnemyData : CreatureData
 {
     #region Data from JSON file
     
@@ -16,6 +16,7 @@ class EnemyData : CreatureData
 
 public class Enemy : Creature
 {
+    EnemyData Edata = new EnemyData();
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -23,7 +24,8 @@ public class Enemy : Creature
 
     protected override void OnStart()
     {
-
+        Edata.health = 100;
+        m_current_health = Edata.health;
     }
 
     protected override void OnUpdate()
@@ -42,7 +44,7 @@ public class Enemy : Creature
         {
             m_hit_state.Update();
             m_current_health -= float.Parse(other.name);
-            transform.GetChild(1).GetChild(1).GetComponent<Image>().fillAmount = Mathf.Lerp(0, 1, m_current_health);//현재 체력을 선형보간
+            transform.GetChild(1).GetChild(1).GetComponent<Image>().fillAmount =  m_current_health/Edata.health;//전체 체력 / 현재 체력이 안된다.
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
