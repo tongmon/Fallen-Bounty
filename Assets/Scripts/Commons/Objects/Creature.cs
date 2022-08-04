@@ -65,6 +65,8 @@ public class Creature : MonoBehaviour
     public StateComponent m_attack_state;
     // 상태 이상 처리 컴포넌트
     public StateComponent m_buff_debuff_state;
+    // 피격 상태 처리 컴포넌트
+    public StateComponent m_hit_state;
 
     protected void Awake()
     {
@@ -115,7 +117,13 @@ public class Creature : MonoBehaviour
            
         }
     }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == "Pool")
+        {
 
+        }
+    }
     protected virtual void OnAwake()
     {
         m_selected = false;
@@ -151,4 +159,5 @@ public class Creature : MonoBehaviour
     {
         m_physics_component.OnCollisionExit(collision);
     }
+    
 }

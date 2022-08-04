@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
 public class Player : MonoBehaviour
 {
     [SerializeField] List <GameObject> m_items;
+    [SerializeField] Canvas prefab_canvas;
     // 히어로 소지량 제한수
     public int m_hero_limit;
 
@@ -45,7 +47,7 @@ public class Player : MonoBehaviour
     {
 
     }
-    public void AddItem(ItemInfo item)//q
+    public void AddItem(ItemInfo item)
     {
         if(m_item_count < 4)
         {
@@ -54,24 +56,33 @@ public class Player : MonoBehaviour
     }
     public void ThrowItem(ItemInfo item)
     {
-        GameObject obj = Instantiate(new GameObject(), Input.mousePosition, Quaternion.Euler(0,0,0));
-        StopCoroutine(DropItem(obj, item));
+        GameObject obj = Instantiate(new GameObject(), Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.Euler(0,0,0));
+        StartCoroutine(DropItem(obj, item));
     }
     IEnumerator DropItem(GameObject obj,ItemInfo item)
     {
-        yield return null;
+        Vector3 vec;
         while (true)
         {
-            if (Input.GetMouseButtonDown(0)) break;
-            obj.AddComponent<Rigidbody2D>();
-            obj.GetComponent<Rigidbody2D>().isKinematic = true;
-            obj.AddComponent<CircleCollider2D>();
-            obj.GetComponent<CircleCollider2D>().isTrigger = true;
-            obj.name = item.m_damage.ToString();//이름을 데미지로 저장
-            obj.transform.localScale = new Vector2(item.m_range, item.m_range);//범위 조정
-            obj.transform.tag = "Item";//충돌하는 애들을 위한 검사
-            Debug.Log("아이템 사용 : " + item.m_info);
-            Destroy(obj, item.m_duration);//지속시간 이후 삭제
+            vec = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Debug.Log(vec);
+            obj.transform.position = new Vector3(vec.x, vec.y, 0);
+            yield return null;
+            if (Input.GetMouseButtonDown(0))
+            {
+                obj.AddComponent<Rigidbody2D>();
+                obj.GetComponent<Rigidbody2D>().isKinematic = true;
+
+                obj.AddComponent<CircleCollider2D>();
+                obj.GetComponent<CircleCollider2D>().isTrigger = true;
+                obj.GetComponent<CircleCollider2D>().radius *= item.m_range;//범위 조정
+
+                obj.name = item.m_damage.ToString();//이름을 데미지로 저장
+                obj.transform.tag = "Item";//충돌하는 애들을 위한 검사
+                Debug.Log("아이템 사용 : " + item.m_info);
+                Destroy(obj, item.m_duration);//지속시간 이후 삭제
+                break;
+            }
         }
     }
     IEnumerator CancelItem()
