@@ -65,7 +65,6 @@ public class Player : MonoBehaviour
         while (true)
         {
             vec = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log(vec);
             obj.transform.position = new Vector3(vec.x, vec.y, 0);
             yield return null;
             if (Input.GetMouseButtonDown(0))
