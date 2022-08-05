@@ -77,7 +77,7 @@ public class WaterPhysicsComponent : FieldPhysicsComponent
         {
             if (vals[i])
             {
-                keys[i].m_graphics_component.OnWalkInPool((Water)m_data);
+                keys[i].m_graphics_component.OnWalkInLiquid((Water)m_data, ((Water)m_data).m_depth);
             }
         }
 

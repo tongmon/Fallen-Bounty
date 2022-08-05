@@ -18,7 +18,7 @@ public class GraphicsComponent
         
     }
 
-    public virtual void OnWalkInPool(Field pool)
+    public virtual void OnWalkInLiquid(Field pool, float depth)
     {
 
     }
