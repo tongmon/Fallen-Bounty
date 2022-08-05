@@ -56,33 +56,21 @@ public class HeroGraphicsComponent : GraphicsComponent
     }
 
     // 웅덩이 걸어다니는 경우 처리 함수
-    public override void OnWalkInPool(Field pool)
+    public override void OnWalkInLiquid(Field pool, float depth)
     {
-        Water water = (Water)pool;
-
-        /*
-        if (!water.m_physics_component.m_collider.bounds.Contains(((Hero)m_data).m_physics_component.m_bottom))
-        {
-            m_sprite_mask.transform.position = new Vector3(((HeroPhysicsComponent)((Hero)m_data).m_physics_component).m_position.x,
-            ((Hero)m_data).m_physics_component.m_bottom.y - m_sprite_mask.bounds.size.y / 2, m_sprite_mask.transform.position.z);
-            
-            return;
-        }
-        */
-
-        Vector2 water_size = water.m_physics_component.m_collider.bounds.size,
-            origin = water.m_physics_component.m_collider.bounds.center,
+        Vector2 water_size = pool.m_physics_component.m_collider.bounds.size,
+            origin = pool.m_physics_component.m_collider.bounds.center,
             hero_bottom = ((Hero)m_data).m_physics_component.m_bottom,
             ray_dir = hero_bottom - origin, ray_hit_point = Vector2.zero;
 
-        float half_size = Mathf.Max(water_size.x, water_size.y);// / 2;
+        float half_size = Mathf.Max(water_size.x, water_size.y) / 2;
 
         // 레이캐스트 시작 위치를 웅덩이 밖으로 빼내고 레이져 방향은 웅덩이 밖에서 웅덩이 중심으로 쏨
         Ray2D ray = new Ray2D(origin + ray_dir.normalized * half_size, -ray_dir.normalized);
         List<RaycastHit2D> hits = Physics2D.RaycastAll(ray.origin, ray.direction, Mathf.Infinity).ToList();
         for (int i = 0; i < hits.Count; i++)
         {
-            if (hits[i].collider.gameObject == water.gameObject)
+            if (hits[i].collider.gameObject == pool.gameObject)
             {
                 ray_hit_point = hits[i].point;
                 break;
@@ -99,23 +87,11 @@ public class HeroGraphicsComponent : GraphicsComponent
             return;
 
         // 캐릭터가 물에 잠기는 비율
-        float sub_ratio = water.m_depth * dist_bet_creat_center / dist_bet_center_border;
+        float sub_ratio = depth * dist_bet_creat_center / dist_bet_center_border;
 
         m_main_sprite.transform.position = new Vector3(((Hero)m_data).m_physics_component.m_position.x
             , ((Hero)m_data).m_physics_component.m_position.y - sub_ratio
             , m_sprite_mask.transform.position.z);
-
-        /*
-        ((Hero)m_data).m_physics_component.m_rigidbody.position = new Vector3(((Hero)m_data).m_physics_component.m_position.x
-            , ((Hero)m_data).m_physics_component.m_position.y - sub_ratio
-            , m_sprite_mask.transform.position.z);
-        */
-
-        /*
-        m_sprite_mask.transform.position = new Vector3(((HeroPhysicsComponent)((Hero)m_data).m_physics_component).m_position.x
-            , ((Hero)m_data).m_physics_component.m_bottom.y - m_sprite_mask.bounds.size.y / 2 + sub_ratio
-            , m_sprite_mask.transform.position.z);
-        */
     }
 }
 
