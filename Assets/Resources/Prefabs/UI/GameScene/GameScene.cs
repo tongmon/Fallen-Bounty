@@ -9,31 +9,67 @@ using DG.Tweening;
 public class GameScene : FadeInOut
 {
     [SerializeField] GameObject m_map_obj;
-    [SerializeField] GameObject m_pause_panel; //이 패널이 먼저클릭되야하므로 새로운 컨버스의 패널이용
+
+    [SerializeField] GameObject m_pause_panel; 
+
     [SerializeField] GameObject m_confirm_panel;
-    [SerializeField] List <GameObject> m_item; //아이템 리스트
-    [SerializeField] GameObject[] m_reward_card; //스테이지 클리어시 등장하는 보상 카드리스트
-    [SerializeField] GameObject[] m_panalty_card;//패널티 카드 리스트
-    [SerializeField] GameObject m_back_button;//스테이지 종료후 돌아가기버튼
+
+    //아이템 리스트
+    [SerializeField] List <GameObject> m_item; 
+
+    //스테이지 클리어시 등장하는 보상 카드리스트
+    [SerializeField] GameObject[] m_reward_card; 
+
+    //패널티 카드 리스트
+    [SerializeField] GameObject[] m_panalty_card;
+
+    //스테이지 종료후 돌아가기버튼
+    [SerializeField] GameObject m_back_button;
+
+    //아이템 인포
     [SerializeField] ItemInfo[] m_itemInfos;
-    GameObject m_selected_reward_card;//내가 선택한 보상
-    GameObject m_selected_panalty_card;//내가 선택한 패널티
-    GameObject player;//연결할 플레이어
-    //캐릭터 리스트 만들고 거기에 들어있는 스킬을 버튼에 연결시켜야함.
-    Button a;
+
+    //스킬칸
+    [SerializeField] GameObject[] m_skills;
+    
+    //내가 선택한 보상
+    GameObject m_selected_reward_card;
+
+    //내가 선택한 패널티
+    GameObject m_selected_panalty_card;
+
+    //연결할 플레이어
+    GameObject player;
+    
+    //맵 노드
     List <MapNode> m_node;
 
-    bool m_toggle = false;//일시정지 토글용 부울변수
-    bool m_reward_selected = false;//보상 선택유무 부울변수
-    bool m_panalty_selected = false;//패널티 선택유무 부울변수
+    //일시정지 토글용 부울변수
+    bool m_toggle = false;
 
-    float m_angle = 0;//애니메이션용 각도변수
-    float m_game_speed = 1.0f;//게임속도 저장용 변수 
+    //보상 선택유무 부울변수
+    bool m_reward_selected = false;
+
+    //패널티 선택유무 부울변수
+    bool m_panalty_selected = false;
+
+    //애니메이션용 각도변수
+    float m_angle = 0;
+
+    //게임속도 저장용 변수 
+    float m_game_speed = 1.0f;
 
     private void Start()
     {
-        //a.onClick = 이런식
+        for(int i = 0; i < player.transform.childCount; i++)
+        {
+
+            //m_skills[0].GetComponent<Button>().onClick.AddListener(player.transform.GetChild(i).GetComponent<Hero>().abilities[i].Activate()); 
+            //의문 : 액티베이션에 왜 매개변수가 필요한가, 히어로에서 참조한 버서커의 스킬이 잘 적용될것인가. 
+        }
+
         StartCoroutine(OnStart());
+
         player = GameObject.Find("Player");
     }
     void Update()
@@ -67,6 +103,7 @@ public class GameScene : FadeInOut
     public void PauseButton() //일시정지버튼
     {
         m_pause_panel.SetActive(true);//정지시 상호작용 패널
+
         Time.timeScale = 0.0f;//타임스케일 0이 정지
     }
     public void DoubleTime()
@@ -83,6 +120,7 @@ public class GameScene : FadeInOut
     public void BackToGameButton()//다시 게임으로 돌아가기, 즉 일시정지 해제
     {
         Time.timeScale = m_game_speed;//내 게임속도 반영
+
         m_pause_panel.SetActive(false);
     }
     public void BackToPause()//다시 일시정지로 돌아가기
@@ -97,10 +135,12 @@ public class GameScene : FadeInOut
     {
         if (!m_toggle) {
             StartCoroutine(ItemOpen());
+
             m_toggle = true;
         }
         else {
             StartCoroutine(ItemRollBack());
+
             m_toggle = false;
         }
     }

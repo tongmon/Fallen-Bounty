@@ -26,6 +26,8 @@ public class Hero : Creature
 {
     // 공격 속도
     public float m_cur_attack_cooltime;
+    //가지고 있을 스킬, ㄹㅇ가지고만 있음
+    public List<Ability> abilities;
     protected override void OnAwake()
     {
         base.OnAwake();

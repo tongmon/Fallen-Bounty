@@ -2719,6 +2719,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1878046239097146723, guid: f35864d52affa1c4397228ca7dd810fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878046239097146723, guid: f35864d52affa1c4397228ca7dd810fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878046239097146723, guid: f35864d52affa1c4397228ca7dd810fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f35864d52affa1c4397228ca7dd810fe, type: 3}
 --- !u!1 &1185151562
@@ -2868,8 +2880,9 @@ GameObject:
   - component: {fileID: 1187805275}
   - component: {fileID: 1187805274}
   - component: {fileID: 1187805276}
+  - component: {fileID: 1187805277}
   m_Layer: 0
-  m_Name: Character1
+  m_Name: Berserker
   m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3088,6 +3101,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1187805277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187805270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5a8ec7229424849a4c29a00437a719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_abilities_limit: 0
+  m_vec_direction: {x: 0, y: 0}
+  m_selected: 0
+  m_target: {fileID: 0}
+  m_current_health: 0
+  m_current_armor: 0
+  m_current_magic_armor: 0
+  m_cur_attack_cooltime: 0
+  abilities: []
 --- !u!1 &1263695105
 GameObject:
   m_ObjectHideFlags: 0
@@ -4961,6 +4995,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b2d22dd6e18f34f42bb070511556743c, type: 2}
   - {fileID: 11400000, guid: 5ec983de615319a46abdc92015dd6479, type: 2}
   - {fileID: 11400000, guid: 1e3e8298ed506154690f3f4409977699, type: 2}
+  m_skills: []
 --- !u!1 &1737167202
 GameObject:
   m_ObjectHideFlags: 0

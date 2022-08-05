@@ -14,7 +14,6 @@ public class BerserkerData : HeroData
 
 public class Berserker : Hero
 {
-    DrainAbility m_drain_ability;
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -32,7 +31,8 @@ public class Berserker : Hero
 
     protected override void OnStart()
     {
-        
+        DrainAbility a = new DrainAbility();
+        abilities.Add(a);
     }
 
     protected override void OnUpdate()
