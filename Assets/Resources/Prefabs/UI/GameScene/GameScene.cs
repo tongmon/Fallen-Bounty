@@ -19,7 +19,8 @@ public class GameScene : FadeInOut
     GameObject m_selected_reward_card;//내가 선택한 보상
     GameObject m_selected_panalty_card;//내가 선택한 패널티
     GameObject player;//연결할 플레이어
-
+    //캐릭터 리스트 만들고 거기에 들어있는 스킬을 버튼에 연결시켜야함.
+    Button a;
     List <MapNode> m_node;
 
     bool m_toggle = false;//일시정지 토글용 부울변수
@@ -31,6 +32,7 @@ public class GameScene : FadeInOut
 
     private void Start()
     {
+        //a.onClick = 이런식
         StartCoroutine(OnStart());
         player = GameObject.Find("Player");
     }
@@ -106,6 +108,13 @@ public class GameScene : FadeInOut
     {
         GameObject obj = EventSystem.current.currentSelectedGameObject;
         
+        player.GetComponent<Player>().ThrowItem(m_itemInfos[int.Parse(obj.name)]);
+    }
+
+    public void SkillUse()
+    {
+        GameObject obj = EventSystem.current.currentSelectedGameObject;
+
         player.GetComponent<Player>().ThrowItem(m_itemInfos[int.Parse(obj.name)]);
     }
     public void RewardSelect()//보상선택 코루틴호출

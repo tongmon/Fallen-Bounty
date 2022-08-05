@@ -24,6 +24,7 @@ public class DrainAbility : Ability
         skill.AddComponent<CircleCollider2D>();
         skill.GetComponent<CircleCollider2D>().isTrigger = true;//트리거로 검새해야 됨.
         skill.transform.localScale = new Vector2(m_base_range.x, m_base_range.y);
+        //skill.name = m_base_phhsical_coefficient * 공격력 곱해줘야함.
         skill.tag = "Skill";
         Destroy(skill, m_base_duration_time);//지속시간 이후 삭제
     }

@@ -14,7 +14,7 @@ public class BerserkerData : HeroData
 
 public class Berserker : Hero
 {
-
+    DrainAbility m_drain_ability;
     protected override void OnAwake()
     {
         base.OnAwake();

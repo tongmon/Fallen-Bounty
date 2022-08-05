@@ -43,9 +43,9 @@ public class Player : MonoBehaviour
             StopCoroutine(CancelItem());
         }   
     }
-    public void ItemUse(ItemInfo item)
+    public void ItemUse(ItemInfo item)//공격 아이템 외 사용 방법 필요
     {
-
+        //StartCoroutine(item.Activation(,item));
     }
     public void AddItem(ItemInfo item)
     {
@@ -57,32 +57,7 @@ public class Player : MonoBehaviour
     public void ThrowItem(ItemInfo item)
     {
         GameObject obj = Instantiate(new GameObject(), Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.Euler(0,0,0));
-        StartCoroutine(DropItem(obj, item));
-    }
-    IEnumerator DropItem(GameObject obj,ItemInfo item)
-    {
-        Vector3 vec;
-        while (true)
-        {
-            vec = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            obj.transform.position = new Vector3(vec.x, vec.y, 0);
-            yield return null;
-            if (Input.GetMouseButtonDown(0))
-            {
-                obj.AddComponent<Rigidbody2D>();
-                obj.GetComponent<Rigidbody2D>().isKinematic = true;
-
-                obj.AddComponent<CircleCollider2D>();
-                obj.GetComponent<CircleCollider2D>().isTrigger = true;
-                obj.GetComponent<CircleCollider2D>().radius *= item.m_range;//범위 조정
-
-                obj.name = item.m_damage.ToString();//이름을 데미지로 저장
-                obj.transform.tag = "Item";//충돌하는 애들을 위한 검사
-                Debug.Log("아이템 사용 : " + item.m_info);
-                Destroy(obj, item.m_duration);//지속시간 이후 삭제
-                break;
-            }
-        }
+        StartCoroutine(item.Activation(obj,item));
     }
     IEnumerator CancelItem()
     {

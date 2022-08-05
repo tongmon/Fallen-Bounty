@@ -40,19 +40,20 @@ public class Enemy : Creature
 
     protected void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "Item")
+        if (other.tag == "Item" || other.tag == "Skill")
         {
             m_hit_state.Update();
             m_current_health -= float.Parse(other.name);
-            transform.GetChild(1).GetChild(1).GetComponent<Image>().fillAmount =  m_current_health/Edata.health;//전체 체력 / 현재 체력이 안된다.
+            transform.GetChild(1).GetChild(1).GetComponent<Image>().fillAmount =  m_current_health/Edata.health;
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Item")
+        if (other.tag == "Item" || other.tag == "Skill")
         {
+            StopCoroutine("HitToolTip");
             m_hit_state.Enter();
-            StartCoroutine(HitToolTip());
+            StartCoroutine("HitToolTip");
         }
     }
     IEnumerator HitToolTip()
