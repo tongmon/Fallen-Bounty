@@ -56,7 +56,7 @@ public class Creature : MonoBehaviour
     public InputComponent m_input_component;
     // 그래픽 처리 컴포넌트
     public GraphicsComponent m_graphics_component;
-    // 물치 처리 컴포넌트
+    // 물리 처리 컴포넌트
     public PhysicsComponent m_physics_component;
 
     // 이동 상태 처리 컴포넌트

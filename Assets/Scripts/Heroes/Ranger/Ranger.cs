@@ -12,7 +12,7 @@ public class RangerData : HeroData
     public int weakness_hit_cnt;
     public float weakness_popup_cooltime;
     public string projectile_type;
-    public JsonVector2 arrow_velocity; 
+    public JsonVector2 arrow_velocity;  
     #endregion
 }
 
@@ -21,6 +21,7 @@ public class Ranger : Hero
     //private long m_arrow_attribute; // 화살 속성, 64bit
     //private GameObject m_arrow;
     Animator animator;
+
 
     protected override void OnAwake()
     {
@@ -51,13 +52,12 @@ public class Ranger : Hero
 
         // 레인저 입력 처리
         m_input_component.Update();
-        
+
+        m_graphics_component.Update();
+
         // 레인저 물리 처리
         // m_physics_component.Update();
-        
-        // 레인저 그래픽 처리
-        m_graphics_component.Update();
-        
+
         // 이동 상태 처리
         m_movement_state.Update();
         // 공격 상태 처리
@@ -73,6 +73,7 @@ public class Ranger : Hero
     {
         base.OnFixedUpdate();
 
+        // 레인저 그래픽 처리
         m_physics_component.FixedUpdate();
     }
 
