@@ -18,10 +18,6 @@ public class ItemInfo : Info
         
         yield return null;
     }
-    public IEnumerator Activation(Hero hero ,ItemInfo item) //내 히어로에게 적용
-    {
-        yield return null;
-    }
     public IEnumerator Activation(GameObject obj, ItemInfo item) //떨구는 아이템
     {
         Vector3 vec;

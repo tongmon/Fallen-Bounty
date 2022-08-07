@@ -18,13 +18,13 @@ public class Berserker : Hero
     {
         base.OnAwake();
 
-        m_data = JsonParser.GetHero("Berserker");
-        /*
-        m_input_component = new RangerInputComponent(gameObject);
-        m_physics_component = new RangerPhysicsComponent(gameObject);
-        m_graphics_component = new RangerGraphicsComponent(gameObject);
-        */
-        m_movement_state = new HeroIdleStateComponent(gameObject);
+        //m_data = JsonParser.GetHero("Berserker");
+        
+        m_input_component = new BerserkerInputComponent(gameObject);
+        //m_physics_component = new BerserkerPhysicsComponent(gameObject);
+        m_graphics_component = new BerserkerGraphicsComponent(gameObject);
+        
+        //m_movement_state = new HeroIdleStateComponent(gameObject);
 
         //m_attack_state = new RangerAutoAttackStateComponent(gameObject);
     }

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
@@ -61,16 +63,12 @@ public class GameScene : FadeInOut
 
     private void Start()
     {
-        for(int i = 0; i < player.transform.childCount; i++)
+       player = GameObject.Find("Player");
+        for (int i = 0; i < player.transform.childCount; i++)
         {
-
-            //m_skills[0].GetComponent<Button>().onClick.AddListener(player.transform.GetChild(i).GetComponent<Hero>().abilities[i].Activate()); 
-            //의문 : 액티베이션에 왜 매개변수가 필요한가, 히어로에서 참조한 버서커의 스킬이 잘 적용될것인가. 
+            m_skills[0].transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() => player.transform.GetChild(i).GetComponent<Hero>().abilities[i].Activate(gameObject)); 
         }
-
         StartCoroutine(OnStart());
-
-        player = GameObject.Find("Player");
     }
     void Update()
     {
