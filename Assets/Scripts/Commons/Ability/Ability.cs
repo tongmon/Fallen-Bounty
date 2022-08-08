@@ -20,7 +20,7 @@ public class Ability : ScriptableObject
     public float m_base_phhsical_coefficient;//물리 계수
     public float m_base_magic_coefficient;//마법 계수
     
-    public virtual void Activate(GameObject obj) 
+    public virtual void Activate(Hero hero ,GameObject obj) 
     { 
        
     }

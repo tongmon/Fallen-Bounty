@@ -41,7 +41,7 @@ public class GameScene : FadeInOut
     GameObject m_selected_panalty_card;
 
     //연결할 플레이어
-    GameObject player;
+    GameObject m_player;
     
     //맵 노드
     List <MapNode> m_node;
@@ -63,11 +63,17 @@ public class GameScene : FadeInOut
 
     private void Start()
     {
-       player = GameObject.Find("Player");
-        for (int i = 0; i < player.transform.childCount; i++)
+        m_player = GameObject.Find("Player");
+        m_skills[0].transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
+        m_player.transform.GetChild(0).GetComponent<Hero>().abilities[0].Activate(m_player.transform.GetChild(0).GetComponent<Hero>() ,m_player.transform.GetChild(0).gameObject));
+        /*for(int i = 0; i < player.transform.childCount; i++)//영웅 수
         {
-            m_skills[0].transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() => player.transform.GetChild(i).GetComponent<Hero>().abilities[i].Activate(gameObject)); 
-        }
+            for(int j= 0; j < 4; j++)//스킬 갯수
+            {
+                m_skills[i].transform.GetChild(j).GetComponent<Button>().onClick.AddListener(() =>
+                player.transform.GetChild(i).GetComponent<Hero>().abilities[j].Activate(player.transform.GetChild(i).gameObject));
+            }
+        }*/
         StartCoroutine(OnStart());
     }
     void Update()
@@ -129,7 +135,7 @@ public class GameScene : FadeInOut
     {
         StartCoroutine(OnGiveUpYes());
     }
-    public void ItemButton()//아이템 누르기
+    public void ItemButton()//아이템 펼치기
     {
         if (!m_toggle) {
             StartCoroutine(ItemOpen());
@@ -142,19 +148,13 @@ public class GameScene : FadeInOut
             m_toggle = false;
         }
     }
-    public void ItemUse()//아이템선택시 상호작용
+    public void ItemUse()//아이템선택시 상호작용, 일시적인거고 스킬처럼 활용해야함.
     {
         GameObject obj = EventSystem.current.currentSelectedGameObject;
         
-        player.GetComponent<Player>().ThrowItem(m_itemInfos[int.Parse(obj.name)]);
+        m_player.GetComponent<Player>().ActivateItem(m_itemInfos[int.Parse(obj.name)]);
     }
 
-    public void SkillUse()
-    {
-        GameObject obj = EventSystem.current.currentSelectedGameObject;
-
-        player.GetComponent<Player>().ThrowItem(m_itemInfos[int.Parse(obj.name)]);
-    }
     public void RewardSelect()//보상선택 코루틴호출
     {
         StartCoroutine(RewardCardMove());

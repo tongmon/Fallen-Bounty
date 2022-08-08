@@ -6,7 +6,7 @@ public class BerserkerGraphicsComponent : HeroGraphicsComponent
 {
     public BerserkerGraphicsComponent(GameObject gameobject) : base(gameobject)
     {
-        m_data = gameobject.GetComponent<Ranger>();
+        m_data = gameobject.GetComponent<Berserker>();
     }
 
     protected override void OnDrawDragLine()

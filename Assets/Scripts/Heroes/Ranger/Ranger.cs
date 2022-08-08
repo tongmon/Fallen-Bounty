@@ -56,7 +56,7 @@ public class Ranger : Hero
         m_graphics_component.Update();
 
         // 레인저 물리 처리
-        // m_physics_component.Update();
+        m_physics_component.Update();
 
         // 이동 상태 처리
         m_movement_state.Update();

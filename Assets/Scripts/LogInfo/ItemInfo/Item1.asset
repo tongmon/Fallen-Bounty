@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_sprite: {fileID: 21300000, guid: 7269e12860adaf049b7da106caa8d590, type: 3}
   m_name: 1
-  m_info: AAA
-  m_unlock_condition: A to A
-  m_damage: 1
+  m_info: HealthPortiion
+  m_unlock_condition: 
+  m_type: Portion
+  m_damage: 30
   m_range: 1
   m_duration: 1
   m_cooltime: 1

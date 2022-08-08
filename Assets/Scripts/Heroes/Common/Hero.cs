@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using JsonSubTypes;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 [JsonConverter(typeof(JsonSubtypes))]
 [JsonSubtypes.KnownSubTypeWithProperty(typeof(RangerData), "weakness_popup_cooltime")]
@@ -50,5 +52,18 @@ public class Hero : Creature
     protected override void OnFixedUpdate()
     {
         
+    }
+    public IEnumerator HitToolTip()
+    {
+        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOColor(Color.white, 0.1f);
+        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOColor(Color.white, 0.1f);
+        yield return new WaitForSecondsRealtime(0.1f);
+
+        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOFade(0.2f, 1.0f);
+        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOFade(0.2f, 1.0f);
+        yield return new WaitForSecondsRealtime(1.0f);
+
+        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOFade(0, 1.0f);
+        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOFade(0, 1.0f);
     }
 }

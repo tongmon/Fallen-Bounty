@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField] List <GameObject> m_items;
     [SerializeField] Canvas prefab_canvas;
+
+    public List <Hero> m_heroes; 
     // 히어로 소지량 제한수
     public int m_hero_limit;
 
@@ -26,6 +28,7 @@ public class Player : MonoBehaviour
         m_hero_limit = 1;
         m_card_option_limit = 3;
         m_item_count = 0;
+        m_heroes.Add(transform.GetChild(0).GetComponent<Hero>());
         /*
         // 히어로 초기화
         m_hero_manager = new HeroManager(gameObject);
@@ -54,10 +57,21 @@ public class Player : MonoBehaviour
             //m_items.
         }
     }
-    public void ThrowItem(ItemInfo item)
+    public void ActivateItem(ItemInfo item)
     {
-        GameObject obj = Instantiate(new GameObject(), Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.Euler(0,0,0));
-        StartCoroutine(item.Activation(obj,item));
+        if (item.m_type == "Attack")
+        {
+            GameObject obj = Instantiate(new GameObject(), Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.Euler(0, 0, 0));
+            StartCoroutine(item.Activation(obj, item));
+        }
+        else if (item.m_type == "Portion")
+        {
+            StartCoroutine(item.Activation(m_heroes,item));
+            for(int i = 0; i<m_heroes.Count; i++)
+            {
+                StartCoroutine(m_heroes[i].GetComponent<Hero>().HitToolTip());
+            }
+        }
     }
     IEnumerator CancelItem()
     {

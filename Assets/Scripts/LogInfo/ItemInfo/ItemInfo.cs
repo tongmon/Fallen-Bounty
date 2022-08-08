@@ -13,10 +13,19 @@ public class ItemInfo : Info
     public float m_duration = 0.0f;
     public float m_cooltime = 0.0f;
 
-    public IEnumerator Activation(Hero[] heroes, ItemInfo item) //내 모든 히어로에게 적용
+    public IEnumerator Activation(List <Hero> heroes ,ItemInfo item) //내 모든 히어로에게 적용
     {
-        
-        yield return null;
+        float time = 0.0f;
+        while (true)
+        {
+            yield return null;
+            time+= Time.deltaTime;
+            if (time >= item.m_duration) break;
+            for (int i = 0; i < heroes.Count; i++)
+            {
+                heroes[i].m_current_health += item.m_damage;
+            }
+        }
     }
     public IEnumerator Activation(GameObject obj, ItemInfo item) //떨구는 아이템
     {

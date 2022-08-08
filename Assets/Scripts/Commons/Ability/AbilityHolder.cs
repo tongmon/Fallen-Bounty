@@ -105,7 +105,7 @@ public class AbilityHolder
                 if (m_abilities[index].m_is_triggered)
                 {
                     m_abilities[index].m_is_triggered = false;
-                    m_abilities[index].m_ability.Activate(m_game_object);
+                    //m_abilities[index].m_ability.Activate(m_game_object);
                     m_abilities[index].m_state = eAbilityState.active; 
                 }
                 break;

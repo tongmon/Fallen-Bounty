@@ -42,7 +42,7 @@ public class BerserkerInputComponent : HeroInputComponent
     {
         base.OnMouseLeftUp();
 
-        var data = (Ranger)m_data;
+        var data = (Berserker)m_data;
 
         if (data.m_selected)
         {

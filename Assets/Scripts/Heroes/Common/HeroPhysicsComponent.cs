@@ -10,9 +10,9 @@ public class HeroPhysicsComponent : PhysicsComponent
     {
         m_data = gameobject.GetComponent<Hero>();
 
-        m_mass = ((HeroData)((Hero)m_data).m_data).mass;
+        //m_mass = ((HeroData)((Hero)m_data).m_data).mass;
 
-        m_move_velocity = ((HeroData)((Hero)m_data).m_data).velocity;
+        //m_move_velocity = ((HeroData)((Hero)m_data).m_data).velocity;
     }
 
     public override void Update()
