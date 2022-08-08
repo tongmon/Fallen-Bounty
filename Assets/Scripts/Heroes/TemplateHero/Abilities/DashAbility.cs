@@ -14,7 +14,7 @@ public class DashAbility : Ability
     }
 
     // DashAbility는 TemplateHero만 사용가능한 스킬이기에 밑과 같이 구현
-    public override void Activate(Hero hero, GameObject obj)
+    public override void Activate(GameObject obj)
     {
         // 대쉬 스킬 로직
         TemplateHero t_hero = obj.GetComponent<TemplateHero>();

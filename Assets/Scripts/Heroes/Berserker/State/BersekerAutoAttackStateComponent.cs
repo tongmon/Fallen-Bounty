@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BersekerAutoAttackStateComponent : StateComponent
+public class BerserkerAutoAttackStateComponent : StateComponent
 {
-    public BersekerAutoAttackStateComponent(GameObject gameObject) : base(gameObject)
+    public BerserkerAutoAttackStateComponent(GameObject gameObject) : base(gameObject)
     {
         m_data = gameObject.GetComponent<Berserker>();
         Enter();

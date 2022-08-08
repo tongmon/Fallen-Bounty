@@ -65,7 +65,7 @@ public class GameScene : FadeInOut
     {
         m_player = GameObject.Find("Player");
         m_skills[0].transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
-        m_player.transform.GetChild(0).GetComponent<Hero>().abilities[0].Activate(m_player.transform.GetChild(0).GetComponent<Hero>() ,m_player.transform.GetChild(0).gameObject));
+        m_player.transform.GetChild(0).GetComponent<Hero>().abilities[0].Activate(m_player.transform.GetChild(0).gameObject));
         /*for(int i = 0; i < player.transform.childCount; i++)//¿µ¿õ ¼ö
         {
             for(int j= 0; j < 4; j++)//½ºÅ³ °¹¼ö

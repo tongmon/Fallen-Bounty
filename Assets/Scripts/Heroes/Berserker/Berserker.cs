@@ -28,7 +28,7 @@ public class Berserker : Hero
         
         m_movement_state = new HeroIdleStateComponent(gameObject);
 
-        m_attack_state = new RangerAutoAttackStateComponent(gameObject);
+        m_attack_state = new BerserkerAutoAttackStateComponent(gameObject);
     }
 
     protected override void OnStart()
