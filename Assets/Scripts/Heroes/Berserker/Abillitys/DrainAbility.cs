@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DrainAbility : Ability
 {
-    public Vector2 m_base_range; //적용 범위
+    public Vector2 m_base_range; //적용 범위, 추가로 스킬범위 알려주는 스크립트 필요.
 
     public DrainAbility()
     {
@@ -25,7 +25,7 @@ public class DrainAbility : Ability
     
         GameObject skill = Instantiate(new GameObject(), obj.transform.position, Quaternion.Euler(0, 0, 0));
         skill.AddComponent<CircleCollider2D>();
-        skill.GetComponent<CircleCollider2D>().isTrigger = true;//트리거로 검새해야 됨.
+        skill.GetComponent<CircleCollider2D>().isTrigger = true;//트리거로 탐지해야 됨.
         skill.GetComponent<CircleCollider2D>().radius *= m_base_range.x;
         skill.name = (m_base_phhsical_coefficient * heroData.physic_power).ToString();
         skill.tag = "Skill";

@@ -47,9 +47,9 @@ public class BerserkerInputComponent : HeroInputComponent
         if (data.m_selected)
         {
             // 드래깅 라인 관련 변수 조정
-            if (((RangerGraphicsComponent)data.m_graphics_component).m_dragline_alpha == 1.0f)
+            if (((BerserkerGraphicsComponent)data.m_graphics_component).m_dragline_alpha == 1.0f)
             {
-                ((RangerGraphicsComponent)data.m_graphics_component).m_dragline_alpha = 0.99f;
+                ((BerserkerGraphicsComponent)data.m_graphics_component).m_dragline_alpha = 0.99f;
 
                 if (m_mouse_hit.collider && m_mouse_hit.collider.tag == "Enemy")
                 {
