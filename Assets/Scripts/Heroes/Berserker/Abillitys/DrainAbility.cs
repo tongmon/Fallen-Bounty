@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DrainAbility : Ability
 {
-    public Vector2 m_base_range; //적용 범위, 추가로 스킬범위 알려주는 스크립트 필요.
+     //적용 범위, 추가로 스킬범위 알려주는 스크립트 필요.
 
     public DrainAbility()
     {

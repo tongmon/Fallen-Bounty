@@ -33,7 +33,8 @@ public class GameScene : FadeInOut
 
     //스킬칸
     [SerializeField] GameObject[] m_skills;
-    
+
+    [SerializeField] GameObject m_skill_range;
     //내가 선택한 보상
     GameObject m_selected_reward_card;
 
@@ -42,9 +43,17 @@ public class GameScene : FadeInOut
 
     //연결할 플레이어
     GameObject m_player;
+
+    //스킬 범위 툴팁 
+    
     
     //맵 노드
     List <MapNode> m_node;
+
+    //마우스 오버 검사레이
+    GraphicRaycaster m_gr;
+    //마우스 포인터 데이터
+    PointerEventData m_ped;
 
     //일시정지 토글용 부울변수
     bool m_toggle = false;
@@ -64,16 +73,19 @@ public class GameScene : FadeInOut
     private void Start()
     {
         m_player = GameObject.Find("Player");
-        m_skills[0].transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
-        m_player.transform.GetChild(0).GetComponent<Hero>().abilities[0].Activate(m_player.transform.GetChild(0).gameObject));
-        /*for(int i = 0; i < player.transform.childCount; i++)//영웅 수
+        m_gr = GameObject.Find("PrefabCanvas").GetComponent<GraphicRaycaster>();
+        m_ped = new PointerEventData(null);
+  
+        for(int i = 0; i < m_player.transform.childCount/3; i++)//영웅 수
         {
-            for(int j= 0; j < 4; j++)//스킬 갯수
+            HeroData herodata = (HeroData)m_player.transform.GetChild(i).GetComponent<Hero>().m_data;
+            m_skills[i].name = herodata.type_name.Replace("Data", "\0");//이름 저장
+            for (int j= 0; j < 4; j++)//스킬 갯수
             {
                 m_skills[i].transform.GetChild(j).GetComponent<Button>().onClick.AddListener(() =>
-                player.transform.GetChild(i).GetComponent<Hero>().abilities[j].Activate(player.transform.GetChild(i).gameObject));
+                m_player.transform.GetChild(i).GetComponent<Hero>().abilities[j].Activate(m_player.transform.GetChild(i).gameObject));
             }
-        }*/
+        }
         StartCoroutine(OnStart());
     }
     void Update()
@@ -154,7 +166,25 @@ public class GameScene : FadeInOut
         
         m_player.GetComponent<Player>().ActivateItem(m_itemInfos[int.Parse(obj.name)]);
     }
-
+    public void SkillRangeOn()//스킬 범위 표시
+    {
+        int index;
+        m_ped.position = Input.mousePosition;
+        List<RaycastResult> results = new List<RaycastResult>();
+        m_gr.Raycast(m_ped, results);
+        m_skill_range.transform.position = GameObject.Find(results[0].gameObject.transform.parent.name).transform.position;//이름으로 캐릭터 위치 찾기
+        if (m_skills[0].activeSelf) index = 0;
+        else if (m_skills[1].activeSelf) index = 1;
+        else if (m_skills[2].activeSelf) index = 2;
+        else index = 3;
+        m_skill_range.transform.localScale = m_player.transform.GetChild(index).GetComponent<Hero>().abilities[int.Parse(results[0].gameObject.name)].m_base_range;
+        m_skill_range.gameObject.SetActive(true);
+        //이제 코루틴부르면됨.
+    }
+    public void SkillRangeOff()
+    {
+        m_skill_range.gameObject.SetActive(false);
+    }
     public void RewardSelect()//보상선택 코루틴호출
     {
         StartCoroutine(RewardCardMove());
@@ -264,5 +294,6 @@ public class GameScene : FadeInOut
         Destroy(GameObject.FindGameObjectWithTag("MapType"));
         Destroy(GameObject.FindGameObjectWithTag("SaveFileName"));
     }
+    
 }
 
