@@ -106,16 +106,12 @@ public class SaveState
     public DateTime last_playtime; //최근 플레이시간 , 숫자로 안보임
     public int clear_count;//총 클리어 횟수
 
+    public Hero[] hero_list;
     public List<eItem> unlock_item;
     public List<eCharacter> unlock_character;
     public List<eStage> unlock_stage;
     public List<eChallenges> unlock_challenges;
     public string[] clear_log;
-
-    /// <summary>
-    ///히어로 정보도 필요함
-    /// </summary>
-
 
     public SaveState()
     {
@@ -123,6 +119,7 @@ public class SaveState
         last_playtime = DateTime.Now;
         clear_count = 0;
 
+        hero_list = new Hero[2] { new Berserker() { is_unlocked = true }, new Ranger() { is_unlocked = true } };//실제로는 사이즈 12로 바꿔야함.
         unlock_item = new List<eItem>();
         unlock_character = new List<eCharacter>() { eCharacter.Berserker };
         unlock_stage = new List<eStage>() { eStage.Woods, eStage.SnowMountain, eStage.Cave };

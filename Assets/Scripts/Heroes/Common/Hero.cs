@@ -21,6 +21,8 @@ public class HeroData : CreatureData
     public float melee_range;
     // 공격 범위
     public float ranged_range;
+
+    
     #endregion
 }
 
@@ -30,6 +32,10 @@ public class Hero : Creature
     public float m_cur_attack_cooltime;
     //가지고 있을 스킬, ㄹㅇ가지고만 있음
     public List<Ability> abilities;
+    //이미지
+    public Sprite m_sprite;
+
+    public bool is_unlocked;
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -37,6 +43,10 @@ public class Hero : Creature
         m_point_target = null;
 
         m_cur_attack_cooltime = 0;
+
+        m_sprite = null;
+
+        is_unlocked = false;
     }
 
     protected override void OnStart()
