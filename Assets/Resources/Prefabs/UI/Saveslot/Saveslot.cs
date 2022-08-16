@@ -9,14 +9,20 @@ using DG.Tweening;
 
 public class Saveslot : MonoBehaviour
 {
-    [SerializeField] GameObject m_title_name; //게임 제목
+    //두트윈할 타이틀
+    [SerializeField] GameObject m_title_name; 
+
+    //총 3개짜리 세이브 버튼
     [SerializeField] GameObject[] save_button;
+
+    //Don't destroy할 세이브파일 이름.
     public GameObject s_name;
-    GameObject m_click_object; //클릭한 객체 저장용
+
+    //저장을 위한 Json 클래스 
     SaveState save_state;
 
     List <Vector2> m_positon = new List<Vector2>();
-    private void Awake()
+    private void Awake()//다시 로드했을때 오류를 방지.
     {
         m_positon.Add(m_title_name.transform.localPosition);
         m_positon.Add(save_button[0].transform.localPosition);
@@ -37,8 +43,8 @@ public class Saveslot : MonoBehaviour
     }
     public void ButtonClicked()
     {
-        m_click_object = EventSystem.current.currentSelectedGameObject; //클릭한 객체 저장
-        StartCoroutine("ButtonDoTween"); //코루틴호출
+        GameObject obj = EventSystem.current.currentSelectedGameObject; //클릭한 객체 저장
+        StartCoroutine(ButtonDoTween(obj)); //코루틴호출
     }
     public void ExitButtonClicked()
     {
@@ -46,30 +52,29 @@ public class Saveslot : MonoBehaviour
         System.TimeSpan time = System.DateTime.Now - save_state.last_playtime;
         save_state.playtime = time.Minutes;
     }
-    IEnumerator ButtonDoTween()
+    IEnumerator ButtonDoTween(GameObject obj)
     {
         string file_path = "Assets/Resources/SaveFileJson/";
-        if (!File.Exists(file_path + "SaveFile" + m_click_object.transform.name + "json"))
+        if (!File.Exists(file_path + "SaveFile" + obj.transform.name + "json"))//json이 없을때 새로 생성
         {
             save_state = new SaveState();
             save_state.last_playtime = System.DateTime.Now;
-            JsonParser.CreateJsonFile(file_path + "SaveFile" + m_click_object.transform.name + "json", JsonUtility.ToJson(save_state, true));
-            s_name.transform.name = file_path + "SaveFile" + m_click_object.transform.name + "json";
-            DontDestroyOnLoad(s_name);
+            JsonParser.CreateJsonFile(file_path + "SaveFile" + obj.transform.name + "json", JsonUtility.ToJson(save_state, true));
+            s_name.transform.name = file_path + "SaveFile" + obj.transform.name + "json";
         }
-        else
+        else//잇을때는 로드
         {
-            save_state = JsonParser.LoadJsonFile<SaveState>(file_path + "SaveFile" + m_click_object.transform.name + "json");
-            s_name.transform.name = file_path + "SaveFile" + m_click_object.transform.name + "json";
-            DontDestroyOnLoad(s_name);
-        }
+            save_state = JsonParser.LoadJsonFile<SaveState>(file_path + "SaveFile" + obj.transform.name + "json");
+            s_name.transform.name = file_path + "SaveFile" + obj.transform.name + "json";
 
-        m_click_object.GetComponentInParent<Canvas>().sortingOrder = 1; //각 레이어를 구분해 맨앞으로 보내기
-        m_click_object.transform.DOMoveX(0, 1.5f);
+        }
+        DontDestroyOnLoad(s_name);
+        obj.GetComponentInParent<Canvas>().sortingOrder = 1; //각 레이어를 구분해 맨앞으로 보내기
+        obj.transform.DOMoveX(0, 1.5f);
         yield return new WaitForSecondsRealtime(1.5f);
 
-        m_click_object.transform.DOScaleX(2.5f, 1.5f);
-        m_click_object.transform.DOScaleY(2.5f, 1.5f);
+        obj.transform.DOScaleX(2.5f, 1.5f);
+        obj.transform.DOScaleY(2.5f, 1.5f);
         yield return new WaitForSecondsRealtime(1.5f);
 
         GameObject.Find("EventSystem").GetComponent<CanvasManager>().TitleCanvasAdd();

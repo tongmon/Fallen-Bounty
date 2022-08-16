@@ -7,17 +7,26 @@ using UnityEngine.EventSystems;
 
 public class MouseOverPanel : MonoBehaviour
 {
+    //등장할 패널
     [SerializeField] Image m_panel;
 
+    //로그 캔버스랑
     [SerializeField] Canvas m_log_canvas;
+
+    //캐릭터 선택 캔버스에서 쓸거임
     [SerializeField] Canvas m_charSelect_canvas;
 
+    //Json으로 정보저장.
     [SerializeField] ItemInfo[] item_info;
     [SerializeField] StageInfo[] stage_info;
     [SerializeField] ChallengeInfo[] challenge_info;
 
+    //캔버스용 레이
     GraphicRaycaster m_gr;
+
+    //포인터 이벤트
     PointerEventData m_ped;
+
     private void Start()
     {
         m_gr = m_log_canvas.GetComponent<GraphicRaycaster>();
@@ -96,7 +105,7 @@ public class MouseOverPanel : MonoBehaviour
         m_panel.transform.position = pos * Camera.main.transform.localScale;
         m_panel.transform.localPosition = new Vector3(m_panel.transform.localPosition.x + 350, m_panel.transform.localPosition.y - 175, 0);
         yield return new WaitForSecondsRealtime(0.1f);
-        m_panel.DOKill();
+        m_panel.DOKill();//두트윈 끄기
     }
     IEnumerator MOut()
     {

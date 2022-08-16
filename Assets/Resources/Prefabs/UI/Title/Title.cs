@@ -12,6 +12,7 @@ public class Title : MonoBehaviour
     public void OnEnable()
     {
         m_title_name_text.text = string.Empty;
+
         m_title_name_text.DOText("Half Blood", 2.0f); //글씨가 써지는 두트윈 적용
     }
 }

@@ -5,17 +5,24 @@ using UnityEngine.UI;
 
 public class Log : MonoBehaviour
 {
+    //각 리스트
     [SerializeField] GameObject ItemButtonList;
+
     [SerializeField] GameObject CharacterButtonList;
+
     [SerializeField] GameObject StageButtonList;
+
     [SerializeField] GameObject ChallengesButtonList;
+
     [SerializeField] GameObject ClearLogText;
+    //정보 불러오기위한 Json 클래스
     SaveState save_state;
     private void OnEnable()
     {
-        //클래스 생성해서 각 인포 불러와야함
-        save_state = JsonParser.LoadJsonFile<SaveState>(GameObject.FindGameObjectWithTag("SaveFileName").transform.name);
-        foreach(eItem item in save_state.unlock_item)
+        //클래스 생성해서 각 인포 불러오기.
+        save_state = JsonParser.LoadJsonFile<SaveState>(GameObject.FindGameObjectWithTag("SaveFileName").name);
+
+        foreach(eItem item in save_state.unlock_item)//활성화된 애들 컬러조정.
         {
             ItemButtonList.transform.GetChild((int)item).GetComponent<Image>().color = new Color(255, 255, 255, 1);
         }
@@ -41,7 +48,7 @@ public class Log : MonoBehaviour
         */
     }
 
-    public void ItemButton()
+    public void ItemButton()//각 버튼 상호작용
     {
         ItemButtonList.SetActive(true);
         CharacterButtonList.SetActive(false);

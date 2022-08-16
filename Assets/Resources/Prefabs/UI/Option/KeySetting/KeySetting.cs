@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 public enum m_key_action { SKILL1, SKILL2, SKILL3, SKILL4, KEYCOUNT } //열거형으로 갯수만듦
 
-public static class KeySet { public static Dictionary<m_key_action, KeyCode> m_keys = new Dictionary<m_key_action, KeyCode>(); }
 //딕셔너리로 키와 키코드를 할당
+public static class KeySet { public static Dictionary<m_key_action, KeyCode> m_keys = new Dictionary<m_key_action, KeyCode>(); }
+
 public class KeySetting : MonoBehaviour
 {
     KeyCode[] m_default_key = new KeyCode[] { KeyCode.Q , KeyCode.W , KeyCode.E , KeyCode.R }; //기본키코드 설정

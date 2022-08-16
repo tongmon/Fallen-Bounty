@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Option : FadeInOut
 {
+    //각 셋팅
     [SerializeField] GameObject AudioSetting;
+
     [SerializeField] GameObject ResolutionSetting;
+
     [SerializeField] GameObject KeySetting;
+
     [SerializeField] GameObject GameplaySetting;
+
     [SerializeField] GameObject Skill; //스킬 프리팹
     bool m_skillMove = false;
     public void AudioButtonClicked() //각 버튼 클릭시 온오프 적용

@@ -5,8 +5,13 @@ using UnityEngine.UI;
 using DG.Tweening;
 public class CanvasManager : FadeInOut
 {
+    //전체 캔버스
     [SerializeField] GameObject[] m_canvas;
+
+    //페이드아웃 클래스 or 컴포넌트
     FadeInOut FadeInOut;
+
+    //현재 내가 가지고있을 캔버스
     private LinkedList <GameObject> m_canvasList = new LinkedList<GameObject>();
 
 
