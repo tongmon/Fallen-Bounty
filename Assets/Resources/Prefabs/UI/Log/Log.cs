@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class Log : MonoBehaviour
 {
     //각 리스트
@@ -15,14 +14,13 @@ public class Log : MonoBehaviour
     [SerializeField] GameObject ChallengesButtonList;
 
     [SerializeField] GameObject ClearLogText;
-    //정보 불러오기위한 Json 클래스
+
     SaveState save_state;
     private void OnEnable()
     {
-        //클래스 생성해서 각 인포 불러오기.
-        save_state = JsonParser.LoadJsonFile<SaveState>(GameObject.FindGameObjectWithTag("SaveFileName").name);
+        save_state = (SaveState)Resources.Load("SaveFile/" + GameObject.FindGameObjectWithTag("SaveFileName").name);//파일 이름으로 찾기.
 
-        foreach(eItem item in save_state.unlock_item)//활성화된 애들 컬러조정.
+        foreach (eItem item in save_state.unlock_item)//활성화된 애들 컬러조정.
         {
             ItemButtonList.transform.GetChild((int)item).GetComponent<Image>().color = new Color(255, 255, 255, 1);
         }

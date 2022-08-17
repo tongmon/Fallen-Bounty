@@ -10,6 +10,7 @@ public class BerserkerData : HeroData
 {
     #region Data from JSON file
     //아직미정
+    
     #endregion
 }
 
@@ -33,6 +34,8 @@ public class Berserker : Hero
 
     protected override void OnStart()
     {
+        BerserkerData berserker_data = (BerserkerData)m_data;
+        berserker_data.m_info = "공격력, 체력이 높다. 방어, 마법저항은 평균치.";
         DrainAbility a = new DrainAbility();
         abilities.Add(a);
     }

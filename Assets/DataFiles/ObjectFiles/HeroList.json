@@ -37,6 +37,6 @@
 		"magic_power": 10,
 		"attack_cooltime": 1.5,
 		"melee_range": -1,
-		"ranged_range": 10,
+		"ranged_range": 10
 	}
 ]

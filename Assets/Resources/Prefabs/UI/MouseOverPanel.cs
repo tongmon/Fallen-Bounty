@@ -75,29 +75,29 @@ public class MouseOverPanel : MonoBehaviour
             else if (results[1].gameObject.transform.tag == "Stage")
             {
                 //스프라이트 추가 필 m_panel.transform.GetChild(0).GetComponent<Image>().sprite = stage_info[int.Parse(results[1].gameObject.transform..name)].m_sprite;
-                m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", stage_info[int.Parse(results[0].gameObject.transform.name)].m_name);
-                m_panel.transform.GetChild(2).GetComponent<Text>().text = string.Format("정보 : {0}", stage_info[int.Parse(results[0].gameObject.transform.name)].m_info);
-                m_panel.transform.GetChild(7).GetComponent<Text>().text = string.Format("해금 조건 : {0}", stage_info[int.Parse(results[0].gameObject.transform.name)].m_unlock_condition);
+                m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", stage_info[int.Parse(results[1].gameObject.transform.name)].m_name);
+                m_panel.transform.GetChild(2).GetComponent<Text>().text = string.Format("정보 : {0}", stage_info[int.Parse(results[1].gameObject.transform.name)].m_info);
+                m_panel.transform.GetChild(7).GetComponent<Text>().text = string.Format("해금 조건 : {0}", stage_info[int.Parse(results[1].gameObject.transform.name)].m_unlock_condition);
 
-                m_panel.transform.GetChild(3).GetComponent<Text>().text = string.Format("보스 이름 : {0}", stage_info[int.Parse(results[0].gameObject.transform.name)].m_boss_name);
-                m_panel.transform.GetChild(4).GetComponent<Text>().text = string.Format("클리어 시간 : {0}", stage_info[int.Parse(results[0].gameObject.transform.name)].m_clear_time);
-                m_panel.transform.GetChild(5).GetComponent<Text>().text = string.Format("클리어 횟수 : {0}", stage_info[int.Parse(results[0].gameObject.transform.name)].m_clear_count);
+                m_panel.transform.GetChild(3).GetComponent<Text>().text = string.Format("보스 이름 : {0}", stage_info[int.Parse(results[1].gameObject.transform.name)].m_boss_name);
+                m_panel.transform.GetChild(4).GetComponent<Text>().text = string.Format("클리어 시간 : {0}", stage_info[int.Parse(results[1].gameObject.transform.name)].m_clear_time);
+                m_panel.transform.GetChild(5).GetComponent<Text>().text = string.Format("클리어 횟수 : {0}", stage_info[int.Parse(results[1].gameObject.transform.name)].m_clear_count);
             }
             else if (results[1].gameObject.transform.tag == "Challenge")
             {
                 //스프라이트 추가 필m_panel.transform.GetChild(0).GetComponent<Image>().sprite = challenge_info[int.Parse(results[1].gameObject.transform..name)].m_sprite;
-                m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", challenge_info[int.Parse(results[0].gameObject.transform.name)].m_name);
-                m_panel.transform.GetChild(2).GetComponent<Text>().text = string.Format("정보 : {0}", challenge_info[int.Parse(results[0].gameObject.transform.name)].m_info);
-                m_panel.transform.GetChild(7).GetComponent<Text>().text = string.Format("해금 조건 : {0}", challenge_info[int.Parse(results[0].gameObject.transform.name)].m_unlock_condition);
+                m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", challenge_info[int.Parse(results[1].gameObject.transform.name)].m_name);
+                m_panel.transform.GetChild(2).GetComponent<Text>().text = string.Format("정보 : {0}", challenge_info[int.Parse(results[1].gameObject.transform.name)].m_info);
+                m_panel.transform.GetChild(7).GetComponent<Text>().text = string.Format("해금 조건 : {0}", challenge_info[int.Parse(results[1].gameObject.transform.name)].m_unlock_condition);
 
-                m_panel.transform.GetChild(3).GetComponent<Text>().text = string.Format("획득량 : {0}", challenge_info[int.Parse(results[0].gameObject.transform.name)].m_target_num);
-                m_panel.transform.GetChild(4).GetComponent<Text>().text = string.Format("목표량 : {0}", challenge_info[int.Parse(results[0].gameObject.transform.name)].m_total_num);
-                m_panel.transform.GetChild(4).GetComponent<Text>().text = string.Format("달성률 : {0}", challenge_info[int.Parse(results[0].gameObject.transform.name)].m_target_num / challenge_info[int.Parse(results[0].gameObject.transform.name)].m_total_num);
+                m_panel.transform.GetChild(3).GetComponent<Text>().text = string.Format("획득량 : {0}", challenge_info[int.Parse(results[1].gameObject.transform.name)].m_target_num);
+                m_panel.transform.GetChild(4).GetComponent<Text>().text = string.Format("목표량 : {0}", challenge_info[int.Parse(results[1].gameObject.transform.name)].m_total_num);
+                m_panel.transform.GetChild(4).GetComponent<Text>().text = string.Format("달성률 : {0}", challenge_info[int.Parse(results[1].gameObject.transform.name)].m_target_num / challenge_info[int.Parse(results[1].gameObject.transform.name)].m_total_num);
             }
         }
-        else//캐릭터 옵션 가져와야함
+        else//스킬옵션만 보여주면됨.
         {
-
+            //스킬가져와야함
         }
         m_panel.gameObject.SetActive(true);
         m_panel.DOColor(Color.white, 0.1f);

@@ -6,22 +6,19 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using DG.Tweening;
 
-
 public class Saveslot : MonoBehaviour
 {
     //두트윈할 타이틀
-    [SerializeField] GameObject m_title_name; 
+    [SerializeField] GameObject m_title_name;
 
     //총 3개짜리 세이브 버튼
     [SerializeField] GameObject[] save_button;
 
-    //Don't destroy할 세이브파일 이름.
-    public GameObject s_name;
-
-    //저장을 위한 Json 클래스 
+    [SerializeField] GameObject save_name; 
+    //저장을 위한 직렬화 클래스 
     SaveState save_state;
 
-    List <Vector2> m_positon = new List<Vector2>();
+    List<Vector2> m_positon = new List<Vector2>();
     private void Awake()//다시 로드했을때 오류를 방지.
     {
         m_positon.Add(m_title_name.transform.localPosition);
@@ -54,28 +51,22 @@ public class Saveslot : MonoBehaviour
     }
     IEnumerator ButtonDoTween(GameObject obj)
     {
-        string file_path = "Assets/Resources/SaveFileJson/";
-        if (!File.Exists(file_path + "SaveFile" + obj.transform.name + "json"))//json이 없을때 새로 생성
-        {
-            save_state = new SaveState();
-            save_state.last_playtime = System.DateTime.Now;
-            JsonParser.CreateJsonFile(file_path + "SaveFile" + obj.transform.name + "json", JsonUtility.ToJson(save_state, true));
-            s_name.transform.name = file_path + "SaveFile" + obj.transform.name + "json";
-        }
-        else//잇을때는 로드
-        {
-            save_state = JsonParser.LoadJsonFile<SaveState>(file_path + "SaveFile" + obj.transform.name + "json");
-            s_name.transform.name = file_path + "SaveFile" + obj.transform.name + "json";
+        save_state = (SaveState)Resources.Load("SaveFile/SaveFile" + obj.name);
 
-        }
-        DontDestroyOnLoad(s_name);
+        UnityEditor.EditorUtility.SetDirty(save_state);//이거하면 겜꺼도 저장됨.
+
+        save_name.name = "SaveFile" + obj.name;
+        DontDestroyOnLoad(save_name);
+
+        save_state.last_playtime = System.DateTime.Now;
+
         obj.GetComponentInParent<Canvas>().sortingOrder = 1; //각 레이어를 구분해 맨앞으로 보내기
-        obj.transform.DOMoveX(0, 1.5f);
-        yield return new WaitForSecondsRealtime(1.5f);
+        obj.transform.DOMoveX(0, 0.8f);
+        yield return new WaitForSecondsRealtime(0.8f);
 
-        obj.transform.DOScaleX(2.5f, 1.5f);
-        obj.transform.DOScaleY(2.5f, 1.5f);
-        yield return new WaitForSecondsRealtime(1.5f);
+        obj.transform.DOScaleX(2.5f, 0.8f);
+        obj.transform.DOScaleY(2.5f, 0.8f);
+        yield return new WaitForSecondsRealtime(0.8f);
 
         GameObject.Find("EventSystem").GetComponent<CanvasManager>().TitleCanvasAdd();
     }

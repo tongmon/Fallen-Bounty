@@ -40,6 +40,8 @@ public class Ranger : Hero
 
     protected override void OnStart()
     {
+        RangerData ranger_data = (RangerData)m_data;
+        ranger_data.m_info = "공, 이속은 좀 느리나, 공격력과 사거리가 높음.";
         // 초기에 화살 5개 생성
         ProjectilePool.InitPool(((RangerData)m_data).projectile_type, 3);
         animator = GetComponent<Animator>();

@@ -22,7 +22,7 @@ public class HeroData : CreatureData
     // 공격 범위
     public float ranged_range;
 
-    
+    public string m_info;
     #endregion
 }
 
