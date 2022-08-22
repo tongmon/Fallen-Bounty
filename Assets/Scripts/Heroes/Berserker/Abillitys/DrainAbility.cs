@@ -20,8 +20,8 @@ public class DrainAbility : Ability
     public override void Activate(GameObject obj)//obj에 자기자신 넣어야할듯
     {
         HeroData heroData = (HeroData)obj.GetComponent<Hero>().m_data;
-    
-        GameObject skill = Instantiate(new GameObject(), obj.transform.position, Quaternion.Euler(0, 0, 0));
+
+        GameObject skill = new GameObject();
         skill.AddComponent<CircleCollider2D>();
         skill.GetComponent<CircleCollider2D>().isTrigger = true;//트리거로 탐지해야 됨.
         skill.GetComponent<CircleCollider2D>().radius *= m_base_range;

@@ -13,9 +13,20 @@ public class ItemInfo : Info
     public float m_duration = 0.0f;
     public float m_cooltime = 0.0f;
 
+    public IEnumerator Activation(Hero hero, ItemInfo item) //내 모든 히어로에게 적용
+    {
+        Debug.Log("아이템 사용 : " + item.m_info);
+        while (true)
+        {
+            yield return null;
+            //히어로 공격력 증가등 해야됨.
+        }
+    }
+
     public IEnumerator Activation(List <Hero> heroes ,ItemInfo item) //내 모든 히어로에게 적용
     {
         float time = 0.0f;
+        Debug.Log("아이템 사용 : " + item.m_info);
         while (true)
         {
             yield return null;

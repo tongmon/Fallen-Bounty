@@ -22,13 +22,13 @@ public class Player : MonoBehaviour
 
     public HeroManager m_hero_manager;
     public HeroHolder m_hero_holder;
-
+    
     private void Awake()
     {
         m_hero_limit = 1;
         m_card_option_limit = 3;
         m_item_count = 0;
-        m_heroes.Add(transform.GetChild(0).GetComponent<Hero>());
+        for(int i = 0; i < m_hero_limit; i++) m_heroes.Add(transform.GetChild(i).GetComponent<Hero>());
         /*
         // 히어로 초기화
         m_hero_manager = new HeroManager(gameObject);
@@ -45,10 +45,6 @@ public class Player : MonoBehaviour
         {
             StopCoroutine(CancelItem());
         }   
-    }
-    public void ItemUse(ItemInfo item)//공격 아이템 외 사용 방법 필요
-    {
-        //StartCoroutine(item.Activation(,item));
     }
     public void AddItem(ItemInfo item)
     {

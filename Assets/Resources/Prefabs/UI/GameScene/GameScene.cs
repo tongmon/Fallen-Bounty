@@ -73,17 +73,9 @@ public class GameScene : FadeInOut
         m_player = GameObject.Find("Player");      
         m_gr = GameObject.Find("PrefabCanvas").GetComponent<GraphicRaycaster>();
         m_ped = new PointerEventData(null);
-  
-        for(int i = 0; i < m_player.transform.childCount-1; i++)//영웅 수
-        {
-            HeroData herodata = (HeroData)m_player.GetComponent<Player>().m_heroes[i].m_data;
-            m_skills[i].name = herodata.type_name.Replace("Data", "\0");//이름 저장
-            for (int j= 0; j < m_player.transform.GetChild(i).GetComponent<Hero>().abilities.Count; j++)//스킬 갯수
-            {
-                m_skills[i].transform.GetChild(j).GetComponent<Button>().onClick.AddListener(() =>
-                m_player.GetComponent<Player>().m_heroes[i].GetComponent<Hero>().abilities[j].Activate(m_player.transform.GetChild(i).gameObject));
-            }
-        }
+
+        SkillSet();
+
         StartCoroutine(OnStart());
     }
     void Update()
@@ -163,6 +155,21 @@ public class GameScene : FadeInOut
         GameObject obj = EventSystem.current.currentSelectedGameObject;
         
         m_player.GetComponent<Player>().ActivateItem(m_itemInfos[int.Parse(obj.name)]);
+    }
+
+    public void SkillSet()//포문을 쓰면 안됨. 이유 : 버튼누를때 다시 리스터넣는줄에 들어와서 인덱스값이 바뀜.
+    {
+        foreach (Hero hero in m_player.GetComponent<Player>().m_heroes)
+        {
+            foreach (GameObject btn in m_skills)
+            {
+                btn.name = hero.name;
+                btn.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() => hero.abilities[0].Activate(hero.gameObject));
+                btn.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => hero.abilities[1].Activate(hero.gameObject));
+                btn.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => hero.abilities[2].Activate(hero.gameObject));
+                btn.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(() => hero.abilities[3].Activate(hero.gameObject));
+            }
+        }
     }
     public void SkillRangeOn()//스킬 범위 표시
     {

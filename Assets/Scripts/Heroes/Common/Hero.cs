@@ -35,10 +35,14 @@ public class Hero : Creature
     //이미지
     public Sprite m_sprite;
 
+    public string m_name; //히어로 이름.
+
     public bool is_unlocked;
     protected override void OnAwake()
     {
         base.OnAwake();
+
+        abilities = new List<Ability>();
 
         m_point_target = null;
 
