@@ -40,7 +40,7 @@ public class Enemy : Creature
 
     protected void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "Item" || other.tag == "Skill")
+        if (other.tag == "Item")
         {
             m_hit_state.Update();
             m_current_health -= float.Parse(other.name);
@@ -51,6 +51,7 @@ public class Enemy : Creature
     {
         if (other.tag == "Item" || other.tag == "Skill")
         {
+            if(other.tag == "Skill") m_current_health -= float.Parse(other.name);
             StopCoroutine("HitToolTip");
             m_hit_state.Enter();
             StartCoroutine("HitToolTip");

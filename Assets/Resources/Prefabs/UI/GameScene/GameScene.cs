@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
@@ -72,18 +70,18 @@ public class GameScene : FadeInOut
 
     private void Start()
     {
-        m_player = GameObject.Find("Player");
+        m_player = GameObject.Find("Player");      
         m_gr = GameObject.Find("PrefabCanvas").GetComponent<GraphicRaycaster>();
         m_ped = new PointerEventData(null);
   
-        for(int i = 0; i < m_player.transform.childCount/3; i++)//영웅 수
+        for(int i = 0; i < m_player.transform.childCount-1; i++)//영웅 수
         {
-            HeroData herodata = (HeroData)m_player.transform.GetChild(i).GetComponent<Hero>().m_data;
+            HeroData herodata = (HeroData)m_player.GetComponent<Player>().m_heroes[i].m_data;
             m_skills[i].name = herodata.type_name.Replace("Data", "\0");//이름 저장
-            for (int j= 0; j < 4; j++)//스킬 갯수
+            for (int j= 0; j < m_player.transform.GetChild(i).GetComponent<Hero>().abilities.Count; j++)//스킬 갯수
             {
                 m_skills[i].transform.GetChild(j).GetComponent<Button>().onClick.AddListener(() =>
-                m_player.transform.GetChild(i).GetComponent<Hero>().abilities[j].Activate(m_player.transform.GetChild(i).gameObject));
+                m_player.GetComponent<Player>().m_heroes[i].GetComponent<Hero>().abilities[j].Activate(m_player.transform.GetChild(i).gameObject));
             }
         }
         StartCoroutine(OnStart());
@@ -177,7 +175,8 @@ public class GameScene : FadeInOut
         else if (m_skills[1].activeSelf) index = 1;
         else if (m_skills[2].activeSelf) index = 2;
         else index = 3;
-        m_skill_range.transform.localScale = m_player.transform.GetChild(index).GetComponent<Hero>().abilities[int.Parse(results[0].gameObject.name)].m_base_range;
+        float const1 = m_player.transform.GetChild(index).GetComponent<Hero>().abilities[int.Parse(results[0].gameObject.name)].m_base_range;
+        m_skill_range.transform.localScale = new Vector3(const1, const1, const1);
         m_skill_range.gameObject.SetActive(true);
         //이제 코루틴부르면됨.
     }

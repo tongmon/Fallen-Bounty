@@ -112,7 +112,7 @@ public class MouseOverPanel : MonoBehaviour
                 m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", m_hero.abilities[int.Parse(results[0].gameObject.name)].m_name);
                 m_panel.transform.GetChild(2).GetComponent<Text>().text = string.Format("물리 계수 : {0}", m_hero.abilities[int.Parse(results[0].gameObject.name)].m_base_phhsical_coefficient);
                 m_panel.transform.GetChild(3).GetComponent<Text>().text = string.Format("마법 계수 : {0}", m_hero.abilities[int.Parse(results[0].gameObject.name)].m_base_magic_coefficient);
-                m_panel.transform.GetChild(4).GetComponent<Text>().text = string.Format("범위 : x:{0},y:{1}", m_hero.abilities[int.Parse(results[0].gameObject.name)].m_base_range.x, m_hero.abilities[int.Parse(results[0].gameObject.name)].m_base_range.y);
+                m_panel.transform.GetChild(4).GetComponent<Text>().text = string.Format("범위 : {0}", m_hero.abilities[int.Parse(results[0].gameObject.name)].m_base_range);
                 m_panel.transform.GetChild(5).GetComponent<Text>().text = string.Format("쿨타임 : {0}", m_hero.abilities[int.Parse(results[0].gameObject.name)].m_base_cooldown_time);
                 
             }

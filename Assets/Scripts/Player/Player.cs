@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
     {
         if (item.m_type == "Attack")
         {
-            GameObject obj = Instantiate(new GameObject(), Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.Euler(0, 0, 0));
+            GameObject obj = new GameObject();
             StartCoroutine(item.Activation(obj, item));
         }
         else if (item.m_type == "Portion")
