@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using System.IO;
@@ -52,9 +53,9 @@ public class Saveslot : MonoBehaviour
     IEnumerator ButtonDoTween(GameObject obj)
     {
         save_state = (SaveState)Resources.Load("SaveFile/SaveFile" + obj.name);
-
-        UnityEditor.EditorUtility.SetDirty(save_state);//ÀÌ°ÅÇÏ¸é °×²¨µµ ÀúÀåµÊ.
-
+#if UNITY_EDITOR
+        EditorUtility.SetDirty(save_state);//ÀÌ°ÅÇÏ¸é °×²¨µµ ÀúÀåµÊ.
+#endif
         save_name.name = "SaveFile" + obj.name;
         DontDestroyOnLoad(save_name);
 

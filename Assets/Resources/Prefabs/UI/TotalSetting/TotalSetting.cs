@@ -12,13 +12,14 @@ public class TotalSetting : FadeInOut
     [SerializeField] GameObject[] m_char;//캐릭터 4개
     [SerializeField] GameObject m_hero_name;//캐릭터이름
     [SerializeField] GameObject m_hero_status;//캐릭터 변수들
-    Vector2 []m_pos = new Vector2[10];
+    Vector3 []m_pos = new Vector3[10];
 
 
     [SerializeField] Image m_stat_panel;//캐릭터 스텟창
     [SerializeField] Image FadeInOut;
     [SerializeField] Button m_start_button;//선택종료 버튼
-    Vector2[] m_target_vec = { new Vector2(2, 1.5f), new Vector2(0, 2.25f), new Vector2(-2, 1.5f), new Vector2(0, 0.75f) };
+    Vector3[] m_target_vec = { new Vector3(2, 1.5f,100), new Vector3(0, 2.25f,100),
+        new Vector3(-2, 1.5f,100), new Vector3(0, 0.75f,100) };//100을 넣어야 z값이 0으로 고정됨.
     //캐릭터 이동시 이용할 좌표들
     private void Awake()
     {
@@ -57,7 +58,7 @@ public class TotalSetting : FadeInOut
         for(int i = 0; i<9; i++)
         {
             yield return new WaitForSecondsRealtime(Random.Range(0, 0.3f));
-            Vector2 target_vec = m_box[i].transform.position + new Vector3(5f, -1.5f, 0);
+            Vector3 target_vec = m_box[i].transform.position + new Vector3(5f, -1.5f, 0);
             m_box[i].transform.DORotate(new Vector3(0,0,180), 1);
             m_box[i].transform.DOMove(target_vec, 1);
         }

@@ -46,7 +46,7 @@ public class GameScene : FadeInOut
     
     
     //맵 노드
-    List <MapNode> m_node;
+    public List <MapNode> m_node;
 
     //마우스 오버 검사레이
     GraphicRaycaster m_gr;
@@ -157,7 +157,7 @@ public class GameScene : FadeInOut
         m_player.GetComponent<Player>().ActivateItem(m_itemInfos[int.Parse(obj.name)]);
     }
 
-    public void SkillSet()//포문을 쓰면 안됨. 이유 : 버튼누를때 다시 리스터넣는줄에 들어와서 인덱스값이 바뀜.
+    public void SkillSet()//포문을 쓰면 안됨. 이유 : 버튼누를때 다시 리스너 넣는줄에 들어와서 인덱스값이 바뀜.
     {
         foreach (Hero hero in m_player.GetComponent<Player>().m_heroes)
         {
@@ -269,7 +269,7 @@ public class GameScene : FadeInOut
     {
         yield return null;
         FadeInM();
-        m_node = JsonParser.LoadJsonArrayToList<MapNode>("Assets/Resources/MapJson/MapJson");
+        //m_node = JsonParser.LoadJsonArrayToList<MapNode>("Assets/Resources/MapJson/MapJson");
     }
     
     IEnumerator OnBackToMap()
@@ -295,7 +295,8 @@ public class GameScene : FadeInOut
         FadeOutForScene();
         yield return new WaitForSecondsRealtime(1.1f);
 
-        System.IO.File.Delete("Assets/Resources/MapJson/MapJson.json");
+        m_node[40].m_num = 0;//이거로 초기화.
+        //System.IO.File.Delete("Assets/Resources/MapJson/MapJson.json");
         SceneManager.LoadScene("Saveslot_Scene");
         Destroy(GameObject.FindGameObjectWithTag("MapType"));
         Destroy(GameObject.FindGameObjectWithTag("SaveFileName"));

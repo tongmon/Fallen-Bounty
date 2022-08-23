@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using JsonSubTypes;
-using Newtonsoft.Json;
 
 
 public enum eMapType
@@ -16,8 +14,9 @@ public enum eMapType
     Random,
     Boss
 }
-[JsonConverter(typeof(JsonSubtypes))]
-public class MapNode
+
+[CreateAssetMenu]
+public class MapNode : ScriptableObject
 {
     public int m_num;
     public Vector3 m_position;//위치, 선위치.
