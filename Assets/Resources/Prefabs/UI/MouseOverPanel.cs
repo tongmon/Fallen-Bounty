@@ -106,7 +106,6 @@ public class MouseOverPanel : MonoBehaviour
         else
         {
             m_gr[1].Raycast(m_ped, results);//여기서 오류남
-            Debug.Log(results[0]);
             if (results[0].gameObject.tag == "Skill")//캐릭터 선택창에서
             {
                 m_panel.transform.GetChild(0).GetComponent<Image>().sprite = m_hero.m_sprite;

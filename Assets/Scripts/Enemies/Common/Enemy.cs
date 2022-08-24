@@ -51,7 +51,11 @@ public class Enemy : Creature
     {
         if (other.tag == "Item" || other.tag == "Skill")
         {
-            if(other.tag == "Skill") m_current_health -= float.Parse(other.name);
+            if (other.tag == "Skill")
+            {
+                m_current_health -= float.Parse(other.name);
+                other.GetComponent<Ability>().m_hit_count++;
+            }
             StopCoroutine("HitToolTip");
             m_hit_state.Enter();
             StartCoroutine("HitToolTip");

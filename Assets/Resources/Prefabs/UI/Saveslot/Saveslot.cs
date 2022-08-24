@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEditor;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
-using System.IO;
 using DG.Tweening;
 
 public class Saveslot : MonoBehaviour
@@ -52,6 +51,7 @@ public class Saveslot : MonoBehaviour
     }
     IEnumerator ButtonDoTween(GameObject obj)
     {
+        for (int i = 0; i < save_button.Length; i++) save_button[i].GetComponent<Button>().interactable = false;
         save_state = (SaveState)Resources.Load("SaveFile/SaveFile" + obj.name);
 #if UNITY_EDITOR
         EditorUtility.SetDirty(save_state);//ÀÌ°ÅÇÏ¸é °×²¨µµ ÀúÀåµÊ.

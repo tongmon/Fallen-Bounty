@@ -7,22 +7,57 @@ using UnityEngine.SceneManagement;
 
 public class TotalSetting : FadeInOut
 {
-    [SerializeField] GameObject[] m_box; //아이템박스
-    [SerializeField] GameObject m_book_shelf;//스킬창 박스
-    [SerializeField] GameObject[] m_char;//캐릭터 4개
-    [SerializeField] GameObject m_hero_name;//캐릭터이름
-    [SerializeField] GameObject m_hero_status;//캐릭터 변수들
+    //세이브파일
+    SaveState saveState;
+
+    Player player;
+
+    //아이템박스
+    [SerializeField] GameObject[] m_box;
+
+    //스킬창 박스
+    [SerializeField] GameObject m_book_shelf;
+
+    //캐릭터 4개
+    [SerializeField] GameObject[] m_char;
+
+    //캐릭터이름
+    [SerializeField] GameObject m_hero_name;
+
+    //캐릭터 변수들
+    [SerializeField] GameObject m_hero_status;
+
+    //기초 위치 저장용
     Vector3 []m_pos = new Vector3[10];
 
+    //캐릭터 스텟창
+    [SerializeField] Image m_stat_panel;
 
-    [SerializeField] Image m_stat_panel;//캐릭터 스텟창
+    //스왑 버튼
+    [SerializeField] Button[] m_swap_button;
+
+    //페이드 아웃 이미지
     [SerializeField] Image FadeInOut;
-    [SerializeField] Button m_start_button;//선택종료 버튼
-    Vector3[] m_target_vec = { new Vector3(2, 1.5f,100), new Vector3(0, 2.25f,100),
-        new Vector3(-2, 1.5f,100), new Vector3(0, 0.75f,100) };//100을 넣어야 z값이 0으로 고정됨.
-    //캐릭터 이동시 이용할 좌표들
-    private void Awake()
+
+    //선택종료 버튼
+    [SerializeField] Button m_start_button;
+
+    
+    Vector3[] m_target_vec_four = { new Vector3(200, 150f,0), new Vector3(0, 225f,0),
+        new Vector3(-200, 150f,0), new Vector3(0, 75f,0) };
+
+    Vector3[] m_target_vec_three = { new Vector3(200, 225f,0), new Vector3(-200, 225f,0), new Vector3(0, 75f,0) };
+
+    Vector3[] m_target_vec_two = {  new Vector3(0, 225f,0), new Vector3(0, 75f,0) };
+
+    private void Awake()//위치 저장 및 세이브파일 가져옴
     {
+        saveState = (SaveState)Resources.Load("SaveFile/" + GameObject.FindGameObjectWithTag("SaveFileName"));
+
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();//플레이어 참조
+
+        OnStart(player.m_hero_limit);
+
         for(int i = 0; i < m_pos.Length- 1; i++)
         {
             m_pos[i] = m_box[i].transform.localPosition;
@@ -37,16 +72,75 @@ public class TotalSetting : FadeInOut
         }
         m_book_shelf.transform.localPosition = m_pos[9];
         
-        StartCoroutine(Box());//코루틴이용
+        StartCoroutine(Box());//코루틴 이용
         StartCoroutine(BookShelf());
         StartCoroutine(StatPanel());
         m_start_button.GetComponent<Image>().DOColor(Color.white, 1.0f);//점차 나타나는 두트윈
+    }
+
+    public void OnStart(int index)//스왑버튼 끄기 및 캐릭터 비활성화.
+    {
+        if(index == 1)
+        {
+            m_swap_button[0].interactable = false;
+            m_swap_button[1].interactable = false;
+        }
+        for(int i = index; i <m_char.Length; i++)
+        {
+            m_char[i].SetActive(false);
+        }
+        if(index == 2)
+        {
+            m_char[0].transform.localPosition = m_target_vec_two[0];
+            m_char[1].transform.localPosition = m_target_vec_two[1];
+        }
+        else if(index == 3)
+        {
+            m_char[0].transform.localPosition = m_target_vec_three[0];
+            m_char[1].transform.localPosition = m_target_vec_three[1];
+            m_char[2].transform.localPosition = m_target_vec_three[2];
+        }
     }
     public void StartButtonClicked()//캐릭터 선택된후 시작.
     {
         StartCoroutine(StartScene());
     }
-    IEnumerator StartScene()
+    public void CharSwapRight()
+    {
+        int index = player.m_hero_limit;//인덱스(히어로 수)로 각 위치마다 다르게 해야함.
+        GameObject temp = m_char[index-1];
+
+        for (int i = index-1; i >= 0; i--) //오른쪽으로 위치변경
+        {
+            if(index == 2) m_char[i].transform.DOLocalMove(m_target_vec_two[i], 0.8f);
+            else if(index == 3) m_char[i].transform.DOLocalMove(m_target_vec_three[i], 0.8f);
+            else m_char[i].transform.DOLocalMove(m_target_vec_four[i], 0.8f);
+
+            if (i == 0) m_char[i] = temp;
+            else m_char[i] = m_char[i - 1];
+            //위치변경으로 캐릭터 순서도 변경, 0이 자기자신
+        }
+    }
+    public void CharSwapLeft()
+    {
+        int index = player.m_hero_limit;
+        GameObject temp = m_char[0];
+
+        for (int i = 0; i < index; i++)//왼쪽으로 위치변경
+        {
+            if(index == 2) m_char[i].transform.DOLocalMove(m_target_vec_two[(i + 1) % index], 0.8f);//둘다 한번 멈췄다감
+            else if(index == 3) m_char[i].transform.DOLocalMove(m_target_vec_three[(i + 3) % index], 0.8f);//얘도
+            else m_char[i].transform.DOLocalMove(m_target_vec_four[(i + 2) % index], 0.8f);
+
+            if (i == index-1) m_char[i] = temp;
+            else m_char[i] = m_char[i + 1];
+        }
+    }   
+    public void StartButton()//시작하기버튼
+    {
+        StartCoroutine(StartGame());
+    }
+    IEnumerator StartScene()//게임시작
     {
         FadeInOut.gameObject.SetActive(true);
         FadeInOut.DOColor(Color.black, 0.3f);
@@ -78,32 +172,6 @@ public class TotalSetting : FadeInOut
         m_hero_name.SetActive(true);
         m_hero_status.SetActive(true);
         StopCoroutine(StatPanel());
-    }
-    public void CharSwapRight()
-    {
-        GameObject temp = m_char[3];
-        for (int i = 3; i >= 0; i--) //오른쪽으로 위치변경
-        {
-            m_char[i].transform.DOMove(m_target_vec[i], 0.8f);
-            if (i == 0) m_char[i] = temp;
-            else m_char[i] = m_char[i - 1];
-            //위치변경으로 캐릭터 순서도 변경, 0이 자기자신
-        }
-    }
-    public void CharSwapLeft() 
-    {
-        GameObject temp = m_char[0];
-        for (int i = 0; i < 4; i++)//왼쪽으로 위치변경
-        {
-            m_char[i].transform.DOMove(m_target_vec[(i+2)%4], 0.8f);
-            if (i == 3) m_char[i] = temp;
-            else m_char[i] = m_char[i + 1];
-            //위치변경으로 캐릭터 순서도 변경, 0이 자기자신
-        }
-    }
-    public void StartButton()//시작하기버튼
-    {
-        StartCoroutine(StartGame());   
     }
     IEnumerator StartGame()
     {

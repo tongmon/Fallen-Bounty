@@ -185,7 +185,6 @@ public class GameScene : FadeInOut
         float const1 = m_player.transform.GetChild(index).GetComponent<Hero>().abilities[int.Parse(results[0].gameObject.name)].m_base_range;
         m_skill_range.transform.localScale = new Vector3(const1, const1, const1);
         m_skill_range.gameObject.SetActive(true);
-        //이제 코루틴부르면됨.
     }
     public void SkillRangeOff()
     {
