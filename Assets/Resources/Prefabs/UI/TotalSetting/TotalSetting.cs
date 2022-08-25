@@ -42,13 +42,12 @@ public class TotalSetting : FadeInOut
     //선택종료 버튼
     [SerializeField] Button m_start_button;
 
-    
+    Vector3[] m_target_vec_two = { new Vector3(0, 225f, 0), new Vector3(0, 75f, 0) };
+
+    Vector3[] m_target_vec_three = { new Vector3(200, 225f, 0), new Vector3(-200, 225f, 0), new Vector3(0, 75f, 0) };
+
     Vector3[] m_target_vec_four = { new Vector3(200, 150f,0), new Vector3(0, 225f,0),
         new Vector3(-200, 150f,0), new Vector3(0, 75f,0) };
-
-    Vector3[] m_target_vec_three = { new Vector3(200, 225f,0), new Vector3(-200, 225f,0), new Vector3(0, 75f,0) };
-
-    Vector3[] m_target_vec_two = {  new Vector3(0, 225f,0), new Vector3(0, 75f,0) };
 
     private void Awake()//위치 저장 및 세이브파일 가져옴
     {
@@ -89,16 +88,16 @@ public class TotalSetting : FadeInOut
         {
             m_char[i].SetActive(false);
         }
-        if(index == 2)
+        if (index == 2)
         {
-            m_char[0].transform.localPosition = m_target_vec_two[0];
-            m_char[1].transform.localPosition = m_target_vec_two[1];
+            m_char[0].transform.localPosition = new Vector3(0, 75f, 0);
+            m_char[1].transform.localPosition = new Vector3(0, 225f, 0);
         }
-        else if(index == 3)
-        {
-            m_char[0].transform.localPosition = m_target_vec_three[0];
-            m_char[1].transform.localPosition = m_target_vec_three[1];
-            m_char[2].transform.localPosition = m_target_vec_three[2];
+        else if (index == 3) 
+        { 
+            m_char[0].transform.localPosition = new Vector3(0, 75f, 0);
+            m_char[1].transform.localPosition = new Vector3(200, 225f, 0);
+            m_char[2].transform.localPosition = new Vector3(-200, 225f, 0);
         }
     }
     public void StartButtonClicked()//캐릭터 선택된후 시작.
@@ -128,8 +127,8 @@ public class TotalSetting : FadeInOut
 
         for (int i = 0; i < index; i++)//왼쪽으로 위치변경
         {
-            if(index == 2) m_char[i].transform.DOLocalMove(m_target_vec_two[(i + 1) % index], 0.8f);//둘다 한번 멈췄다감
-            else if(index == 3) m_char[i].transform.DOLocalMove(m_target_vec_three[(i + 3) % index], 0.8f);//얘도
+            if(index == 2) m_char[i].transform.DOLocalMove(m_target_vec_two[(i) % index], 0.8f);//둘다 한번 멈췄다감
+            else if(index == 3) m_char[i].transform.DOLocalMove(m_target_vec_three[(i + 1) % index], 0.8f);//얘도
             else m_char[i].transform.DOLocalMove(m_target_vec_four[(i + 2) % index], 0.8f);
 
             if (i == index-1) m_char[i] = temp;
