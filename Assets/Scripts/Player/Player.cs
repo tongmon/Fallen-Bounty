@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        m_hero_limit = 2;
+        m_hero_limit = 1;
         m_card_option_limit = 3;
         m_item_count = 0;
         DontDestroyOnLoad(gameObject);//항시존재

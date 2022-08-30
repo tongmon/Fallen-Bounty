@@ -37,7 +37,7 @@ public class Berserker : Hero
         m_name = "Berserker";
         //BerserkerData berserker_data = (BerserkerData)m_data;
         //berserker_data.m_info = "공격력, 체력이 높다. 방어, 마법저항은 평균치.";
-        abilities.Add(new DrainAbility());//Scriptable.CreateInstance 사용해보자.
+        //abilities.Add(new DrainAbility());//Scriptable.CreateInstance 사용해보자.
     }
 
     protected override void OnUpdate()

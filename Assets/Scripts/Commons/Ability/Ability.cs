@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 스킬
+[CreateAssetMenu]
 public class Ability : ScriptableObject
 {
     // 스킬 카테고리, 공용 스킬인지, 어떤 직업의 스킬인지...
