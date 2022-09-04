@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// https://intrepidgeeks.com/tutorial/how-to-install-navmesh-in-2d-smooth-for-beginners
+// navmesh 2d 위 링크 참조, 기존 navmesh plus 2d는 create path가 안되는듯...
 public class HeroPhysicsComponent : PhysicsComponent
 {
     public Vector2 m_move_velocity;
@@ -10,9 +12,9 @@ public class HeroPhysicsComponent : PhysicsComponent
     {
         m_data = gameobject.GetComponent<Hero>();
 
-        //m_mass = ((HeroData)((Hero)m_data).m_data).mass;
+        m_mass = ((HeroData)((Hero)m_data).m_data).mass;
 
-        //m_move_velocity = ((HeroData)((Hero)m_data).m_data).velocity;
+        m_move_velocity = ((HeroData)((Hero)m_data).m_data).velocity;
     }
 
     public override void Update()

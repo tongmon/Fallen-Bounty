@@ -29,12 +29,12 @@ public class HeroGraphicsComponent : GraphicsComponent
 
         m_dragline_fade_speed = 3.0f;
 
-        //m_sprite_mask = ((Hero)m_data).transform.Find("RangerSpriteMask").GetComponent<SpriteMask>();//수정 필
+        m_sprite_mask = ((Hero)m_data).transform.Find("RangerSpriteMask").GetComponent<SpriteMask>();
 
-        //m_sprite_mask.transform.position = new Vector3(((Hero)m_data).m_physics_component.m_position.x,
-            //((Hero)m_data).m_physics_component.m_bottom.y - m_sprite_mask.bounds.size.y / 2, m_sprite_mask.transform.position.z);
+        m_sprite_mask.transform.position = new Vector3(((Hero)m_data).m_physics_component.m_position.x,
+            ((Hero)m_data).m_physics_component.m_bottom.y - m_sprite_mask.bounds.size.y / 2, m_sprite_mask.transform.position.z);
 
-        //m_main_sprite = ((Hero)m_data).transform.Find("RangerSprite").GetComponent<SpriteRenderer>();//수정 필
+        m_main_sprite = ((Hero)m_data).transform.Find("RangerSprite").GetComponent<SpriteRenderer>();
     }
 
     public override void Update()
