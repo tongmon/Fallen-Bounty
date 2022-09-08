@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
     public HeroManager m_hero_manager;
     public HeroHolder m_hero_holder;
    
+    public ItemHolder m_item_holder;
+
 
     private void Awake()
     {
@@ -50,14 +52,7 @@ public class Player : MonoBehaviour
             StopCoroutine(c_coroutine);//코루틴 정지는 코루틴을 저장해야함.
         }   
     }
-    public void AddItem(ItemInfo item)
-    {
-        if(m_item_count > 4)
-        {
-            m_items.Dequeue();
-        }
-        m_items.Enqueue(item);//이 방식말고 홀더를 써야함.
-    }
+    //아이템 얻기 추가요망
     public void ActivateItem(ItemInfo item)
     {
         if (item.m_type == "Attack")

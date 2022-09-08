@@ -14,14 +14,11 @@ public class HeroHolder
     public Dictionary<string, int> m_heroes_dict;
     public Dictionary<string, int> m_sub_heroes_dict;
 
-    // »ç½Ç»ó Player
-    public GameObject m_game_object;
 
     public HeroHolder(GameObject obj)
     {
-        m_game_object = obj;
         Player player = obj.GetComponent<Player>();
-        m_hero_limit = player.m_hero_limit;
+        m_hero_limit = 1;
 
         m_heroes = new List<Hero>();
         m_sub_heroes = new List<Hero>();
