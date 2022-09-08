@@ -10,7 +10,10 @@ public class TotalSetting : FadeInOut
     //세이브파일
     SaveState saveState;
 
+    //플레이어
     Player player;
+
+    private int char_index;
 
     //아이템박스
     [SerializeField] GameObject[] m_box;
@@ -51,6 +54,7 @@ public class TotalSetting : FadeInOut
 
     private void Awake()//위치 저장 및 세이브파일 가져옴
     {
+        char_index = 0;//스킬박스안에 인덱스로 찾기위함.
         saveState = (SaveState)Resources.Load("SaveFile/" + GameObject.FindGameObjectWithTag("SaveFileName"));
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();//플레이어 참조
@@ -108,15 +112,24 @@ public class TotalSetting : FadeInOut
     {
         int index = player.m_hero_limit;//인덱스(히어로 수)로 각 위치마다 다르게 해야함.
         GameObject temp = m_char[index-1];
+        if(char_index == 0)
+        {
+            char_index = index;
+        }
+        else char_index--;
 
         for (int i = index-1; i >= 0; i--) //오른쪽으로 위치변경
         {
-            if(index == 2) m_char[i].transform.DOLocalMove(m_target_vec_two[i], 0.8f);
-            else if(index == 3) m_char[i].transform.DOLocalMove(m_target_vec_three[i], 0.8f);
-            else m_char[i].transform.DOLocalMove(m_target_vec_four[i], 0.8f);
+            if(index == 2) m_char[i].transform.DOLocalMove(m_target_vec_two[i], 0.4f);
+            else if(index == 3) m_char[i].transform.DOLocalMove(m_target_vec_three[i], 0.4f);
+            else m_char[i].transform.DOLocalMove(m_target_vec_four[i], 0.4f);
 
-            if (i == 0) m_char[i] = temp;
+            if (i == 0)
+            {
+                m_char[i] = temp;
+            }
             else m_char[i] = m_char[i - 1];
+
             //위치변경으로 캐릭터 순서도 변경, 0이 자기자신
         }
     }
@@ -124,12 +137,17 @@ public class TotalSetting : FadeInOut
     {
         int index = player.m_hero_limit;
         GameObject temp = m_char[0];
+        if (char_index == index)
+        {
+            char_index = 0;
+        }
+        else char_index++;
 
         for (int i = 0; i < index; i++)//왼쪽으로 위치변경
         {
-            if(index == 2) m_char[i].transform.DOLocalMove(m_target_vec_two[(i) % index], 0.8f);//둘다 한번 멈췄다감
-            else if(index == 3) m_char[i].transform.DOLocalMove(m_target_vec_three[(i + 1) % index], 0.8f);//얘도
-            else m_char[i].transform.DOLocalMove(m_target_vec_four[(i + 2) % index], 0.8f);
+            if(index == 2) m_char[i].transform.DOLocalMove(m_target_vec_two[(i) % index], 0.4f);//둘다 한번 멈췄다감
+            else if(index == 3) m_char[i].transform.DOLocalMove(m_target_vec_three[(i + 1) % index], 0.4f);//얘도
+            else m_char[i].transform.DOLocalMove(m_target_vec_four[(i + 2) % index], 0.4f);
 
             if (i == index-1) m_char[i] = temp;
             else m_char[i] = m_char[i + 1];

@@ -159,7 +159,7 @@ public class GameScene : FadeInOut
 
     public void SkillSet()//포문을 쓰면 안됨. 이유 : 버튼누를때 다시 리스너 넣는줄에 들어와서 인덱스값이 바뀜.
     {
-        foreach (Hero hero in m_player.GetComponent<Player>().m_heroes)
+        foreach (Hero hero in m_player.GetComponent<Player>().m_hero_holder.m_heroes)
         {
             foreach (GameObject btn in m_skills)
             {

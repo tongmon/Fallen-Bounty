@@ -8,8 +8,6 @@ public class Player : MonoBehaviour
 
     public Queue <ItemInfo> m_items;
 
-    public List <Hero> m_heroes; 
-    // 히어로 소지량 제한수
     public int m_hero_limit;
 
     // 카드 선택지 개수 제한수
@@ -29,11 +27,12 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        m_hero_holder = new HeroHolder(gameObject);
         m_hero_limit = 1;
         m_card_option_limit = 3;
         m_item_count = 0;
         DontDestroyOnLoad(gameObject);//항시존재
-        for(int i = 0; i < m_hero_limit; i++) m_heroes.Add(transform.GetChild(i).GetComponent<Hero>());
+        for (int i = 0; i < m_hero_limit; i++) m_hero_holder.AddHero(transform.GetChild(i).GetComponent<Hero>());
         /*
         // 히어로 초기화
         m_hero_manager = new HeroManager(gameObject);
@@ -57,7 +56,7 @@ public class Player : MonoBehaviour
         {
             m_items.Dequeue();
         }
-        m_items.Enqueue(item);
+        m_items.Enqueue(item);//이 방식말고 홀더를 써야함.
     }
     public void ActivateItem(ItemInfo item)
     {
@@ -68,10 +67,10 @@ public class Player : MonoBehaviour
         }
         else if (item.m_type == "Portion")
         {
-            StartCoroutine(item.Activation(m_heroes,item));
-            for(int i = 0; i<m_heroes.Count; i++)
+            StartCoroutine(item.Activation(m_hero_holder.m_heroes,item));
+            for(int i = 0; i< m_hero_holder.m_heroes.Count; i++)
             {
-                StartCoroutine(m_heroes[i].GetComponent<Hero>().HitToolTip());
+                StartCoroutine(m_hero_holder.m_heroes[i].GetComponent<Hero>().HitToolTip());
             }
         }
     }

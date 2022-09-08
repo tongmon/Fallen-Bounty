@@ -72,6 +72,7 @@ public class Creature : MonoBehaviour
     {
         OnAwake();
         m_hit_state = new StateComponent(null);
+        m_abilities_limit = 1;
     }
 
     protected void Start()

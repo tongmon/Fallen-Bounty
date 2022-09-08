@@ -7008,7 +7008,8 @@ MonoBehaviour:
   m_current_armor: 0
   m_current_magic_armor: 0
   m_cur_attack_cooltime: 0
-  abilities: []
+  abilities:
+  - {fileID: 11400000, guid: 0b62906d190a2f94082a170a393f593e, type: 2}
   m_sprite: {fileID: 0}
   m_name: 
   is_unlocked: 0
@@ -29281,7 +29282,7 @@ GameObject:
   - component: {fileID: 7494978842388696353}
   - component: {fileID: 7494978842388696366}
   m_Layer: 0
-  m_Name: Character2
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29766,7 +29767,7 @@ GameObject:
   - component: {fileID: 7494978842685496737}
   - component: {fileID: 7494978842685496750}
   m_Layer: 0
-  m_Name: Character4
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30240,7 +30241,7 @@ GameObject:
   - component: {fileID: 7494978843167922055}
   - component: {fileID: 7494978843167922052}
   m_Layer: 0
-  m_Name: Character3
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31008,7 +31009,7 @@ GameObject:
   - component: {fileID: 7494978843997061909}
   - component: {fileID: 7494978843997061906}
   m_Layer: 0
-  m_Name: Character
+  m_Name: 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
