@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 스킬
-[CreateAssetMenu]
-public class Ability : ScriptableObject
+
+public class Ability : Component
 {
     // 스킬 카테고리, 공용 스킬인지, 어떤 직업의 스킬인지...
     // 카드 선택을 한 후에 특정 영웅을 강화하는 건지, 전체 영웅을 강화하는 건지 로직을 가르는 척도
@@ -21,12 +21,13 @@ public class Ability : ScriptableObject
     public float m_base_duration_time;//지속 시간
 
     public float m_base_range;//적용 범위
-    public float m_base_phhsical_coefficient;//물리 계수
+    public float m_base_physical_coefficient;//물리 계수
     public float m_base_magic_coefficient;//마법 계수
 
     public float m_hit_count;
+
     public virtual void Activate(GameObject obj) 
-    { 
-       m_hit_count = 0;
+    {
+
     }
 }

@@ -7,7 +7,9 @@ public class AbilityManager
 {
     // 모든 종류의 스킬이 담김
     public List<Ability> m_abilities;
+
     public Dictionary<string, int> m_abilities_dict;
+
     public GameObject m_game_object;
 
     public AbilityManager(GameObject obj)

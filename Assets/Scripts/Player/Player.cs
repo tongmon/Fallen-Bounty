@@ -29,6 +29,9 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         m_hero_holder = new HeroHolder(gameObject);
+
+
+        m_item_holder = new ItemHolder(gameObject);
         m_item_manager = new ItemManager(gameObject, m_items);
 
         m_card_option_limit = 3;
