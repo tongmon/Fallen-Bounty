@@ -20,7 +20,7 @@ public class DrainAbility : Ability
 
     public override void Activate(GameObject obj)//obj에 자기자신 넣어야할듯
     {
-        m_hit_count = 0;//초기화
+        int m_hit_count = 0;//초기화
 
         float delay = 0;
         //애니메이션 동작

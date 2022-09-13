@@ -23,52 +23,34 @@ public class SmashAbility : Ability
 
     public override void Activate(GameObject obj)//obj에 자기자신 넣어야할듯
     {
-        m_hit_count = 0;//초기화
+        Vector3 target_tr = Vector3.zero;
 
-        Vector3 target_tr;
+        GameObject skill = new GameObject();
 
         image = new GameObject();//소환
-        image.transform.localPosition = Input.mousePosition;
-
+        image.tag = "SkillToolTip";
         image.AddComponent<Image>();
-        image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Image");
+        image.GetComponent<RectTransform>().position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Image/Circle");
         image.transform.localScale = new Vector3(m_base_range, m_base_range, 1);
 
-        while (true)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Destroy(image);
-                target_tr = Input.mousePosition;
-                break;
-            }
-            if (Input.GetMouseButtonDown(1))//오른쪽 버튼시 취소.
-            {
-                Destroy(image);
-                return;
-            }
-            image.transform.localPosition = Input.mousePosition;//마우스 따라다니기
-        }
-
-        float delay = 0;
+        skill.AddComponent<Skill>();
+        skill.GetComponent<Skill>().coroutine = SkillAct(obj,skill,target_tr);
+    }
+    IEnumerator SkillAct(GameObject obj,GameObject skill, Vector3 target_tr)
+    {
         //애니메이션 동작
-        while (true)//코루틴 대신
-        {
-            if (delay > m_base_active_time) break;//나중에 애니메이션 시간빼야함.
-            delay += Time.deltaTime;
-        }
+
+        yield return new WaitForSecondsRealtime(m_base_active_time); //애니메이션 시간 빼줘야함.
 
         HeroData heroData = (HeroData)obj.GetComponent<Hero>().m_data;
 
-        GameObject skill = new GameObject();
         skill.transform.localPosition = target_tr;
         skill.AddComponent<CircleCollider2D>();
         skill.GetComponent<CircleCollider2D>().isTrigger = true;//트리거로 탐지해야 됨.
         skill.GetComponent<CircleCollider2D>().radius *= m_base_range;
         skill.name = (m_base_physical_coefficient * heroData.physic_power).ToString();
         skill.tag = "Skill";
-        obj.GetComponent<Hero>().m_current_health += m_hit_count * 10;//맞은애 *10만큼 피회복.
         Destroy(skill, m_base_duration_time);//지속시간 이후 삭제
     }
-    
 }
