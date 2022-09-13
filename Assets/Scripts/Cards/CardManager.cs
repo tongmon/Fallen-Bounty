@@ -16,6 +16,8 @@ public class CardManager
     // »ç½Ç»ó Player
     public GameObject m_game_object;
 
+    public int m_card_option_limit = 3;
+
     public CardManager(GameObject obj)
     {
         m_game_object = obj;

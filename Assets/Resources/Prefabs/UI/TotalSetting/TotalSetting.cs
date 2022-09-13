@@ -59,7 +59,7 @@ public class TotalSetting : FadeInOut
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();//플레이어 참조
 
-        OnStart(player.m_hero_limit);
+        OnStart(player.m_hero_holder.m_hero_limit);
 
         for(int i = 0; i < m_pos.Length- 1; i++)
         {
@@ -110,7 +110,7 @@ public class TotalSetting : FadeInOut
     }
     public void CharSwapRight()
     {
-        int index = player.m_hero_limit;//인덱스(히어로 수)로 각 위치마다 다르게 해야함.
+        int index = player.m_hero_holder.m_hero_limit;//인덱스(히어로 수)로 각 위치마다 다르게 해야함.
         GameObject temp = m_char[index-1];
         if(char_index == 0)
         {
@@ -135,7 +135,7 @@ public class TotalSetting : FadeInOut
     }
     public void CharSwapLeft()
     {
-        int index = player.m_hero_limit;
+        int index = player.m_hero_holder.m_hero_limit;
         GameObject temp = m_char[0];
         if (char_index == index)
         {

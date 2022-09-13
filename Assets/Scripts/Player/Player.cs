@@ -5,10 +5,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-
-    public Queue <ItemInfo> m_items;
-
-    public int m_hero_limit;
+    [SerializeField] private ItemInfo[] m_items;
 
     // 카드 선택지 개수 제한수
     public int m_card_option_limit;
@@ -16,6 +13,7 @@ public class Player : MonoBehaviour
     // 아이템 갯수 제한
     public int m_item_count;
 
+    //아이템 사용 코루틴 저장용
     Coroutine c_coroutine;
 
     public CardManager m_card_manager;
@@ -25,16 +23,19 @@ public class Player : MonoBehaviour
     public HeroHolder m_hero_holder;
    
     public ItemHolder m_item_holder;
+    public ItemManager m_item_manager;
 
 
     private void Awake()
     {
         m_hero_holder = new HeroHolder(gameObject);
-        m_hero_limit = 1;
+        m_item_manager = new ItemManager(gameObject, m_items);
+
         m_card_option_limit = 3;
         m_item_count = 0;
         DontDestroyOnLoad(gameObject);//항시존재
-        for (int i = 0; i < m_hero_limit; i++) m_hero_holder.AddHero(transform.GetChild(i).GetComponent<Hero>());
+        for (int i = 0; i < m_hero_holder.m_hero_limit; i++) 
+            m_hero_holder.AddHero(transform.GetChild(i).GetComponent<Hero>());
         /*
         // 히어로 초기화
         m_hero_manager = new HeroManager(gameObject);
@@ -52,7 +53,7 @@ public class Player : MonoBehaviour
             StopCoroutine(c_coroutine);//코루틴 정지는 코루틴을 저장해야함.
         }   
     }
-    //아이템 얻기 추가요망
+
     public void ActivateItem(ItemInfo item)
     {
         if (item.m_type == "Attack")
