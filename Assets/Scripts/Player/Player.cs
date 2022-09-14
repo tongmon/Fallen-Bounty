@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public int m_item_count;
 
     //아이템 사용 코루틴 저장용
-    Coroutine c_coroutine;
+    Coroutine c_item_coroutine;
 
     public CardManager m_card_manager;
     public CardHolder m_card_holder;
@@ -51,9 +51,9 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && c_item_coroutine != null)
         {
-            StopCoroutine(c_coroutine);//코루틴 정지는 코루틴을 저장해야함.
+            StopCoroutine(c_item_coroutine);//코루틴 정지는 코루틴을 저장해야함.
         }   
     }
 
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         if (item.m_type == "Attack")
         {
             GameObject obj = new GameObject();
-            c_coroutine = StartCoroutine(item.Activation(obj, item));
+            c_item_coroutine = StartCoroutine(item.Activation(obj, item));
         }
         else if (item.m_type == "Portion")
         {

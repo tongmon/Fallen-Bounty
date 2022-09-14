@@ -4,33 +4,32 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
-    public IEnumerator coroutine;
+    public float range = 0;
 
-    Vector3 target_tr = new Vector3(0, 0, 0);
+    public float duration_time = 0;
 
-    private void OnEnable()
+    Vector3 vec;
+    private void Start()
     {
-        StartCoroutine(InputDelay(GameObject.FindGameObjectWithTag("SkillToolTip"),target_tr));
+        vec = Input.mousePosition;
+        vec.z = Camera.main.farClipPlane;
+        transform.rotation = Quaternion.Euler(60, 0, 0);
     }
-
-    public IEnumerator InputDelay(GameObject image, Vector3 target_tr)
+    void Update()
     {
-        while (true)
+        vec = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = new Vector3(vec.x, vec.y ,0);
+        if (Input.GetMouseButtonDown(0))
         {
-            yield return null;
-            if (Input.GetMouseButtonDown(0))
-            {
-                Destroy(image);
-                target_tr = Input.mousePosition;
-                break;
-            }
-            if (Input.GetMouseButtonDown(1))//오른쪽 버튼시 취소.
-            {
-                Destroy(image);
-                break;
-            }
-            image.GetComponent<RectTransform>().position = Camera.main.ScreenToWorldPoint(Input.mousePosition);//마우스 따라다니기
+            tag = "Skill";
+            gameObject.AddComponent<CircleCollider2D>();
+            GetComponent<CircleCollider2D>().isTrigger = true;//트리거로 탐지해야 됨.
+            GetComponent<CircleCollider2D>().radius *= range;
+            Destroy(gameObject, duration_time);
         }
-        StartCoroutine(coroutine);
+        else if (Input.GetMouseButtonDown(1))
+        {
+            Destroy(gameObject);
+        }
     }
 }

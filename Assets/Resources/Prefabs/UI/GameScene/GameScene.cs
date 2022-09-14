@@ -41,9 +41,6 @@ public class GameScene : FadeInOut
 
     //연결할 플레이어
     GameObject m_player;
-
-    //스킬 범위 툴팁 
-    
     
     //맵 노드
     public List <MapNode> m_node;
@@ -73,6 +70,15 @@ public class GameScene : FadeInOut
         m_player = GameObject.Find("Player");      
         m_gr = GameObject.Find("PrefabCanvas").GetComponent<GraphicRaycaster>();
         m_ped = new PointerEventData(null);
+
+        for(int i =0; i < m_player.GetComponent<Player>().m_hero_holder.m_hero_limit; i++)//버튼 초기화
+        {
+            for(int j= 0; j< m_player.GetComponent<Player>().m_hero_holder.m_heroes[i].abilities.Count; j++)
+            {
+                m_skills[i].transform.GetChild(j).GetComponent<Button>().interactable = true;
+                m_skills[i].transform.GetChild(j).GetComponent<Image>().raycastTarget = true;
+            }
+        }
 
         SkillSet();
 

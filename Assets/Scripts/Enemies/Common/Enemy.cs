@@ -56,6 +56,7 @@ public class Enemy : Creature
                 m_current_health -= float.Parse(other.name);
                 other.GetComponent<Ability>().m_hit_count++;
             }
+            transform.GetChild(1).GetChild(1).GetComponent<Image>().fillAmount = m_current_health / Edata.health;
             StopCoroutine("HitToolTip");
             m_hit_state.Enter();
             StartCoroutine("HitToolTip");

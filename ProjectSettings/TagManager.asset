@@ -18,6 +18,8 @@ TagManager:
   - MapType
   - HeroFoot
   - Skill
+  - SkillToolTip
+  - Canvas
   layers:
   - Default
   - TransparentFX

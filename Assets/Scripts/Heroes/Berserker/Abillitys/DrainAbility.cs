@@ -15,7 +15,7 @@ public class DrainAbility : Ability
         m_base_duration_time = 0.15f;
 
         m_base_physical_coefficient = 1.0f;
-        m_base_range = 3.0f;
+        m_base_range = 2.0f;
     }
 
     public override void Activate(GameObject obj)//obj에 자기자신 넣어야할듯
