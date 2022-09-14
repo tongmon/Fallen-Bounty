@@ -20,6 +20,7 @@ public class Ability : Component
     public float m_base_active_time;//시전 시간
     public float m_base_duration_time;//지속 시간
 
+    public float m_base_active_range;//타격 범위
     public float m_base_range;//적용 범위
     public float m_base_physical_coefficient;//물리 계수
     public float m_base_magic_coefficient;//마법 계수
