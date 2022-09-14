@@ -33,9 +33,9 @@ public class DrainAbility : Ability
         HeroData heroData = (HeroData)obj.GetComponent<Hero>().m_data;
 
         GameObject skill = new GameObject();
+        skill.transform.localScale = new Vector3(m_base_range, m_base_range, 1);
         skill.AddComponent<CircleCollider2D>();
         skill.GetComponent<CircleCollider2D>().isTrigger = true;//트리거로 탐지해야 됨.
-        skill.GetComponent<CircleCollider2D>().radius *= m_base_range;
         skill.name = (m_base_physical_coefficient * heroData.physic_power).ToString();
         skill.tag = "Skill";
         obj.GetComponent<Hero>().m_current_health += m_hit_count * 10;//맞은애 *10만큼 피회복.
