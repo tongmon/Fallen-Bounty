@@ -22,8 +22,6 @@ public class SmashAbility : Ability
 
     public override void Activate(GameObject obj)//obj에 자기자신 넣어야할듯
     {
-        Vector3 target_tr = Vector3.zero;
-
         HeroData heroData = (HeroData)obj.GetComponent<Hero>().m_data;
 
         GameObject skill = new GameObject();
