@@ -7,7 +7,7 @@ public class Skill : MonoBehaviour
 {
     Vector3 vec;
 
-    public GameObject characterTarget;
+    public GameObject characterTarget;//스킬 시전한 캐릭터
 
     public float range = 0;
 
@@ -15,10 +15,11 @@ public class Skill : MonoBehaviour
 
     public float active_time = 0;
 
-    public bool posible = false;
+    public bool posible = false;//스킬 사용 가능 여부
 
-    bool buttonClick = false;
-    private void Start()
+    bool buttonClick = false;//스킬 사용 이후 위치 변경 여부
+
+    private void OnEnable()
     {
         vec = Input.mousePosition;
         vec.z = Camera.main.farClipPlane;

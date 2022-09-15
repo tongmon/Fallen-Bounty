@@ -4,49 +4,54 @@ using UnityEngine;
 
 public class Range : MonoBehaviour
 {
-    public GameObject obj;
+    public GameObject obj;//스킬 시전한 캐릭터
 
-    GUIStyle style = new GUIStyle();
+    GUIStyle style = new GUIStyle();//IMGUI에 스타일 넣기용
+
+    GameObject mouse;//충돌값을 가진 마우스 포인터.
 
     Vector3 vec;
-    private void Awake()
+    private void OnEnable()
     {
         style.fontSize = 32;
         style.normal.textColor = Color.white;
+
         vec = Input.mousePosition;
         vec.z = Camera.main.farClipPlane;
+
+        mouse = new GameObject();
+        mouse.AddComponent<CircleCollider2D>();
+        mouse.name = "MousePointer";
+        mouse.transform.localScale = new Vector3(0.1f, 0.1f, 1);
     }
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        vec = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouse.transform.position = new Vector3(vec.x, vec.y, 0);
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
-            GameObject mouse = new GameObject();
-            mouse.AddComponent<CircleCollider2D>();
-            mouse.transform.localScale = new Vector3(0.01f, 0.01f, 1);
-            mouse.name = "Mouse";
-            mouse.AddComponent<Rigidbody2D>();
-            mouse.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-            vec = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mouse.transform.position = new Vector3(vec.x, vec.y, 0);
             Destroy(mouse);
             Destroy(gameObject);
         }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            Destroy(gameObject);
-        }
-        transform.position = obj.transform.position;
+        transform.position = obj.transform.position;//시전한 캐릭터 따라가기.
     }
     private void OnGUI()//IMGUI사용
     {
         GUI.Label(new Rect(760, 1000, 200, 100), "범위 밖이면 발동되지 않습니다.", style);
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)//스킬 사용 가능
     {
-        if(other.name == "Mouse")
+        if(other.gameObject == mouse)
         {
-            obj.GetComponent<Skill>().posible = true;
+            GameObject.FindGameObjectWithTag("Skill").GetComponent<Skill>().posible = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)//스킬 사용 불가
+    {
+        if (other.gameObject == mouse)
+        {
+            GameObject.FindGameObjectWithTag("Skill").GetComponent<Skill>().posible = false;
         }
     }
 }

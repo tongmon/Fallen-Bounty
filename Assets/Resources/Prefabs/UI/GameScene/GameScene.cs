@@ -188,7 +188,7 @@ public class GameScene : FadeInOut
         else if (m_skills[1].activeSelf) index = 1;
         else if (m_skills[2].activeSelf) index = 2;
         else index = 3;
-        float const1 = m_player.transform.GetChild(index).GetComponent<Hero>().abilities[int.Parse(results[0].gameObject.name)].m_base_range;
+        float const1 = m_player.transform.GetChild(index).GetComponent<Hero>().abilities[int.Parse(results[0].gameObject.name)].m_base_active_range;
         m_skill_range.transform.localScale = new Vector3(const1, const1, const1);
         m_skill_range.gameObject.SetActive(true);
     }
