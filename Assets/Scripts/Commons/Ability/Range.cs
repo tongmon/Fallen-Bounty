@@ -22,6 +22,7 @@ public class Range : MonoBehaviour
         mouse = new GameObject();
         mouse.AddComponent<CircleCollider2D>();
         mouse.name = "MousePointer";
+        mouse.layer = LayerMask.NameToLayer("SkillRange");
         mouse.transform.localScale = new Vector3(0.1f, 0.1f, 1);
     }
 

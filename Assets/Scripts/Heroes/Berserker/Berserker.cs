@@ -39,6 +39,7 @@ public class Berserker : Hero
         //berserker_data.m_info = "공격력, 체력이 높다. 방어, 마법저항은 평균치.";
         abilities.Add(new DrainAbility());
         abilities.Add(new SmashAbility());
+        abilities.Add(new OutRageBreakAbility());
     }
 
     protected override void OnUpdate()

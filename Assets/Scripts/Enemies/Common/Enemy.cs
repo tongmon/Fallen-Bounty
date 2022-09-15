@@ -56,14 +56,14 @@ public class Enemy : Creature
                 m_current_health -= float.Parse(other.name);
                 other.GetComponent<Ability>().m_hit_count++;
             }
-            transform.GetChild(1).GetChild(1).GetComponent<Image>().fillAmount = m_current_health / Edata.health;
             StopCoroutine("HitToolTip");
             m_hit_state.Enter();
             StartCoroutine("HitToolTip");
         }
     }
-    IEnumerator HitToolTip()
+    public IEnumerator HitToolTip()
     {
+        transform.GetChild(1).GetChild(1).GetComponent<Image>().fillAmount = m_current_health / Edata.health;
         transform.GetChild(1).GetChild(0).GetComponent<Image>().DOColor(Color.white, 0.1f);
         transform.GetChild(1).GetChild(1).GetComponent<Image>().DOColor(Color.white, 0.1f);
         yield return new WaitForSecondsRealtime(0.1f);

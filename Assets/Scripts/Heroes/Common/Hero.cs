@@ -80,4 +80,18 @@ public class Hero : Creature
         transform.GetChild(1).GetChild(0).GetComponent<Image>().DOFade(0, 1.0f);
         transform.GetChild(1).GetChild(1).GetComponent<Image>().DOFade(0, 1.0f);
     }
+    public IEnumerator HitToolTip(float health)
+    {
+        transform.GetChild(1).GetChild(1).GetComponent<Image>().fillAmount = m_current_health / health;
+        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOColor(Color.white, 0.1f);
+        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOColor(Color.white, 0.1f);
+        yield return new WaitForSecondsRealtime(0.1f);
+
+        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOFade(0.2f, 1.0f);
+        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOFade(0.2f, 1.0f);
+        yield return new WaitForSecondsRealtime(1.0f);
+
+        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOFade(0, 1.0f);
+        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOFade(0, 1.0f);
+    }
 }

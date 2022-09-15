@@ -33,10 +33,11 @@ public class SmashAbility : Ability
         skill.transform.localScale = new Vector3(m_base_active_range, m_base_active_range, 1);
         skill.tag = "Skill";
         skill.AddComponent<Skill>();
+        skill.GetComponent<Skill>().style = "Range";
         skill.GetComponent<Skill>().duration_time = m_base_duration_time;
         skill.GetComponent<Skill>().range = m_base_active_range;
         skill.GetComponent<Skill>().active_time = m_base_active_time;
-        skill.GetComponent<Skill>().characterTarget = obj;
+        skill.GetComponent<Skill>().m_character = obj;
         skill.name = (m_base_physical_coefficient * heroData.physic_power).ToString();
 
         skill_range.name = "SkillRange";

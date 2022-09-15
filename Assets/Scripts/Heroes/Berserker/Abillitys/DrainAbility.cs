@@ -15,7 +15,7 @@ public class DrainAbility : Ability
         m_base_duration_time = 0.15f;
 
         m_base_physical_coefficient = 1.0f;
-        m_base_active_range = 2.0f;
+        m_base_range = 2.0f;
     }
 
     public override void Activate(GameObject obj)//obj에 자기자신 넣어야할듯
@@ -33,7 +33,7 @@ public class DrainAbility : Ability
         HeroData heroData = (HeroData)obj.GetComponent<Hero>().m_data;
 
         GameObject skill = new GameObject();
-        skill.transform.localScale = new Vector3(m_base_active_range, m_base_active_range, 1);
+        skill.transform.localScale = new Vector3(m_base_range, m_base_range, 1);
         skill.AddComponent<CircleCollider2D>();
         skill.GetComponent<CircleCollider2D>().isTrigger = true;//트리거로 탐지해야 됨.
         skill.name = (m_base_physical_coefficient * heroData.physic_power).ToString();
