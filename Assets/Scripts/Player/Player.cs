@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -9,9 +8,6 @@ public class Player : MonoBehaviour
 
     // 카드 선택지 개수 제한수
     public int m_card_option_limit;
-
-    // 아이템 갯수 제한
-    public int m_item_count;
 
     //아이템 사용 코루틴 저장용
     Coroutine c_item_coroutine;
@@ -29,13 +25,12 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         m_hero_holder = new HeroHolder(gameObject);
-
+        m_hero_manager = new HeroManager(gameObject);
 
         m_item_holder = new ItemHolder(gameObject);
         m_item_manager = new ItemManager(gameObject, m_items);
 
         m_card_option_limit = 3;
-        m_item_count = 0;
         DontDestroyOnLoad(gameObject);//항시존재
         for (int i = 0; i < m_hero_holder.m_hero_limit; i++) 
             m_hero_holder.AddHero(transform.GetChild(i).GetComponent<Hero>());

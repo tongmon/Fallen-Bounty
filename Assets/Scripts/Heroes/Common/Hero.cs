@@ -35,8 +35,6 @@ public class Hero : Creature
     //이미지
     public Sprite m_sprite;
 
-    public string m_name; //히어로 이름.
-
     public bool is_unlocked;
     protected override void OnAwake()
     {
@@ -67,31 +65,36 @@ public class Hero : Creature
     {
         
     }
+
+    public void StartHitToolTip(float health)
+    {
+        StartCoroutine(HitToolTip(health));
+    }
     public IEnumerator HitToolTip()
     {
-        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOColor(Color.white, 0.1f);
-        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOColor(Color.white, 0.1f);
+        transform.GetChild(transform.childCount-1).GetChild(0).GetComponent<Image>().DOColor(Color.white, 0.1f);
+        transform.GetChild(transform.childCount - 1).GetChild(1).GetComponent<Image>().DOColor(Color.white, 0.1f);
         yield return new WaitForSecondsRealtime(0.1f);
 
-        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOFade(0.2f, 1.0f);
-        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOFade(0.2f, 1.0f);
+        transform.GetChild(transform.childCount - 1).GetChild(0).GetComponent<Image>().DOFade(0.2f, 1.0f);
+        transform.GetChild(transform.childCount - 1).GetChild(1).GetComponent<Image>().DOFade(0.2f, 1.0f);
         yield return new WaitForSecondsRealtime(1.0f);
 
-        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOFade(0, 1.0f);
-        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOFade(0, 1.0f);
+        transform.GetChild(transform.childCount - 1).GetChild(0).GetComponent<Image>().DOFade(0, 1.0f);
+        transform.GetChild(transform.childCount - 1).GetChild(1).GetComponent<Image>().DOFade(0, 1.0f);
     }
     public IEnumerator HitToolTip(float health)
     {
-        transform.GetChild(1).GetChild(1).GetComponent<Image>().fillAmount = m_current_health / health;
-        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOColor(Color.white, 0.1f);
-        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOColor(Color.white, 0.1f);
+        transform.GetChild(transform.childCount - 1).GetChild(1).GetComponent<Image>().fillAmount = m_current_health / health;
+        transform.GetChild(transform.childCount - 1).GetChild(0).GetComponent<Image>().DOColor(Color.white, 0.1f);
+        transform.GetChild(transform.childCount - 1).GetChild(1).GetComponent<Image>().DOColor(Color.white, 0.1f);
         yield return new WaitForSecondsRealtime(0.1f);
 
-        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOFade(0.2f, 1.0f);
-        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOFade(0.2f, 1.0f);
+        transform.GetChild(transform.childCount - 1).GetChild(0).GetComponent<Image>().DOFade(0.2f, 1.0f);
+        transform.GetChild(transform.childCount - 1).GetChild(1).GetComponent<Image>().DOFade(0.2f, 1.0f);
         yield return new WaitForSecondsRealtime(1.0f);
 
-        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOFade(0, 1.0f);
-        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOFade(0, 1.0f);
+        transform.GetChild(transform.childCount - 1).GetChild(0).GetComponent<Image>().DOFade(0, 1.0f);
+        transform.GetChild(transform.childCount - 1).GetChild(1).GetComponent<Image>().DOFade(0, 1.0f);
     }
 }

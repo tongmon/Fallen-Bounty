@@ -46,9 +46,9 @@ public class Skill : MonoBehaviour //타겟팅 이동, 사거리 발동 전용 스킬
                     if (hit.collider.gameObject.tag == "Enemy")
                     {
                         hit.collider.gameObject.GetComponent<Enemy>().m_current_health -= damage;
-                        StartCoroutine(hit.collider.gameObject.GetComponent<Enemy>().HitToolTip());
+                        hit.collider.gameObject.GetComponent<Enemy>().StartHitToolTip();
                         m_character.GetComponent<Hero>().m_current_health -= damage / 3;
-                        StartCoroutine(m_character.GetComponent<Hero>().HitToolTip(hdata.health));
+                        m_character.GetComponent<Hero>().StartHitToolTip(hdata.health);
                         buttonClick = true;
                     }
                 }

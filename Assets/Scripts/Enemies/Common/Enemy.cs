@@ -61,18 +61,23 @@ public class Enemy : Creature
             StartCoroutine("HitToolTip");
         }
     }
+
+    public void StartHitToolTip()
+    {
+        StartCoroutine(HitToolTip());
+    }
     public IEnumerator HitToolTip()
     {
-        transform.GetChild(1).GetChild(1).GetComponent<Image>().fillAmount = m_current_health / Edata.health;
-        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOColor(Color.white, 0.1f);
-        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOColor(Color.white, 0.1f);
+        transform.GetChild(transform.childCount - 1).GetChild(1).GetComponent<Image>().fillAmount = m_current_health / Edata.health;
+        transform.GetChild(transform.childCount - 1).GetChild(0).GetComponent<Image>().DOColor(Color.white, 0.1f);
+        transform.GetChild(transform.childCount - 1).GetChild(1).GetComponent<Image>().DOColor(Color.white, 0.1f);
         yield return new WaitForSecondsRealtime(0.1f);
 
-        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOFade(0.2f, 1.0f);
-        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOFade(0.2f, 1.0f);
+        transform.GetChild(transform.childCount - 1).GetChild(0).GetComponent<Image>().DOFade(0.2f, 1.0f);
+        transform.GetChild(transform.childCount - 1).GetChild(1).GetComponent<Image>().DOFade(0.2f, 1.0f);
         yield return new WaitForSecondsRealtime(1.0f);
 
-        transform.GetChild(1).GetChild(0).GetComponent<Image>().DOFade(0, 1.0f);
-        transform.GetChild(1).GetChild(1).GetComponent<Image>().DOFade(0, 1.0f);
+        transform.GetChild(transform.childCount - 1).GetChild(0).GetComponent<Image>().DOFade(0, 1.0f);
+        transform.GetChild(transform.childCount - 1).GetChild(1).GetComponent<Image>().DOFade(0, 1.0f);
     }
 }
