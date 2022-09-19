@@ -1,31 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
-using JsonSubTypes;
-using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-[JsonConverter(typeof(JsonSubtypes))]
-public class EnemyData : CreatureData
-{
-    #region Data from JSON file
-    
-    #endregion
-}
 
 public class Enemy : Creature
 {
-    EnemyData Edata = new EnemyData();
+    EnemyData Edata;
     protected override void OnAwake()
     {
         base.OnAwake();
+        Edata = (EnemyData)m_data;
     }
 
     protected override void OnStart()
     {
-        Edata.health = 100;
-        m_current_health = Edata.health;
     }
 
     protected override void OnUpdate()

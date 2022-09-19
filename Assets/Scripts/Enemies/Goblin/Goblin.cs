@@ -1,19 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using JsonSubTypes;
-using Newtonsoft.Json;
 using UnityEngine;
 
-[JsonConverter(typeof(JsonSubtypes))]
-class GoblinData : EnemyData
-{
-    #region Data from JSON file
-
-    #endregion
-}
 
 public class Goblin : Enemy
 {
+    [SerializeField] GoblinData goblin_data;
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -27,7 +19,7 @@ public class Goblin : Enemy
 
     protected override void OnStart()
     {
-
+        m_current_health = goblin_data.health;
     }
 
     protected override void OnUpdate()

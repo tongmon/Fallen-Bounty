@@ -18,7 +18,8 @@ public class BerserkerGraphicsComponent : HeroGraphicsComponent
 
         Color mat_color = m_line_renderer.material.color;
         m_line_renderer.material.color = new Color(mat_color.r, mat_color.g, mat_color.b, m_dragline_alpha);
-
+        m_line_renderer.startWidth = 0.1f;
+        m_line_renderer.endWidth = 0.1f;
         m_line_renderer.SetPosition(0, m_seleted_sprite.transform.position);
         m_line_renderer.SetPosition(1, ((HeroInputComponent)data.m_input_component).m_dragging_point);
     }

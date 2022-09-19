@@ -1,30 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using JsonSubTypes;
-using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-
-[JsonConverter(typeof(JsonSubtypes))]
-[JsonSubtypes.KnownSubTypeWithProperty(typeof(RangerData), "weakness_popup_cooltime")]
-public class HeroData : CreatureData
-{
-    #region Data from JSON file
-    // 물리 공격력
-    public int physic_power;
-    // 마법 공격력
-    public int magic_power;
-    // 평타 속도, 초 단위
-    public float attack_cooltime;
-    // 공격 범위
-    public float melee_range;
-    // 공격 범위
-    public float ranged_range;
-
-    public string m_info;
-    #endregion
-}
 
 public class Hero : Creature
 {
@@ -34,7 +12,7 @@ public class Hero : Creature
     public List<Ability> abilities;
     //이미지
     public Sprite m_sprite;
-
+    //언락 여부
     public bool is_unlocked;
     protected override void OnAwake()
     {

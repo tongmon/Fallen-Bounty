@@ -1,30 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using JsonSubTypes;
-using Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.UI;
-
-[JsonConverter(typeof(JsonSubtypes))]
-[JsonSubtypes.KnownSubTypeWithProperty(typeof(HeroData), "physic_power")]
-public class CreatureData
-{
-    #region Data from JSON file
-    // 생명체 이름
-    // [JsonProperty(PropertyName = "Type Name")] 나중에 보기 쉽게 이렇게 바꿀 수 있음
-    public string type_name;
-    // 생명력(체력)
-    public float health;
-    // 생명체 속도
-    public JsonVector2 velocity;
-    // 질량
-    public float mass;
-    // 마력 방어력
-    public int magic_armor;
-    // 물리 방어력
-    public int physic_armor;
-    #endregion
-}
 
 public class Creature : MonoBehaviour
 {

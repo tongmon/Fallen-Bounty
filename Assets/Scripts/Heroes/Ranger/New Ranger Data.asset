@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 793eeda276307c54c80899383b58a5e2, type: 3}
+  m_Name: New Ranger Data
+  m_EditorClassIdentifier: 
+  type_name: RangerData
+  health: 30
+  velocity: {x: 10, y: 10}
+  mass: 7
+  magic_armor: 10
+  physic_armor: 5
+  physic_power: 15
+  magic_power: 15
+  attack_cooltime: 3
+  melee_range: -1
+  ranged_range: 90
+  m_info: Long Range, High Damage
+  weakness_hit_cnt: 0
+  weakness_popup_cooltime: 3
+  projectile_type: Arrow

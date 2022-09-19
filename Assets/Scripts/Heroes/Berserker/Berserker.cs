@@ -1,27 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using JsonSubTypes;
-using Newtonsoft.Json;
-
-
-[JsonConverter(typeof(JsonSubtypes))]
-public class BerserkerData : HeroData
-{
-    #region Data from JSON file
-    //아직미정
-    
-    #endregion
-}
 
 
 public class Berserker : Hero
 {
+    [SerializeField] public BerserkerData berserker_data;
     protected override void OnAwake()
     {
         base.OnAwake();
 
-        m_data = JsonParser.GetHero("Berserker");
         
         m_input_component = new BerserkerInputComponent(gameObject);
         m_physics_component = new BerserkerPhysicsComponent(gameObject);
@@ -34,7 +22,6 @@ public class Berserker : Hero
 
     protected override void OnStart()
     {
-        BerserkerData berserker_data = (BerserkerData)m_data;
         berserker_data.type_name = "Berserker";
         //berserker_data.m_info = "공격력, 체력이 높다. 방어, 마법저항은 평균치.";
         abilities.Add(new DrainAbility());
@@ -67,6 +54,8 @@ public class Berserker : Hero
     protected override void OnFixedUpdate()
     {
         base.OnFixedUpdate();
+
+        m_physics_component.FixedUpdate();
     }
 
     /*

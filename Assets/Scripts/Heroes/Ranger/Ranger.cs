@@ -1,23 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using JsonSubTypes;
-using Newtonsoft.Json;
 using UnityEngine;
-
-// 레인저는 몬스터의 약점이 주기적으로 뜨고 해당 약점을 가진 적을 때리면 해당 전투한정으로 데미지가 세진다고 하자.
-[JsonConverter(typeof(JsonSubtypes))]
-public class RangerData : HeroData
-{
-    #region Data from JSON file
-    public int weakness_hit_cnt;
-    public float weakness_popup_cooltime;
-    public string projectile_type;
-    public JsonVector2 arrow_velocity;  
-    #endregion
-}
 
 public class Ranger : Hero
 {
+    [SerializeField] RangerData ranger_data;
     //private long m_arrow_attribute; // 화살 속성, 64bit
     //private GameObject m_arrow;
     Animator animator;
@@ -26,8 +13,6 @@ public class Ranger : Hero
     protected override void OnAwake()
     {
         base.OnAwake();
-
-        m_data = JsonParser.GetHero("Ranger");
 
         m_input_component = new RangerInputComponent(gameObject);
         m_physics_component = new RangerPhysicsComponent(gameObject);
@@ -40,10 +25,9 @@ public class Ranger : Hero
 
     protected override void OnStart()
     {
-        RangerData ranger_data = (RangerData)m_data;
         ranger_data.m_info = "공, 이속은 좀 느리나, 공격력과 사거리가 높음.";
         // 초기에 화살 5개 생성
-        ProjectilePool.InitPool(((RangerData)m_data).projectile_type, 3);
+        ProjectilePool.InitPool(ranger_data.projectile_type, 3);
         animator = GetComponent<Animator>();
         // 이거 움직이는데 넣어줘야함 animator.SetBool("isMove", true);
     }

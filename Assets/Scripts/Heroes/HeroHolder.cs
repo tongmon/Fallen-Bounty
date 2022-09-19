@@ -32,12 +32,12 @@ public class HeroHolder
     {
         if (m_heroes.Count < m_hero_limit)
         {
-            m_heroes_dict[((HeroData)hero.m_data).type_name] = m_heroes.Count;
+            m_heroes_dict[hero.gameObject.name] = m_heroes.Count;
             m_heroes.Add(hero);
         }
         else
         {
-            m_sub_heroes_dict[((HeroData)hero.m_data).type_name] = m_sub_heroes.Count;
+            m_sub_heroes_dict[hero.gameObject.name] = m_sub_heroes.Count;
             m_sub_heroes.Add(hero);
         }
     }
