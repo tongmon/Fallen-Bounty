@@ -30,13 +30,13 @@ public class DrainAbility : Ability
             delay += Time.deltaTime;
         }
 
-        HeroData heroData = (HeroData)obj.GetComponent<Hero>().m_data;
+        BerserkerData bdata = obj.GetComponent<Berserker>().berserker_data;
 
         GameObject skill = new GameObject();
         skill.transform.localScale = new Vector3(m_base_range, m_base_range, 1);
         skill.AddComponent<CircleCollider2D>();
         skill.GetComponent<CircleCollider2D>().isTrigger = true;//트리거로 탐지해야 됨.
-        skill.name = (m_base_physical_coefficient * heroData.physic_power).ToString();
+        skill.name = (m_base_physical_coefficient * bdata.physic_power).ToString();
         skill.tag = "Skill";
         obj.GetComponent<Hero>().m_current_health += m_hit_count * 10;//맞은애 *10만큼 피회복.
         Destroy(skill, m_base_duration_time);//지속시간 이후 삭제

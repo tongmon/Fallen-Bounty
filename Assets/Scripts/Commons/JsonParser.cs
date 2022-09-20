@@ -62,29 +62,6 @@ https://makolyte.com/csharp-deserialize-json-to-a-derived-type/
 위의 이유는 json 파싱할 때 클래스가 뻥튀기되기 때문에 이를 최대한 줄여야댐
 */
 
-[JsonConverter(typeof(JsonSubtypes))]
-public class JsonVector2
-{
-    public float x;
-    public float y;
-
-    public JsonVector2(float x, float y)
-    {
-        this.x = x;
-        this.y = y;
-    }
-
-    public static implicit operator Vector2(JsonVector2 vec)
-    {
-        return new Vector2(vec.x, vec.y);
-    }
-
-    public static explicit operator JsonVector2(Vector2 vec)
-    {
-        return (new JsonVector2(vec.x, vec.y));
-    }
-}
-
 public class JsonParser
 {
     private static JsonParser m_inst = null;

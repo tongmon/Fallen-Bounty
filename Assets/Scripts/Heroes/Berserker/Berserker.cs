@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class Berserker : Hero
 {
-    [SerializeField] public BerserkerData berserker_data;
+    public BerserkerData berserker_data;
     protected override void OnAwake()
     {
         base.OnAwake();
 
-        
         m_input_component = new BerserkerInputComponent(gameObject);
         m_physics_component = new BerserkerPhysicsComponent(gameObject);
         m_graphics_component = new BerserkerGraphicsComponent(gameObject);

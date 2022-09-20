@@ -23,7 +23,7 @@ public class SmashAbility : Ability
 
     public override void Activate(GameObject obj)//obj에 자기자신 넣어야할듯
     {
-        HeroData heroData = (HeroData)obj.GetComponent<Hero>().m_data;
+        BerserkerData bdata = obj.GetComponent<Berserker>().berserker_data;
 
         GameObject skill = new GameObject();
         GameObject skill_range = new GameObject();
@@ -34,15 +34,19 @@ public class SmashAbility : Ability
         skill.tag = "Skill";
         skill.AddComponent<Skill>();
         skill.GetComponent<Skill>().style = "Range";
+        skill.GetComponent<SpriteRenderer>().sortingLayerName = "Stage";
+        skill.GetComponent<SpriteRenderer>().sortingOrder = 2;
         skill.GetComponent<Skill>().duration_time = m_base_duration_time;
         skill.GetComponent<Skill>().range = m_base_active_range;
         skill.GetComponent<Skill>().active_time = m_base_active_time;
         skill.GetComponent<Skill>().m_character = obj;
-        skill.name = (m_base_physical_coefficient * heroData.physic_power).ToString();
+        skill.name = (m_base_physical_coefficient * bdata.physic_power).ToString();
 
         skill_range.name = "SkillRange";
         skill_range.transform.localScale = new Vector3(m_base_range, m_base_range, 1);//스킬 나중에 타원으로 설정해야함
         skill_range.AddComponent<SpriteRenderer>();
+        skill_range.GetComponent<SpriteRenderer>().sortingLayerName = "Stage";
+        skill_range.GetComponent<SpriteRenderer>().sortingOrder = 2;
         skill_range.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Image/Circle");
         skill_range.AddComponent<CircleCollider2D>();
         skill_range.GetComponent<CircleCollider2D>().isTrigger = true;

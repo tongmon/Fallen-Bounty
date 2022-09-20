@@ -7,5 +7,5 @@ public class BerserkerData : HeroData
 {
    
     //특성 스킬 아직미정
-
+    
 }

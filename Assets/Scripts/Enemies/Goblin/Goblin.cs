@@ -9,7 +9,7 @@ public class Goblin : Enemy
     protected override void OnAwake()
     {
         base.OnAwake();
-
+        Edata = goblin_data;
         m_input_component = new GoblinInputComponent(gameObject);
         m_graphics_component = new GoblinGraphicsComponent(gameObject);
         m_physics_component = new GoblinPhysicsComponent(gameObject);

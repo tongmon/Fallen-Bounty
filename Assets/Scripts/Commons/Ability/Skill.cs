@@ -42,7 +42,8 @@ public class Skill : MonoBehaviour //타겟팅 이동, 사거리 발동 전용 스킬
             {
                 if (style == "Target")
                 {
-                    hit = Physics2D.Raycast(vec, transform.forward, 110, ~(1<<9));
+                    int layer_mask = 1 << LayerMask.NameToLayer("Creature");
+                    hit = Physics2D.Raycast(vec, transform.forward, Mathf.Infinity, layer_mask);
                     if (hit.collider.gameObject.tag == "Enemy")
                     {
                         hit.collider.gameObject.GetComponent<Enemy>().m_current_health -= damage;

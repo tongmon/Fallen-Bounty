@@ -21,29 +21,24 @@ public class CanvasManager : FadeInOut
         m_canvas[0].SetActive(true);
         m_canvasList.AddFirst(m_canvas[0]);
     }
-    public void TitleCanvasAdd()
+    public void LogCanvasAdd()
     {
         int index = 1;
         StartCoroutine(CanvasIn(index));
     }
-    public void LogCanvasAdd()
+    public void OptionCanvasAdd()
     {
         int index = 2;
         StartCoroutine(CanvasIn(index));
     }
-    public void OptionCanvasAdd()
+    public void CharacterCanvasAdd()
     {
         int index = 3;
         StartCoroutine(CanvasIn(index));
     }
-    public void CharacterCanvasAdd()
-    {
-        int index = 4;
-        StartCoroutine(CanvasIn(index));
-    }
     public void TotalSettingCanvasAdd()
     {
-        int index = 5;
+        int index = 4;
         StartCoroutine(CanvasIn(index));
     }
 

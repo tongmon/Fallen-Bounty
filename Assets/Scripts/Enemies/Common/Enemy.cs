@@ -7,15 +7,15 @@ using DG.Tweening;
 
 public class Enemy : Creature
 {
-    EnemyData Edata;
+    public EnemyData Edata;
     protected override void OnAwake()
     {
         base.OnAwake();
-        Edata = (EnemyData)m_data;
     }
 
     protected override void OnStart()
     {
+
     }
 
     protected override void OnUpdate()
@@ -34,7 +34,7 @@ public class Enemy : Creature
         {
             m_hit_state.Update();
             m_current_health -= float.Parse(other.name);
-            transform.GetChild(1).GetChild(1).GetComponent<Image>().fillAmount =  m_current_health/Edata.health;
+            transform.GetChild(transform.childCount - 1).GetChild(1).GetComponent<Image>().fillAmount =  m_current_health/Edata.health;
         }
     }
     private void OnTriggerEnter2D(Collider2D other)

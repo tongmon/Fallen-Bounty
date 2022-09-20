@@ -24,12 +24,12 @@ public class RangerAutoAttackStateComponent : StateComponent
         float distance = Vector2.Distance(data.m_target.m_physics_component.m_position, data.m_physics_component.m_position);
 
         // 공격 쿨타임이 되었고 사거리 내에 적이 있다면 투사체 발사
-        if (data.m_cur_attack_cooltime < 0 && distance <= ((RangerData)data.m_data).ranged_range)
+        if (data.m_cur_attack_cooltime < 0 && distance <= (data.gameObject.GetComponent<Ranger>().ranger_data.ranged_range))
         {
-            data.m_cur_attack_cooltime = ((RangerData)data.m_data).attack_cooltime;
-            Arrow arrow = (Arrow)ProjectilePool.GetObj(((RangerData)data.m_data).projectile_type);
+            data.m_cur_attack_cooltime = data.gameObject.GetComponent<Ranger>().ranger_data.attack_cooltime;
+            Arrow arrow = (Arrow)ProjectilePool.GetObj(data.gameObject.GetComponent<Ranger>().ranger_data.projectile_type);
 
-            arrow.Shoot(data, data.m_target, ((RangerData)data.m_data).arrow_velocity);
+            arrow.Shoot(data, data.m_target, data.gameObject.GetComponent<Ranger>().ranger_data.arrow_velocity);
         }
     }
 

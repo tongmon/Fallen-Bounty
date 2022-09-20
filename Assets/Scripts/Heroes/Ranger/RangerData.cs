@@ -9,5 +9,5 @@ public class RangerData : HeroData
     public int weakness_hit_cnt;
     public float weakness_popup_cooltime;
     public string projectile_type;
-    public JsonVector2 arrow_velocity;
+    public Vector2 arrow_velocity;
 }

@@ -15,7 +15,8 @@ public class Range : MonoBehaviour
     {
         style.fontSize = 32;
         style.normal.textColor = Color.white;
-
+        GetComponent<SpriteRenderer>().sortingLayerName = "Stage";
+        GetComponent<SpriteRenderer>().sortingOrder = 2;
         vec = Input.mousePosition;
         vec.z = Camera.main.farClipPlane;
 

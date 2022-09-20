@@ -23,7 +23,9 @@ MonoBehaviour:
   attack_cooltime: 3
   melee_range: -1
   ranged_range: 90
-  m_info: Long Range, High Damage
+  m_info: "\uACF5, \uC774\uC18D\uC740 \uC880 \uB290\uB9AC\uB098, \uACF5\uACA9\uB825\uACFC
+    \uC0AC\uAC70\uB9AC\uAC00 \uB192\uC74C."
   weakness_hit_cnt: 0
   weakness_popup_cooltime: 3
   projectile_type: Arrow
+  arrow_velocity: {x: 10, y: 10}

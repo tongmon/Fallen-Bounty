@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ranger : Hero
 {
-    [SerializeField] RangerData ranger_data;
+    public RangerData ranger_data;
     //private long m_arrow_attribute; // 화살 속성, 64bit
     //private GameObject m_arrow;
     Animator animator;
