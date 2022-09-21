@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 793eeda276307c54c80899383b58a5e2, type: 3}
-  m_Name: New Ranger Data
+  m_Name: Ranger Data
   m_EditorClassIdentifier: 
   type_name: RangerData
   health: 30

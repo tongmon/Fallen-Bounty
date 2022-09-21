@@ -8,11 +8,13 @@ public class BerserkerInputComponent : HeroInputComponent
     {
         m_data = gameobject.GetComponent<Berserker>();
     }
+
     protected override void OnMouseLeftDown()
     {
         base.OnMouseLeftDown();
     }
-    
+
+    // 그래픽 컴포넌트랑 커플링 되어 있는데 놔둬도 되지만... 먼가 껄끄러움 
     protected override void OnMouseLeftDrag()
     {
         base.OnMouseLeftDrag();
@@ -38,6 +40,7 @@ public class BerserkerInputComponent : HeroInputComponent
                 ((BerserkerGraphicsComponent)data.m_graphics_component).m_dragline_alpha = 0.0f;
         }
     }
+
     protected override void OnMouseLeftUp()
     {
         base.OnMouseLeftUp();
@@ -92,11 +95,22 @@ public class BerserkerInputComponent : HeroInputComponent
                         ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 255;
                     }
                 }
+                // 마우스를 뗀 위치가 땅
+                else if (m_mouse_hit.collider.gameObject.tag == "Terrain") // m_mouse_hit.collider.gameObject.tag == "Terrain"
+                {
+                    data.m_point_target = m_mouse_l_click_up;
+                    data.m_movement_state = new BerserkerRunStateComponent(data.gameObject);
+                    ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 255;
+                }
+                // 마우스를 뗀 위치가 장애물
+                else if (m_mouse_hit.collider.gameObject.tag == "Creature")
+                {
+
+                }
             }
-            
+            // 정의되지 않은 모든 경우
             else
             {
-                //data.m_target = null;
                 data.m_point_target = m_mouse_l_click_up;
                 data.m_movement_state = new BerserkerRunStateComponent(data.gameObject);
                 ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 255;
@@ -105,6 +119,7 @@ public class BerserkerInputComponent : HeroInputComponent
         else
             ((HeroGraphicsComponent)data.m_graphics_component).m_seleted_sprite_alpha = 0;
     }
+
     protected override void OnMouseRightDown()
     {
         base.OnMouseRightDown();

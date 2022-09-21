@@ -29,7 +29,7 @@ public class BerserkerRunStateComponent : StateComponent
         if (data.m_target && data.m_target is Enemy)
         {
             // 적의 위치가 사거리와 맞지 않음
-            if (distance_to_target > 0 && distance_to_target >= data.gameObject.GetComponent<Berserker>().berserker_data.ranged_range)
+            if (distance_to_target > 0 && distance_to_target >= (data.gameObject.GetComponent<Berserker>().berserker_data.ranged_range))
             {
                 data.m_vec_direction = data.m_target.m_physics_component.m_position - data.m_physics_component.m_position;
             }
@@ -50,6 +50,7 @@ public class BerserkerRunStateComponent : StateComponent
                 data.m_movement_state = new HeroIdleStateComponent(data.gameObject);
         }
     }
+
     public override void Enter()
     {
         // 움직이기 시작할 때 변경해야하는 것들 모두 여기서 변경
