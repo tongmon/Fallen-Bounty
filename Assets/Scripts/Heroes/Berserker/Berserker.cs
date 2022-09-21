@@ -22,7 +22,7 @@ public class Berserker : Hero
     protected override void OnStart()
     {
         berserker_data.type_name = "Berserker";
-        //berserker_data.m_info = "공격력, 체력이 높다. 방어, 마법저항은 평균치.";
+        //berserker_data.m_info = "공격력, 체력이 높다.";
         abilities.Add(new DrainAbility());
         abilities.Add(new SmashAbility());
         abilities.Add(new OutRageBreakAbility());

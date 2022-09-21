@@ -13,9 +13,9 @@ public class Water : Field
         m_graphics_component = new WaterGraphicsComponent(gameObject);
         m_physics_component = new WaterPhysicsComponent(gameObject);
 
-        m_friction = 2000;
+        m_friction = 600;
 
-        m_depth = 6;
+        m_depth = 1;
     }
 
     protected override void OnStart()

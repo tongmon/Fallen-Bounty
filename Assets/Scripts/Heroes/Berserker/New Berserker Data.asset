@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc330aaab0cfe14d9a45b70e31da03d, type: 3}
   m_Name: New Berserker Data
   m_EditorClassIdentifier: 
-  type_name: BerserkerData
+  type_name: Berserker
   health: 120
-  velocity: {x: 10, y: 10}
+  velocity: {x: 3, y: 3}
   mass: 10
   magic_armor: 10
   physic_armor: 10

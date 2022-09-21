@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type_name: Goblin
   health: 100
+  velocity: {x: 3, y: 3}
   mass: 1
   magic_armor: 10
   physic_armor: 10

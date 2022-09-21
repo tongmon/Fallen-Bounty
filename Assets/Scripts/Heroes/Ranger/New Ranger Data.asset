@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type_name: RangerData
   health: 30
-  velocity: {x: 10, y: 10}
+  velocity: {x: 3, y: 3}
   mass: 7
   magic_armor: 10
   physic_armor: 5

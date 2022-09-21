@@ -21,6 +21,8 @@ public class HeroGraphicsComponent : GraphicsComponent
         m_seleted_sprite_alpha = m_dragline_alpha = 0.0f;
 
         m_line_renderer = ((Hero)m_data).GetComponent<LineRenderer>();
+        m_line_renderer.startWidth = 0.1f;
+        m_line_renderer.endWidth = 0.1f;
 
         m_seleted_sprite = ((Hero)m_data).transform.Find("FocusCircle").GetComponent<SpriteRenderer>();
 
@@ -34,7 +36,8 @@ public class HeroGraphicsComponent : GraphicsComponent
         m_sprite_mask.transform.position = new Vector3(((Hero)m_data).m_physics_component.m_position.x,
             ((Hero)m_data).m_physics_component.m_bottom.y - m_sprite_mask.bounds.size.y / 2, m_sprite_mask.transform.position.z);
 
-        m_main_sprite = ((Hero)m_data).transform.GetComponentInChildren<SpriteRenderer>();
+        SpriteRenderer[] spriteRenderer = ((Hero)m_data).transform.GetComponentsInChildren<SpriteRenderer>();
+        m_main_sprite = spriteRenderer[1];
     }
 
     public override void Update()
