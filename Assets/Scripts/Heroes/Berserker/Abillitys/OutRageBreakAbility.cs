@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu]
 public class OutRageBreakAbility : Ability
 {
     public OutRageBreakAbility()//Å¸°ÙÆÃ ½ºÅ³

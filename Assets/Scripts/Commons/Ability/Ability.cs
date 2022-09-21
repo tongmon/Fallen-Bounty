@@ -4,7 +4,7 @@ using UnityEngine;
 
 // 스킬
 
-public class Ability : Component
+public class Ability : ScriptableObject
 {
     // 스킬 카테고리, 공용 스킬인지, 어떤 직업의 스킬인지...
     // 카드 선택을 한 후에 특정 영웅을 강화하는 건지, 전체 영웅을 강화하는 건지 로직을 가르는 척도

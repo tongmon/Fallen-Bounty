@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+[CreateAssetMenu]
 public class SmashAbility : Ability
 {
 

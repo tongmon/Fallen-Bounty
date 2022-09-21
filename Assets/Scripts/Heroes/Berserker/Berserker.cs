@@ -23,9 +23,9 @@ public class Berserker : Hero
     {
         berserker_data.type_name = "Berserker";
         //berserker_data.m_info = "공격력, 체력이 높다.";
-        abilities.Add(new DrainAbility());
-        abilities.Add(new SmashAbility());
-        abilities.Add(new OutRageBreakAbility());
+        //abilities.Add(new DrainAbility());
+        //abilities.Add(new SmashAbility());
+        //abilities.Add(new OutRageBreakAbility());
     }
 
     protected override void OnUpdate()

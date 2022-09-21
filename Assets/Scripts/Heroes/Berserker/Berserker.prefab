@@ -664,7 +664,10 @@ MonoBehaviour:
   m_current_armor: 0
   m_current_magic_armor: 0
   m_cur_attack_cooltime: 0
-  abilities: []
+  abilities:
+  - {fileID: 11400000, guid: 4f7ec5e20e525b746899005632fa833c, type: 2}
+  - {fileID: 11400000, guid: e409fa6798bfa7f43b3a775e1e752bc9, type: 2}
+  - {fileID: 11400000, guid: 192f096d5601c5d4d8450dec0c271037, type: 2}
   m_sprite: {fileID: 0}
   is_unlocked: 0
   berserker_data: {fileID: 11400000, guid: 9b85ae44c83e4674baef1aa775c1e8ea, type: 2}

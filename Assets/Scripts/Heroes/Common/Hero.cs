@@ -18,7 +18,7 @@ public class Hero : Creature
     {
         base.OnAwake();
 
-        abilities = new List<Ability>();
+        //abilities = new List<Ability>();
 
         m_point_target = null;
 
