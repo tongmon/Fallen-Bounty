@@ -41,6 +41,20 @@ public class HeroHolder
             m_sub_heroes.Add(hero);
         }
     }
+    public void RemoveHero(Hero hero)
+    {
+        if (m_heroes.Count < m_hero_limit)
+        {
+            m_heroes_dict[hero.gameObject.name] = 0;
+            m_heroes.Remove(hero);
+        }
+        else
+        {
+            m_sub_heroes_dict[hero.gameObject.name] = 0;
+            m_sub_heroes.Remove(hero);
+        }
+    }
+
 
     // ¿µ¿õ ÀÌ¸§À¸·Î ¿µ¿õ È¹µæ
     public Hero GetHero(string name_of_hero)

@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private ItemInfo[] m_items;
 
+    [SerializeField] Hero[] temp_heroes;
+
     // 카드 선택지 개수 제한수
     public int m_card_option_limit;
 
@@ -25,24 +27,16 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         m_hero_holder = new HeroHolder(gameObject);
-        m_hero_manager = new HeroManager(gameObject);
+        m_hero_manager = new HeroManager(gameObject,temp_heroes);
 
         m_item_holder = new ItemHolder(gameObject);
         m_item_manager = new ItemManager(gameObject, m_items);
 
         m_card_option_limit = 3;
+
         DontDestroyOnLoad(gameObject);//항시존재
-        for (int i = 0; i < m_hero_holder.m_hero_limit; i++) 
-            m_hero_holder.AddHero(transform.GetChild(i).GetComponent<Hero>());
-        /*
-        // 히어로 초기화
-        m_hero_manager = new HeroManager(gameObject);
-        GameObject[] heros = GameObject.FindGameObjectsWithTag("Hero");
-        for (int i = 0; i < heros.Length; i++)
-        {
-            heros[i].GetComponent<Hero>().m_data = m_hero_manager.GetHero(heros[i].name);        
-        }
-        */
+
+        temp_heroes = new Hero[0];
     }
     private void Update()
     {

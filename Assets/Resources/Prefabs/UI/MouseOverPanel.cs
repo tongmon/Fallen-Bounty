@@ -108,13 +108,13 @@ public class MouseOverPanel : MonoBehaviour
             m_gr[1].Raycast(m_ped, results);//여기서 오류남
             if (results[0].gameObject.tag == "Skill")//캐릭터 선택창에서
             {
-                m_panel.transform.GetChild(0).GetComponent<Image>().sprite = m_hero.m_sprite;
+                /*m_panel.transform.GetChild(0).GetComponent<Image>().sprite = m_hero.m_sprite;
                 m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", m_hero.abilities[int.Parse(results[0].gameObject.name)].m_name);
                 m_panel.transform.GetChild(2).GetComponent<Text>().text = string.Format("물리 계수 : {0}", m_hero.abilities[int.Parse(results[0].gameObject.name)].m_base_physical_coefficient);
                 m_panel.transform.GetChild(3).GetComponent<Text>().text = string.Format("마법 계수 : {0}", m_hero.abilities[int.Parse(results[0].gameObject.name)].m_base_magic_coefficient);
                 m_panel.transform.GetChild(4).GetComponent<Text>().text = string.Format("범위 : {0}", m_hero.abilities[int.Parse(results[0].gameObject.name)].m_base_range);
                 m_panel.transform.GetChild(5).GetComponent<Text>().text = string.Format("쿨타임 : {0}", m_hero.abilities[int.Parse(results[0].gameObject.name)].m_base_cooldown_time);
-                
+                */
             }
         }
         m_panel.gameObject.SetActive(true);
