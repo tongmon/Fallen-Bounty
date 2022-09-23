@@ -32,8 +32,11 @@ public class CharacterSelect : MonoBehaviour
 
     int cnt = 0;
 
-    void Start()
+    void Start()//스킬 정보 다 가져와야함.
     {
+        for (int i = 0; i < player.m_hero_manager.m_heroes.Count; i++) {
+            //player.m_hero_manager.m_heroes[i].abilities
+        }
         style.fontSize = 32;
         style.normal.textColor = Color.white;
     }
@@ -70,8 +73,9 @@ public class CharacterSelect : MonoBehaviour
     }
 
 
-    public void SelectHero()
+    public void SelectHero()//캐릭터 클릭시 그 캐릭터 스킬 가져와야함.
     {
+        player.hero_index = int.Parse(EventSystem.current.currentSelectedGameObject.name);
         if (cnt < player.m_hero_holder.m_hero_limit) {
 
             holded_hero.Add(EventSystem.current.currentSelectedGameObject);
@@ -87,7 +91,6 @@ public class CharacterSelect : MonoBehaviour
             cnt++;
             select_button.interactable = false;
         }
-        start_button.GetComponent<Button>().interactable = true;
     }
 
     public void RevokeSelect()//되돌리기

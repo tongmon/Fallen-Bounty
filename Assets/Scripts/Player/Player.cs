@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public ItemHolder m_item_holder;
     public ItemManager m_item_manager;
 
+    public int hero_index;
 
     private void Awake()
     {

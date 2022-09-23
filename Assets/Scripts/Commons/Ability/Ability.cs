@@ -11,7 +11,7 @@ public class Ability : ScriptableObject
 
     public int m_hit_count;
     public string m_category;
-
+    public Sprite m_sprite;
     // 스킬 이름
     public string m_name;
 
