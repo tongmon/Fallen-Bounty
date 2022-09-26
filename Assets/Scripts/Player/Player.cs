@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);//항시존재
 
-        temp_heroes = new Hero[0];
+        temp_heroes = null;
     }
     private void Update()
     {

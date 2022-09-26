@@ -105,7 +105,7 @@ public class MouseOverPanel : MonoBehaviour
         }
         else
         {
-            m_gr[1].Raycast(m_ped, results);//여기서 오류남
+            m_gr[1].Raycast(m_ped, results);
             if (results[0].gameObject.tag == "Skill")//캐릭터 선택창에서
             {
                 //0번은 비움

@@ -76,17 +76,25 @@ public class CharacterSelect : MonoBehaviour
     public void SelectHero()//캐릭터 클릭시 그 캐릭터 스킬 가져와야함.
     {
         player.hero_index = int.Parse(EventSystem.current.currentSelectedGameObject.name);
+        for(int i =0; i<skill.transform.childCount; i++)
+        {
+            skill.transform.GetChild(i).GetComponent<Button>().interactable = false;
+        }
+        for(int i = 0; i< player.m_hero_manager.m_heroes[player.hero_index].abilities.Count; i++)
+        {
+            skill.transform.GetChild(i).GetComponent<Button>().interactable = true;
+        }
         if (cnt < player.m_hero_holder.m_hero_limit) {
 
             holded_hero.Add(EventSystem.current.currentSelectedGameObject);
-            skill.transform.GetChild(int.Parse(EventSystem.current.currentSelectedGameObject.name)).gameObject.SetActive(true);//선택된 객체
+            /*skill.transform.GetChild(int.Parse(EventSystem.current.currentSelectedGameObject.name)).gameObject.SetActive(true);//선택된 객체
             for (int i = 0; i < skill.transform.childCount; i++)
             {
                 if (i != int.Parse(EventSystem.current.currentSelectedGameObject.name))
                 {
                     skill.transform.GetChild(i).gameObject.SetActive(false);
                 }
-            }
+            }*/
             EventSystem.current.currentSelectedGameObject.GetComponent<Button>().interactable = false;
             cnt++;
             select_button.interactable = false;
