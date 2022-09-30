@@ -17,6 +17,7 @@ public class OutRageBreakAbility : Ability
     }
     public override void Activate(GameObject obj)
     {
+        Player player = obj.GetComponent<Player>();
         BerserkerData bdata = obj.GetComponent<Berserker>().berserker_data;
 
         GameObject skill = new GameObject();
@@ -28,7 +29,7 @@ public class OutRageBreakAbility : Ability
         skill.GetComponent<Skill>().m_character = obj;
         skill.GetComponent<Skill>().hdata = bdata;
         skill.tag = "Skill";
-        skill.name = (m_base_physical_coefficient * bdata.physic_power).ToString();//혹시 모르니 이름도 데미지화
+        skill.name = (m_base_physical_coefficient * bdata.physic_power* player.m_all_stat_coefficent).ToString();//혹시 모르니 이름도 데미지화
 
         skill_range.name = "SkillRange";
         skill_range.transform.localScale = new Vector3(m_base_range, m_base_range, 1);//스킬 나중에 타원으로 설정해야함

@@ -1,12 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using JsonSubTypes;
-using Newtonsoft.Json;
 using UnityEngine;
 
-[JsonConverter(typeof(JsonSubtypes))]
-[JsonSubtypes.KnownSubTypeWithProperty(typeof(DashAbilityEnhanceCard), "dash_power")]
-[JsonSubtypes.KnownSubTypeWithProperty(typeof(AllHeroStatUpCard), "stat_up_rate")]
 public class Card : ScriptableObject
 {
     // 카드가 해당하는 카테고리, ex) State, Ability, Passive, EveryThing...

@@ -23,6 +23,7 @@ public class SmashAbility : Ability
 
     public override void Activate(GameObject obj)//obj에 자기자신 넣어야할듯
     {
+        Player player = obj.GetComponent<Player>();
         BerserkerData bdata = obj.GetComponent<Berserker>().berserker_data;
 
         GameObject skill = new GameObject();
@@ -40,7 +41,7 @@ public class SmashAbility : Ability
         skill.GetComponent<Skill>().range = m_base_active_range;
         skill.GetComponent<Skill>().active_time = m_base_active_time;
         skill.GetComponent<Skill>().m_character = obj;
-        skill.name = (m_base_physical_coefficient * bdata.physic_power).ToString();
+        skill.name = (m_base_physical_coefficient * bdata.physic_power * player.m_all_stat_coefficent).ToString();
 
         skill_range.name = "SkillRange";
         skill_range.transform.localScale = new Vector3(m_base_range, m_base_range, 1);//스킬 나중에 타원으로 설정해야함

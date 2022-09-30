@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] Hero[] temp_heroes;
 
+    public float m_all_stat_coefficent = 1.0f;
+
     // 카드 선택지 개수 제한수
     public int m_card_option_limit;
 
