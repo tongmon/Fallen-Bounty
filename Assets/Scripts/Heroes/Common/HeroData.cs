@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class HeroData : CreatureData
 {
+    //공격 물리계수 -- 카드로 업글가능
+    public float physic_coefficient;
+    //마법 물리계수
+    public float magic_coefficient;
     // 물리 공격력
     public int physic_power;
     // 마법 공격력

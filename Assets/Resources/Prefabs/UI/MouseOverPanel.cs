@@ -106,7 +106,7 @@ public class MouseOverPanel : MonoBehaviour
         else
         {
             m_gr[1].Raycast(m_ped, results);
-            if (results[0].gameObject.tag == "Skill")//캐릭터 선택창에서
+            if (results[0].gameObject.tag == "Skill" && player.m_hero_manager.m_heroes[player.hero_index] != null)//캐릭터 선택창에서
             {
                 //0번은 비움
                 m_panel.transform.GetChild(1).GetComponent<Text>().text = string.Format("이름 : {0}", player.m_hero_manager.m_heroes[player.hero_index].abilities[int.Parse(results[0].gameObject.name)].m_name);
@@ -115,7 +115,6 @@ public class MouseOverPanel : MonoBehaviour
                 m_panel.transform.GetChild(4).GetComponent<Text>().text = string.Format("시전 범위 : {0}", player.m_hero_manager.m_heroes[player.hero_index].abilities[int.Parse(results[0].gameObject.name)].m_base_range);
                 m_panel.transform.GetChild(5).GetComponent<Text>().text = string.Format("적용 범위 : {0}", player.m_hero_manager.m_heroes[player.hero_index].abilities[int.Parse(results[0].gameObject.name)].m_base_active_range);
                 m_panel.transform.GetChild(6).GetComponent<Text>().text = string.Format("쿨타임 : {0}", player.m_hero_manager.m_heroes[player.hero_index].abilities[int.Parse(results[0].gameObject.name)].m_base_cooldown_time);
-                
             }
         }
         m_panel.gameObject.SetActive(true);

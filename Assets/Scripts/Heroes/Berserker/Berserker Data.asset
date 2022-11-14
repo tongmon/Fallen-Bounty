@@ -18,6 +18,8 @@ MonoBehaviour:
   mass: 10
   magic_armor: 10
   physic_armor: 10
+  physic_coefficient: 1
+  magic_coefficient: 1
   physic_power: 10
   magic_power: 10
   attack_cooltime: 1.5
