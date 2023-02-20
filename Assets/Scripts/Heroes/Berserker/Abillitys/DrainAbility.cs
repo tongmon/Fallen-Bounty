@@ -7,7 +7,7 @@ public class DrainAbility : Ability
 {
     public DrainAbility()
     {
-        //m_category = "Active";
+        m_category = "Active";
         m_name = "Drain";
 
         m_base_cooldown_time = 5.0f;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 [Serializable]
 [CreateAssetMenu]
@@ -13,7 +14,7 @@ public class ItemInfo : Info
     public float m_duration = 0.0f;
     public float m_cooltime = 0.0f;
 
-    public IEnumerator Activation(Hero hero, ItemInfo item) //내 모든 히어로에게 적용
+    public IEnumerator Activation(List<Hero> heroes, ItemInfo item, string type) //내 모든 히어로에게 적용
     {
         Debug.Log("아이템 사용 : " + item.m_info);
         while (true)
@@ -59,6 +60,10 @@ public class ItemInfo : Info
                 obj.transform.tag = "Item";//충돌하는 애들을 위한 검사
                 Debug.Log("아이템 사용 : " + item.m_info);
                 Destroy(obj, item.m_duration);//지속시간 이후 삭제
+                break;
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
                 break;
             }
         }

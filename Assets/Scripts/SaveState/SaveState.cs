@@ -19,7 +19,7 @@ public enum eCharacter
     Mercenary,
     Count
 }
-public enum eItem
+public enum eItem//후에 명칭 지정필
 {
     item1,
     item2,
@@ -57,7 +57,7 @@ public enum eStage
     Villa
 }
 
-public enum eChallenges
+public enum eChallenges//후에 명칭 지정필
 {
     Challenge1,
     Challenge2,

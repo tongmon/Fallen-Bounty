@@ -43,10 +43,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1) && c_item_coroutine != null)
-        {
-            StopCoroutine(c_item_coroutine);//코루틴 정지는 코루틴을 저장해야함.
-        }   
+
     }
 
     public void ActivateItem(ItemInfo item)
