@@ -33,7 +33,7 @@ public class DrainAbility : Ability
         }
 
         BerserkerData bdata = obj.GetComponent<Berserker>().berserker_data;
-
+        
         GameObject skill = new GameObject();
         skill.transform.localScale = new Vector3(m_base_range, m_base_range, 1);
         skill.AddComponent<CircleCollider2D>();

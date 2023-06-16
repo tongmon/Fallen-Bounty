@@ -2784,8 +2784,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf07102f7d28e374490c1f0c59db38f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_title_name: {fileID: 166471263}
-  save_button:
+  m_titleName: {fileID: 166471263}
+  SaveButton:
   - {fileID: 684086833}
   - {fileID: 1542959490}
   - {fileID: 1018102463}
@@ -5874,7 +5874,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1e3e8298ed506154690f3f4409977699, type: 2}
   temp_heroes:
   - {fileID: 6907488667376004815, guid: 3240ebd6649fa7c4e87b1e63dd238981, type: 3}
-  - {fileID: 4049916020442208273, guid: c8a755471a449fb4d8ce1c51962cffd4, type: 3}
+  m_all_stat_coefficent: 1
   m_card_option_limit: 0
   hero_index: 0
 --- !u!1 &820774981
