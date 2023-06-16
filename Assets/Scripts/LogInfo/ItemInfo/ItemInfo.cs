@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity.VisualScripting;
+using LitJson;
 
 [Serializable]
-[CreateAssetMenu]
 public class ItemInfo : Info
 {
     public string m_type = string.Empty;
@@ -13,6 +13,17 @@ public class ItemInfo : Info
     public float m_range = 0.0f;
     public float m_duration = 0.0f;
     public float m_cooltime = 0.0f;
+
+    public override void InfoSetting(int index, JsonData data)
+    {
+        base.InfoSetting(index, data);
+
+        m_type = data[index]["m_type"].ToString();
+        m_damage = float.Parse(data[index]["m_damage"].ToString());
+        m_range = float.Parse(data[index]["m_range"].ToString());
+        m_duration = float.Parse(data[index]["m_duration"].ToString());
+        m_cooltime = float.Parse(data[index]["m_cooltime"].ToString());
+    }
 
     public IEnumerator Activation(List<Hero> heroes, ItemInfo item, string type) //내 모든 히어로에게 적용
     {

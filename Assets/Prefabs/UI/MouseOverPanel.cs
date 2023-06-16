@@ -1,29 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
+using LitJson;
+using System.Windows.Forms.DataVisualization.Charting;
 
 public class MouseOverPanel : MonoBehaviour
 {
     //등장할 패널
-    [SerializeField] Image m_panel;
+    [SerializeField] private Image m_panel;
 
     //로그 캔버스
-    [SerializeField] Canvas m_log_canvas;
+    [SerializeField] private Canvas m_log_canvas;
 
     //캐릭터 선택 캔버스
-    [SerializeField] Canvas m_charSelect_canvas;
+    [SerializeField] private Canvas m_charSelect_canvas;
 
     //Json으로 정보저장.
-    [SerializeField] ItemInfo[] item_info;
+    private List <ItemInfo> item_info;
 
-    [SerializeField] StageInfo[] stage_info;
+    private List <StageInfo> stage_info;
 
-    [SerializeField] ChallengeInfo[] challenge_info;
+    private List<ChallengeInfo> challenge_info;
 
-    [SerializeField] Player player;
+    [SerializeField] private Player player;
 
     //캔버스용 레이
     private GraphicRaycaster[] m_gr;
@@ -31,12 +34,94 @@ public class MouseOverPanel : MonoBehaviour
     //포인터 이벤트
     private PointerEventData m_ped;
 
+    private string stagePath;
+    private string challengePath;
+    private string itemPath;
+
     private void Start()
     {
         m_gr = new GraphicRaycaster[2];
         m_gr[0] = m_log_canvas.GetComponent<GraphicRaycaster>();
         m_gr[1] = m_charSelect_canvas.GetComponent<GraphicRaycaster>();
         m_ped = new PointerEventData(null);
+
+        stagePath = Application.streamingAssetsPath + "Log/Stage.json";
+        challengePath = Application.streamingAssetsPath + "Log/Challenge.json";
+        itemPath = Application.streamingAssetsPath + "Log/Item.json";
+
+        item_info = new List<ItemInfo>();
+        stage_info = new List<StageInfo>();
+        challenge_info = new List<ChallengeInfo>();
+
+        if (File.Exists(itemPath))
+        {
+            string json = File.ReadAllText(itemPath);
+            JsonData data = JsonMapper.ToObject(json);
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                ItemInfo item = new ItemInfo();
+                item.InfoSetting(i,data);
+                item_info.Add(item);
+            }
+        }
+        else
+        {
+            for(int i = 0; i< 23; i++)
+            {
+                ItemInfo item = new ItemInfo();
+                switch (i)
+                {
+                    case 0 :
+                        //item.spritePath 추후 결정 필요.
+                        item.m_name = i.ToString();
+                        item.m_info = "Molotov";
+                        //item.m_unlock_condition = 결정 필.
+                        item.m_type = "Attack";
+                        item.m_damage = 1;
+                        item.m_range = 0;
+                        item.m_duration = 3;
+                        item.m_cooltime = 1;
+                        break; 
+
+                }
+            }
+        }
+
+        if (File.Exists(stagePath))
+        {
+            string json = File.ReadAllText(stagePath);
+            JsonData data = JsonMapper.ToObject(json);
+
+            for(int i =0; i < data.Count; i++)
+            {
+                StageInfo stage = new StageInfo();
+                stage.InfoSetting(i,data);
+                stage_info.Add(stage);
+            }
+        }
+        else
+        {
+
+        }
+        if (File.Exists(challengePath))
+        {
+            string json = File.ReadAllText(challengePath);
+            JsonData data = JsonMapper.ToObject(json);
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                ChallengeInfo challenge = new ChallengeInfo();
+                challenge.InfoSetting(i,data);
+                challenge_info.Add(challenge);
+            }
+        }
+        else
+        {
+
+        }
+
+
     }
     public void MouseEnter()
     {
